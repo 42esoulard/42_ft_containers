@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/08 15:33:57 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:53:51 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 namespace ft {
 
-	template < class T, class Alloc = std::allocator<T> > 
+	template < class T > 
 	class List {
 
 		public:
@@ -26,10 +26,11 @@ namespace ft {
 			typedef T 											value_type;
 			typedef Node<value_type> 							node_type;
 			typedef typename std::allocator<node_type> 			allocator_type;
-			typedef allocator_type								&reference;
-			typedef allocator_type const 						&const_reference;
-			typedef allocator_type 								*pointer;
-			typedef allocator_type const 						*const_pointer;
+			typedef allocator_type 								Alloc;
+			typedef value_type									&reference;
+			typedef value_type const	 						&const_reference;
+			typedef node_type 									*pointer;
+			typedef node_type const	 							*const_pointer;
 			typedef Iterator<value_type, node_type> 			iterator;
 			typedef Iterator<value_type const, node_type const> const_iterator;
 			// typedef typename reverse_Iterator<Iterator>;
@@ -50,24 +51,40 @@ namespace ft {
 			};
 
 			// // >>> fill
-			// explicit List (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {
-			// 	prev = nullptr;
-			// 	next = nullptr;
-			// };
+			explicit List (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {
+				_begin = new node_type();
+				_end = _begin;
+				_size = 0;
+				assign(n, val);
+			};
 
 			// // >>> range
-			// template <class InputIterator>
-		 	// List (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());	
+			template <class InputIterator>
+		 	List (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())  {
+		 		_begin = new node_type();
+				_end = _begin;
+				_size = 0;
+		 		assign(first, last);
+		 	};	
 			
-			// // >>> copy
-			// List (const List& x); use operator=
-			// List& operator= (const List& x); //destroy all content then copy
+			// // >>> copy 
+			List (const List& x) {
+				_begin = new node_type();
+				_end = _begin;
+				_size = 0;
+		 		assign(x.begin(), x.end());
+			}; 
+
+			List& operator= (const List& x) {
+				clear();
+				assign(x.begin(), x.end());
+			}; //destroy all content then copy
 
 			//----------------------------------------------
 
 			//DESTRUCTOR:
 
-			~List() { clear(); }; // get begin, from begin delete all List
+			~List() { clear(); delete _end; }; // get begin, from begin delete all List
 
 			//----------------------------------------------
 
@@ -120,21 +137,45 @@ namespace ft {
 
 			// ELEMENT ACCESS:
 
-			//reference front();
-			//const_reference front() const;
+			reference front() {
+				std::cout << "front" << std::endl;
+				return _begin->getValue();
+			};
+
+			const_reference front() const{
+				std::cout << "front const" << std::endl;
+				return _begin->getValue();
+			};
 			//same as begin() but returns a reference
 
-			//reference back();
-			//const_reference back() const;
+			reference back() {
+				std::cout << "back" << std::endl;
+				return _end->getPrev()->getValue();
+			};
+
+			const_reference back() const{
+				std::cout << "back const" << std::endl;
+				return _end->getPrev()->getValue();
+			};
 			//returns a reference to the last List element(not after it)
 
 			//----------------------------------------------
 			
 			// MODIFIERS
 
-			//template <class InputIterator>
-  			//void assign (InputIterator first, InputIterator last);//RANGE
-			//void assign (size_type n, const value_type& val);//FILL
+			template <class InputIterator>
+  			void assign (InputIterator first, InputIterator last) {
+  				while (first != last) {
+		 			this->push_back(*first);
+		 			first++;
+		 		}
+  			};//RANGE
+
+			void assign (size_type n, const value_type& val) {
+				while (_size < n) {
+					push_back(val);
+				}
+			};//FILL
 			//Assigns new contents to the List container, replacing its current contents, and modifying its size accordingly.
 
 			//void push_front (const value_type& val);
@@ -178,7 +219,7 @@ namespace ft {
 					delete _begin;
 					_begin = tmp;
 				}
-				delete _end;
+				_begin = _end;
 				_size = 0;
 			};
 			//removes all elements (size == 0)

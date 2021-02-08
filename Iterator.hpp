@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:25:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/08 15:13:50 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/08 20:11:08 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include "Node.hpp"
+
 //EXAMPLE OF ITERATOR IMPLEMENTATION, cplusplus.com
 //https://www.cplusplus.com/reference/Iterator/Iterator/
 
@@ -38,16 +39,17 @@ class Iterator {
 	public:
 
 		// typedef T 					value_type;
-		// typedef typename Node<value_type> 	node_type;
 
 		Iterator(node_type *x) :p(x) {};
 		Iterator(const Iterator& mit) : p(mit.p) {};
 
 		Iterator& operator++() {p = p->getNext();return *this;};
 		Iterator operator++(int) {Iterator tmp(*this); operator++(); return tmp;};
+		Iterator const operator++(int) const {Iterator tmp(*this); operator++(); return tmp;};
+
 		bool operator==(const Iterator& rhs) const {return p==rhs.p;};
 		bool operator!=(const Iterator& rhs) const {return p!=rhs.p;};
-		value_type& operator*() {return p->getValue();};
+		value_type &operator*() const {return p->getValue();};
 
 	private:
 

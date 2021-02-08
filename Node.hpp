@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/08 15:22:12 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/08 20:07:36 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,24 @@ namespace ft {
 			value_type &getValue() {
 				return _value;
 			};
+
+			value_type const &getValue() const {
+				return _value;
+			};
 			
 			Node 		*getNext() {
 				return _next;
 			};
 
-			Node 		*getPrev() {
+			Node const 	*getNext() const {
+				return _next;
+			};
+
+			Node	*getPrev() {
+				return _prev;
+			};
+
+			Node const	*getPrev() const {
 				return _prev;
 			};
 

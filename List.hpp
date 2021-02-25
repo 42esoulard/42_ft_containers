@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/08 19:53:51 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/25 14:56:49 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,10 +178,19 @@ namespace ft {
 			};//FILL
 			//Assigns new contents to the List container, replacing its current contents, and modifying its size accordingly.
 
-			//void push_front (const value_type& val);
+			void push_front (const value_type& val) {
+				this->_begin->addPrev(val);
+				this->_begin = this->_begin->getPrev();
+				this->_size++;
+			};
 			//insert elem at the beginning. 
 
-			//void pop_front();
+			void pop_front() {
+				node_type *tmp = _begin->getNext();
+
+				delete(_begin);
+				_begin = tmp;
+			};
 			//remove & destroy first element.
 
 			void push_back (const value_type& val) {
@@ -192,7 +201,21 @@ namespace ft {
 			};
 			//add element at the end
 
-			//void pop_back();
+			void pop_back() {
+				node_type *tmp;
+
+				if (_size) {
+					if (_size == 1)
+						tmp = _begin;
+					else
+						tmp = _end->getPrev();
+						
+					delete(_end->getPrev());
+					_end = new node_type();
+					_size--;
+					std::cout << "popped back " << std::endl;
+				}
+			};
 			//remove & destroy last element
 
 			//Iterator insert (Iterator position, const value_type& val); //1 ELEMENT

@@ -8,7 +8,7 @@ INCLUDES	= ft_containers.h Node.hpp Iterator.hpp \
 			List.hpp
 
 CPP			= clang++
-CFLAGS		= -Wall -Wextra -Werror -std=c++98
+CFLAGS		= -Wall -Wextra -Werror -std=c++98 
 
 NAME		= ft_containers
 

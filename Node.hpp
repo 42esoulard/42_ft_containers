@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/08 20:07:36 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/25 14:56:43 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,15 @@ namespace ft {
 				}
 				this->_prev = newNode;
 				newNode->_next = this;
+			};
+
+			void 	delPrev() {
+				Node *tmpNode = this->_prev;
+				if (tmpNode) {
+					this->_prev = tmpNode->_prev;
+					this->_prev->_next = this;
+				}
+				delete(tmpNode);
 			};
 
 		private :

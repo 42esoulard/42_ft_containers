@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/08 20:09:06 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/25 14:33:57 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int main(void) {
 	// LIST TESTS
 
 	// BASIC INSTANCE + PUSH_BACK
+	std::cout << "-----BASIC INSTANCE + PUSH_BACK-----" << std::endl;
 	ft::List<int> ft_list;
 
 	ft_list.push_back(10);
@@ -26,6 +27,7 @@ int main(void) {
 	ft_list.push_back(18);
 
 	// BASIC ITERATING + DEREFERENCING
+	std::cout << "-----BASIC ITERATING-----" << std::endl;
 	ft::List<int>::iterator it = ft_list.begin();
 	while (it != ft_list.end()) {
 		std::cout << *it << std::endl;
@@ -33,10 +35,12 @@ int main(void) {
 	}
 
 	// FRONT() AND BACK() + THEIR CONST OVERLOADS
+	std::cout << "-----FRONT/BACK-----" << std::endl;
 	std::cout << ft_list.front() << std::endl;
 	std::cout << ft_list.back() << std::endl;
 
 //!\	//CONST OVERLOAD RETURN DOESNT WORK!!!
+	std::cout << "-----FRONT/BACK CONST OVERLOAD-----" << std::endl;
 	int const tmp = ft_list.front();
 	std::cout << tmp << std::endl;
 	int const tmpa = ft_list.back();
@@ -44,6 +48,7 @@ int main(void) {
 
 	
 	// LIST FILL CONSTRUCTOR
+	std::cout << "-----FILL CONSTR-----" << std::endl;
 	ft::List<char> ft_listA(5, 'a');
 
 	ft::List<char>::iterator itA = ft_listA.begin();
@@ -53,6 +58,7 @@ int main(void) {
 	}
 
 	// LIST RANGE CONSTRUCTOR
+	std::cout << "-----RANGE CONSTR-----" << std::endl;
 	ft::List<int> ft_listB(ft_list.begin(), ft_list.end());
 
 	ft::List<int>::iterator itB = ft_listB.begin();
@@ -62,6 +68,7 @@ int main(void) {
 	}
 
 	// COPY CONSTRUCTOR
+	std::cout << "-----COPY CONSTR-----" << std::endl;
 	ft::List<int> ft_listC(ft_listB);
 
 	ft::List<int>::iterator itC = ft_listC.begin();
@@ -71,6 +78,7 @@ int main(void) {
 	}
 
 	//OPERATOR=
+	std::cout << "-----OPERATOR=-----" << std::endl;
 	ft::List<int> ft_listD = ft_listC;
 
 	itC = ft_listD.begin();
@@ -78,5 +86,26 @@ int main(void) {
 		std::cout << *itC << std::endl;
 		itC++;
 	}
+
+
+	//PUSH_FRONT
+	std::cout << "-----PUSH_FRONT-----" << std::endl;
+	std::cout << ft_list.front() << std::endl;
+	ft_list.push_front(4242);
+	std::cout << ft_list.front() << std::endl;
+
+	//POP_FRONT
+	std::cout << "-----POP_FRONT-----" << std::endl;
+	std::cout << ft_list.front() << std::endl;
+	ft_list.pop_front();
+	std::cout << ft_list.front() << std::endl;
+
+	//POP_BACK
+	std::cout << "-----POP_BACK-----" << std::endl;
+	std::cout << ft_list.back() << std::endl;
+	std::cout << ft_list.size() << std::endl;
+	ft_list.pop_back();
+	std::cout << ft_list.size() << std::endl;
+
 	return 0;
 }

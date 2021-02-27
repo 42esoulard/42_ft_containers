@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/25 14:33:57 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:21:43 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int main(void) {
 	std::cout << ft_list.size() << std::endl;
 	ft_list.pop_back();
 	std::cout << ft_list.size() << std::endl;
+	std::cout << ft_list.back() << std::endl;
 
 	return 0;
 }

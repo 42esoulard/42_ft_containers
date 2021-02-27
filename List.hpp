@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/25 14:56:49 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:22:09 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ namespace ft {
 
 			// CONSTRUCTORS (as Listed in c++.com):
 
-			// >>> default
+			// >>> default = a Node with no value, end and begin point to ONE node
 			explicit List (const allocator_type& alloc = allocator_type()) {
 				_begin = new node_type();
 				_end = _begin;
@@ -179,42 +179,45 @@ namespace ft {
 			//Assigns new contents to the List container, replacing its current contents, and modifying its size accordingly.
 
 			void push_front (const value_type& val) {
-				this->_begin->addPrev(val);
-				this->_begin = this->_begin->getPrev();
-				this->_size++;
+				_begin->addPrev(val);
+				_begin = _begin->getPrev();
+				_size++;
 			};
 			//insert elem at the beginning. 
 
 			void pop_front() {
-				node_type *tmp = _begin->getNext();
 
-				delete(_begin);
-				_begin = tmp;
+				if (_size) {
+					node_type *tmp = _begin->getNext();
+
+					_begin->delNode();
+					_begin = tmp;
+					_size--;
+				}
 			};
 			//remove & destroy first element.
 
-			void push_back (const value_type& val) {
-				this->_end->addPrev(val);
+			//Adding elements to a list = adding nodes before end. 
+			void push_back (const value_type& val) { 
+				_end->addPrev(val);
 				if (empty())
-					this->_begin = this->_end->getPrev();
-				this->_size++;
+					_begin = _end->getPrev();
+				_size++;
 			};
 			//add element at the end
 
 			void pop_back() {
-				node_type *tmp;
 
-				if (_size) {
-					if (_size == 1)
-						tmp = _begin;
-					else
-						tmp = _end->getPrev();
-						
-					delete(_end->getPrev());
-					_end = new node_type();
+				if (_size == 1) { //case 1 = Node1 endNode 
+					_begin->delNode();//last node = Node1
+					_begin = _end;
 					_size--;
-					std::cout << "popped back " << std::endl;
 				}
+				else if (_size > 1) { //case 2 = Node1 Node2 Node3 endNode
+					_end->getPrev()->delNode();//delete Node3
+					_size--;
+				}
+				std::cout << "popped back " << std::endl;
 			};
 			//remove & destroy last element
 

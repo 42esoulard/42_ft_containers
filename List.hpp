@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/27 16:06:04 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/27 17:15:27 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,22 +223,35 @@ namespace ft {
 
 			iterator insert (iterator position, const value_type& val) {
 				
+				//std::cout << " in insert 1" << std::endl;
 				position.getNode()->addPrev(val);
 				_size++;
+				while (_begin->getPrev())
+					_begin = _begin->getPrev();
+					
 				return iterator(position.getNode()->getPrev());
 
 			}; //1 ELEMENT
     		
 			void insert (iterator position, size_type n, const value_type& val) {
-				
+
+				std::cout << " in insert 3 fill" << std::endl;
 				for (int i = 0; i < n; i++) {
+					std::cout << "adding " << val << std::endl;
 					position = insert(position, val);
+					std::cout << "beg value: " << _begin->getValue() << std::endl;
+				}
+				
+				while (_begin->getPrev()) {
+					std::cout << "getting begin previous" << std::endl;
+					_begin = _begin->getPrev();
 				}
 				_size += n;
 			};//FILL
 			
 			template <class InputIterator>
     		void insert (iterator position, InputIterator first, InputIterator last) {
+				std::cout << "in insert 4" << std::endl;
 
 			};//RANGE
     		//Extend the container by inserting new elements before the element at the specified position

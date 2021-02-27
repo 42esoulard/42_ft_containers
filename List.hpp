@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/27 15:22:09 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:06:04 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ namespace ft {
 			typedef node_type const	 							*const_pointer;
 			typedef Iterator<value_type, node_type> 			iterator;
 			typedef Iterator<value_type const, node_type const> const_iterator;
-			// typedef typename reverse_Iterator<Iterator>;
+			typedef Reverse_Iterator<value_type, node_type> 	reverse_iterator;
 			// typedef typename const_reverse_Iterator<const_Iterator>;
 			// typedef typename difference_type Iterator_traits<Iterator>::difference_type;
 			typedef size_t 										size_type;
@@ -221,11 +221,28 @@ namespace ft {
 			};
 			//remove & destroy last element
 
-			//Iterator insert (Iterator position, const value_type& val); //1 ELEMENT
-    		//void insert (Iterator position, size_type n, const value_type& val);//FILL
-			//template <class InputIterator>
-    		//void insert (Iterator position, InputIterator first, InputIterator last);//RANGE
+			iterator insert (iterator position, const value_type& val) {
+				
+				position.getNode()->addPrev(val);
+				_size++;
+				return iterator(position.getNode()->getPrev());
+
+			}; //1 ELEMENT
+    		
+			void insert (iterator position, size_type n, const value_type& val) {
+				
+				for (int i = 0; i < n; i++) {
+					position = insert(position, val);
+				}
+				_size += n;
+			};//FILL
+			
+			template <class InputIterator>
+    		void insert (iterator position, InputIterator first, InputIterator last) {
+
+			};//RANGE
     		//Extend the container by inserting new elements before the element at the specified position
+
 
 			//Iterator erase (Iterator position);
 			//Iterator erase (Iterator first, Iterator last);
@@ -321,9 +338,6 @@ namespace ft {
 			node_type 			*_begin;
 			node_type 			*_end;
 			size_type 			_size;
-			// T 		elem;
-			// List<T> *prev;
-			// List<T> *next;
 			
 
 	};

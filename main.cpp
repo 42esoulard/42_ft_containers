@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/27 15:21:43 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:07:03 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,25 @@ int main(void) {
 	ft_list.pop_back();
 	std::cout << ft_list.size() << std::endl;
 	std::cout << ft_list.back() << std::endl;
+
+	//INSERT
+	std::cout << "-----INSERT(1)-----" << std::endl;
+	it = ft_list.begin();
+	it = ft_list.insert(it, 75);
+	std::cout << *it << std::endl;
+	std::cout << ft_list.size() << std::endl;
+
+	std::cout << "-----INSERT(3)-----" << std::endl;
+	ft_list.insert(it, 3, 6);
+	it = ft_list.begin();
+	while (it++ != ft_list.end()) {
+		std::cout << *it << std::endl;
+	}
+	std::cout << ft_list.size() << std::endl;
+	
+	std::cout << "-----INSERT(4)-----" << std::endl;
+
+	
 
 	return 0;
 }

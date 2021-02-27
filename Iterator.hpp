@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:25:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/08 20:11:08 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:05:16 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ class Iterator {
 		Iterator operator++(int) {Iterator tmp(*this); operator++(); return tmp;};
 		Iterator const operator++(int) const {Iterator tmp(*this); operator++(); return tmp;};
 
+		node_type *getNode() {return p;};
+
 		bool operator==(const Iterator& rhs) const {return p==rhs.p;};
 		bool operator!=(const Iterator& rhs) const {return p!=rhs.p;};
 		value_type &operator*() const {return p->getValue();};
@@ -57,21 +59,20 @@ class Iterator {
 };
 
 // MAKE REVERSE_ITERATOR CLASS ?? IS THAT NECESSARY ?
-// template < class itType >
-// class reverse_Iterator : public Iterator {
+template < class value_type, class node_type >
+class Reverse_Iterator : public Iterator<value_type,node_type > {
 
-// 		int* p;
-
-// 	public:
-
-// 		Iterator(int* x) :p(x) {}
-// 		Iterator(const Iterator& mit) : p(mit.p) {}
+	public:
 		
-// 		Iterator& operator++() {++p;return *this;}
-// 		Iterator operator++(int) {Iterator tmp(*this); operator++(); return tmp;}
-// 		bool operator==(const Iterator& rhs) const {return p==rhs.p;}
-// 		bool operator!=(const Iterator& rhs) const {return p!=rhs.p;}
-// 		int& operator*() {return *p;}
-// };
+		Reverse_Iterator<value_type,node_type >& operator++() {p = p->getPrev();return *this;};
+		Reverse_Iterator<value_type,node_type > operator++(int) {Reverse_Iterator<value_type,node_type > tmp(*this); operator++(); return tmp;};
+		bool operator==(const Reverse_Iterator<value_type,node_type >& rhs) const {return p==rhs.p;}
+		bool operator!=(const Reverse_Iterator<value_type,node_type >& rhs) const {return p!=rhs.p;}
+		int& operator*() {return *p;}
+
+	private:
+
+		node_type* p;
+};
 
 #endif

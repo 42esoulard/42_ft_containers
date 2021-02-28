@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/27 17:08:19 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:55:01 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,12 @@ int main(void) {
 
 	std::cout << "-----INSERT(3)-----" << std::endl;
 	size_t size = 3;
+	it = ft_list.begin();
 	ft_list.insert(it, size, 6);//GOES INTO INSERT 4 FOR SOME REASON?!
+	size_t sz = 1;
+	it = ft_list.begin();
+	ft_list.insert(it, sz, 1);
+	it = ft_list.begin();
 	while (it != ft_list.end()) {
 		std::cout << *it << std::endl;
 		it++;

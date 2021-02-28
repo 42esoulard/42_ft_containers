@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/27 17:15:27 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:55:19 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ namespace ft {
 				_size++;
 				while (_begin->getPrev())
 					_begin = _begin->getPrev();
-					
+				std::cout << "in insert1 beg value: " << _begin->getValue() << std::endl;
 				return iterator(position.getNode()->getPrev());
 
 			}; //1 ELEMENT
@@ -241,12 +241,6 @@ namespace ft {
 					position = insert(position, val);
 					std::cout << "beg value: " << _begin->getValue() << std::endl;
 				}
-				
-				while (_begin->getPrev()) {
-					std::cout << "getting begin previous" << std::endl;
-					_begin = _begin->getPrev();
-				}
-				_size += n;
 			};//FILL
 			
 			template <class InputIterator>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   List.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/28 11:55:19 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/02 14:31:29 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ namespace ft {
 		public:
 
 			// ALIASES:
-			typedef T 											value_type;
-			typedef Node<value_type> 							node_type;
-			typedef typename std::allocator<node_type> 			allocator_type;
-			typedef allocator_type 								Alloc;
-			typedef value_type									&reference;
-			typedef value_type const	 						&const_reference;
-			typedef node_type 									*pointer;
-			typedef node_type const	 							*const_pointer;
-			typedef Iterator<value_type, node_type> 			iterator;
-			typedef Iterator<value_type const, node_type const> const_iterator;
-			typedef Reverse_Iterator<value_type, node_type> 	reverse_iterator;
-			// typedef typename const_reverse_Iterator<const_Iterator>;
+			typedef T 													value_type;
+			typedef Node<value_type> 									node_type;
+			typedef typename std::allocator<node_type> 					allocator_type;
+			typedef allocator_type 										Alloc;
+			typedef value_type											&reference;
+			typedef value_type const	 								&const_reference;
+			typedef node_type 											*pointer;
+			typedef node_type const	 									*const_pointer;
+			typedef Iterator<value_type, node_type> 					iterator;
+			typedef Iterator<value_type const, node_type const> 		const_iterator;
+			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
+			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
 			// typedef typename difference_type Iterator_traits<Iterator>::difference_type;
 			typedef size_t 										size_type;
 			
@@ -108,12 +108,26 @@ namespace ft {
 			};
 			// point after last List element (nullptr?)
 
-			//reverse_Iterator rbegin();
-			//const_reverse_Iterator rbegin() const;
+			reverse_iterator rbegin() {
+				if (_end->getPrev())
+					return (reverse_iterator(_end->getPrev()));
+				return (reverse_iterator(_end));
+			};
+
+			const_reverse_iterator rbegin() const {
+				if (_end->getPrev())
+					return (const_reverse_iterator(_end->getPrev()));
+				return (const_reverse_iterator(_end));
+			};
 			// point to last element, incrementing actually decrements
 
-			//reverse_Iterator rend();
-			//const_reverse_Iterator rend() const;
+			reverse_iterator rend() {
+				return (reverse_iterator(_begin->getPrev()));
+			};
+
+			const_reverse_iterator rend() const {
+				return (const_reverse_iterator(_begin->getPrev()));
+			};
 			// point to hypothetical element BEFORE first element (nullptr?)
 
 			//----------------------------------------------
@@ -245,20 +259,95 @@ namespace ft {
 			
 			template <class InputIterator>
     		void insert (iterator position, InputIterator first, InputIterator last) {
-				std::cout << "in insert 4" << std::endl;
-
+				std::cout << "in insert 4 range" << std::endl;
+				while (first != last) {
+					std::cout << "adding " << *first << std::endl;
+					position = insert(*first);
+					first++;
+					std::cout << "beg value: " << _begin->getValue() << std::endl;
+				}
 			};//RANGE
     		//Extend the container by inserting new elements before the element at the specified position
 
 
-			//Iterator erase (Iterator position);
-			//Iterator erase (Iterator first, Iterator last);
+			iterator erase (iterator position) {
+				
+				node_type *tmp;
+				node_type *ret;
+
+				if (position->getNode() == _end)
+					ret = _end;
+				else
+					ret = position->getNode()->getNext();
+
+				if (position->getNode() == _begin)
+					tmp = _begin->getNext();
+				else
+					tmp = _begin;
+				position->getNode()->delNode();
+				_begin = tmp;
+				_size--;
+
+				return ret;
+			};
+			
+			iterator erase (iterator first, iterator last) {
+
+				node_type *ret;
+
+				if (last->getNode() == _end)
+					ret = _end;
+				else
+					ret = last->getNode()->getNext();
+
+				while (first != last)
+					erase(first++);
+
+				return ret;
+			};
 			// remove & destroy either 1 element or a range of elements. 
 
-			//void swap (List& x);
+			void swap (List& x) {
+				node_type *tmp;
+				int sz = _size;
+
+				tmp = _begin;
+				_begin = x._begin;
+				x._begin = tmp;
+
+				tmp = _end;
+				_end = x._end;
+				x._end = tmp;
+
+				_size = x._size;
+				x._size = sz;
+			};
 			//exchange content with container of the same type
 
-			//void resize (size_type n, value_type val = value_type());
+			void resize (size_type n, value_type val = value_type()) {
+				node_type *tmp = _begin;
+				node_type *next;
+				int i = 0;
+
+				if (_size > n) { //size 3 n 2
+					while (i++ < n)
+						tmp = tmp->getNext();
+					while (i++ < _size) {
+						next = tmp->getNext();
+						tmp.delNode();
+						tmp = next;
+					}
+					if (n == 0)
+						_begin = _end;
+				}
+				else if (_size < n) {
+					iterator it = _end;
+					i = _size;
+					while (i++ < n)
+						_end = insert(_end, val);
+				}
+				_size = n;
+			};
 			//either removes elements beyond n elements or add elements until container size is n 
 
 			void clear() {
@@ -278,10 +367,22 @@ namespace ft {
 
 			//OPERATIONS
 
-			//void splice (Iterator position, List& x); //ENTIRE LIST
-			//void splice (Iterator position, List& x, Iterator i); //1 ELEMENT
-			//void splice (Iterator position, List& x, Iterator first, Iterator last); //RANGE
-			// Transfer of elements from x into the container
+			void splice (iterator position, List& other) {
+				iterator srcIt = other._begin;
+				iterator srcEnd = other._end;
+				node_type *cur;
+
+				while (srcIt != srcEnd) {
+					cur = position->getNode();
+					cur->addPrevNode(srcIt->getNode());
+					srcIt++;
+				}
+				other._begin = other._end;
+			}; //ENTIRE LIST
+			
+			//void splice (iterator position, List& other, iterator i); //1 ELEMENT
+			//void splice (iterator position, List& other, iterator first, iterator last); //RANGE
+			// Transfer of elements from other into the container
 
 			//void remove (const value_type& val);
 			//remove elements with specific value

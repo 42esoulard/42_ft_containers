@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/28 11:55:01 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/02 12:59:18 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int main(void) {
 	
 	std::cout << "-----INSERT(4)-----" << std::endl;
 
-	
+	//test SWAP, ERASE1 + 2, RESIZE, REVERSE_ITERATORS + CONST_REVERSE_ITERATORS
 
 	return 0;
 }

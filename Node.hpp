@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/27 15:20:06 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/02 14:30:43 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,16 @@ namespace ft {
 
 			void 	addPrev(value_type const &value) {
 				Node *newNode = new Node(value);
+				if (this->_prev) {
+					newNode->_prev = this->_prev;
+					this->_prev->_next = newNode;
+				}
+				this->_prev = newNode;
+				newNode->_next = this;
+			};
+
+			void 	addPrevNode(node_type const &newNode) {
+			
 				if (this->_prev) {
 					newNode->_prev = this->_prev;
 					this->_prev->_next = newNode;

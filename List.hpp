@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/03 13:37:23 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:48:30 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,7 +387,7 @@ namespace ft {
 
 				node_type *cur;
 
-				it->getNode->forgetNode();
+				it->getNode()->forgetNode();
 				
 				cur = position->getNode();
 				cur->addPrevNode(it->getNode());
@@ -473,14 +473,45 @@ namespace ft {
 			//can take any "comparison" function
 
 			void merge (List& other) {
-				iterator otherIt;
+
+				if (other == *this)
+					return ;
+					
+				iterator otherIt = other.begin();
 				iterator otherIte = other.end();
-				
+				iterator otherNext;
+				iterator thisIt;
+				iterator thisIte = this->end();
+
+				for (thisIt = this->begin(); thisIt != thisIte; ++thisIt) {
+					if (*otherIt < *thisIt) {
+						otherNext = otherIt;
+						otherNext++;
+						splice(thisIt, other, otherIt);
+						otherIt = otherNext;
+					}
+				}
 			};
 
 			template <class Compare>
   			void merge (List& other, Compare comp) {
-				  
+				  if (other == *this)
+					return ;
+					
+				iterator otherIt = other.begin();
+				iterator otherIte = other.end();
+				iterator otherNext;
+				iterator thisIt;
+				iterator thisIte = this->end();
+
+				for (thisIt = this->begin(); thisIt != thisIte; ++thisIt) {
+					if (comp(*otherIt, *thisIt)) {
+						otherNext = otherIt;
+						otherNext++;
+						splice(thisIt, other, otherIt);
+						otherIt = otherNext;
+					}
+				}
 			};
   			//remove elements from x and insert them in container in orderly fashion
 			

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   List.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/02 14:31:29 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/03 13:37:23 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,12 +273,12 @@ namespace ft {
 			iterator erase (iterator position) {
 				
 				node_type *tmp;
-				node_type *ret;
+				iterator ret;
 
 				if (position->getNode() == _end)
-					ret = _end;
+					ret = this->end();
 				else
-					ret = position->getNode()->getNext();
+					ret = iterator(position->getNode()->getNext());
 
 				if (position->getNode() == _begin)
 					tmp = _begin->getNext();
@@ -293,12 +293,12 @@ namespace ft {
 			
 			iterator erase (iterator first, iterator last) {
 
-				node_type *ret;
+				iterator ret;
 
 				if (last->getNode() == _end)
-					ret = _end;
+					ret = this->end();
 				else
-					ret = last->getNode()->getNext();
+					ret = iterator(last->getNode()->getNext());
 
 				while (first != last)
 					erase(first++);
@@ -334,7 +334,7 @@ namespace ft {
 						tmp = tmp->getNext();
 					while (i++ < _size) {
 						next = tmp->getNext();
-						tmp.delNode();
+						tmp->delNode();
 						tmp = next;
 					}
 					if (n == 0)
@@ -358,6 +358,7 @@ namespace ft {
 					delete _begin;
 					_begin = tmp;
 				}
+				_end->resetNode();
 				_begin = _end;
 				_size = 0;
 			};
@@ -370,36 +371,117 @@ namespace ft {
 			void splice (iterator position, List& other) {
 				iterator srcIt = other._begin;
 				iterator srcEnd = other._end;
-				node_type *cur;
+				node_type *cur = position->getNode();;
 
 				while (srcIt != srcEnd) {
-					cur = position->getNode();
 					cur->addPrevNode(srcIt->getNode());
+					cur = cur->getPrev();
 					srcIt++;
 				}
+				other._end->resetNode();
 				other._begin = other._end;
+
 			}; //ENTIRE LIST
 			
-			//void splice (iterator position, List& other, iterator i); //1 ELEMENT
-			//void splice (iterator position, List& other, iterator first, iterator last); //RANGE
+			void splice (iterator position, List& other, iterator it) {
+
+				node_type *cur;
+
+				it->getNode->forgetNode();
+				
+				cur = position->getNode();
+				cur->addPrevNode(it->getNode());
+		
+			}; //1 ELEMENT
+			
+			void splice (iterator position, List& other, iterator first, iterator last) {
+
+				node_type *cur = position->getNode();;
+				iterator next;
+
+				while (first != last) {
+					next = first;
+					next++;
+					cur->addPrevNode(first->getNode());
+					cur = cur->getPrev();
+					first = next;
+				}
+				other._end->resetNode();
+				other._begin = other._end;
+			}; //RANGE
 			// Transfer of elements from other into the container
 
-			//void remove (const value_type& val);
+			void remove (const value_type& val) {
+				iterator it;
+				iterator tmp;
+				iterator ite = this->end();
+
+				for (it = this->begin(); it != ite; it++) {
+					if (*it == val) {
+						tmp = iterator(it->getNode()->getNext());
+						it->getNode()->delNode();
+						it = tmp;
+					}
+				}
+			};
 			//remove elements with specific value
 
-			//template <class Predicate>
-  			//void remove_if (Predicate pred);
-			// ?!? i have no idea what the heck is going on
+			template <class Predicate>
+  			void remove_if (Predicate pred) {
+				iterator it;
+				iterator tmp;
+				iterator ite = this->end();
 
-			//void unique();
+				for (it = this->begin(); it != ite; it++) {
+					if (pred(*it)) {
+						tmp = iterator(it->getNode()->getNext());
+						it->getNode()->delNode();
+						it = tmp;
+					}
+				}
+		 	};
+			// pred is a function returning a bool. Check if p(val) is true for each element
+
+			void unique() {
+				iterator it;
+				iterator tmp;
+				iterator ite = this->end();
+
+				for (it = this->begin(); it != ite; it++) {
+					if (it->getNode()->getPrev() && it->getNode()->getPrev() == it->getNode()) {
+						tmp = iterator(it->getNode()->getNext());
+						it->getNode()->delNode();
+						it = tmp;
+					}
+				}
+			};
 			//remove all but the first element from every consecutive group of equal elements in the container
-			//template <class BinaryPredicate>
-  			//void unique (BinaryPredicate binary_pred);
+			template <class BinaryPredicate>
+  			void unique (BinaryPredicate binary_pred) {
+				iterator it;
+				iterator tmp;
+				iterator ite = this->end();
+
+				for (it = this->begin(); it != ite; it++) {
+					if (binary_pred(it->getNode()->getPrev(), it->getNode())) {
+						tmp = iterator(it->getNode()->getNext());
+						it->getNode()->delNode();
+						it = tmp;
+					}
+				}
+			};
 			//can take any "comparison" function
 
-			//void merge (List& x);
-			//template <class Compare>
-  			//void merge (List& x, Compare comp);
+			void merge (List& other) {
+				iterator otherIt;
+				iterator otherIte = other.end();
+				
+			};
+
+			template <class Compare>
+  			void merge (List& other, Compare comp) {
+				  
+			};
   			//remove elements from x and insert them in container in orderly fashion
 			
 			//void sort();//use < for comparison

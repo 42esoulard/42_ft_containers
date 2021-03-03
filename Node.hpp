@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/02 14:30:43 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/03 12:57:08 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ namespace ft {
 				return _prev;
 			};
 
+			void resetNode() {
+				_next = nullptr;
+				_prev = nullptr;
+			};
 
 			void 	addNext(value_type const &value) {
 				Node *newNode = new Node(value);
@@ -98,6 +102,28 @@ namespace ft {
 				if (nextNode)
 					nextNode->_prev = prevNode;
 				delete(this);
+			};
+
+										//	begin       		end
+			void 	forgetNode() {//node0 node1 node2 endNode NO DELETE
+				//case: pop_front = gotta rm node0
+				
+				Node *prevNode = this->_prev; //nullptr
+				Node *nextNode = this->_next; //node1
+
+				if (prevNode)//si size != 0
+					prevNode->_next = nextNode;
+				if (nextNode)
+					nextNode->_prev = prevNode;
+			};
+
+			void 	linkNodes(node_type first, node_type second) {//node0 node1 node2 endNode NO DELETE
+				//case: pop_front = gotta rm node0
+
+				if (first)//si size != 0
+					first->_next = second;
+				if (second)
+					second->_prev = first;
 			};
 
 		private :

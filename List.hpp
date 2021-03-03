@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/03 14:48:30 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:58:39 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -515,9 +515,24 @@ namespace ft {
 			};
   			//remove elements from x and insert them in container in orderly fashion
 			
-			//void sort();//use < for comparison
-			//template <class Compare>
-  			//void sort (Compare comp);//uses.. i'm not sure what yet
+			void sort() {
+
+				iterator thisIt;
+				iterator prevIt = this->begin();
+				iterator thisIte = this->end();
+
+				for (thisIt = this->begin(); thisIt != thisIte; ++thisIt) {
+					
+					if (*thisIt < *prevIt) {
+						
+						otherIt = otherNext;
+					}
+				}
+			};
+			};//use < for comparison
+			
+			template <class Compare>
+  			void sort (Compare comp);
 
   			//void reverse();
 			//reverse the order of elements

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/03 12:57:08 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:58:28 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,12 @@ namespace ft {
 					second->_prev = first;
 			};
 
+			void 	swapNodes(node_type one, node_type two) {//node1 node2 should become node2 node1
+
+				one->_next = two->_next;
+				two->_next = one;
+			};
+			
 		private :
 			value_type 		_value;
 			node_type 		*_prev;

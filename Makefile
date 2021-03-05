@@ -1,11 +1,11 @@
 
-SRCS		= main.cpp
+SRCS		= main.cpp tests/List_tests.cpp
 
 OBJS		= ${SRCS:.cpp=.o}
 
 INC_DIR		= .
 INCLUDES	= ft_containers.h Node.hpp Iterator.hpp \
-			List.hpp
+			List.hpp tests/tests.hpp
 
 CPP			= clang++
 CFLAGS		= -Wall -Wextra -Werror -std=c++98 -fsanitize=address

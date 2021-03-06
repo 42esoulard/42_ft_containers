@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/05 15:48:51 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/06 13:24:26 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class customException : public std::exception {
 	public:
 		customException(std::string const &str) : _err(str) {};
 		virtual char const *what() const _NOEXCEPT {return _err.c_str();};
-        virtual ~customException() _NOEXCEPT;
+        virtual ~customException() _NOEXCEPT {};
 	
 	protected:
 		std::string const _err;	
@@ -55,11 +55,11 @@ int test_merge();
 int test_sort();
 int test_nonMembers();
 
-testsPtr listTests[21] = {&test_pushBack_iterate, &test_front_back, &test_fillConstr, &test_rangeConstr, &test_copyConstr,
-                        &test_opEqual, &test_pushFront, &test_popFront, &test_popBack, &test_insert,
-                        &test_erase, &test_swap, &test_resize, &test_clear, &test_splice, 
-                        &test_remove, &test_removeIf, &test_unique, &test_merge, &test_sort,
-                        &test_nonMembers};
+// testsPtr listTests[21] = {&test_pushBack_iterate, &test_front_back, &test_fillConstr, &test_rangeConstr, &test_copyConstr,
+//                         &test_opEqual, &test_pushFront, &test_popFront, &test_popBack, &test_insert,
+//                         &test_erase, &test_swap, &test_resize, &test_clear, &test_splice, 
+//                         &test_remove, &test_removeIf, &test_unique, &test_merge, &test_sort,
+//                         &test_nonMembers};
 
 
 /*----------VECTOR TESTS----------*/

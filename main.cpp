@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/05 15:58:19 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/06 13:55:03 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #include <iostream>
 
 int main(void) {
+
+	testsPtr listTests[21] = {&test_pushBack_iterate, &test_front_back, &test_fillConstr, &test_rangeConstr, &test_copyConstr,
+                        &test_opEqual, &test_pushFront, &test_popFront, &test_popBack, &test_insert,
+                        &test_erase, &test_swap, &test_resize, &test_clear, &test_splice, 
+                        &test_remove, &test_removeIf, &test_unique, &test_merge, &test_sort,
+                        &test_nonMembers};
 
 	try {
 

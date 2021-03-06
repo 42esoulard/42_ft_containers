@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/06 13:55:03 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/06 16:39:37 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 int main(void) {
 
-	testsPtr listTests[21] = {&test_pushBack_iterate, &test_front_back, &test_fillConstr, &test_rangeConstr, &test_copyConstr,
-                        &test_opEqual, &test_pushFront, &test_popFront, &test_popBack, &test_insert,
-                        &test_erase, &test_swap, &test_resize, &test_clear, &test_splice, 
-                        &test_remove, &test_removeIf, &test_unique, &test_merge, &test_sort,
-                        &test_nonMembers};
+	testsPtr listTests[21] = {&test_list_pushBack_iterate, &test_list_front_back, &test_list_fillConstr, &test_list_rangeConstr, &test_list_copyConstr,
+                        	&test_list_opEqual, &test_list_pushFront, &test_list_popFront, &test_list_popBack, &test_list_insert,
+                        	&test_list_erase, &test_list_swap, &test_list_resize, &test_list_clear, &test_list_splice, 
+                       	 	&test_list_remove, &test_list_removeIf, &test_list_unique, &test_list_merge, &test_list_sort,
+                        	&test_list_nonMembers};
 
 	try {
 
@@ -33,6 +33,7 @@ int main(void) {
 		std::cerr << "ERROR: " << e.what() << std::endl;
 	}
 
+	//system("leaks ft_containers"); //MUST REMOVE fsanitize from Makefile
 
 	// try {
 
@@ -78,130 +79,6 @@ int main(void) {
 	// 	std::cerr << "ERROR: " << e.what() << std::endl;
 	// }
 
-
-
-
-
-
-	//-----------------------------
-	// LIST TESTS
-
-	
-
-// 	// BASIC ITERATING + DEREFERENCING
-// 	std::cout << "-----BASIC ITERATING-----" << std::endl;
-// 	ft::List<int>::iterator it = ft_list.begin();
-// 	while (it != ft_list.end()) {
-// 		std::cout << *it << std::endl;
-// 		it++;
-// 	}
-
-// 	// FRONT() AND BACK() + THEIR CONST OVERLOADS
-// 	std::cout << "-----FRONT/BACK-----" << std::endl;
-// 	std::cout << ft_list.front() << std::endl;
-// 	std::cout << ft_list.back() << std::endl;
-
-// //!\	//CONST OVERLOAD RETURN DOESNT WORK!!!
-// 	std::cout << "-----FRONT/BACK CONST OVERLOAD-----" << std::endl;
-// 	int const tmp = ft_list.front();
-// 	std::cout << tmp << std::endl;
-// 	int const tmpa = ft_list.back();
-// 	std::cout << tmpa << std::endl;
-
-	
-// 	// LIST FILL CONSTRUCTOR
-// 	std::cout << "-----FILL CONSTR-----" << std::endl;
-// 	ft::List<char> ft_listA(5, 'a');
-
-// 	ft::List<char>::iterator itA = ft_listA.begin();
-// 	while (itA != ft_listA.end()) {
-// 		std::cout << *itA << std::endl;
-// 		itA++;
-// 	}
-
-// 	// LIST RANGE CONSTRUCTOR
-// 	std::cout << "-----RANGE CONSTR-----" << std::endl;
-// 	ft::List<int> ft_listB(ft_list.begin(), ft_list.end());
-
-// 	ft::List<int>::iterator itB = ft_listB.begin();
-// 	while (itB != ft_listB.end()) {
-// 		std::cout << *itB << std::endl;
-// 		itB++;
-// 	}
-
-// 	// COPY CONSTRUCTOR
-// 	std::cout << "-----COPY CONSTR-----" << std::endl;
-// 	ft::List<int> ft_listC(ft_listB);
-
-// 	ft::List<int>::iterator itC = ft_listC.begin();
-// 	while (itC != ft_listC.end()) {
-// 		std::cout << *itC << std::endl;
-// 		itC++;
-// 	}
-
-// 	//OPERATOR=
-// 	std::cout << "-----OPERATOR=-----" << std::endl;
-// 	ft::List<int> ft_listD = ft_listC;
-
-// 	itC = ft_listD.begin();
-// 	while (itC != ft_listD.end()) {
-// 		std::cout << *itC << std::endl;
-// 		itC++;
-// 	}
-
-
-// 	//PUSH_FRONT
-// 	std::cout << "-----PUSH_FRONT-----" << std::endl;
-// 	std::cout << ft_list.front() << std::endl;
-// 	ft_list.push_front(4242);
-// 	std::cout << ft_list.front() << std::endl;
-
-// 	//POP_FRONT
-// 	std::cout << "-----POP_FRONT-----" << std::endl;
-// 	std::cout << ft_list.front() << std::endl;
-// 	ft_list.pop_front();
-// 	std::cout << ft_list.front() << std::endl;
-
-// 	//POP_BACK
-// 	std::cout << "-----POP_BACK-----" << std::endl;
-// 	std::cout << ft_list.back() << std::endl;
-// 	std::cout << ft_list.size() << std::endl;
-// 	ft_list.pop_back();
-// 	std::cout << ft_list.size() << std::endl;
-// 	std::cout << ft_list.back() << std::endl;
-
-// 	//INSERT
-// 	std::cout << "-----INSERT(1)-----" << std::endl;
-// 	it = ft_list.begin();
-// 	it = ft_list.insert(it, 75);
-// 	it = ft_list.insert(it, 75);
-// 	it = ft_list.insert(it, 2);
-// 	while (it != ft_list.end()) {
-// 		std::cout << *it << std::endl;
-// 		it++;
-// 	}
-// 	std::cout << ft_list.front() << std::endl;
-// 	std::cout << ft_list.size() << std::endl;
-
-// 	std::cout << "-----INSERT(3)-----" << std::endl;
-// 	size_t size = 3;
-// 	it = ft_list.begin();
-// 	ft_list.insert(it, size, 6);//GOES INTO INSERT 4 FOR SOME REASON?!
-// 	size_t sz = 1;
-// 	it = ft_list.begin();
-// 	ft_list.insert(it, sz, 1);
-// 	it = ft_list.begin();
-// 	while (it != ft_list.end()) {
-// 		std::cout << *it << std::endl;
-// 		it++;
-// 	}
-// 	std::cout << ft_list.front() << std::endl;
-// 	std::cout << ft_list.size() << std::endl;
-	
-// 	std::cout << "-----INSERT(4)-----" << std::endl;
-
-// 	//test SWAP, ERASE1 + 2, RESIZE, REVERSE_ITERATORS + CONST_REVERSE_ITERATORS
-// 	//SPLICE1/2/3, REMOVE, REMOVE_IF, UNIQUE1/2, 
 
 	return 0;
 }

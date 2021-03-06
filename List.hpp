@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/05 15:59:37 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/06 17:04:58 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ namespace ft {
 			List& operator= (const List& x) {
 				clear();
 				assign(x.begin(), x.end());
+				return *this;
 			}; //destroy all content then copy
 
 			//----------------------------------------------
@@ -152,24 +153,28 @@ namespace ft {
 			// ELEMENT ACCESS:
 
 			reference front() {
-				std::cout << "front" << std::endl;
+				//std::cout << "front" << std::endl;
 				return _begin->getValue();
 			};
 
 			const_reference front() const{
-				std::cout << "front const" << std::endl;
+				//std::cout << "front const" << std::endl;
 				return _begin->getValue();
 			};
 			//same as begin() but returns a reference
 
 			reference back() {
-				std::cout << "back" << std::endl;
-				return _end->getPrev()->getValue();
+				//std::cout << "back" << std::endl;
+				if (size())
+					return _end->getPrev()->getValue();
+				return _end->getValue();
 			};
 
 			const_reference back() const{
-				std::cout << "back const" << std::endl;
-				return _end->getPrev()->getValue();
+				//std::cout << "back const" << std::endl;
+				if (size())
+					return _end->getPrev()->getValue();
+				return _end->getValue();
 			};
 			//returns a reference to the last List element(not after it)
 
@@ -231,7 +236,7 @@ namespace ft {
 					_end->getPrev()->delNode();//delete Node3
 					_size--;
 				}
-				std::cout << "popped back " << std::endl;
+				//std::cout << "popped back " << std::endl;
 			};
 			//remove & destroy last element
 
@@ -242,29 +247,29 @@ namespace ft {
 				_size++;
 				while (_begin->getPrev())
 					_begin = _begin->getPrev();
-				std::cout << "in insert1 beg value: " << _begin->getValue() << std::endl;
+				//std::cout << "in insert1 beg value: " << _begin->getValue() << std::endl;
 				return iterator(position.getNode()->getPrev());
 
 			}; //1 ELEMENT
     		
 			void insert (iterator position, size_type n, const value_type& val) {
 
-				std::cout << " in insert 3 fill" << std::endl;
+				//std::cout << " in insert 3 fill" << std::endl;
 				for (int i = 0; i < n; i++) {
-					std::cout << "adding " << val << std::endl;
+					//std::cout << "adding " << val << std::endl;
 					position = insert(position, val);
-					std::cout << "beg value: " << _begin->getValue() << std::endl;
+					//std::cout << "beg value: " << _begin->getValue() << std::endl;
 				}
 			};//FILL
 			
 			template <class InputIterator>
     		void insert (iterator position, InputIterator first, InputIterator last) {
-				std::cout << "in insert 4 range" << std::endl;
+				//std::cout << "in insert 4 range" << std::endl;
 				while (first != last) {
-					std::cout << "adding " << *first << std::endl;
-					position = insert(*first);
+					//std::cout << "adding " << *first << std::endl;
+					position = insert(position, *first);
 					first++;
-					std::cout << "beg value: " << _begin->getValue() << std::endl;
+					//std::cout << "beg value: " << _begin->getValue() << std::endl;
 				}
 			};//RANGE
     		//Extend the container by inserting new elements before the element at the specified position
@@ -273,18 +278,16 @@ namespace ft {
 			iterator erase (iterator position) {
 				
 				node_type *tmp;
-				iterator ret;
+				iterator ret = iterator(position.getNode()->getNext());
 
-				if (position->getNode() == _end)
+				if (position.getNode() == _end)
 					ret = this->end();
-				else
-					ret = iterator(position->getNode()->getNext());
 
-				if (position->getNode() == _begin)
+				if (position.getNode() == _begin)
 					tmp = _begin->getNext();
 				else
 					tmp = _begin;
-				position->getNode()->delNode();
+				position.getNode()->delNode();
 				_begin = tmp;
 				_size--;
 

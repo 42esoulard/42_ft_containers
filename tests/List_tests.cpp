@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/07 13:45:14 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/07 15:10:13 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int test_list_pushBack_iterate() {
 
 	chk_result(ft_list, list, "list", "BASIC INSTANCE + PUSH_BACK + BASIC ITERATING + DEREFERENCING");
 
-	ft::List<char> ft_emptyList;
+	ft::List<char> ft_listEmpty;
 	ft_list.push_back('&');
-	std::list<char> emptyList;
+	std::list<char> listEmpty;
 	list.push_back('&');
 
-	chk_result(ft_emptyList, emptyList, "list", "PUSH_BACK [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", "PUSH_BACK [EMPTY]");
 
     return 0;
 };
@@ -71,13 +71,13 @@ int test_list_front_back() {
 		handle_error(ft_list, list, "list", "FRONT + BACK", "CONTENT", std::cerr);
 	}
 
-	ft::List<int> ft_emptyList;
-	std::list<int> emptyList;
+	ft::List<int> ft_listEmpty;
+	std::list<int> listEmpty;
 
-	if (ft_emptyList.front() != emptyList.front() || ft_emptyList.back() != emptyList.back()) {
-		std::cerr << "ft_emptyList.front() = [" << ft_emptyList.front() << "] | emptyList.front() = [" << emptyList.front() << "]" << std::endl;
-		std::cerr << "ft_emptyList.back() = [" << ft_emptyList.back() << "] | emptyList.back() = [" << emptyList.back() << "]" << std::endl;
-		handle_error(ft_emptyList, emptyList, "list", "FRONT + BACK [EMPTY]", "CONTENT", std::cerr);
+	if (ft_listEmpty.front() != listEmpty.front() || ft_listEmpty.back() != listEmpty.back()) {
+		std::cerr << "ft_listEmpty.front() = [" << ft_listEmpty.front() << "] | listEmpty.front() = [" << listEmpty.front() << "]" << std::endl;
+		std::cerr << "ft_listEmpty.back() = [" << ft_listEmpty.back() << "] | listEmpty.back() = [" << listEmpty.back() << "]" << std::endl;
+		handle_error(ft_listEmpty, listEmpty, "list", "FRONT + BACK [EMPTY]", "CONTENT", std::cerr);
 	}
 	
 	std::cout << "[FRONT/BACK CONST OVERLOAD]" << std::endl;
@@ -101,8 +101,8 @@ int test_list_fillConstr() {
 
 	chk_result(ft_list, list, "list", "FILL CONSTRUCTOR");
 
-	ft::List<char> ft_emptyList(0, 'a');
-	std::list<char> emptyList(0, 'a');
+	ft::List<char> ft_listEmpty(0, 'a');
+	std::list<char> listEmpty(0, 'a');
 
 	chk_result(ft_list, list, "list", "FILL CONSTRUCTOR [EMPTY]");
 
@@ -120,10 +120,10 @@ int test_list_rangeConstr() {
 
 	chk_result(ft_list, list, "list", "RANGE CONSTRUCTOR");
 
-	ft::List<char> ft_emptyList(src.end(), src.end());
-	std::list<char> emptyList(src.end(), src.end());
+	ft::List<char> ft_listEmpty(src.end(), src.end());
+	std::list<char> listEmpty(src.end(), src.end());
 
-	chk_result(ft_emptyList, emptyList, "list", "RANGE CONSTRUCTOR [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", "RANGE CONSTRUCTOR [EMPTY]");
 
 	return 0;
 };
@@ -145,17 +145,17 @@ int test_list_copyConstr() {
 
 	ft::List<char> ft_srcB(0, '!');
 	std::list<char> srcB(0, '!');
-	ft::List<char> ft_emptyList(ft_srcB);
-	std::list<char> emptyList(srcB);
+	ft::List<char> ft_listEmpty(ft_srcB);
+	std::list<char> listEmpty(srcB);
 
-	chk_result(ft_emptyList, emptyList, "list", "COPY CONSTRUCTOR [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", "COPY CONSTRUCTOR [EMPTY]");
 
 	//INVALID SRC = UNDEFINED BEHAVIOR
 	// ft::List<char> *ft_nullSrc = nullptr;
-	// ft::List<char> ft_nullList(*ft_nullSrc);
+	// ft::List<char> ft_listNull(*ft_nullSrc);
 	// ft::List<char> *nullSrc = nullptr;
-	// ft::List<char> nullList(*nullSrc)
-	//	chk_result(ft_nullList, nullList, "list", "COPY CONSTRUCTOR [NULL SRC]");
+	// ft::List<char> listNull(*nullSrc)
+	//	chk_result(ft_listNull, listNull, "list", "COPY CONSTRUCTOR [NULL SRC]");
 	
 	return 0;
 };
@@ -177,10 +177,10 @@ int test_list_opEqual() {
 
 	ft::List<char> ft_srcB(0, '!');
 	std::list<char> srcB(0, '!');
-	ft::List<char> ft_emptyList = ft_srcB;
-	std::list<char> emptyList = srcB;
+	ft::List<char> ft_listEmpty = ft_srcB;
+	std::list<char> listEmpty = srcB;
 
-	chk_result(ft_emptyList, emptyList, "list", "OPERATOR= [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", "OPERATOR= [EMPTY]");
 
 	ft_list = ft_srcB;
 	list = srcB;
@@ -202,12 +202,12 @@ int test_list_pushFront() {
 
 	chk_result(ft_list, list, "list", "PUSH_FRONT");
 
-	ft::List<char> ft_emptyList;
+	ft::List<char> ft_listEmpty;
 	ft_list.push_front('&');
-	std::list<char> emptyList;
+	std::list<char> listEmpty;
 	list.push_front('&');
 
-	chk_result(ft_emptyList, emptyList, "list", "PUSH_FRONT [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", "PUSH_FRONT [EMPTY]");
 
 	return 0;
 };
@@ -228,12 +228,12 @@ int test_list_popFront() {
 	list.pop_front();
 	chk_result(ft_list, list, "list", "POP_FRONT");
 
-	ft::List<char> ft_emptyList;
+	ft::List<char> ft_listEmpty;
 	ft_list.pop_front();
-	std::list<char> emptyList;
+	std::list<char> listEmpty;
 	list.pop_front();
 
-	chk_result(ft_emptyList, emptyList, "list", "POP_FRONT [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", "POP_FRONT [EMPTY]");
 	return 0;
 };
 
@@ -253,12 +253,12 @@ int test_list_popBack() {
 	list.pop_back();
 	chk_result(ft_list, list, "list", "POP_BACK");
 
-	ft::List<char> ft_emptyList;
+	ft::List<char> ft_listEmpty;
 	ft_list.pop_back();
-	std::list<char> emptyList;
+	std::list<char> listEmpty;
 	list.pop_back();
 
-	chk_result(ft_emptyList, emptyList, "list", "POP_BACK [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", "POP_BACK [EMPTY]");
 	return 0;
 };
 
@@ -291,18 +291,18 @@ int test_list_insert() {
 	chk_result(ft_list, list, "list", "INSERT(1)");
 	
 
-	ft::List<char> ft_emptyList;
-	ft_it = ft_emptyList.begin();
-	ft_it = ft_emptyList.insert(ft_it, 'a');
-	std::list<char> emptyList;
-	it = emptyList.begin();
-	it = emptyList.insert(it, 'a');
+	ft::List<char> ft_listEmpty;
+	ft_it = ft_listEmpty.begin();
+	ft_it = ft_listEmpty.insert(ft_it, 'a');
+	std::list<char> listEmpty;
+	it = listEmpty.begin();
+	it = listEmpty.insert(it, 'a');
 
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_emptyList, emptyList, "list", "INSERT(1) [EMPTY]", "CONTENT", std::cerr);
+		handle_error(ft_listEmpty, listEmpty, "list", "INSERT(1) [EMPTY]", "CONTENT", std::cerr);
 	}
-	chk_result(ft_emptyList, emptyList, "list", "INSERT(1)  [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", "INSERT(1)  [EMPTY]");
 
 	//------------------------------------------------------------------------
 
@@ -318,28 +318,28 @@ int test_list_insert() {
 	
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(2) = [" << *ft_it << "] | *it after insert(2) = [" << *it << "]" << std::endl;
-		handle_error(ft_emptyList, emptyList, "list", "INSERT(2)", "CONTENT", std::cerr);
+		handle_error(ft_listEmpty, listEmpty, "list", "INSERT(2)", "CONTENT", std::cerr);
 	}
-	chk_result(ft_emptyList, emptyList, "list", "INSERT(2)");
+	chk_result(ft_listEmpty, listEmpty, "list", "INSERT(2)");
 	
-	ft::List<char> ft_emptyListB;
-	ft_it = ft_emptyListB.begin();
-	ft_emptyListB.insert(ft_it, size, '6');
-	std::list<char> emptyListB;
-	it = emptyListB.begin();
-	emptyListB.insert(it, size, '6');
+	ft::List<char> ft_listEmptyB;
+	ft_it = ft_listEmptyB.begin();
+	ft_listEmptyB.insert(ft_it, size, '6');
+	std::list<char> listEmptyB;
+	it = listEmptyB.begin();
+	listEmptyB.insert(it, size, '6');
 
-	chk_result(ft_emptyListB, emptyListB, "list", "INSERT(2)[FILL] [EMPTY to FULL]");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "INSERT(2)[FILL] [EMPTY to FULL]");
 
 	size = 0;
-	ft::List<char> ft_emptyListC;
-	ft_it = ft_emptyListC.begin();
-	ft_emptyListC.insert(ft_it, size, '6');
-	std::list<char> emptyListC;
-	it = emptyListC.begin();
-	emptyListC.insert(it, size, '6');
+	ft::List<char> ft_listEmptyC;
+	ft_it = ft_listEmptyC.begin();
+	ft_listEmptyC.insert(ft_it, size, '6');
+	std::list<char> listEmptyC;
+	it = listEmptyC.begin();
+	listEmptyC.insert(it, size, '6');
 
-	chk_result(ft_emptyListC, emptyListC, "list", "INSERT(2)[FILL] [EMPTY to EMPTY]");
+	chk_result(ft_listEmptyC, listEmptyC, "list", "INSERT(2)[FILL] [EMPTY to EMPTY]");
 	
 	//------------------------------------------------------------------------
 
@@ -366,37 +366,27 @@ int test_list_insert() {
 	}
 	chk_result(ft_list, list, "list", "INSERT(3)[RANGE]");
 
-	ft::List<char> ft_emptyListD;
-	ft_it = ft_emptyListC.begin();
-	ft_emptyListC.insert(ft_it, ft_emptyListD.begin(), ft_emptyListD.end());
-	std::list<char> emptyListD;
-	it = emptyListC.begin();
-	emptyListC.insert(it, emptyListD.begin(), emptyListD.end());
-	chk_result(ft_emptyListC, emptyListC, "list", "INSERT(3)[RANGE] [EMPTY to EMPTY]");
+	ft::List<char> ft_listEmptyD;
+	ft_it = ft_listEmptyC.begin();
+	ft_listEmptyC.insert(ft_it, ft_listEmptyD.begin(), ft_listEmptyD.end());
+	std::list<char> listEmptyD;
+	it = listEmptyC.begin();
+	listEmptyC.insert(it, listEmptyD.begin(), listEmptyD.end());
+	chk_result(ft_listEmptyC, listEmptyC, "list", "INSERT(3)[RANGE] [EMPTY to EMPTY]");
 	
 	ft_it = ft_list.begin();
-	ft_list.insert(ft_it, ft_emptyListD.begin(), ft_emptyListD.end());
+	ft_list.insert(ft_it, ft_listEmptyD.begin(), ft_listEmptyD.end());
 	it = list.begin();
-	list.insert(it, emptyListD.begin(), emptyListD.end());
+	list.insert(it, listEmptyD.begin(), listEmptyD.end());
 	chk_result(ft_list, list, "list", "INSERT(3)[RANGE] [EMPTY to FULL]");
 	
-	ft_it = ft_emptyListD.begin();
-	ft_emptyListD.insert(ft_it, ft_list.begin(), ft_list.end());
-	it = emptyListD.begin();
-	emptyListD.insert(it, list.begin(), list.end());
-	chk_result(ft_emptyListD, emptyListD, "list", "INSERT(3)[RANGE] [FULL TO EMPTY]");
+	ft_it = ft_listEmptyD.begin();
+	ft_listEmptyD.insert(ft_it, ft_list.begin(), ft_list.end());
+	it = listEmptyD.begin();
+	listEmptyD.insert(it, list.begin(), list.end());
+	chk_result(ft_listEmptyD, listEmptyD, "list", "INSERT(3)[RANGE] [FULL TO EMPTY]");
 	return 0;
 };
-
-// 	//test SWAP, ERASE1 + 2, RESIZE, REVERSE_ITERATORS + CONST_REVERSE_ITERATORS
-// 	//SPLICE1/2/3, REMOVE, REMOVE_IF, UNIQUE1/2, 
-
-//empty, size, max_size
-//asign
-//clear
-//sort
-//reverse
-
 
 int test_list_erase() {
 	std::cout << "[ERASE(1)]" << std::endl;
@@ -443,11 +433,11 @@ int test_list_erase() {
 	chk_result(ft_list, list, "list", "ERASE(1) [all]");
 
 	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
-	//ft::List<char> ft_emptyList;
-	//std::list<char> emptyList;
-	//ft_emptyList.erase(ft_emptyList.begin());
-	//emptyList.erase(emptyList.begin());
-	//chk_result(ft_emptyList, emptyList, "list", "ERASE(1) [EMPTY]");
+	//ft::List<char> ft_listEmpty;
+	//std::list<char> listEmpty;
+	//ft_listEmpty.erase(ft_listEmpty.begin());
+	//listEmpty.erase(listEmpty.begin());
+	//chk_result(ft_listEmpty, listEmpty, "list", "ERASE(1) [EMPTY]");
 
 	//------------------------------------------------------------------------
 
@@ -495,33 +485,101 @@ int test_list_erase() {
 };
 
 int test_list_swap() {
-	//full vs empty
-	//empty vs full
-	//full vs full
-	//empty vs empty
-	//full vs nullptr
-	//empty vs nullptr
-	//nullptr vs full
-	//nullptr vs empty
+	std::cout << "[SWAP]" << std::endl;
+	ft::List<char> ft_list(10, '!');
+	ft_list.push_back('@');
+	ft_list.push_back('&');
+	ft_list.push_front('z');
+	
+	std::list<char> list(10, '!');
+	list.push_back('@');
+	list.push_back('&');
+	list.push_front('z');
+
+	ft::List<char> ft_listEmpty;
+	std::list<char> listEmpty;
+	ft_listEmpty.swap(ft_list);
+	listEmpty.swap(list);
+
+	chk_result(ft_list, list, "list", "SWAP [Full vs Empty][1/2]");
+	chk_result(ft_listEmpty, listEmpty, "list", "SWAP [Full vs Empty][2/2]");
+	
+	ft_listEmpty.swap(ft_list);
+	listEmpty.swap(list);
+	chk_result(ft_list, list, "list", "SWAP [Empty vs Full][1/2]");
+	chk_result(ft_listEmpty, listEmpty, "list", "SWAP [Empty vs Full][2/2]");
+
+	ft_listEmpty.insert(ft_listEmpty.begin(), 56, 'v');
+	listEmpty.insert(listEmpty.begin(), 56, 'v');
+	ft_listEmpty.swap(ft_list);
+	listEmpty.swap(list);
+	chk_result(ft_list, list, "list", "SWAP [Full vs Full][1/2]");
+	chk_result(ft_listEmpty, listEmpty, "list", "SWAP [Full vs Full][2/2]");
+
+	ft::List<char> ft_listEmptyA;
+	std::list<char> listEmptyA;
+	ft::List<char> ft_listEmptyB;
+	std::list<char> listEmptyB;
+	ft_listEmptyA.swap(ft_listEmptyB);
+	listEmptyA.swap(listEmptyB);
+	chk_result(ft_listEmptyA, listEmptyA, "list", "SWAP [Empty vs Empty][1/2]");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "SWAP [Empty vs Empty][2/2]");
 	
 	return 0;
 };
 
 int test_list_resize() {
-	//size 5 resize to 1
-	//size 5 resize to 0
-	//size 5 resize to 10
-	//size 0 resize to 10
-	//size 0 resize to 0
-	//size 5 resize to 5
+	std::cout << "[RESIZE]" << std::endl;
+	ft::List<char> ft_list(5, '!');
+	std::list<char> list(5, '!');
+
+	ft_list.resize(2);
+	list.resize(2);
+	chk_result(ft_list, list, "list", "RESIZE [5 TO 2]");
+
+	ft_list.resize(0);
+	list.resize(0);
+	chk_result(ft_list, list, "list", "RESIZE [2 TO 0]");
+
+	ft_list.resize(0);
+	list.resize(0);
+	chk_result(ft_list, list, "list", "RESIZE [0 TO 0]");
+
+	ft_list.resize(5);
+	list.resize(5);
+	chk_result(ft_list, list, "list", "RESIZE [0 TO 5]");
+	
+	ft_list.resize(100);
+	list.resize(100);
+	chk_result(ft_list, list, "list", "RESIZE [5 TO 100]");
+
+	ft_list.resize(100);
+	list.resize(100);
+	chk_result(ft_list, list, "list", "RESIZE [100 TO 100]");
+
+	//UNDEFINED BEHAVIOUR
+	//ft_list.resize(-50);
+	//list.resize(-50);
+	//chk_result(ft_list, list, "list", "RESIZE [100 TO -50]");
 	return 0;
 };
 
 int test_list_clear() {
-	//full list
-	//empty list
+	std::cout << "[CLEAR]" << std::endl;
+	ft::List<char> ft_list(5, '!');
+	std::list<char> list(5, '!');
+
+	ft_list.clear();
+	list.clear();
+	chk_result(ft_list, list, "list", "CLEAR [FULL LIST]");
+
+	ft_list.clear();
+	list.clear();
+	chk_result(ft_list, list, "list", "CLEAR [EMPTY LIST]");
 	return 0;
 };
+
+
 
 int test_list_splice() {
 	//full ordered vs empty
@@ -544,15 +602,101 @@ int test_list_removeIf() {
 	return 0;
 };
 
+struct is_near {
+  bool operator() (char first, char second)
+  { return (second - first <= 1 || first - second <= 1); }
+};
+
 int test_list_unique() {
+	std::cout << "[UNIQUE(1)]" << std::endl;
+	ft::List<char> ft_list(5, '!');
+	std::list<char> list(5, '!');
+
+	ft::List<char>::iterator ft_it = ft_list.begin();
+	std::list<char>::iterator it = list.begin();
+	ft_it++;
+	it++;
+	ft_list.push_back('a');
+	ft_list.insert(ft_it, 'a');
+	ft_list.insert(ft_it, 'b');
+	list.push_back('a');
+	list.insert(it, 'a');
+	list.insert(it, 'b');
+
+	ft_list.unique();
+	list.unique();
+	chk_result(ft_list, list, "list", "UNIQUE(1) [WITH DOUBLES]");
+
+	ft_list.unique();
+	list.unique();
+	chk_result(ft_list, list, "list", "UNIQUE(1) [NO DOUBLES]");
+
+	ft::List<char> ft_listEmpty;
+	std::list<char> listEmpty;
+	ft_listEmpty.unique();
+	listEmpty.unique();
+	chk_result(ft_listEmpty, listEmpty, "list", "UNIQUE(1) [EMPTY LIST]");
+
+	//------------------------------------------------------------------------
+
+	std::cout << "[UNIQUE(2)[binary_pred]]" << std::endl;
+	ft_list.push_back('a');
+	ft_list.insert(ft_it, 'a');
+	ft_list.insert(ft_it, 'b');
+	list.push_back('a');
+	list.insert(it, 'a');
+	list.insert(it, 'b');
+
+	ft_list.unique(is_near());
+	list.unique(is_near());
+	chk_result(ft_list, list, "list", "UNIQUE(2) [WITH DOUBLES]");
+
+	ft_list.unique(is_near());
+	list.unique(is_near());
+	chk_result(ft_list, list, "list", "UNIQUE(2) [NO DOUBLES]");
+
+	ft_listEmpty.unique(is_near());
+	listEmpty.unique(is_near());
+	chk_result(ft_listEmpty, listEmpty, "list", "UNIQUE(2) [EMPTY LIST]");
 	return 0;
 };
+
+// 	//test REVERSE_ITERATORS + CONST_REVERSE_ITERATORS
+// 	//SPLICE1/2/3, REMOVE, REMOVE_IF
+
+//empty, size, max_size
+//asign
+//sort
+//reverse
 
 int test_list_merge() {
 	return 0;
 };
 
 int test_list_sort() {
+	std::cout << "SORT(1)" << std::endl;
+	ft::List<int> ft_list;
+	std::list<int> list;
+	ft_list.push_back(0);
+	ft_list.push_back(2145678);
+	ft_list.push_back(-70);
+	ft_list.push_back(42);
+	list.push_back(0);
+	list.push_back(2145678);
+	list.push_back(-70);
+	list.push_back(42);
+
+	ft_list.sort();
+	list.sort();
+	chk_result(ft_list, list, "list", "SORT(1)");
+
+	// ft::List<int> ft_listEmpty;
+	// std::list<int> listEmpty;
+	// ft_listEmpty.sort();
+	// listEmpty.sort();
+	// chk_result(ft_listEmpty, listEmpty, "list", "SORT(1) [EMPTY]");
+
+//	std::cout << "SORT(2)" << std::endl;
 	return 0;
 };
 

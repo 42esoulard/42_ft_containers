@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/07 13:39:03 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/07 15:16:31 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ namespace ft {
 			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
 			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
 			// typedef typename difference_type Iterator_traits<Iterator>::difference_type;
-			typedef size_t 										size_type;
+			typedef unsigned int 										size_type;
 			
 
 			//----------------------------------------------
@@ -333,7 +333,7 @@ namespace ft {
 				if (_size > n) { //size 3 n 2
 					while (i++ < n)
 						tmp = tmp->getNext();
-					while (i++ < _size) {
+					while (i++ <= _size) {
 						next = tmp->getNext();
 						tmp->delNode();
 						tmp = next;
@@ -342,10 +342,10 @@ namespace ft {
 						_begin = _end;
 				}
 				else if (_size < n) {
-					iterator it = _end;
+					iterator it = this->end();
 					i = _size;
 					while (i++ < n)
-						_end = insert(_end, val);
+						it = insert(it, val);
 				}
 				_size = n;
 			};
@@ -444,29 +444,30 @@ namespace ft {
 			// pred is a function returning a bool. Check if p(val) is true for each element
 
 			void unique() {
-				iterator it;
-				iterator tmp;
+				iterator it = this->begin();
+				iterator tmp = it;
 				iterator ite = this->end();
 
 				for (it = this->begin(); it != ite; it++) {
-					if (it->getNode()->getPrev() && it->getNode()->getPrev() == it->getNode()) {
-						tmp = iterator(it->getNode()->getNext());
-						it->getNode()->delNode();
+					if (it.getNode()->getPrev() && it.getNode()->getPrev()->getValue() == *it) {
+						tmp = iterator(it.getNode()->getPrev());
+						it.getNode()->delNode();
 						it = tmp;
 					}
 				}
 			};
 			//remove all but the first element from every consecutive group of equal elements in the container
+			
 			template <class BinaryPredicate>
   			void unique (BinaryPredicate binary_pred) {
-				iterator it;
-				iterator tmp;
+				iterator it = this->begin();
+				iterator tmp = it;
 				iterator ite = this->end();
 
 				for (it = this->begin(); it != ite; it++) {
-					if (binary_pred(it->getNode()->getPrev(), it->getNode())) {
-						tmp = iterator(it->getNode()->getNext());
-						it->getNode()->delNode();
+					if (it.getNode()->getPrev() && binary_pred(it.getNode()->getPrev()->getValue(), *it)) {
+						tmp = iterator(it.getNode()->getPrev());
+						it.getNode()->delNode();
 						it = tmp;
 					}
 				}
@@ -480,8 +481,8 @@ namespace ft {
 					
 				iterator otherIt = other.begin();
 				iterator otherIte = other.end();
-				iterator otherNext;
-				iterator thisIt;
+				iterator otherNext = otherIt;
+				iterator thisIt = this->begin();
 				iterator thisIte = this->end();
 
 				for (thisIt = this->begin(); thisIt != thisIte; ++thisIt) {
@@ -501,8 +502,8 @@ namespace ft {
 					
 				iterator otherIt = other.begin();
 				iterator otherIte = other.end();
-				iterator otherNext;
-				iterator thisIt;
+				iterator otherNext = otherIt;
+				iterator thisIt = this->begin();
 				iterator thisIte = this->end();
 
 				for (thisIt = this->begin(); thisIt != thisIte; ++thisIt) {
@@ -516,20 +517,27 @@ namespace ft {
 			};
   			//remove elements from x and insert them in container in orderly fashion
 			
-			// void sort() {
+			void sort() {
 
-			// 	iterator thisIt;
-			// 	iterator prevIt = this->begin();
-			// 	iterator thisIte = this->end();
-
-			// 	for (thisIt = this->begin(); thisIt != thisIte; ++thisIt) {
-					
-			// 		if (*thisIt < *prevIt) {
+				iterator it = this->begin();
+				iterator ite = this->end();
+				
+				for (int i = 0; i < this->size(); i++) {
+					for (it = this->begin(); it != ite; ++it) {
+						//std::cout << "where the fuck " << std::endl;
+						if (it.getNode()->getPrev() && it.getNode()->getPrev()->getValue() > *it) {
+							std::cout << "fuck " << std::endl;
+							it.getNode()->swapNodes(it.getNode()->getPrev(), it.getNode());
+							//it = iterator(it.getNode()->getPrev());
+						}
+						else
+						{
+							std::cout << "NOPE " << std::endl;
+						}
 						
-			// 			otherIt = otherNext;
-			// 		}
-			// 	}
-			// };
+					}
+				}
+			};
 			//use < for comparison
 			
 			template <class Compare>

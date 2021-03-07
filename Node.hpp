@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/03 14:58:28 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/07 15:09:04 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,18 @@ namespace ft {
 				if (second)
 					second->_prev = first;
 			};
+                                                        //   <-  -><-  -><-  -><-  ->
+			void 	swapNodes(node_type *one, node_type *two) {//beg node1 node2 end should become beg node2 node1 end
 
-			void 	swapNodes(node_type one, node_type two) {//node1 node2 should become node2 node1
-
+			//	std::cout << "fffffcuk" <<std::endl;
 				one->_next = two->_next;
 				two->_next = one;
+				if (one->_prev)
+					one->_prev->_next = two;
+				one->_prev = two;
+				if (two->_next)
+					two->_next->_prev = one;
+				two->_prev = one->_prev;
 			};
 			
 		private :

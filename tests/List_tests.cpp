@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/06 17:19:46 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/07 13:45:14 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int test_list_pushBack_iterate() {
 	int tmp;
 	ft::List<int>::iterator it = ft_list.begin();
 	while (it != ft_list.end()) {
-		//std::cout << *it << std::endl;
+		//std::cout << *it << std::endl; //commented to keep test output clean
 		tmp = *it;
 		it++;
 	}
@@ -150,7 +150,12 @@ int test_list_copyConstr() {
 
 	chk_result(ft_emptyList, emptyList, "list", "COPY CONSTRUCTOR [EMPTY]");
 
-	//src = nullptr ?
+	//INVALID SRC = UNDEFINED BEHAVIOR
+	// ft::List<char> *ft_nullSrc = nullptr;
+	// ft::List<char> ft_nullList(*ft_nullSrc);
+	// ft::List<char> *nullSrc = nullptr;
+	// ft::List<char> nullList(*nullSrc)
+	//	chk_result(ft_nullList, nullList, "list", "COPY CONSTRUCTOR [NULL SRC]");
 	
 	return 0;
 };
@@ -284,6 +289,7 @@ int test_list_insert() {
 		handle_error(ft_list, list, "list", "INSERT(1)", "CONTENT", std::cerr);
 	}
 	chk_result(ft_list, list, "list", "INSERT(1)");
+	
 
 	ft::List<char> ft_emptyList;
 	ft_it = ft_emptyList.begin();
@@ -309,13 +315,13 @@ int test_list_insert() {
 	it = list.begin();
 	it++;
 	list.insert(it, size, 6);
-
+	
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(2) = [" << *ft_it << "] | *it after insert(2) = [" << *it << "]" << std::endl;
 		handle_error(ft_emptyList, emptyList, "list", "INSERT(2)", "CONTENT", std::cerr);
 	}
 	chk_result(ft_emptyList, emptyList, "list", "INSERT(2)");
-
+	
 	ft::List<char> ft_emptyListB;
 	ft_it = ft_emptyListB.begin();
 	ft_emptyListB.insert(ft_it, size, '6');
@@ -356,12 +362,29 @@ int test_list_insert() {
 
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(3) = [" << *ft_it << "] | *it after insert(3) = [" << *it << "]" << std::endl;
-		handle_error(ft_emptyList, emptyList, "list", "INSERT(3)[RANGE]", "CONTENT", std::cerr);
+		handle_error(ft_list, list, "list", "INSERT(3)[RANGE]", "CONTENT", std::cerr);
 	}
-	chk_result(ft_emptyList, emptyList, "list", "INSERT(3)[RANGE]");
+	chk_result(ft_list, list, "list", "INSERT(3)[RANGE]");
 
-	//add empty to empty
-	//add empty to full
+	ft::List<char> ft_emptyListD;
+	ft_it = ft_emptyListC.begin();
+	ft_emptyListC.insert(ft_it, ft_emptyListD.begin(), ft_emptyListD.end());
+	std::list<char> emptyListD;
+	it = emptyListC.begin();
+	emptyListC.insert(it, emptyListD.begin(), emptyListD.end());
+	chk_result(ft_emptyListC, emptyListC, "list", "INSERT(3)[RANGE] [EMPTY to EMPTY]");
+	
+	ft_it = ft_list.begin();
+	ft_list.insert(ft_it, ft_emptyListD.begin(), ft_emptyListD.end());
+	it = list.begin();
+	list.insert(it, emptyListD.begin(), emptyListD.end());
+	chk_result(ft_list, list, "list", "INSERT(3)[RANGE] [EMPTY to FULL]");
+	
+	ft_it = ft_emptyListD.begin();
+	ft_emptyListD.insert(ft_it, ft_list.begin(), ft_list.end());
+	it = emptyListD.begin();
+	emptyListD.insert(it, list.begin(), list.end());
+	chk_result(ft_emptyListD, emptyListD, "list", "INSERT(3)[RANGE] [FULL TO EMPTY]");
 	return 0;
 };
 
@@ -392,10 +415,18 @@ int test_list_erase() {
 
 	ft_it = ft_list.erase(ft_it);
 	it = list.erase(it);
+	if (*it != *ft_it) {
+		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
+		handle_error(ft_list, list, "list", "ERASE(1) [begin]", "CONTENT", std::cerr);
+	}
 	chk_result(ft_list, list, "list", "ERASE(1) [begin]");
 
 	ft_it = ft_list.erase(ft_it);
 	it = list.erase(it);
+	if (*it != *ft_it) {
+		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
+		handle_error(ft_list, list, "list", "ERASE(1) [begin]", "CONTENT", std::cerr);
+	}
 	chk_result(ft_list, list, "list", "ERASE(1) [begin]");
 
 	//INVALID POSITION = UNDEFINED BEHAVIOR
@@ -411,38 +442,55 @@ int test_list_erase() {
 		it = list.erase(it);
 	chk_result(ft_list, list, "list", "ERASE(1) [all]");
 
-	//erase empty (begin())
+	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
+	//ft::List<char> ft_emptyList;
+	//std::list<char> emptyList;
+	//ft_emptyList.erase(ft_emptyList.begin());
+	//emptyList.erase(emptyList.begin());
+	//chk_result(ft_emptyList, emptyList, "list", "ERASE(1) [EMPTY]");
 
 	//------------------------------------------------------------------------
 
-	std::cout << "[ERASE(2)]" << std::endl;
+	std::cout << "[ERASE(2)[RANGE]]" << std::endl;
 
-	// ft::List<char> ft_list(10, '!');
-	// ft_list.push_back('@');
-	// ft_list.push_back('&');
-	// ft_list.push_front('z');
+	ft_list.erase(ft_list.begin(), ft_list.end());
+	list.erase(list.begin(), list.end());
+	chk_result(ft_list, list, "list", "ERASE(2)[RANGE] [EMPTY]");
 	
-	// std::list<char> list(10, '!');
-	// list.push_back('@');
-	// list.push_back('&');
-	// list.push_front('z');
+	ft_list.insert(ft_list.begin(), 10, '!');
+	ft_list.push_back('@');
+	ft_list.push_back('&');
+	ft_list.push_front('z');
+	ft_it = ft_list.begin();
+	ft_it++;
+	ft_it++;
 
-	// ft::List<char>::iterator ft_it = ft_list.begin();
-	// std::list<char>::iterator it = list.begin();
+	list.insert(list.begin(), 10, '!');
+	list.push_back('@');
+	list.push_back('&');
+	list.push_front('z');
+	it = list.begin();
+	it++;
+	it++;
 
-	// ft_it = ft_list.erase(ft_it);
-	// it = list.erase(it);
-	// chk_result(ft_list, list, "list", "ERASE(1) [begin]");
-
-	// ft_it = ft_list.erase(ft_it);
-	// it = list.erase(it);
-	// chk_result(ft_list, list, "list", "ERASE(1) [begin]");
+	ft::List<char>::iterator ft_last = ft_it;
+	std::list<char>::iterator last = it;
+	ft_last++;
+	last++;
+	ft_it = ft_list.erase(ft_it, ft_last);
+	it = list.erase(it, last);
+	if (*it != *ft_it) {
+		std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
+		handle_error(ft_list, list, "list", "ERASE(2)[RANGE] [PARTIAL]", "CONTENT", std::cerr);
+	}
+	chk_result(ft_list, list, "list", "ERASE(2)[RANGE] [PARTIAL]");
+	
+	ft_it = ft_list.erase(ft_list.begin(), ft_list.end());
+	it = list.erase(list.begin(), list.end());
+	chk_result(ft_list, list, "list", "ERASE(2)[RANGE] [TOTAL]");
+	//not comparing return pointers because they point after end() in this case
 
 	//------------------------------------------------------------------------
-
-	//erase range begin to end
-	//erase range begin to end on empty
-
 	return 0;
 };
 

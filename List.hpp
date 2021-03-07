@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/06 17:04:58 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/07 13:39:03 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,7 @@ namespace ft {
 				//std::cout << "in insert 4 range" << std::endl;
 				while (first != last) {
 					//std::cout << "adding " << *first << std::endl;
-					position = insert(position, *first);
+					insert(position, *first);
 					first++;
 					//std::cout << "beg value: " << _begin->getValue() << std::endl;
 				}
@@ -296,12 +296,10 @@ namespace ft {
 			
 			iterator erase (iterator first, iterator last) {
 
-				iterator ret;
+				iterator ret = iterator(last.getNode()->getNext());
 
-				if (last->getNode() == _end)
+				if (last.getNode() == _end)
 					ret = this->end();
-				else
-					ret = iterator(last->getNode()->getNext());
 
 				while (first != last)
 					erase(first++);

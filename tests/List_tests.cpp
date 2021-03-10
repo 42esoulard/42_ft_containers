@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 10:08:52 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 10:52:45 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -673,6 +673,11 @@ int test_list_merge() {
 	return 0;
 };
 
+struct is_bigger {
+  bool operator() (int first, int second)
+  { return (first > second); }
+};
+
 int test_list_sort() {
 	std::cout << "SORT(1)" << std::endl;
 	ft::List<int> ft_list;
@@ -686,17 +691,25 @@ int test_list_sort() {
 	list.push_back(-70);
 	list.push_back(42);
 
-	// ft_list.sort();
-	// list.sort();
-	// chk_result(ft_list, list, "list", "SORT(1)");
+	ft_list.sort();
+	list.sort();
+	chk_result(ft_list, list, "list", "SORT(1)");
 
-	// ft::List<int> ft_listEmpty;
-	// std::list<int> listEmpty;
-	// ft_listEmpty.sort();
-	// listEmpty.sort();
-	// chk_result(ft_listEmpty, listEmpty, "list", "SORT(1) [EMPTY]");
+	ft::List<int> ft_listEmpty;
+	std::list<int> listEmpty;
+	ft_listEmpty.sort();
+	listEmpty.sort();
+	chk_result(ft_listEmpty, listEmpty, "list", "SORT(1) [EMPTY]");
 
-//	std::cout << "SORT(2)" << std::endl;
+	std::cout << "SORT(2)" << std::endl;
+	ft_list.sort(is_bigger());
+	list.sort(is_bigger());
+	chk_result(ft_list, list, "list", "SORT(2)");
+
+	ft_listEmpty.sort(is_bigger());
+	listEmpty.sort(is_bigger());
+	chk_result(ft_listEmpty, listEmpty, "list", "SORT(2) [EMPTY]");
+
 	return 0;
 };
 

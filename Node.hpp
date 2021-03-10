@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/07 15:09:04 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:44:55 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,14 @@ namespace ft {
 			void resetNode() {
 				_next = nullptr;
 				_prev = nullptr;
+			};
+
+			Node 		*getBegin() {
+				Node *begin = this;
+
+				while(begin->_prev)
+					begin = begin->_prev;
+				return begin;
 			};
 
 			void 	addNext(value_type const &value) {
@@ -129,14 +137,17 @@ namespace ft {
 			void 	swapNodes(node_type *one, node_type *two) {//beg node1 node2 end should become beg node2 node1 end
 
 			//	std::cout << "fffffcuk" <<std::endl;
+				Node *stock = two->_next;
+
 				one->_next = two->_next;
 				two->_next = one;
 				if (one->_prev)
 					one->_prev->_next = two;
+				if (stock)
+					stock->_prev = one;
+				stock = one->_prev;
 				one->_prev = two;
-				if (two->_next)
-					two->_next->_prev = one;
-				two->_prev = one->_prev;
+				two->_prev = stock;
 			};
 			
 		private :

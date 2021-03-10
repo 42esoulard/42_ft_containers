@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   List.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/07 15:16:31 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:50:33 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -522,26 +522,30 @@ namespace ft {
 				iterator it = this->begin();
 				iterator ite = this->end();
 				
-				for (int i = 0; i < this->size(); i++) {
-					for (it = this->begin(); it != ite; ++it) {
-						//std::cout << "where the fuck " << std::endl;
-						if (it.getNode()->getPrev() && it.getNode()->getPrev()->getValue() > *it) {
-							std::cout << "fuck " << std::endl;
-							it.getNode()->swapNodes(it.getNode()->getPrev(), it.getNode());
-							//it = iterator(it.getNode()->getPrev());
-						}
-						else
-						{
-							std::cout << "NOPE " << std::endl;
-						}
-						
-					}
+				for (it = this->begin(); it != ite; ++it) {
+					if (it.getNode()->getPrev() && *it < it.getNode()->getPrev()->getValue()) {
+						it.getNode()->swapNodes(it.getNode()->getPrev(), it.getNode());
+						_begin = it.getNode()->getBegin();
+						it = begin();
+					}			
 				}
 			};
 			//use < for comparison
 			
 			template <class Compare>
-  			void sort (Compare comp);
+  			void sort (Compare comp) {
+			
+				iterator it = this->begin();
+				iterator ite = this->end();
+				
+				for (it = this->begin(); it != ite; ++it) {
+					if (it.getNode()->getPrev() && comp(*it, it.getNode()->getPrev()->getValue())) {
+						it.getNode()->swapNodes(it.getNode()->getPrev(), it.getNode());
+						_begin = it.getNode()->getBegin();
+						it = begin();
+					}			
+				}
+			};
 
   			//void reverse();
 			//reverse the order of elements

@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 18:22:46 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:58:42 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -579,8 +579,6 @@ int test_list_clear() {
 	return 0;
 };
 
-	//SPLICE1/2/3
-
 int test_list_splice() {
 	std::cout << "[SPLICE(1)]" << std::endl;
 	size_t size = 6;
@@ -929,9 +927,43 @@ int test_list_unique() {
 // 	//test REVERSE_ITERATORS + CONST_REVERSE_ITERATORS
 // 
 
-//empty, size, max_size
-//asign
-//reverse
+// max_size
+//assign
+
+
+int test_list_reverse() {
+	std::cout << "[UNIQUE(1)]" << std::endl;
+	ft::List<char> ft_list(5, '!');
+	std::list<char> list(5, '!');
+
+	ft::List<char>::iterator ft_it = ft_list.begin();
+	std::list<char>::iterator it = list.begin();
+	ft_it++;
+	it++;
+	ft_list.push_back('8');
+	ft_list.push_front('1');
+	ft_list.insert(ft_it, 'a');
+	ft_list.insert(ft_it, 'b');
+	list.push_back('8');
+	list.push_front('1');
+	list.insert(it, 'a');
+	list.insert(it, 'b');
+
+	ft_list.reverse();
+	list.reverse();
+	chk_result(ft_list, list, "list", "REVERSE [FULL, EVEN]");
+	ft_list.pop_front();
+	list.pop_front();
+	chk_result(ft_list, list, "list", "REVERSE [FULL, ODD]");
+
+	ft::List<char> ft_listEmpty;
+	std::list<char> listEmpty;
+	ft_listEmpty.reverse();
+	listEmpty.reverse();
+	chk_result(ft_listEmpty, listEmpty, "list", "REVERSE [EMPTY LIST]");
+
+	return 0;
+}
 
 int test_list_empty() {
 	std::cout << "[EMPTY]" << std::endl;

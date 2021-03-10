@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:25:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 12:08:35 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:57:11 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,15 @@ template < class value_type, class node_type >
 class Reverse_Iterator : public Iterator<value_type,node_type > {
 
 	public:
-		
+		Reverse_Iterator() {node_type *tmp; p = tmp;};
+		Reverse_Iterator(node_type *x) :p(x) {};
+		Reverse_Iterator(const Reverse_Iterator& mit) : p(mit.p) {};
+
 		Reverse_Iterator<value_type,node_type >& operator++() {p = p->getPrev();return *this;};
 		Reverse_Iterator<value_type,node_type > operator++(int) {Reverse_Iterator<value_type,node_type > tmp(*this); operator++(); return tmp;};
 		bool operator==(const Reverse_Iterator<value_type,node_type >& rhs) const {return p==rhs.p;}
 		bool operator!=(const Reverse_Iterator<value_type,node_type >& rhs) const {return p!=rhs.p;}
-		int& operator*() {return *p;}
+		value_type &operator*() const {return p->getValue();};
 
 	private:
 

@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 18:22:44 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:57:55 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,12 +264,9 @@ namespace ft {
 			
 			template <class InputIterator>
     		void insert (iterator position, InputIterator first, InputIterator last) {
-				//std::cout << "in insert 4 range" << std::endl;
 				while (first != last) {
-					//std::cout << "adding " << *first << std::endl;
 					insert(position, *first);
 					first++;
-					//std::cout << "beg value: " << _begin->getValue() << std::endl;
 				}
 			};//RANGE
     		//Extend the container by inserting new elements before the element at the specified position
@@ -558,7 +555,21 @@ namespace ft {
 				}
 			};
 
-  			//void reverse();
+  			void reverse() {
+				iterator it = this->begin();
+				reverse_iterator rit = this->rbegin();
+				value_type tmp;
+				
+				int i = -1;
+				while (++i != _size / 2) {
+					tmp = *it;
+					*it = *rit;
+					*rit = tmp;
+					it++;
+					rit++;
+				}
+
+			};
 			//reverse the order of elements
 
 			//----------------------------------------------

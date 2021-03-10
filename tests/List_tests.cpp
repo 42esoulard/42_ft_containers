@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 12:06:29 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 12:57:20 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -596,10 +596,6 @@ int test_list_splice() {
 
 int test_list_remove() {
 
-	//middle
-	//begin
-	//end
-
 	std::cout << "[REMOVE]" << std::endl;
 	ft::List<char> ft_list(5, '!');
 	std::list<char> list(5, '!');
@@ -635,7 +631,41 @@ int test_list_remove() {
 	return 0;
 };
 
+struct is_odd {
+  bool operator() (const int& value) { return (value%2)==1; }
+};
+struct is_even {
+  bool operator() (const int& value) { return (value%2)==0; }
+};
+
 int test_list_removeIf() {
+	std::cout << "[REMOVE_IF]" << std::endl;
+	size_t size = 5;
+	ft::List<int> ft_list(size, 4);
+	std::list<int> list(size, 4);
+
+	ft::List<int>::iterator ft_it = ft_list.begin();
+	std::list<int>::iterator it = list.begin();
+	ft_it++;
+	it++;
+	ft_list.push_back(3);
+	ft_list.insert(ft_it, 3);
+	ft_list.insert(ft_it, 2);
+	list.push_back(3);
+	list.insert(it, 3);
+	list.insert(it, 2);
+
+	ft_list.remove_if(is_odd());
+	list.remove_if(is_odd());
+	chk_result(ft_list, list, "list", "REMOVE_IF [MIDDLE AND END]");
+
+	ft_list.remove_if(is_even());
+	list.remove_if(is_even());
+	chk_result(ft_list, list, "list", "REMOVE_IF [ALL WITH BEGIN]");
+
+	ft_list.remove_if(is_even());
+	list.remove_if(is_even());
+	chk_result(ft_list, list, "list", "REMOVE_IF [EMPTY LIST]");
 	return 0;
 };
 

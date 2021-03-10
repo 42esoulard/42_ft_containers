@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 12:06:01 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 12:56:28 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,7 +417,7 @@ namespace ft {
 				iterator tmp;
 				iterator ite = this->end();
 
-				for (it = this->begin(); it != ite; it++) {
+				for (it = this->begin(); it != ite; it) {
 					if (*it == val) {
 						tmp = iterator(it.getNode()->getNext());
 						it.getNode()->delNode();
@@ -426,24 +426,34 @@ namespace ft {
 							break ;
 						it = begin();
 					}
+					else
+						it++;
 				}
 			};
 			//remove elements with specific value
 
 			template <class Predicate>
   			void remove_if (Predicate pred) {
-				iterator it;
+				iterator it = this->begin();
 				iterator tmp;
 				iterator ite = this->end();
+				int index = -1;
 
-				for (it = this->begin(); it != ite; it++) {
+				for (it = this->begin(); it != ite; it) {
+					index++;
 					if (pred(*it)) {
-						tmp = iterator(it->getNode()->getNext());
-						it->getNode()->delNode();
-						it = tmp;
+						tmp = iterator(it.getNode()->getNext());
+						it.getNode()->delNode();
+						_begin = _end->getBegin();
+						if (tmp.getNode() == _end)
+							break ;
+						it = begin();
+						index = -1;
 					}
+					else
+						it++;
 				}
-		 	};
+			};
 			// pred is a function returning a bool. Check if p(val) is true for each element
 
 			void unique() {

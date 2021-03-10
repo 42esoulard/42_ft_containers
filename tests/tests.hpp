@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 12:02:46 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 12:29:51 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 	o << std::string( nb, ' ' ) << tmp << std::endl;
 
 	conv << ft_size;
-	tmp = "ft_" + type + ": " + conv.str();
+	tmp = "ft_" + type + ": <" + conv.str() + ">";
 	conv.str(std::string());
 	nb = (w - tmp.size()) / 2;
 	o << tmp << std::string( nb, ' ' );
 
 	conv << std_size;
-	tmp = "std_" + type + ": " + conv.str();
+	tmp = "std_" + type + ": <" + conv.str() + ">";
 	conv.str(std::string());
 	nb = (w - tmp.size()) / 2;
 	o << std::string( nb, ' ' ) << tmp << std::endl;
@@ -92,7 +92,7 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 		if (ft_it != ft_ite) {
 			conv << *ft_it;
 			nb = (w - conv.str().size()) / 2;
-			o << conv.str() << std::string( nb, ' ' );
+			o << "[" << conv.str() << "]" << std::string( nb, ' ' );
 			conv.str(std::string());
 			ft_it++;
 		}
@@ -101,7 +101,7 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 		if (std_it != std_ite) {
 			conv << *std_it;
 			nb = (w - conv.str().size()) / 2;
-			o << std::string( nb, ' ' ) << conv.str() << std::endl;
+			o << std::string( nb, ' ' ) << "[" << conv.str() << "]" << std::endl;
 			conv.str(std::string());
 			std_it++;
 		}

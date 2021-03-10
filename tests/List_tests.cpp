@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   List_tests.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/07 15:10:13 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:08:52 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -686,9 +686,9 @@ int test_list_sort() {
 	list.push_back(-70);
 	list.push_back(42);
 
-	ft_list.sort();
-	list.sort();
-	chk_result(ft_list, list, "list", "SORT(1)");
+	// ft_list.sort();
+	// list.sort();
+	// chk_result(ft_list, list, "list", "SORT(1)");
 
 	// ft::List<int> ft_listEmpty;
 	// std::list<int> listEmpty;

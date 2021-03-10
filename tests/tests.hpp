@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   tests.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/06 15:53:12 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:08:25 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTS_H
 #define TESTS_H
+
+#if defined(__linux__)
+	#define _NOEXCEPT noexcept
+#endif
 
 #include <iomanip>
 #include <string>
@@ -21,8 +25,8 @@ class customException : public std::exception {
 	public:
 		customException(std::string const &str) : _err(str) {};
 		virtual char const *what() const _NOEXCEPT {return _err.c_str();};
-        virtual ~customException() _NOEXCEPT {};
-	
+       	virtual ~customException() _NOEXCEPT {};
+
 	protected:
 		std::string const _err;	
 };

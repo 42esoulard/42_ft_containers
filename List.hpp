@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 11:18:50 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 12:06:01 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -424,7 +424,7 @@ namespace ft {
 						_begin = tmp.getNode()->getBegin();
 						if (tmp.getNode() == _end)
 							break ;
-						it = tmp;
+						it = begin();
 					}
 				}
 			};

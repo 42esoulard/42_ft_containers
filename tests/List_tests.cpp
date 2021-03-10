@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 11:19:06 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 12:06:29 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -627,11 +627,11 @@ int test_list_remove() {
 	list.remove('b');
 	chk_result(ft_list, list, "list", "REMOVE [WITH ALL]");
 
-	// ft::List<char> ft_listEmpty;
-	// std::list<char> listEmpty;
-	// ft_listEmpty.remove('a');
-	// listEmpty.remove('a');
-	// chk_result(ft_listEmpty, listEmpty, "list", "REMOVE [EMPTY LIST]");
+	ft::List<char> ft_listEmpty;
+	std::list<char> listEmpty;
+	ft_listEmpty.remove('a');
+	listEmpty.remove('a');
+	chk_result(ft_listEmpty, listEmpty, "list", "REMOVE [EMPTY LIST]");
 	return 0;
 };
 

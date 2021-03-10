@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/06 16:39:37 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/10 13:02:40 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 int main(void) {
 
-	testsPtr listTests[21] = {&test_list_pushBack_iterate, &test_list_front_back, &test_list_fillConstr, &test_list_rangeConstr, &test_list_copyConstr,
+	testsPtr listTests[22] = {&test_list_pushBack_iterate, &test_list_front_back, &test_list_fillConstr, &test_list_rangeConstr, &test_list_copyConstr,
                         	&test_list_opEqual, &test_list_pushFront, &test_list_popFront, &test_list_popBack, &test_list_insert,
                         	&test_list_erase, &test_list_swap, &test_list_resize, &test_list_clear, &test_list_splice, 
                        	 	&test_list_remove, &test_list_removeIf, &test_list_unique, &test_list_merge, &test_list_sort,
-                        	&test_list_nonMembers};
+                        	&test_list_nonMembers, &test_list_empty, };
 
 	try {
 

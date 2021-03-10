@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 12:49:25 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:43:54 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,13 @@ namespace ft {
 				newNode->_next = this;
 			};
 
-			void 	addPrevNode(node_type const &newNode) {
-			
-				if (this->_prev) {
-					newNode->_prev = this->_prev;
+			void 	addPrevNode(node_type *newNode) {
+				//<-       ->
+				//  newNode this
+				newNode->_prev = this->_prev;
+				if (this->_prev) 
 					this->_prev->_next = newNode;
-				}
+			
 				this->_prev = newNode;
 				newNode->_next = this;
 			};

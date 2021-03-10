@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 12:57:20 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 14:44:45 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -579,18 +579,157 @@ int test_list_clear() {
 	return 0;
 };
 
-
+	//SPLICE1/2/3
 
 int test_list_splice() {
-	//full ordered vs empty
-	//empty vs full ordered 
-	//full ordered vs full ordered 
-	//empty vs empty
-	//full ordered vs full disordered
-	//full disordered vs full ordered
-	//full disordered vs full disordered
-	//full ordered vs nullptr
-	//nullptr vs full ordered
+	std::cout << "[SPLICE(1)]" << std::endl;
+	size_t size = 6;
+	ft::List<int> ft_listA(size, 1);
+	ft_listA.push_back(3);
+	ft_listA.push_back(6);
+	ft::List<int> ft_listB(size, 2);
+	ft_listB.push_back(4);
+	ft_listB.push_back(5);
+	ft_listB.push_back(8);
+	std::list<int> listA(size, 1);
+	listA.push_back(3);
+	listA.push_back(6);
+	std::list<int> listB(size, 2);
+	listB.push_back(4);
+	listB.push_back(5);
+	listB.push_back(8);
+
+	ft_listA.splice(ft_listA.begin(), ft_listB);
+	listA.splice(listA.begin(), listB);
+	chk_result(ft_listA, listA, "list", "SPLICE(1) [FULL ORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listB, listB, "list", "SPLICE(1) [FULL ORDERED vs FULL ORDERED] 2/2");
+	
+	ft::List<int> ft_listEmptyA;
+	std::list<int> listEmptyA;
+	ft::List<int> ft_listEmptyB;
+	std::list<int> listEmptyB;
+	ft_listEmptyA.splice(ft_listEmptyA.begin(), ft_listEmptyB);
+	listEmptyA.splice(listEmptyA.begin(), listEmptyB);
+	chk_result(ft_listEmptyA, listEmptyA, "list", "SPLICE(1) [EMPTY vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "SPLICE(1) [EMPTY vs EMPTY] 2/2");
+
+	ft_listA.splice(ft_listA.begin(), ft_listEmptyB);
+	listA.splice(listA.begin(), listEmptyB);
+	chk_result(ft_listA, listA, "list", "SPLICE(1) [FULL vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "SPLICE(1) [FULL vs EMPTY] 2/2");
+
+	ft_listEmptyB.splice(ft_listEmptyB.begin(), ft_listA);
+	listEmptyB.splice(listEmptyB.begin(), listA);
+	chk_result(ft_listEmptyB, listEmptyB, "list", "SPLICE(1) [EMPTY vs FULL] 1/2");
+	chk_result(ft_listA, listA, "list", "SPLICE(1) [EMPTY vs FULL] 2/2");
+ 
+	ft::List<int> ft_listC(size, 2);
+	ft_listC.push_back(4);
+	ft_listC.push_back(5);
+	ft_listC.push_back(8);
+	ft::List<int> ft_listD(size, 2);
+	ft_listD.push_back(9);
+	ft_listD.push_back(1);
+	ft_listD.push_back(1);
+	std::list<int> listC(size, 2);
+	listC.push_back(4);
+	listC.push_back(5);
+	listC.push_back(8);
+	std::list<int> listD(size, 2);
+	listD.push_back(9);
+	listD.push_back(1);
+	listD.push_back(1);
+	
+	ft_listC.splice(ft_listC.begin(), ft_listD);
+	listC.splice(listC.begin(), listD);
+	chk_result(ft_listC, listC, "list", "SPLICE(1) [FULL DISORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listD, listD, "list", "SPLICE(1) [FULL DISORDERED vs FULL DISORDERED] 2/2");
+
+	ft::List<int> ft_listE(size, 1);
+	ft_listE.push_back(1);
+	ft_listE.push_back(2);
+	ft_listE.push_back(3);
+	std::list<int> listE(size, 1);
+	listE.push_back(1);
+	listE.push_back(2);
+	listE.push_back(3);
+	ft::List<int> ft_listF(size, 1);
+	ft_listF.push_back(5);
+	ft_listF.push_back(1);
+	ft_listF.push_back(3);
+	std::list<int> listF(size, 1);
+	listF.push_back(5);
+	listF.push_back(1);
+	listF.push_back(3);
+
+	ft_listE.splice(ft_listE.begin(), ft_listF);
+	listE.splice(listE.begin(), listF);
+	chk_result(ft_listE, listE, "list", "SPLICE(1) [FULL ORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listF, listF, "list", "SPLICE(1) [FULL ORDERED vs FULL DISORDERED] 2/2");
+
+	ft::List<int> ft_listG(size, 1);
+	ft_listG.push_back(1);
+	ft_listG.push_back(2);
+	ft_listG.push_back(3);
+	std::list<int> listG(size, 1);
+	listG.push_back(1);
+	listG.push_back(2);
+	listG.push_back(3);
+	ft::List<int> ft_listH(size, 1);
+	ft_listH.push_back(5);
+	ft_listH.push_back(1);
+	ft_listH.push_back(3);
+	std::list<int> listH(size, 1);
+	listH.push_back(5);
+	listH.push_back(1);
+	listH.push_back(3);
+
+	ft_listH.splice(ft_listH.begin(), ft_listG);
+	listH.splice(listH.begin(), listG);
+	chk_result(ft_listH, listH, "list", "SPLICE(1) [FULL DISORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listG, listG, "list", "SPLICE(1) [FULL DISORDERED vs FULL ORDERED] 2/2");
+
+	//------------------------------------------------------------------------
+
+	std::cout << "[SPLICE(2)]" << std::endl;
+	size = 6;
+	ft::List<int> ft_listI(size, 1);
+	ft_listI.push_back(3);
+	ft_listI.push_back(6);
+	ft::List<int> ft_listJ(size, 2);
+	ft_listJ.push_back(4);
+	ft_listJ.push_back(5);
+	ft_listJ.push_back(8);
+	std::list<int> listI(size, 1);
+	listI.push_back(3);
+	listI.push_back(6);
+	std::list<int> listJ(size, 2);
+	listJ.push_back(4);
+	listJ.push_back(5);
+	listJ.push_back(8);
+
+	ft::List<int>::iterator ft_it = ft_listJ.begin();
+	std::list<int>::iterator it = listJ.begin();
+
+	ft_listI.splice(ft_listI.begin(), ft_listJ, ft_it);
+	listI.splice(listI.begin(), listJ, it);
+	chk_result(ft_listI, listI, "list", "SPLICE(2) [BEGIN] 1/2");
+	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [BEGIN] 2/2");
+
+	ft_it = ft_listJ.begin();
+	ft_it++;
+	it = listJ.begin();
+	it++;
+
+	ft_listI.splice(ft_listI.begin(), ft_listJ, ft_it);
+	listI.splice(listI.begin(), listJ, it);
+	chk_result(ft_listI, listI, "list", "SPLICE(2) [MIDDLE] 1/2");
+	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [MIDDLE] 2/2");
+
+	ft_listI.splice(ft_listI.begin(), ft_listJ, ft_listJ.end());
+	listI.splice(listI.begin(), listJ, listJ.end());
+	chk_result(ft_listI, listI, "list", "SPLICE(2) [END] 1/2");
+	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [END] 2/2");
 	return 0;
 };
 
@@ -729,11 +868,47 @@ int test_list_unique() {
 };
 
 // 	//test REVERSE_ITERATORS + CONST_REVERSE_ITERATORS
-// 	//SPLICE1/2/3, REMOVE, REMOVE_IF
+// 
 
 //empty, size, max_size
 //asign
 //reverse
+
+int test_list_empty() {
+	std::cout << "[EMPTY]" << std::endl;
+	
+	ft::List<char> ft_list(5, '!');
+	std::list<char> list(5, '!');
+	ft::List<char>::iterator ft_it = ft_list.begin();
+	std::list<char>::iterator it = list.begin();
+	ft_it++;
+	it++;
+
+	ft_list.push_back('a');
+	ft_list.insert(ft_it, 'a');
+	ft_list.insert(ft_it, 'b');
+	list.push_back('a');
+	list.insert(it, 'a');
+	list.insert(it, 'b');
+	bool ft_empty = ft_list.empty();
+	bool std_empty = list.empty();
+	if (ft_empty != std_empty) {
+		std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
+		handle_error(ft_list, list, "list", "EMPTY [FULL]", "CONTENT", std::cerr);
+	}
+	
+	ft::List<char> ft_listEmpty;
+	std::list<char> listEmpty;
+	ft_listEmpty.empty();
+	listEmpty.empty();
+	ft_empty = ft_list.empty();
+	std_empty = list.empty();
+	if (ft_empty != std_empty) {
+		std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
+		handle_error(ft_list, list, "list", "EMPTY [EMPTY]", "CONTENT", std::cerr);
+	}
+	return 0;
+};
 
 int test_list_merge() {
 	return 0;
@@ -745,7 +920,7 @@ struct is_bigger {
 };
 
 int test_list_sort() {
-	std::cout << "SORT(1)" << std::endl;
+	std::cout << "[SORT(1)]" << std::endl;
 	ft::List<int> ft_list;
 	std::list<int> list;
 	ft_list.push_back(0);
@@ -767,7 +942,7 @@ int test_list_sort() {
 	listEmpty.sort();
 	chk_result(ft_listEmpty, listEmpty, "list", "SORT(1) [EMPTY]");
 
-	std::cout << "SORT(2)" << std::endl;
+	std::cout << "[SORT(2)]" << std::endl;
 	ft_list.sort(is_bigger());
 	list.sort(is_bigger());
 	chk_result(ft_list, list, "list", "SORT(2)");

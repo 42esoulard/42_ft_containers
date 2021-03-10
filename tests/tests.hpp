@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 12:29:51 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:40:57 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int chk_result(ft_class ft_container, std_class std_container, std::string const
 	typename std_class::iterator std_ite = std_container.end();
 
 	for (ft_it = ft_container.begin(); ft_it != ft_ite; ft_it++) {
-		if (*ft_it != *std_it) 
+		if (*ft_it != *std_it)
 			handle_error(ft_container, std_container, type, func, "CONTENT", std::cerr);
 		std_it++;
 	}
@@ -171,6 +171,7 @@ int test_list_splice();
 int test_list_remove();
 int test_list_removeIf();
 int test_list_unique();
+int test_list_empty();
 int test_list_merge();
 int test_list_sort();
 int test_list_nonMembers();

@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 12:56:28 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 14:44:08 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,28 +370,29 @@ namespace ft {
 			//OPERATIONS
 
 			void splice (iterator position, List& other) {
-				iterator srcIt = other._begin;
-				iterator srcEnd = other._end;
-				node_type *cur = position->getNode();;
+				iterator srcIt = other.begin();
+				iterator otherNext = srcIt;
+				iterator srcEnd = other.end();
+				node_type *cur = position.getNode();;
 
 				while (srcIt != srcEnd) {
-					cur->addPrevNode(srcIt->getNode());
-					cur = cur->getPrev();
-					srcIt++;
+					otherNext++;
+					cur->addPrevNode(srcIt.getNode());
+					srcIt = otherNext;
 				}
+				_begin = _end->getBegin();
 				other._end->resetNode();
 				other._begin = other._end;
-
 			}; //ENTIRE LIST
 			
 			void splice (iterator position, List& other, iterator it) {
 
 				node_type *cur;
 
-				it->getNode()->forgetNode();
+				it.getNode()->forgetNode();
 				
-				cur = position->getNode();
-				cur->addPrevNode(it->getNode());
+				cur = position.getNode();
+				cur->addPrevNode(it.getNode());
 		
 			}; //1 ELEMENT
 			

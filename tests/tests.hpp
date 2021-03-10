@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 18:43:50 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 20:04:18 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ int test_list_removeIf();
 int test_list_unique();
 int test_list_empty();
 int test_list_merge();
+int test_list_assign();
 int test_list_sort();
 int test_list_reverse();
 int test_list_nonMembers();

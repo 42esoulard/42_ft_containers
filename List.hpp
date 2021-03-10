@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 18:57:55 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 20:24:56 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 namespace ft {
 
-	template < class T > 
+	template < class T, class Alloc = std::allocator<T> > 
 	class List {
 
 		public:
@@ -26,7 +26,7 @@ namespace ft {
 			typedef T 													value_type;
 			typedef Node<value_type> 									node_type;
 			typedef typename std::allocator<node_type> 					allocator_type;
-			typedef allocator_type 										Alloc;
+			//typedef allocator_type 										Alloc;
 			typedef value_type											&reference;
 			typedef value_type const	 								&const_reference;
 			typedef node_type 											*pointer;
@@ -184,6 +184,7 @@ namespace ft {
 
 			template <class InputIterator>
   			void assign (InputIterator first, InputIterator last) {
+				this->clear();
   				while (first != last) {
 		 			this->push_back(*first);
 		 			first++;
@@ -191,6 +192,7 @@ namespace ft {
   			};//RANGE
 
 			void assign (size_type n, const value_type& val) {
+				this->clear();
 				while (_size < n) {
 					push_back(val);
 				}
@@ -573,32 +575,7 @@ namespace ft {
 			//reverse the order of elements
 
 			//----------------------------------------------
-			
-			//NON MEMBER FUNCTION OVERLOADS
-
-	// 			template <class T, class Alloc>
-	//   bool operator== (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs);
-
-	// template <class T, class Alloc>
-	//   bool operator!= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs);
-
-	// template <class T, class Alloc>
-	//   bool operator<  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs);
-
-	// template <class T, class Alloc>
-	//   bool operator<= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs);
-
-	// template <class T, class Alloc>
-	//   bool operator>  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs);
-
-	// template <class T, class Alloc>
-	//   bool operator>= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs);
-
-			//lord have mercy
-
-	//template <class T, class Alloc>
-  	//void swap (List<T,Alloc>& x, List<T,Alloc>& y);
-			//
+		//
 			//----------------------------------------------
 			//----------------------------------------------
 			//----------------------------------------------
@@ -612,6 +589,96 @@ namespace ft {
 			
 
 	};
+				
+			//NON MEMBER FUNCTION OVERLOADS
+
+	template <class T, class Alloc = std::allocator<T> >
+	bool operator== (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	
+		if (lhs.size() != rhs.size())
+			return false;
+
+		Iterator<const T, const Node<T>> lhsIt = lhs.begin();
+		Iterator<const T, const Node<T>> rhsIt = rhs.begin();
+		
+		int i = -1;
+		while (++i != lhs.size()) {
+			if (*lhsIt != *rhsIt)
+				return false;
+			lhsIt++;
+			rhsIt++;
+		}
+		return true;
+	};
+
+	template <class T, class Alloc>
+	bool operator!= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+		if (rhs == lhs)
+			return false;
+		return true;
+	};
+
+	template <class T, class Alloc>
+	bool operator<  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+
+		if (lhs.size() > rhs.size())
+		 	return false;
+
+		Iterator<const T, const Node<T>> lhsIt = lhs.begin();
+		Iterator<const T, const Node<T>> rhsIt = rhs.begin();
+	
+		int i = 0;
+		while (i != lhs.size() && i != rhs.size()) {
+			if (*lhsIt < *rhsIt)
+				return true;
+			lhsIt++;
+			rhsIt++;
+			i++;
+		}
+		
+		return false;
+	};
+
+	template <class T, class Alloc>
+	bool operator<= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+		if (lhs == rhs)
+			return true;
+		return (lhs < rhs);
+	};
+
+	template <class T, class Alloc>
+	bool operator>  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	
+		if (lhs.size() < rhs.size())
+			return false;
+
+		Iterator<const T, const Node<T>> lhsIt = lhs.begin();
+		Iterator<const T, const Node<T>> rhsIt = rhs.begin();
+	
+		int i = 0;
+		while (i != lhs.size() && i != rhs.size()) {
+			if (*lhsIt > *rhsIt)
+				return true;
+			lhsIt++;
+			rhsIt++;
+			i++;
+		}
+		
+		return false;
+	};
+
+	template <class T, class Alloc>
+	bool operator>= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+		if (lhs == rhs)
+			return true;
+		return (lhs > rhs);
+	};
+
+	template <class T, class Alloc>
+  	void swap (List<T,Alloc>& x, List<T,Alloc>& y) {
+		  x.swap(y);
+	};
+	
 };
 
 #endif

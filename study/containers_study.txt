@@ -1,5 +1,4 @@
 TO DO:
-- build std::list skeleton from cplusplus.com
 - study SFINAE : Substitution Failure Is Not An Error ? tjs pas compris
 
 

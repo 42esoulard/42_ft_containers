@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 14:44:08 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:22:44 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -388,28 +388,25 @@ namespace ft {
 			void splice (iterator position, List& other, iterator it) {
 
 				node_type *cur;
-
 				it.getNode()->forgetNode();
-				
 				cur = position.getNode();
 				cur->addPrevNode(it.getNode());
-		
+				_begin = _end->getBegin();				
+				other._begin = other._end->getBegin();
 			}; //1 ELEMENT
 			
 			void splice (iterator position, List& other, iterator first, iterator last) {
 
-				node_type *cur = position->getNode();;
+				node_type *cur = position.getNode();;
 				iterator next;
 
 				while (first != last) {
 					next = first;
 					next++;
-					cur->addPrevNode(first->getNode());
-					cur = cur->getPrev();
+					splice(position, other, first);
 					first = next;
 				}
-				other._end->resetNode();
-				other._begin = other._end;
+				_begin = _end->getBegin();
 			}; //RANGE
 			// Transfer of elements from other into the container
 

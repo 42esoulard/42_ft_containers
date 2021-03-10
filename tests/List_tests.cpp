@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 14:44:45 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:22:46 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -726,10 +726,69 @@ int test_list_splice() {
 	chk_result(ft_listI, listI, "list", "SPLICE(2) [MIDDLE] 1/2");
 	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [MIDDLE] 2/2");
 
-	ft_listI.splice(ft_listI.begin(), ft_listJ, ft_listJ.end());
-	listI.splice(listI.begin(), listJ, listJ.end());
+	//END = UNDEFINED BEHAVIOUR
+	// ft_listI.splice(ft_listI.begin(), ft_listJ, ft_listJ.end());
+	// listI.splice(listI.begin(), listJ, listJ.end());
+	// chk_result(ft_listI, listI, "list", "SPLICE(2) [END] 1/2");
+	// chk_result(ft_listJ, listJ, "list", "SPLICE(2) [END] 2/2");
+
+	//------------------------------------------------------------------------
+
+	std::cout << "[SPLICE(3)]" << std::endl;
+	size = 6;
+	ft::List<int> ft_listK(size, 1);
+	ft_listK.push_back(3);
+	ft_listK.push_back(6);
+	ft::List<int> ft_listL(size, 10);
+	ft_listL.push_back(4);
+	ft_listL.push_back(5);
+	ft_listL.push_back(8);
+	std::list<int> listK(size, 1);
+	listK.push_back(3);
+	listK.push_back(6);
+	std::list<int> listL(size, 10);
+	listL.push_back(4);
+	listL.push_back(5);
+	listL.push_back(8);
+
+	ft::List<int>::iterator ft_itFirst = ft_listL.begin();
+	std::list<int>::iterator itFirst = listL.begin();
+	ft::List<int>::iterator ft_itLast = ft_itFirst;
+	ft_itLast++;
+	std::list<int>::iterator itLast = itFirst;
+	itLast++;
+
+	ft_listK.splice(ft_listK.begin(), ft_listL, ft_itFirst, ft_itLast);
+	listK.splice(listK.begin(), listL, itFirst, itLast);
+	chk_result(ft_listK, listK, "list", "SPLICE(3) [BEGIN] 1/2");
+	chk_result(ft_listL, listL, "list", "SPLICE(3) [BEGIN] 2/2");
+
+	ft_itFirst = ft_listL.begin();
+	ft_itFirst++;
+	ft_itLast = ft_itFirst;
+	ft_itLast++;
+	ft_itLast++;
+	itFirst = listL.begin();
+	itFirst++;
+	itLast = itFirst;
+	itLast++;
+	itLast++;
+
+	ft_listK.splice(ft_listK.begin(), ft_listL, ft_itFirst, ft_itLast);
+	listK.splice(listK.begin(), listL, itFirst, itLast);
+	chk_result(ft_listI, listI, "list", "SPLICE(2) [MIDDLE] 1/2");
+	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [MIDDLE] 2/2");
+	
+	ft_itFirst = ft_listL.begin();
+	ft_itLast = ft_listL.end();
+	itFirst = listL.begin();
+	ft_itLast = ft_listL.end();
+
+	ft_listK.splice(ft_listK.begin(), ft_listL, ft_itFirst, ft_itLast);
+	listK.splice(listK.begin(), listL, itFirst, itLast);
 	chk_result(ft_listI, listI, "list", "SPLICE(2) [END] 1/2");
 	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [END] 2/2");
+	
 	return 0;
 };
 

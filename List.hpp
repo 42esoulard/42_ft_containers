@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 10:50:33 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 11:18:50 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,14 +413,17 @@ namespace ft {
 			// Transfer of elements from other into the container
 
 			void remove (const value_type& val) {
-				iterator it;
+				iterator it = this->begin();
 				iterator tmp;
 				iterator ite = this->end();
 
 				for (it = this->begin(); it != ite; it++) {
 					if (*it == val) {
-						tmp = iterator(it->getNode()->getNext());
-						it->getNode()->delNode();
+						tmp = iterator(it.getNode()->getNext());
+						it.getNode()->delNode();
+						_begin = tmp.getNode()->getBegin();
+						if (tmp.getNode() == _end)
+							break ;
 						it = tmp;
 					}
 				}

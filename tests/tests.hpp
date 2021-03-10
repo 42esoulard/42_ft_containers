@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 10:08:25 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 12:02:46 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,44 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 	int ft_size = ft_container.size();
 	int std_size = std_container.size();
 
+	int w = 60;
+	std::string tmp;
+	std::string a;
+	std::stringstream conv;
 	int step = 40;
-	int adjustedStep = 40 - (type.size() + 1);
-	
-	o << std::setw(53) << "------------------------------------" << std::endl;
 
-	o << std::setw(step) << "- SIZE -" << std::endl;
-	o << "ft_" << type << ": " << ft_size << std::setw(adjustedStep - 5) << " ";
-	o <<  std::setw(adjustedStep - 5) << "std_" << type << ": " << std_size << std::endl;
+	tmp = "------------------------------------";
+	int nb = (w - tmp.size()) / 2;
+	o << std::string( nb, ' ' ) << tmp << std::endl;
 
-	o << std::endl << std::setw(41) << "- CONTENT -" << std::endl;
-	o <<  "ft_" << type << std::setw(adjustedStep - 6) << " | ";
-	o << std::setw(adjustedStep) << "std_" << type << std::endl;
+	tmp = "- SIZE -";
+	nb = (w - tmp.size()) / 2;
+	o << std::string( nb, ' ' ) << tmp << std::endl;
+
+	conv << ft_size;
+	tmp = "ft_" + type + ": " + conv.str();
+	conv.str(std::string());
+	nb = (w - tmp.size()) / 2;
+	o << tmp << std::string( nb, ' ' );
+
+	conv << std_size;
+	tmp = "std_" + type + ": " + conv.str();
+	conv.str(std::string());
+	nb = (w - tmp.size()) / 2;
+	o << std::string( nb, ' ' ) << tmp << std::endl;
+	//o << std::setw(step) << "std_" << type << ": " << std_size << std::endl;
+
+	tmp =  "- CONTENT -";
+	nb = (w - tmp.size()) / 2;
+	o << std::string( nb, ' ' ) << tmp << std::endl;
+
+	tmp = "ft_" + type + ": ";
+	nb = (w - tmp.size()) / 2;
+	o << tmp << std::string( nb, ' ' );
+
+	tmp = "std_" + type + ": ";
+	nb = (w - tmp.size()) / 2;
+	o << std::string( nb, ' ' ) << tmp << std::endl;
 
 	typename ft_class::iterator ft_it = ft_container.begin();
 	typename ft_class::iterator ft_ite = ft_container.end();
@@ -64,20 +90,28 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 		max = ft_size;
 	while (++i < max) {
 		if (ft_it != ft_ite) {
-			o << *ft_it << std::setw(adjustedStep) << " | ";
+			conv << *ft_it;
+			nb = (w - conv.str().size()) / 2;
+			o << conv.str() << std::string( nb, ' ' );
+			conv.str(std::string());
 			ft_it++;
 		}
 		else
-			o << std::setw(adjustedStep + 1) << " | ";
+			o << std::string( w/2, ' ' );
 		if (std_it != std_ite) {
-			o << std::setw(adjustedStep) << *std_it << std::endl;
+			conv << *std_it;
+			nb = (w - conv.str().size()) / 2;
+			o << std::string( nb, ' ' ) << conv.str() << std::endl;
+			conv.str(std::string());
 			std_it++;
 		}
 		else
-			o << std::setw(adjustedStep + 1) << std::endl;
+			o << std::string( w/2, ' ' ) << std::endl;
 	}
 
-	o << std::setw(53) << "------------------------------------" << std::endl;
+	tmp = "------------------------------------";
+	nb = (w - tmp.size()) / 2;
+	o << std::string( nb, ' ' ) << tmp << std::endl;
 };
 
 template <class ft_class, class std_class>

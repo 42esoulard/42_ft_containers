@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:25:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/02/27 17:00:20 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/10 11:03:06 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class Iterator {
 	public:
 
 		// typedef T 					value_type;
-
+		Iterator() {node_type *tmp; p = tmp;};
 		Iterator(node_type *x) :p(x) {};
 		Iterator(const Iterator& mit) : p(mit.p) {};
 

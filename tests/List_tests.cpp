@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 10:52:45 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/10 11:19:06 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -595,6 +595,43 @@ int test_list_splice() {
 };
 
 int test_list_remove() {
+
+	//middle
+	//begin
+	//end
+
+	std::cout << "[REMOVE]" << std::endl;
+	ft::List<char> ft_list(5, '!');
+	std::list<char> list(5, '!');
+
+	ft::List<char>::iterator ft_it = ft_list.begin();
+	std::list<char>::iterator it = list.begin();
+	ft_it++;
+	it++;
+	ft_list.push_back('a');
+	ft_list.insert(ft_it, 'a');
+	ft_list.insert(ft_it, 'b');
+	list.push_back('a');
+	list.insert(it, 'a');
+	list.insert(it, 'b');
+
+	ft_list.remove('a');
+	list.remove('a');
+	chk_result(ft_list, list, "list", "REMOVE [WITH DOUBLES]");
+
+	ft_list.remove('!');
+	list.remove('!');
+	chk_result(ft_list, list, "list", "REMOVE [WITH BEGIN]");
+
+	ft_list.remove('b');
+	list.remove('b');
+	chk_result(ft_list, list, "list", "REMOVE [WITH ALL]");
+
+	// ft::List<char> ft_listEmpty;
+	// std::list<char> listEmpty;
+	// ft_listEmpty.remove('a');
+	// listEmpty.remove('a');
+	// chk_result(ft_listEmpty, listEmpty, "list", "REMOVE [EMPTY LIST]");
 	return 0;
 };
 
@@ -666,7 +703,6 @@ int test_list_unique() {
 
 //empty, size, max_size
 //asign
-//sort
 //reverse
 
 int test_list_merge() {

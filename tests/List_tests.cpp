@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/11 21:17:08 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 21:29:47 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1028,7 +1028,114 @@ int test_list_unique() {
 };
 
 int test_list_merge() {
-	std::cout << "[MERGE]" << std::endl;
+	/*std::cout << "[MERGE(1)]" << std::endl;
+
+	size_t size = 6;
+	ft::List<int> ft_listA(size, 1);
+	ft_listA.push_back(3);
+	ft_listA.push_back(6);
+	ft::List<int> ft_listB(size, 2);
+	ft_listB.push_back(4);
+	ft_listB.push_back(5);
+	ft_listB.push_back(8);
+	std::list<int> listA(size, 1);
+	listA.push_back(3);
+	listA.push_back(6);
+	std::list<int> listB(size, 2);
+	listB.push_back(4);
+	listB.push_back(5);
+	listB.push_back(8);
+
+	ft_listA.merge(ft_listB);
+	listA.merge(listB);
+	chk_result(ft_listA, listA, "list", "merge(1) [FULL ORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listB, listB, "list", "merge(1) [FULL ORDERED vs FULL ORDERED] 2/2");
+	
+	ft::List<int> ft_listEmptyA;
+	std::list<int> listEmptyA;
+	ft::List<int> ft_listEmptyB;
+	std::list<int> listEmptyB;
+	ft_listEmptyA.merge(ft_listEmptyB);
+	listEmptyA.merge(listEmptyB);
+	chk_result(ft_listEmptyA, listEmptyA, "list", "merge(1) [EMPTY vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "merge(1) [EMPTY vs EMPTY] 2/2");
+
+	ft_listA.merge(ft_listEmptyB);
+	listA.merge(listEmptyB);
+	chk_result(ft_listA, listA, "list", "merge(1) [FULL vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "merge(1) [FULL vs EMPTY] 2/2");
+
+	ft_listEmptyB.merge(ft_listA);
+	listEmptyB.merge(listA);
+	chk_result(ft_listEmptyB, listEmptyB, "list", "merge(1) [EMPTY vs FULL] 1/2");
+	chk_result(ft_listA, listA, "list", "merge(1) [EMPTY vs FULL] 2/2");
+ 
+	ft::List<int> ft_listC(size, 2);
+	ft_listC.push_back(4);
+	ft_listC.push_back(5);
+	ft_listC.push_back(8);
+	ft::List<int> ft_listD(size, 2);
+	ft_listD.push_back(9);
+	ft_listD.push_back(1);
+	ft_listD.push_back(1);
+	std::list<int> listC(size, 2);
+	listC.push_back(4);
+	listC.push_back(5);
+	listC.push_back(8);
+	std::list<int> listD(size, 2);
+	listD.push_back(9);
+	listD.push_back(1);
+	listD.push_back(1);
+	
+	ft_listC.merge(ft_listD);
+	listC.merge(listD);
+	chk_result(ft_listC, listC, "list", "merge(1) [FULL DISORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listD, listD, "list", "merge(1) [FULL DISORDERED vs FULL DISORDERED] 2/2");
+
+	ft::List<int> ft_listE(size, 1);
+	ft_listE.push_back(1);
+	ft_listE.push_back(2);
+	ft_listE.push_back(3);
+	std::list<int> listE(size, 1);
+	listE.push_back(1);
+	listE.push_back(2);
+	listE.push_back(3);
+	ft::List<int> ft_listF(size, 1);
+	ft_listF.push_back(5);
+	ft_listF.push_back(1);
+	ft_listF.push_back(3);
+	std::list<int> listF(size, 1);
+	listF.push_back(5);
+	listF.push_back(1);
+	listF.push_back(3);
+
+	ft_listE.merge(ft_listF);
+	listE.merge(listF);
+	chk_result(ft_listE, listE, "list", "merge(1) [FULL ORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listF, listF, "list", "merge(1) [FULL ORDERED vs FULL DISORDERED] 2/2");
+
+	ft::List<int> ft_listG(size, 1);
+	ft_listG.push_back(1);
+	ft_listG.push_back(2);
+	ft_listG.push_back(3);
+	std::list<int> listG(size, 1);
+	listG.push_back(1);
+	listG.push_back(2);
+	listG.push_back(3);
+	ft::List<int> ft_listH(size, 1);
+	ft_listH.push_back(5);
+	ft_listH.push_back(1);
+	ft_listH.push_back(3);
+	std::list<int> listH(size, 1);
+	listH.push_back(5);
+	listH.push_back(1);
+	listH.push_back(3);
+
+	ft_listH.merge(ft_listG);
+	listH.merge(listG);
+	chk_result(ft_listH, listH, "list", "merge(1) [FULL DISORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listG, listG, "list", "merge(1) [FULL DISORDERED vs FULL ORDERED] 2/2");
+*/
 	return 0;
 };
 

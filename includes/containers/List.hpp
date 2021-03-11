@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/11 20:54:13 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 21:28:50 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,7 +489,7 @@ namespace ft {
 					return ;
 					
 				iterator otherIt = other.begin();
-				iterator otherIte = other.end();
+				// iterator otherIte = other.end();
 				iterator otherNext = otherIt;
 				iterator thisIt = this->begin();
 				iterator thisIte = this->end();

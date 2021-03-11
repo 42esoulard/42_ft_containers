@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 20:04:18 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 13:31:53 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 	#define _NOEXCEPT noexcept
 #endif
 
+#include "ft_containers.h"
 #include <iomanip>
 #include <string>
 

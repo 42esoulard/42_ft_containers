@@ -6,12 +6,13 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 20:04:05 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 15:19:12 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_containers.h"
-#include "tests/tests.hpp"
+#include "tests.hpp"
+
 #include <iostream>
 
 int main(void) {

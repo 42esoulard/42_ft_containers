@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_containers.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:49:42 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/06 13:19:18 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:32:23 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CONTAINERS_H
 #define FT_CONTAINERS_H
 
-#include "List.hpp"
 #include "Iterator.hpp"
 #include "Node.hpp"
+
+#include "List.hpp"
 
 #endif

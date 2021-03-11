@@ -1,25 +1,48 @@
+##################### CONTAINER FILES #######################
+INC_CONT	= List.hpp
+INC_CDIR	= includes/containers/
+INC_CONT 	:= $(addprefix ${INC_CDIR}, ${INC_CONT})
+#############################################################
 
-SRCS		= main.cpp tests/List_tests.cpp
+########################### UTILS ###########################
+INC_UTILS	= ft_containers.h Node.hpp Iterator.hpp	
+INC_UDIR	= includes/utils/
+INC_UTILS	:= $(addprefix ${INC_UDIR},${INC_UTILS})
+#############################################################
 
-OBJS		= ${SRCS:.cpp=.o}
+######################### TEST FILES ########################
+SRC_TEST	= main.cpp List_tests.cpp
+SRC_TDIR	= tests/
+SRC_TEST 	:= $(addprefix ${SRC_TDIR}, ${SRC_TEST})
 
-INC_DIR		= .
-INCLUDES	= ft_containers.h Node.hpp Iterator.hpp \
-			List.hpp tests/tests.hpp
+INC_TEST 	= tests.hpp
+INC_TDIR	= tests/
+INC_TEST	:= $(addprefix ${INC_TDIR}, ${INC_TEST})
+#############################################################
+
+##################### ADDING TEST FILES #####################
+SRCS 			+= ${SRC_TEST}
+OBJS			= ${SRCS:.cpp=.o}
+INCLUDES		= ${INC_CONT} ${INC_UTILS} ${INC_TEST}
+INC_DIRS 		= $(addprefix -I,${INC_UDIR} ${INC_TDIR} ${INC_CDIR})
+#############################################################
 
 CPP			= clang++
-CFLAGS		= -Wall -Wextra -Werror -std=c++98 -fsanitize=address
-
+CFLAGS		= -Wall -Wextra -Werror -std=c++98 -fsanitize=address 
 NAME		= ft_containers
 
 
 .c.o:		${SRCS} ${INCLUDES}
-			${CPP} ${CFLAGS} -I ${INC_DIR} -c $^ -o ${<:.c=.o}
+			${CPP} ${CFLAGS} ${INC_DIRS} -c $^ -o ${<:.c=.o}
+
+what :
+	@echo "includes ${INCLUDES}"
+	@echo "inc_dirs ${INC_DIRS}"
 
 all:		${NAME}
 
 ${NAME}:	${OBJS} ${INCLUDES}
-			${CPP} ${CFLAGS} -o ${NAME} ${OBJS}
+			${CPP} ${CFLAGS} ${INC_DIRS} -o ${NAME} ${OBJS}
 
 clean :
 			rm -f ${OBJS}

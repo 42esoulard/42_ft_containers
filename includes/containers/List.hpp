@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 20:24:56 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 20:54:13 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ namespace ft {
 			// CONSTRUCTORS (as Listed in c++.com):
 
 			// >>> default = a Node with no value, end and begin point to ONE node
-			explicit List (const allocator_type& alloc = allocator_type()) {
+			explicit List () {
 				_begin = new node_type();
 				_end = _begin;
 				_size = 0;
 			};
 
 			// // >>> fill
-			explicit List (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {
+			explicit List (size_type n, const value_type& val = value_type()) {
 				_begin = new node_type();
 				_end = _begin;
 				_size = 0;
@@ -60,7 +60,7 @@ namespace ft {
 
 			// // >>> range
 			template <class InputIterator>
-		 	List (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())  {
+		 	List (InputIterator first, InputIterator last)  {
 		 		_begin = new node_type();
 				_end = _begin;
 				_size = 0;
@@ -257,7 +257,7 @@ namespace ft {
 			void insert (iterator position, size_type n, const value_type& val) {
 
 				//std::cout << " in insert 3 fill" << std::endl;
-				for (int i = 0; i < n; i++) {
+				for (size_type i = 0; i < n; i++) {
 					//std::cout << "adding " << val << std::endl;
 					position = insert(position, val);
 					//std::cout << "beg value: " << _begin->getValue() << std::endl;
@@ -327,7 +327,7 @@ namespace ft {
 			void resize (size_type n, value_type val = value_type()) {
 				node_type *tmp = _begin;
 				node_type *next;
-				int i = 0;
+				size_type i = 0;
 
 				if (_size > n) { //size 3 n 2
 					while (i++ < n)
@@ -396,7 +396,6 @@ namespace ft {
 			
 			void splice (iterator position, List& other, iterator first, iterator last) {
 
-				node_type *cur = position.getNode();;
 				iterator next;
 
 				while (first != last) {
@@ -414,7 +413,7 @@ namespace ft {
 				iterator tmp;
 				iterator ite = this->end();
 
-				for (it = this->begin(); it != ite; it) {
+				while(it != ite) {
 					if (*it == val) {
 						tmp = iterator(it.getNode()->getNext());
 						it.getNode()->delNode();
@@ -436,7 +435,7 @@ namespace ft {
 				iterator ite = this->end();
 				int index = -1;
 
-				for (it = this->begin(); it != ite; it) {
+				while(it != ite) {
 					index++;
 					if (pred(*it)) {
 						tmp = iterator(it.getNode()->getNext());
@@ -591,18 +590,17 @@ namespace ft {
 	};
 				
 			//NON MEMBER FUNCTION OVERLOADS
-
-	template <class T, class Alloc = std::allocator<T> >
+	template < class T, class Alloc>
 	bool operator== (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
 	
 		if (lhs.size() != rhs.size())
 			return false;
 
-		Iterator<const T, const Node<T>> lhsIt = lhs.begin();
-		Iterator<const T, const Node<T>> rhsIt = rhs.begin();
+		Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+		Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 		
-		int i = -1;
-		while (++i != lhs.size()) {
+		size_t i = 0;
+		while (i++ != lhs.size()) {
 			if (*lhsIt != *rhsIt)
 				return false;
 			lhsIt++;
@@ -624,10 +622,10 @@ namespace ft {
 		if (lhs.size() > rhs.size())
 		 	return false;
 
-		Iterator<const T, const Node<T>> lhsIt = lhs.begin();
-		Iterator<const T, const Node<T>> rhsIt = rhs.begin();
+		Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+		Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 	
-		int i = 0;
+		size_t i = 0;
 		while (i != lhs.size() && i != rhs.size()) {
 			if (*lhsIt < *rhsIt)
 				return true;
@@ -652,10 +650,10 @@ namespace ft {
 		if (lhs.size() < rhs.size())
 			return false;
 
-		Iterator<const T, const Node<T>> lhsIt = lhs.begin();
-		Iterator<const T, const Node<T>> rhsIt = rhs.begin();
+		Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+		Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 	
-		int i = 0;
+		size_t i = 0;
 		while (i != lhs.size() && i != rhs.size()) {
 			if (*lhsIt > *rhsIt)
 				return true;

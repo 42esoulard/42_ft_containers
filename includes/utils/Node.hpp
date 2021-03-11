@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 17:44:14 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 20:30:21 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ namespace ft {
 			typedef T 					value_type;
 			typedef Node<value_type> 	node_type;
 
-			Node() : _value(), _prev(nullptr), _next(nullptr) {};
-			Node(value_type const &value) : _value(value),  _prev(nullptr), _next(nullptr) {};
+			Node() : _value(), _prev(NULL), _next(NULL) {};
+			Node(value_type const &value) : _value(value),  _prev(NULL), _next(NULL) {};
 			Node(Node const &src) : _value(src._value), _prev(src._prev), _next(src._next) {};
 			~Node() {}
 
@@ -59,8 +59,8 @@ namespace ft {
 			};
 
 			void resetNode() {
-				_next = nullptr;
-				_prev = nullptr;
+				_next = NULL;
+				_prev = NULL;
 			};
 
 			Node 		*getBegin() {
@@ -103,7 +103,7 @@ namespace ft {
 			void 	delNode() {//node0 node1 node2 endNode
 				//case: pop_front = gotta rm node0
 				
-				Node *prevNode = this->_prev; //nullptr
+				Node *prevNode = this->_prev; //NULL
 				Node *nextNode = this->_next; //node1
 
 				if (prevNode)//si size != 0
@@ -117,7 +117,7 @@ namespace ft {
 			void 	forgetNode() {//node0 node1 node2 endNode NO DELETE
 				//case: pop_front = gotta rm node0
 				
-				Node *prevNode = this->_prev; //nullptr
+				Node *prevNode = this->_prev; //NULL
 				Node *nextNode = this->_next; //node1
 
 				if (prevNode)//si size != 0

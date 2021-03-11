@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:25:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/10 18:57:11 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 20:45:21 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class Iterator {
 	public:
 
 		// typedef T 					value_type;
-		Iterator() {node_type *tmp; p = tmp;};
+		Iterator() {node_type tmp = node_type(); p = &tmp;};
 		Iterator(node_type *x) :p(x) {};
 		Iterator(const Iterator& mit) : p(mit.p) {};
 

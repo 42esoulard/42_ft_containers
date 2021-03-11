@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/11 13:31:53 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 21:18:12 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #define TESTS_H
 
 #if defined(__linux__)
-	#define _NOEXCEPT noexcept
+	#define _NOEXCEPT _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT
 #endif
 
 #include "ft_containers.h"
 #include <iomanip>
 #include <string>
+#include <sstream>
 
 class customException : public std::exception {
 			
@@ -43,7 +44,6 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 	std::string tmp;
 	std::string a;
 	std::stringstream conv;
-	int step = 40;
 
 	tmp = "------------------------------------";
 	int nb = (w - tmp.size()) / 2;
@@ -117,7 +117,7 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 
 template <class ft_class, class std_class>
 void handle_error(ft_class ft_container, std_class std_container, std::string const &type, std::string const &func, 
-	std::string const &errorTheme, std::ostream &o) {
+	std::string const &errorTheme) {
 			std::cerr << ">---FAIL--->>>  ON TEST: " << func << std::endl;
 			output_containers(ft_container, std_container, type, std::cerr);
 			throw customException("ft_container " + errorTheme + " doesn't match std::container's!");
@@ -127,39 +127,43 @@ template <class ft_class, class std_class>
 int chk_result(ft_class ft_container, std_class std_container, std::string const &type, std::string const &func) {
 
 	if (ft_container.size() != std_container.size())
-		handle_error(ft_container, std_container, type, func, "SIZE", std::cerr);
+		handle_error(ft_container, std_container, type, func, "SIZE");
 
 	typename ft_class::iterator ft_it = ft_container.begin();
 	typename ft_class::iterator ft_ite = ft_container.end();
 	
 	typename std_class::iterator std_it = std_container.begin();
-	typename std_class::iterator std_ite = std_container.end();
 
 	for (ft_it = ft_container.begin(); ft_it != ft_ite; ft_it++) {
 		if (*ft_it != *std_it)
-			handle_error(ft_container, std_container, type, func, "CONTENT", std::cerr);
+			handle_error(ft_container, std_container, type, func, "CONTENT");
 		std_it++;
 	}
 
 	return 0;
 };
 
-
-
-
-
-
 typedef int (*testsPtr)();
 
-/*----------LIST TESTS----------*/
-/*     [in List_tests.cpp]      */
 
-int test_list_pushBack_iterate();
-int test_list_front_back();
+//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
+///*\*/*\*/*\LIST TESTS/*\*/*\*//
+//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
+/*     [in List_tests.cpp]     */
+
+//CONSTRUCTORS
 int test_list_fillConstr();
 int test_list_rangeConstr();
 int test_list_copyConstr();
 int test_list_opEqual();
+//ITERATORS
+int test_list_pushBack_iterate();
+//CAPACITY
+int test_list_empty();
+//ELEMENT ACCESS
+int test_list_front_back();
+//MODIFIERS
+int test_list_assign();
 int test_list_pushFront();
 int test_list_popFront();
 int test_list_popBack();
@@ -168,15 +172,15 @@ int test_list_erase();
 int test_list_swap();
 int test_list_resize();
 int test_list_clear();
+//OPERATIONS
 int test_list_splice();
 int test_list_remove();
 int test_list_removeIf();
 int test_list_unique();
-int test_list_empty();
 int test_list_merge();
-int test_list_assign();
 int test_list_sort();
 int test_list_reverse();
+//NON-MEMBER FUNCTION OVERLOADS
 int test_list_nonMembers();
 
 // testsPtr listTests[21] = {&test_pushBack_iterate, &test_front_back, &test_fillConstr, &test_rangeConstr, &test_copyConstr,

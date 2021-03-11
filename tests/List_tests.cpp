@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/11 13:31:58 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/11 21:17:08 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,88 +17,9 @@
 
 class customException;
 
-int test_list_pushBack_iterate() {
-	std::cout << "[BASIC INSTANCE + PUSH_BACK]" << std::endl;
-	ft::List<int> ft_list;
-	std::list<int> list;
-
-	ft_list.push_back(10);
-	ft_list.push_back(12);
-	ft_list.push_back(18);
-
-	list.push_back(10);
-	list.push_back(12);
-	list.push_back(18);
-
-	std::cout << "[BASIC ITERATING + DEREFERENCING]" << std::endl;
-	int tmp;
-	ft::List<int>::iterator it = ft_list.begin();
-	while (it != ft_list.end()) {
-		//std::cout << *it << std::endl; //commented to keep test output clean
-		tmp = *it;
-		it++;
-	}
-
-	std::cout << "[BASIC REVERSE ITERATING + DEREFERENCING]" << std::endl;
-	ft::List<int>::reverse_iterator rit = ft_list.rbegin();
-	while (rit != ft_list.rend()) {
-		//std::cout << *it << std::endl; //commented to keep test output clean
-		tmp = *rit;
-		rit++;
-	}
-
-	chk_result(ft_list, list, "list", "BASIC INSTANCE + PUSH_BACK + BASIC ITERATING + DEREFERENCING");
-
-	ft::List<char> ft_listEmpty;
-	ft_list.push_back('&');
-	std::list<char> listEmpty;
-	list.push_back('&');
-
-	chk_result(ft_listEmpty, listEmpty, "list", "PUSH_BACK [EMPTY]");
-
-    return 0;
-};
-
-int test_list_front_back() {
-	std::cout << "[FRONT/BACK]" << std::endl;
-	ft::List<int> ft_list;
-	std::list<int> list;
-
-	ft_list.push_back(10);
-	ft_list.push_back(12);
-	ft_list.push_back(18);
-
-	list.push_back(10);
-	list.push_back(12);
-	list.push_back(18);
-
-	if (ft_list.front() != list.front() || ft_list.back() != list.back()) {
-		std::cerr << "ft_list.front() = [" << ft_list.front() << "] | list.front() = [" << list.front() << "]" << std::endl;
-		std::cerr << "ft_list.back() = [" << ft_list.back() << "] | list.back() = [" << list.back() << "]" << std::endl;
-		handle_error(ft_list, list, "list", "FRONT + BACK", "CONTENT", std::cerr);
-	}
-
-	ft::List<int> ft_listEmpty;
-	std::list<int> listEmpty;
-
-	if (ft_listEmpty.front() != listEmpty.front() || ft_listEmpty.back() != listEmpty.back()) {
-		std::cerr << "ft_listEmpty.front() = [" << ft_listEmpty.front() << "] | listEmpty.front() = [" << listEmpty.front() << "]" << std::endl;
-		std::cerr << "ft_listEmpty.back() = [" << ft_listEmpty.back() << "] | listEmpty.back() = [" << listEmpty.back() << "]" << std::endl;
-		handle_error(ft_listEmpty, listEmpty, "list", "FRONT + BACK [EMPTY]", "CONTENT", std::cerr);
-	}
-	
-	std::cout << "[FRONT/BACK CONST OVERLOAD]" << std::endl;
-	ft::List<int> const ft_constList;
-	std::list<int> const constList;
-
-	if (ft_constList.front() != constList.front() || ft_constList.back() != constList.back()) {
-		std::cerr << "ft_constList.front() = [" << ft_constList.front() << "] | constList.front() = [" << constList.front() << "]" << std::endl;
-		std::cerr << "ft_constList.back() = [" << ft_constList.back() << "] | constList.back() = [" << constList.back() << "]" << std::endl;
-		handle_error(ft_constList, constList, "list", "FRONT + BACK [CONST]", "CONTENT", std::cerr);
-	}
-
-	return 0;
-};
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+//*\*/*\CONSTRUCTORS/*\*/*\//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 int test_list_fillConstr() {
 	
@@ -197,6 +118,179 @@ int test_list_opEqual() {
 	return 0;
 };
 
+
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+//*\*/*\*/ITERATORS/*\*/*\*//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+
+int test_list_pushBack_iterate() {
+	std::cout << "[BASIC INSTANCE + PUSH_BACK]" << std::endl;
+	ft::List<int> ft_list;
+	std::list<int> list;
+
+	ft_list.push_back(10);
+	ft_list.push_back(12);
+	ft_list.push_back(18);
+
+	list.push_back(10);
+	list.push_back(12);
+	list.push_back(18);
+
+	std::cout << "[BASIC ITERATING + DEREFERENCING]" << std::endl;
+	int tmp;
+	ft::List<int>::iterator it = ft_list.begin();
+	while (it != ft_list.end()) {
+		//std::cout << *it << std::endl; //commented to keep test output clean
+		tmp = *it;
+		it++;
+	}
+
+	std::cout << "[BASIC REVERSE ITERATING + DEREFERENCING]" << std::endl;
+	ft::List<int>::reverse_iterator rit = ft_list.rbegin();
+	while (rit != ft_list.rend()) {
+		//std::cout << *it << std::endl; //commented to keep test output clean
+		tmp = *rit;
+		rit++;
+	}
+
+	chk_result(ft_list, list, "list", "BASIC INSTANCE + PUSH_BACK + BASIC ITERATING + DEREFERENCING");
+
+	ft::List<char> ft_listEmpty;
+	ft_list.push_back('&');
+	std::list<char> listEmpty;
+	list.push_back('&');
+
+	chk_result(ft_listEmpty, listEmpty, "list", "PUSH_BACK [EMPTY]");
+
+    return 0;
+};
+
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+///*\*/*\*/CAPACITY/*\*/*\*//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+
+int test_list_empty() {
+	std::cout << "[EMPTY]" << std::endl;
+	
+	ft::List<char> ft_list(5, '!');
+	std::list<char> list(5, '!');
+	ft::List<char>::iterator ft_it = ft_list.begin();
+	std::list<char>::iterator it = list.begin();
+	ft_it++;
+	it++;
+
+	ft_list.push_back('a');
+	ft_list.insert(ft_it, 'a');
+	ft_list.insert(ft_it, 'b');
+	list.push_back('a');
+	list.insert(it, 'a');
+	list.insert(it, 'b');
+	bool ft_empty = ft_list.empty();
+	bool std_empty = list.empty();
+	if (ft_empty != std_empty) {
+		std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
+		handle_error(ft_list, list, "list", "EMPTY [FULL]", "CONTENT");
+	}
+	
+	ft::List<char> ft_listEmpty;
+	std::list<char> listEmpty;
+	ft_listEmpty.empty();
+	listEmpty.empty();
+	ft_empty = ft_list.empty();
+	std_empty = list.empty();
+	if (ft_empty != std_empty) {
+		std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
+		handle_error(ft_list, list, "list", "EMPTY [EMPTY]", "CONTENT");
+	}
+	return 0;
+};
+
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+//*\*/ELEMENT ACCESS/*\*/*\//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+
+int test_list_front_back() {
+	std::cout << "[FRONT/BACK]" << std::endl;
+	ft::List<int> ft_list;
+	std::list<int> list;
+
+	ft_list.push_back(10);
+	ft_list.push_back(12);
+	ft_list.push_back(18);
+
+	list.push_back(10);
+	list.push_back(12);
+	list.push_back(18);
+
+	if (ft_list.front() != list.front() || ft_list.back() != list.back()) {
+		std::cerr << "ft_list.front() = [" << ft_list.front() << "] | list.front() = [" << list.front() << "]" << std::endl;
+		std::cerr << "ft_list.back() = [" << ft_list.back() << "] | list.back() = [" << list.back() << "]" << std::endl;
+		handle_error(ft_list, list, "list", "FRONT + BACK", "CONTENT");
+	}
+
+	ft::List<int> ft_listEmpty;
+	std::list<int> listEmpty;
+
+	if (ft_listEmpty.front() != listEmpty.front() || ft_listEmpty.back() != listEmpty.back()) {
+		std::cerr << "ft_listEmpty.front() = [" << ft_listEmpty.front() << "] | listEmpty.front() = [" << listEmpty.front() << "]" << std::endl;
+		std::cerr << "ft_listEmpty.back() = [" << ft_listEmpty.back() << "] | listEmpty.back() = [" << listEmpty.back() << "]" << std::endl;
+		handle_error(ft_listEmpty, listEmpty, "list", "FRONT + BACK [EMPTY]", "CONTENT");
+	}
+	
+	std::cout << "[FRONT/BACK CONST OVERLOAD]" << std::endl;
+	ft::List<int> const ft_constList;
+	std::list<int> const constList;
+
+	if (ft_constList.front() != constList.front() || ft_constList.back() != constList.back()) {
+		std::cerr << "ft_constList.front() = [" << ft_constList.front() << "] | constList.front() = [" << constList.front() << "]" << std::endl;
+		std::cerr << "ft_constList.back() = [" << ft_constList.back() << "] | constList.back() = [" << constList.back() << "]" << std::endl;
+		handle_error(ft_constList, constList, "list", "FRONT + BACK [CONST]", "CONTENT");
+	}
+
+	return 0;
+};
+
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+///*\*/*\*/MODIFIERS/*\*/*\//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+
+int test_list_assign() {
+	std::cout << "[ASSIGN(1)]" << std::endl;
+	ft::List<char> ft_src(8, 'k');
+	std::list<char> src(8, 'k');
+	ft::List<char> ft_list;
+	std::list<char> list;
+
+	ft_list.assign(ft_src.begin(), ft_src.end());
+	list.assign(src.begin(), src.end());
+	chk_result(ft_list, list, "list", "ASSIGN(1) [FULL to EMPTY][1/2]");
+	chk_result(ft_src, src, "list", "ASSIGN(1) [FULL to EMPTY][2/2]");
+
+	ft_src.assign(ft_list.begin(), ft_list.end());
+	src.assign(list.begin(), list.end());
+	chk_result(ft_list, list, "list", "ASSIGN(1) [FULL to FULL][1/2]");
+	chk_result(ft_src, src, "list", "ASSIGN(1) [FULL to EMPTY][2/2]");
+	
+	//------------------------------------------------------------------------
+	std::cout << "[ASSIGN(2)]" << std::endl;
+	ft::List<char> ft_listA;
+	std::list<char> listA;
+
+	ft_listA.assign(12, 'W');
+	listA.assign(12, 'W');
+	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to EMPTY]");
+	
+	ft_listA.assign(4, '8');
+	listA.assign(4, '8');
+	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to FULL]");
+
+	ft_listA.assign(24, 'U');
+	listA.assign(24, 'U');
+	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to FULL]");
+	
+	return 0;
+}
+
 int test_list_pushFront() {
 	std::cout << "[PUSH_FRONT]" << std::endl;
 	ft::List<char> ft_list(10, '!');
@@ -271,7 +365,6 @@ int test_list_popBack() {
 
 int test_list_insert() {
 	//------------------------------------------------------------------------
-
 	std::cout << "[INSERT(1)]" << std::endl;
 	ft::List<char> ft_list(10, '!');
 	ft_list.push_back('@');
@@ -293,7 +386,7 @@ int test_list_insert() {
 
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "INSERT(1)", "CONTENT", std::cerr);
+		handle_error(ft_list, list, "list", "INSERT(1)", "CONTENT");
 	}
 	chk_result(ft_list, list, "list", "INSERT(1)");
 	
@@ -307,7 +400,7 @@ int test_list_insert() {
 
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_listEmpty, listEmpty, "list", "INSERT(1) [EMPTY]", "CONTENT", std::cerr);
+		handle_error(ft_listEmpty, listEmpty, "list", "INSERT(1) [EMPTY]", "CONTENT");
 	}
 	chk_result(ft_listEmpty, listEmpty, "list", "INSERT(1)  [EMPTY]");
 
@@ -325,7 +418,7 @@ int test_list_insert() {
 	
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(2) = [" << *ft_it << "] | *it after insert(2) = [" << *it << "]" << std::endl;
-		handle_error(ft_listEmpty, listEmpty, "list", "INSERT(2)", "CONTENT", std::cerr);
+		handle_error(ft_listEmpty, listEmpty, "list", "INSERT(2)", "CONTENT");
 	}
 	chk_result(ft_listEmpty, listEmpty, "list", "INSERT(2)");
 	
@@ -369,7 +462,7 @@ int test_list_insert() {
 
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(3) = [" << *ft_it << "] | *it after insert(3) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "INSERT(3)[RANGE]", "CONTENT", std::cerr);
+		handle_error(ft_list, list, "list", "INSERT(3)[RANGE]", "CONTENT");
 	}
 	chk_result(ft_list, list, "list", "INSERT(3)[RANGE]");
 
@@ -414,7 +507,7 @@ int test_list_erase() {
 	it = list.erase(it);
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "ERASE(1) [begin]", "CONTENT", std::cerr);
+		handle_error(ft_list, list, "list", "ERASE(1) [begin]", "CONTENT");
 	}
 	chk_result(ft_list, list, "list", "ERASE(1) [begin]");
 
@@ -422,7 +515,7 @@ int test_list_erase() {
 	it = list.erase(it);
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "ERASE(1) [begin]", "CONTENT", std::cerr);
+		handle_error(ft_list, list, "list", "ERASE(1) [begin]", "CONTENT");
 	}
 	chk_result(ft_list, list, "list", "ERASE(1) [begin]");
 
@@ -478,7 +571,7 @@ int test_list_erase() {
 	it = list.erase(it, last);
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "ERASE(2)[RANGE] [PARTIAL]", "CONTENT", std::cerr);
+		handle_error(ft_list, list, "list", "ERASE(2)[RANGE] [PARTIAL]", "CONTENT");
 	}
 	chk_result(ft_list, list, "list", "ERASE(2)[RANGE] [PARTIAL]");
 	
@@ -585,6 +678,10 @@ int test_list_clear() {
 	chk_result(ft_list, list, "list", "CLEAR [EMPTY LIST]");
 	return 0;
 };
+
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+///*\*/*\*OPERATIONS/*\*/*\//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 int test_list_splice() {
 	std::cout << "[SPLICE(1)]" << std::endl;
@@ -930,114 +1027,8 @@ int test_list_unique() {
 	return 0;
 };
 
-int test_list_assign() {
-	std::cout << "[ASSIGN(1)]" << std::endl;
-	ft::List<char> ft_src(8, 'k');
-	std::list<char> src(8, 'k');
-	ft::List<char> ft_list;
-	std::list<char> list;
-
-	ft_list.assign(ft_src.begin(), ft_src.end());
-	list.assign(src.begin(), src.end());
-	chk_result(ft_list, list, "list", "ASSIGN(1) [FULL to EMPTY][1/2]");
-	chk_result(ft_src, src, "list", "ASSIGN(1) [FULL to EMPTY][2/2]");
-
-	ft_src.assign(ft_list.begin(), ft_list.end());
-	src.assign(list.begin(), list.end());
-	chk_result(ft_list, list, "list", "ASSIGN(1) [FULL to FULL][1/2]");
-	chk_result(ft_src, src, "list", "ASSIGN(1) [FULL to EMPTY][2/2]");
-	
-	//------------------------------------------------------------------------
-	std::cout << "[ASSIGN(2)]" << std::endl;
-	ft::List<char> ft_listA;
-	std::list<char> listA;
-
-	ft_listA.assign(12, 'W');
-	listA.assign(12, 'W');
-	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to EMPTY]");
-	
-	ft_listA.assign(4, '8');
-	listA.assign(4, '8');
-	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to FULL]");
-
-	ft_listA.assign(24, 'U');
-	listA.assign(24, 'U');
-	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to FULL]");
-	
-	return 0;
-}
-
-int test_list_reverse() {
-	std::cout << "[REVERSE]" << std::endl;
-	ft::List<char> ft_list(5, '!');
-	std::list<char> list(5, '!');
-
-	ft::List<char>::iterator ft_it = ft_list.begin();
-	std::list<char>::iterator it = list.begin();
-	ft_it++;
-	it++;
-	ft_list.push_back('8');
-	ft_list.push_front('1');
-	ft_list.insert(ft_it, 'a');
-	ft_list.insert(ft_it, 'b');
-	list.push_back('8');
-	list.push_front('1');
-	list.insert(it, 'a');
-	list.insert(it, 'b');
-
-	ft_list.reverse();
-	list.reverse();
-	chk_result(ft_list, list, "list", "REVERSE [FULL, EVEN]");
-	ft_list.pop_front();
-	list.pop_front();
-	chk_result(ft_list, list, "list", "REVERSE [FULL, ODD]");
-
-	ft::List<char> ft_listEmpty;
-	std::list<char> listEmpty;
-	ft_listEmpty.reverse();
-	listEmpty.reverse();
-	chk_result(ft_listEmpty, listEmpty, "list", "REVERSE [EMPTY LIST]");
-
-	return 0;
-}
-
-int test_list_empty() {
-	std::cout << "[EMPTY]" << std::endl;
-	
-	ft::List<char> ft_list(5, '!');
-	std::list<char> list(5, '!');
-	ft::List<char>::iterator ft_it = ft_list.begin();
-	std::list<char>::iterator it = list.begin();
-	ft_it++;
-	it++;
-
-	ft_list.push_back('a');
-	ft_list.insert(ft_it, 'a');
-	ft_list.insert(ft_it, 'b');
-	list.push_back('a');
-	list.insert(it, 'a');
-	list.insert(it, 'b');
-	bool ft_empty = ft_list.empty();
-	bool std_empty = list.empty();
-	if (ft_empty != std_empty) {
-		std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "EMPTY [FULL]", "CONTENT", std::cerr);
-	}
-	
-	ft::List<char> ft_listEmpty;
-	std::list<char> listEmpty;
-	ft_listEmpty.empty();
-	listEmpty.empty();
-	ft_empty = ft_list.empty();
-	std_empty = list.empty();
-	if (ft_empty != std_empty) {
-		std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "EMPTY [EMPTY]", "CONTENT", std::cerr);
-	}
-	return 0;
-};
-
 int test_list_merge() {
+	std::cout << "[MERGE]" << std::endl;
 	return 0;
 };
 
@@ -1081,6 +1072,45 @@ int test_list_sort() {
 	return 0;
 };
 
+int test_list_reverse() {
+	std::cout << "[REVERSE]" << std::endl;
+	ft::List<char> ft_list(5, '!');
+	std::list<char> list(5, '!');
+
+	ft::List<char>::iterator ft_it = ft_list.begin();
+	std::list<char>::iterator it = list.begin();
+	ft_it++;
+	it++;
+	ft_list.push_back('8');
+	ft_list.push_front('1');
+	ft_list.insert(ft_it, 'a');
+	ft_list.insert(ft_it, 'b');
+	list.push_back('8');
+	list.push_front('1');
+	list.insert(it, 'a');
+	list.insert(it, 'b');
+
+	ft_list.reverse();
+	list.reverse();
+	chk_result(ft_list, list, "list", "REVERSE [FULL, EVEN]");
+	ft_list.pop_front();
+	list.pop_front();
+	chk_result(ft_list, list, "list", "REVERSE [FULL, ODD]");
+
+	ft::List<char> ft_listEmpty;
+	std::list<char> listEmpty;
+	ft_listEmpty.reverse();
+	listEmpty.reverse();
+	chk_result(ft_listEmpty, listEmpty, "list", "REVERSE [EMPTY LIST]");
+
+	return 0;
+}
+
+
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+///*\*/*\NON-MEMBERS/*\*/*\//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+
 int test_list_nonMembers() {
 	std::cout << "[NON-MEMBER OPERATORS]" << std::endl;
 	std::cout << "[OPERATOR==]" << std::endl;
@@ -1108,7 +1138,7 @@ int test_list_nonMembers() {
 	bool ft_bool = (ft_listA == ft_listB);
 	bool std_bool = (listA == listB);
 	if (ft_bool != std_bool) {
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR== [EQUAL]", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listB, "list", "OPERATOR== [EQUAL]", "CONTENT");
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
 	}
 
@@ -1126,7 +1156,7 @@ int test_list_nonMembers() {
 	ft_bool = (ft_listA == ft_listC);
 	std_bool = (listA == listC);
 	if (ft_bool != std_bool) {
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR== [DIFF]", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listC, "list", "OPERATOR== [DIFF]", "CONTENT");
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
 	}
 
@@ -1136,14 +1166,14 @@ int test_list_nonMembers() {
 	ft_bool = (ft_listA != ft_listB);
 	std_bool = (listA != listB);
 	if (ft_bool != std_bool) {
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR!= [EQUAL]", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listB, "list", "OPERATOR!= [EQUAL]", "CONTENT");
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
 	}
 
 	ft_bool = (ft_listA != ft_listC);
 	std_bool = (listA != listC);
 	if (ft_bool != std_bool) {
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR!= [DIFF]", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listC, "list", "OPERATOR!= [DIFF]", "CONTENT");
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
 	}
 
@@ -1154,21 +1184,21 @@ int test_list_nonMembers() {
 	std_bool = (listC < listA);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listC, ft_listA, "list", "OPERATOR< ", "CONTENT", std::cerr);
+		handle_error(ft_listC, ft_listA, "list", "OPERATOR< ", "CONTENT");
 	}
 
 	ft_bool = (ft_listA < ft_listC);
 	std_bool = (listA < listC);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR<", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listC, "list", "OPERATOR<", "CONTENT");
 	}
 
 	ft_bool = (ft_listA < ft_listB);
 	std_bool = (listA < listB);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR<", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listB, "list", "OPERATOR<", "CONTENT");
 	}
 
 	//------------------------------------------------------------------------
@@ -1178,21 +1208,21 @@ int test_list_nonMembers() {
 	std_bool = (listC <= listA);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listC, ft_listA, "list", "OPERATOR<= ", "CONTENT", std::cerr);
+		handle_error(ft_listC, ft_listA, "list", "OPERATOR<= ", "CONTENT");
 	}
 
 	ft_bool = (ft_listA <= ft_listC);
 	std_bool = (listA <= listC);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR<=", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listC, "list", "OPERATOR<=", "CONTENT");
 	}
 
 	ft_bool = (ft_listA <= ft_listB);
 	std_bool = (listA <= listB);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR<=", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listB, "list", "OPERATOR<=", "CONTENT");
 	}
 
 	//------------------------------------------------------------------------
@@ -1202,21 +1232,21 @@ int test_list_nonMembers() {
 	std_bool = (listC > listA);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listC, ft_listA, "list", "OPERATOR>", "CONTENT", std::cerr);
+		handle_error(ft_listC, ft_listA, "list", "OPERATOR>", "CONTENT");
 	}
 
 	ft_bool = (ft_listA > ft_listC);
 	std_bool = (listA > listC);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR>", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listC, "list", "OPERATOR>", "CONTENT");
 	}
 
 	ft_bool = (ft_listA > ft_listB);
 	std_bool = (listA > listB);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR>", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listB, "list", "OPERATOR>", "CONTENT");
 	}
 
 	//------------------------------------------------------------------------
@@ -1226,21 +1256,21 @@ int test_list_nonMembers() {
 	std_bool = (listC >= listA);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listC, ft_listA, "list", "OPERATOR>=", "CONTENT", std::cerr);
+		handle_error(ft_listC, ft_listA, "list", "OPERATOR>=", "CONTENT");
 	}
 
 	ft_bool = (ft_listA >= ft_listC);
 	std_bool = (listA >= listC);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR>=", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listC, "list", "OPERATOR>=", "CONTENT");
 	}
 
 	ft_bool = (ft_listA >= ft_listB);
 	std_bool = (listA >= listB);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR>=", "CONTENT", std::cerr);
+		handle_error(ft_listA, ft_listB, "list", "OPERATOR>=", "CONTENT");
 	}
 
 	//------------------------------------------------------------------------

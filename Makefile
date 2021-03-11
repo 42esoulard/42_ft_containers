@@ -32,12 +32,8 @@ CFLAGS		= -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 NAME		= ft_containers
 
 
-.c.o:		${SRCS} ${INCLUDES}
-			${CPP} ${CFLAGS} ${INC_DIRS} -c $^ -o ${<:.c=.o}
-
-what :
-	@echo "includes ${INCLUDES}"
-	@echo "inc_dirs ${INC_DIRS}"
+.cpp.o:		${SRCS} ${INCLUDES}
+			${CPP} ${CFLAGS} ${INC_DIRS} -c $^ -o ${<:.cpp=.o}
 
 all:		${NAME}
 

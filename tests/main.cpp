@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/12 12:37:35 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/12 12:41:58 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,21 @@ int main(void) {
 		std::cout << std::string((WIDTH - title.size())/2, ' ') << title << std::endl;
 		std::cout << std::string((WIDTH - title.size())/2, ' ') << std::string(title.size(), '-') << std::endl;
 		
-		for (unsigned int i = 0; i < (sizeof(listTests) / sizeof(*(listTests))); i++) {
+		for (unsigned int i = 0; i < (sizeof(listTests) / sizeof(*(listTests))); i++)
 			(*listTests[i])();
-		}
-		std::cout << ">>>>>>>>> Lists tests: SUCCESS! <<<<<<<<<" << std::endl;
+
+		title = ">>>>>>>>> Lists tests: SUCCESS! <<<<<<<<<";
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << std::string(title.size(), '-') << std::endl;
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << title << std::endl;
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << std::string(title.size(), '-') << std::endl;
 	}
 	catch(std::exception &e) {
 		std::cerr << "ERROR: " << e.what() << std::endl;
+		
+		std::string title = ">>>>>>>>> Lists tests: FAIL :( <<<<<<<<<";
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << std::string(title.size(), '-') << std::endl;
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << title << std::endl;
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << std::string(title.size(), '-') << std::endl;
 	}
 
 	//system("leaks ft_containers"); //MUST REMOVE fsanitize from Makefile

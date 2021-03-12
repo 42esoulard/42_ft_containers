@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/12 12:38:42 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/12 13:13:14 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int test_list_fillConstr() {
 	ft::List<char> ft_list(5, 'a');
 	std::list<char> list(5, 'a');
 
-	chk_result(ft_list, list, "list", "FILL CONSTRUCTOR");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<char> ft_listEmpty(0, 'a');
 	std::list<char> listEmpty(0, 'a');
 
-	chk_result(ft_list, list, "list", "FILL CONSTRUCTOR [EMPTY]");
+	chk_result(ft_list, list, "list", title, "[EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -50,12 +50,12 @@ int test_list_rangeConstr() {
 	ft::List<char> ft_list(src.begin(), src.end());
 	std::list<char> list(src.begin(), src.end());
 
-	chk_result(ft_list, list, "list", "RANGE CONSTRUCTOR");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<char> ft_listEmpty(src.end(), src.end());
 	std::list<char> listEmpty(src.end(), src.end());
 
-	chk_result(ft_listEmpty, listEmpty, "list", "RANGE CONSTRUCTOR [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -76,14 +76,14 @@ int test_list_copyConstr() {
 	ft::List<char> ft_list(ft_src);
 	std::list<char> list(src);
 
-	chk_result(ft_list, list, "list", "COPY CONSTRUCTOR");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<char> ft_srcB(0, '!');
 	std::list<char> srcB(0, '!');
 	ft::List<char> ft_listEmpty(ft_srcB);
 	std::list<char> listEmpty(srcB);
 
-	chk_result(ft_listEmpty, listEmpty, "list", "COPY CONSTRUCTOR [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	//INVALID SRC = UNDEFINED BEHAVIOR
 	// ft::List<char> *ft_nullSrc = nullptr;
@@ -111,19 +111,19 @@ int test_list_opEqual() {
 	ft::List<char> ft_list = ft_src;
 	std::list<char> list = src;
 
-	chk_result(ft_list, list, "list", "OPERATOR=");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<char> ft_srcB(0, '!');
 	std::list<char> srcB(0, '!');
 	ft::List<char> ft_listEmpty = ft_srcB;
 	std::list<char> listEmpty = srcB;
 
-	chk_result(ft_listEmpty, listEmpty, "list", "OPERATOR= [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	ft_list = ft_srcB;
 	list = srcB;
 
-	chk_result(ft_list, list, "list", "OPERATOR= [FULL = EMPTY]");
+	chk_result(ft_list, list, "list", title, "[FULL = EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -149,6 +149,14 @@ int test_list_pushBack_iterate() {
 	list.push_back(12);
 	list.push_back(18);
 
+	chk_result(ft_list, list, "list", title);
+
+	ft::List<char> ft_listEmpty;
+	ft_list.push_back('&');
+	std::list<char> listEmpty;
+	list.push_back('&');
+
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
 	title = "[BASIC ITERATING + DEREFERENCING]";
@@ -161,6 +169,8 @@ int test_list_pushBack_iterate() {
 		tmp = *it;
 		it++;
 	}
+	chk_result(ft_list, list, "list", title);
+
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
 	title = "[BASIC REVERSE ITERATING + DEREFERENCING]";
@@ -172,15 +182,7 @@ int test_list_pushBack_iterate() {
 		tmp = *rit;
 		rit++;
 	}
-
-	chk_result(ft_list, list, "list", "BASIC INSTANCE + PUSH_BACK + BASIC ITERATING + DEREFERENCING");
-
-	ft::List<char> ft_listEmpty;
-	ft_list.push_back('&');
-	std::list<char> listEmpty;
-	list.push_back('&');
-
-	chk_result(ft_listEmpty, listEmpty, "list", "PUSH_BACK [EMPTY]");
+	chk_result(ft_list, list, "list", title);
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
     return 0;
@@ -211,7 +213,7 @@ int test_list_empty() {
 	bool std_empty = list.empty();
 	if (ft_empty != std_empty) {
 		std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "EMPTY [FULL]", "CONTENT");
+		handle_error(ft_list, list, "list", title, "[FULL]", "CONTENT");
 	}
 	
 	ft::List<char> ft_listEmpty;
@@ -222,7 +224,7 @@ int test_list_empty() {
 	std_empty = list.empty();
 	if (ft_empty != std_empty) {
 		std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "EMPTY [EMPTY]", "CONTENT");
+		handle_error(ft_list, list, "list", title, "[EMPTY]", "CONTENT");
 	}
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -250,7 +252,7 @@ int test_list_maxSize() {
 
 	if (max != ft_max) {
 		std::cerr << "int ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-		handle_error(ft_listint, listint, "list", "MAX_SIZE", "MAX_SIZE");
+		handle_error(ft_listint, listint, "list", title, "int list", "MAX_SIZE");
 	}
 
 	ft_max = ft_listchar.max_size();
@@ -258,7 +260,7 @@ int test_list_maxSize() {
 
 	if (max != ft_max) {
 		std::cerr << "char ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-		handle_error(ft_listchar, listchar, "list", "MAX_SIZE", "MAX_SIZE");
+		handle_error(ft_listchar, listchar, "list", title, "char list", "MAX_SIZE");
 	}
 
 	ft_max = ft_listdouble.max_size();
@@ -266,7 +268,7 @@ int test_list_maxSize() {
 
 	if (max != ft_max) {
 		std::cerr << "double ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-		handle_error(ft_listdouble, listdouble, "list", "MAX_SIZE", "MAX_SIZE");
+		handle_error(ft_listdouble, listdouble, "list", title, "double list", "MAX_SIZE");
 	}
 
 	ft_max = ft_liststring.max_size();
@@ -274,7 +276,7 @@ int test_list_maxSize() {
 
 	if (max != ft_max) {
 		std::cerr << "string ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-		handle_error(ft_liststring, liststring, "list", "MAX_SIZE", "MAX_SIZE");
+		handle_error(ft_liststring, liststring, "list", title, "std::string list", "MAX_SIZE");
 	}
 	
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -303,7 +305,7 @@ int test_list_front_back() {
 	if (ft_list.front() != list.front() || ft_list.back() != list.back()) {
 		std::cerr << "ft_list.front() = [" << ft_list.front() << "] | list.front() = [" << list.front() << "]" << std::endl;
 		std::cerr << "ft_list.back() = [" << ft_list.back() << "] | list.back() = [" << list.back() << "]" << std::endl;
-		handle_error(ft_list, list, "list", "FRONT + BACK", "CONTENT");
+		handle_error(ft_list, list, "list", title, "", "CONTENT");
 	}
 
 	ft::List<int> ft_listEmpty;
@@ -312,7 +314,7 @@ int test_list_front_back() {
 	if (ft_listEmpty.front() != listEmpty.front() || ft_listEmpty.back() != listEmpty.back()) {
 		std::cerr << "ft_listEmpty.front() = [" << ft_listEmpty.front() << "] | listEmpty.front() = [" << listEmpty.front() << "]" << std::endl;
 		std::cerr << "ft_listEmpty.back() = [" << ft_listEmpty.back() << "] | listEmpty.back() = [" << listEmpty.back() << "]" << std::endl;
-		handle_error(ft_listEmpty, listEmpty, "list", "FRONT + BACK [EMPTY]", "CONTENT");
+		handle_error(ft_listEmpty, listEmpty, "list", title, "[EMPTY]", "CONTENT");
 	}
 	
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -326,7 +328,7 @@ int test_list_front_back() {
 	if (ft_constList.front() != constList.front() || ft_constList.back() != constList.back()) {
 		std::cerr << "ft_constList.front() = [" << ft_constList.front() << "] | constList.front() = [" << constList.front() << "]" << std::endl;
 		std::cerr << "ft_constList.back() = [" << ft_constList.back() << "] | constList.back() = [" << constList.back() << "]" << std::endl;
-		handle_error(ft_constList, constList, "list", "FRONT + BACK [CONST]", "CONTENT");
+		handle_error(ft_constList, constList, "list", title, "[CONST]", "CONTENT");
 	}
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -348,13 +350,13 @@ int test_list_assign() {
 
 	ft_list.assign(ft_src.begin(), ft_src.end());
 	list.assign(src.begin(), src.end());
-	chk_result(ft_list, list, "list", "ASSIGN(1) [FULL to EMPTY][1/2]");
-	chk_result(ft_src, src, "list", "ASSIGN(1) [FULL to EMPTY][2/2]");
+	chk_result(ft_list, list, "list", title, "[FULL to EMPTY][1/2]");
+	chk_result(ft_src, src, "list", title, "[FULL to EMPTY][2/2]");
 
 	ft_src.assign(ft_list.begin(), ft_list.end());
 	src.assign(list.begin(), list.end());
-	chk_result(ft_list, list, "list", "ASSIGN(1) [FULL to FULL][1/2]");
-	chk_result(ft_src, src, "list", "ASSIGN(1) [FULL to EMPTY][2/2]");
+	chk_result(ft_list, list, "list", title, "[FULL to FULL][1/2]");
+	chk_result(ft_src, src, "list", title, "[FULL to EMPTY][2/2]");
 	
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
@@ -367,15 +369,15 @@ int test_list_assign() {
 
 	ft_listA.assign(12, 'W');
 	listA.assign(12, 'W');
-	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to EMPTY]");
+	chk_result(ft_listA, listA, "list", title, "[to EMPTY]");
 	
 	ft_listA.assign(4, '8');
 	listA.assign(4, '8');
-	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to FULL]");
+	chk_result(ft_listA, listA, "list", title, "[to FULL]");
 
 	ft_listA.assign(24, 'U');
 	listA.assign(24, 'U');
-	chk_result(ft_listA, listA, "list", "ASSIGN(2) [to FULL]");
+	chk_result(ft_listA, listA, "list", title, "[to FULL]");
 	
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -393,14 +395,14 @@ int test_list_pushFront() {
 	list.push_back('@');
 	list.push_front('&');
 
-	chk_result(ft_list, list, "list", "PUSH_FRONT");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<char> ft_listEmpty;
 	ft_list.push_front('&');
 	std::list<char> listEmpty;
 	list.push_front('&');
 
-	chk_result(ft_listEmpty, listEmpty, "list", "PUSH_FRONT [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -422,14 +424,14 @@ int test_list_popFront() {
 
 	ft_list.pop_front();
 	list.pop_front();
-	chk_result(ft_list, list, "list", "POP_FRONT");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<char> ft_listEmpty;
 	ft_list.pop_front();
 	std::list<char> listEmpty;
 	list.pop_front();
 
-	chk_result(ft_listEmpty, listEmpty, "list", "POP_FRONT [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -451,14 +453,14 @@ int test_list_popBack() {
 
 	ft_list.pop_back();
 	list.pop_back();
-	chk_result(ft_list, list, "list", "POP_BACK");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<char> ft_listEmpty;
 	ft_list.pop_back();
 	std::list<char> listEmpty;
 	list.pop_back();
 
-	chk_result(ft_listEmpty, listEmpty, "list", "POP_BACK [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -489,9 +491,9 @@ int test_list_insert() {
 
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "INSERT(1)", "CONTENT");
+		handle_error(ft_list, list, "list", title, "", "CONTENT");
 	}
-	chk_result(ft_list, list, "list", "INSERT(1)");
+	chk_result(ft_list, list, "list", title);
 	
 
 	ft::List<char> ft_listEmpty;
@@ -503,9 +505,9 @@ int test_list_insert() {
 
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_listEmpty, listEmpty, "list", "INSERT(1) [EMPTY]", "CONTENT");
+		handle_error(ft_listEmpty, listEmpty, "list", title, "[EMPTY]", "CONTENT");
 	}
-	chk_result(ft_listEmpty, listEmpty, "list", "INSERT(1)  [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	//------------------------------------------------------------------------
@@ -524,9 +526,9 @@ int test_list_insert() {
 	
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(2) = [" << *ft_it << "] | *it after insert(2) = [" << *it << "]" << std::endl;
-		handle_error(ft_listEmpty, listEmpty, "list", "INSERT(2)", "CONTENT");
+		handle_error(ft_listEmpty, listEmpty, "list", title, "", "CONTENT");
 	}
-	chk_result(ft_listEmpty, listEmpty, "list", "INSERT(2)");
+	chk_result(ft_listEmpty, listEmpty, "list", title);
 	
 	ft::List<char> ft_listEmptyB;
 	ft_it = ft_listEmptyB.begin();
@@ -535,7 +537,7 @@ int test_list_insert() {
 	it = listEmptyB.begin();
 	listEmptyB.insert(it, size, '6');
 
-	chk_result(ft_listEmptyB, listEmptyB, "list", "INSERT(2)[FILL] [EMPTY to FULL]");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[EMPTY to FULL]");
 
 	size = 0;
 	ft::List<char> ft_listEmptyC;
@@ -545,7 +547,7 @@ int test_list_insert() {
 	it = listEmptyC.begin();
 	listEmptyC.insert(it, size, '6');
 
-	chk_result(ft_listEmptyC, listEmptyC, "list", "INSERT(2)[FILL] [EMPTY to EMPTY]");
+	chk_result(ft_listEmptyC, listEmptyC, "list", title, "[EMPTY to EMPTY]");
 	
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	//------------------------------------------------------------------------
@@ -571,9 +573,9 @@ int test_list_insert() {
 
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after insert(3) = [" << *ft_it << "] | *it after insert(3) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "INSERT(3)[RANGE]", "CONTENT");
+		handle_error(ft_list, list, "list", title, "", "CONTENT");
 	}
-	chk_result(ft_list, list, "list", "INSERT(3)[RANGE]");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<char> ft_listEmptyD;
 	ft_it = ft_listEmptyC.begin();
@@ -581,19 +583,19 @@ int test_list_insert() {
 	std::list<char> listEmptyD;
 	it = listEmptyC.begin();
 	listEmptyC.insert(it, listEmptyD.begin(), listEmptyD.end());
-	chk_result(ft_listEmptyC, listEmptyC, "list", "INSERT(3)[RANGE] [EMPTY to EMPTY]");
+	chk_result(ft_listEmptyC, listEmptyC, "list", title, "[EMPTY to EMPTY]");
 	
 	ft_it = ft_list.begin();
 	ft_list.insert(ft_it, ft_listEmptyD.begin(), ft_listEmptyD.end());
 	it = list.begin();
 	list.insert(it, listEmptyD.begin(), listEmptyD.end());
-	chk_result(ft_list, list, "list", "INSERT(3)[RANGE] [EMPTY to FULL]");
+	chk_result(ft_list, list, "list", title, "[EMPTY to FULL]");
 	
 	ft_it = ft_listEmptyD.begin();
 	ft_listEmptyD.insert(ft_it, ft_list.begin(), ft_list.end());
 	it = listEmptyD.begin();
 	listEmptyD.insert(it, list.begin(), list.end());
-	chk_result(ft_listEmptyD, listEmptyD, "list", "INSERT(3)[RANGE] [FULL TO EMPTY]");
+	chk_result(ft_listEmptyD, listEmptyD, "list", title, "[FULL TO EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -620,17 +622,17 @@ int test_list_erase() {
 	it = list.erase(it);
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "ERASE(1) [begin]", "CONTENT");
+		handle_error(ft_list, list, "list", title, "[begin]", "CONTENT");
 	}
-	chk_result(ft_list, list, "list", "ERASE(1) [begin]");
+	chk_result(ft_list, list, "list", title, "[begin]");
 
 	ft_it = ft_list.erase(ft_it);
 	it = list.erase(it);
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "ERASE(1) [begin]", "CONTENT");
+		handle_error(ft_list, list, "list", title, "[begin]", "CONTENT");
 	}
-	chk_result(ft_list, list, "list", "ERASE(1) [begin]");
+	chk_result(ft_list, list, "list", title, "[begin]");
 
 	//INVALID POSITION = UNDEFINED BEHAVIOR
 	// ft_it = ft_list.end();
@@ -643,7 +645,7 @@ int test_list_erase() {
 		ft_it = ft_list.erase(ft_it);
 	while (it != list.end())
 		it = list.erase(it);
-	chk_result(ft_list, list, "list", "ERASE(1) [all]");
+	chk_result(ft_list, list, "list", title, "[all]");
 
 	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
 	//ft::List<char> ft_listEmpty;
@@ -660,7 +662,7 @@ int test_list_erase() {
 
 	ft_list.erase(ft_list.begin(), ft_list.end());
 	list.erase(list.begin(), list.end());
-	chk_result(ft_list, list, "list", "ERASE(2)[RANGE] [EMPTY]");
+	chk_result(ft_list, list, "list", title, "[EMPTY]");
 	
 	ft_list.insert(ft_list.begin(), 10, '!');
 	ft_list.push_back('@');
@@ -686,13 +688,13 @@ int test_list_erase() {
 	it = list.erase(it, last);
 	if (*it != *ft_it) {
 		std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
-		handle_error(ft_list, list, "list", "ERASE(2)[RANGE] [PARTIAL]", "CONTENT");
+		handle_error(ft_list, list, "list", title, "[PARTIAL]", "CONTENT");
 	}
-	chk_result(ft_list, list, "list", "ERASE(2)[RANGE] [PARTIAL]");
+	chk_result(ft_list, list, "list", title, "[PARTIAL]");
 	
 	ft_it = ft_list.erase(ft_list.begin(), ft_list.end());
 	it = list.erase(list.begin(), list.end());
-	chk_result(ft_list, list, "list", "ERASE(2)[RANGE] [TOTAL]");
+	chk_result(ft_list, list, "list", title, "[TOTAL]");
 	//not comparing return pointers because they point after end() in this case
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -718,20 +720,20 @@ int test_list_swap() {
 	ft_listEmpty.swap(ft_list);
 	listEmpty.swap(list);
 
-	chk_result(ft_list, list, "list", "SWAP [Full vs Empty][1/2]");
-	chk_result(ft_listEmpty, listEmpty, "list", "SWAP [Full vs Empty][2/2]");
+	chk_result(ft_list, list, "list", title, "[Full vs Empty][1/2]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[Full vs Empty][2/2]");
 	
 	ft_listEmpty.swap(ft_list);
 	listEmpty.swap(list);
-	chk_result(ft_list, list, "list", "SWAP [Empty vs Full][1/2]");
-	chk_result(ft_listEmpty, listEmpty, "list", "SWAP [Empty vs Full][2/2]");
+	chk_result(ft_list, list, "list", title, "[Empty vs Full][1/2]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[Empty vs Full][2/2]");
 
 	ft_listEmpty.insert(ft_listEmpty.begin(), 56, 'v');
 	listEmpty.insert(listEmpty.begin(), 56, 'v');
 	ft_listEmpty.swap(ft_list);
 	listEmpty.swap(list);
-	chk_result(ft_list, list, "list", "SWAP [Full vs Full][1/2]");
-	chk_result(ft_listEmpty, listEmpty, "list", "SWAP [Full vs Full][2/2]");
+	chk_result(ft_list, list, "list", title, "[Full vs Full][1/2]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[Full vs Full][2/2]");
 
 	ft::List<char> ft_listEmptyA;
 	std::list<char> listEmptyA;
@@ -739,8 +741,8 @@ int test_list_swap() {
 	std::list<char> listEmptyB;
 	ft_listEmptyA.swap(ft_listEmptyB);
 	listEmptyA.swap(listEmptyB);
-	chk_result(ft_listEmptyA, listEmptyA, "list", "SWAP [Empty vs Empty][1/2]");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "SWAP [Empty vs Empty][2/2]");
+	chk_result(ft_listEmptyA, listEmptyA, "list", title, "[Empty vs Empty][1/2]");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[Empty vs Empty][2/2]");
 	
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -755,27 +757,27 @@ int test_list_resize() {
 
 	ft_list.resize(2);
 	list.resize(2);
-	chk_result(ft_list, list, "list", "RESIZE [5 TO 2]");
+	chk_result(ft_list, list, "list", title, "[5 TO 2]");
 
 	ft_list.resize(0);
 	list.resize(0);
-	chk_result(ft_list, list, "list", "RESIZE [2 TO 0]");
+	chk_result(ft_list, list, "list", title, "[2 TO 0]");
 
 	ft_list.resize(0);
 	list.resize(0);
-	chk_result(ft_list, list, "list", "RESIZE [0 TO 0]");
+	chk_result(ft_list, list, "list", title, "[0 TO 0]");
 
 	ft_list.resize(5);
 	list.resize(5);
-	chk_result(ft_list, list, "list", "RESIZE [0 TO 5]");
+	chk_result(ft_list, list, "list", title, "[0 TO 5]");
 	
 	ft_list.resize(100);
 	list.resize(100);
-	chk_result(ft_list, list, "list", "RESIZE [5 TO 100]");
+	chk_result(ft_list, list, "list", title, "[5 TO 100]");
 
 	ft_list.resize(100);
 	list.resize(100);
-	chk_result(ft_list, list, "list", "RESIZE [100 TO 100]");
+	chk_result(ft_list, list, "list", title, "[100 TO 100]");
 
 	//UNDEFINED BEHAVIOUR
 	//ft_list.resize(-50);
@@ -795,11 +797,11 @@ int test_list_clear() {
 
 	ft_list.clear();
 	list.clear();
-	chk_result(ft_list, list, "list", "CLEAR [FULL LIST]");
+	chk_result(ft_list, list, "list", title, "[FULL LIST]");
 
 	ft_list.clear();
 	list.clear();
-	chk_result(ft_list, list, "list", "CLEAR [EMPTY LIST]");
+	chk_result(ft_list, list, "list", title, "[EMPTY LIST]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -831,8 +833,8 @@ int test_list_splice() {
 
 	ft_listA.splice(ft_listA.begin(), ft_listB);
 	listA.splice(listA.begin(), listB);
-	chk_result(ft_listA, listA, "list", "SPLICE(1) [FULL ORDERED vs FULL ORDERED] 1/2");
-	chk_result(ft_listB, listB, "list", "SPLICE(1) [FULL ORDERED vs FULL ORDERED] 2/2");
+	chk_result(ft_listA, listA, "list", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listB, listB, "list", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
 	
 	ft::List<int> ft_listEmptyA;
 	std::list<int> listEmptyA;
@@ -840,18 +842,18 @@ int test_list_splice() {
 	std::list<int> listEmptyB;
 	ft_listEmptyA.splice(ft_listEmptyA.begin(), ft_listEmptyB);
 	listEmptyA.splice(listEmptyA.begin(), listEmptyB);
-	chk_result(ft_listEmptyA, listEmptyA, "list", "SPLICE(1) [EMPTY vs EMPTY] 1/2");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "SPLICE(1) [EMPTY vs EMPTY] 2/2");
+	chk_result(ft_listEmptyA, listEmptyA, "list", title, "[EMPTY vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[EMPTY vs EMPTY] 2/2");
 
 	ft_listA.splice(ft_listA.begin(), ft_listEmptyB);
 	listA.splice(listA.begin(), listEmptyB);
-	chk_result(ft_listA, listA, "list", "SPLICE(1) [FULL vs EMPTY] 1/2");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "SPLICE(1) [FULL vs EMPTY] 2/2");
+	chk_result(ft_listA, listA, "list", title, "[FULL vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[FULL vs EMPTY] 2/2");
 
 	ft_listEmptyB.splice(ft_listEmptyB.begin(), ft_listA);
 	listEmptyB.splice(listEmptyB.begin(), listA);
-	chk_result(ft_listEmptyB, listEmptyB, "list", "SPLICE(1) [EMPTY vs FULL] 1/2");
-	chk_result(ft_listA, listA, "list", "SPLICE(1) [EMPTY vs FULL] 2/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[EMPTY vs FULL] 1/2");
+	chk_result(ft_listA, listA, "list", title, "[EMPTY vs FULL] 2/2");
  
 	ft::List<int> ft_listC(size, 2);
 	ft_listC.push_back(4);
@@ -872,8 +874,8 @@ int test_list_splice() {
 	
 	ft_listC.splice(ft_listC.begin(), ft_listD);
 	listC.splice(listC.begin(), listD);
-	chk_result(ft_listC, listC, "list", "SPLICE(1) [FULL DISORDERED vs FULL DISORDERED] 1/2");
-	chk_result(ft_listD, listD, "list", "SPLICE(1) [FULL DISORDERED vs FULL DISORDERED] 2/2");
+	chk_result(ft_listC, listC, "list", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listD, listD, "list", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
 
 	ft::List<int> ft_listE(size, 1);
 	ft_listE.push_back(1);
@@ -894,8 +896,8 @@ int test_list_splice() {
 
 	ft_listE.splice(ft_listE.begin(), ft_listF);
 	listE.splice(listE.begin(), listF);
-	chk_result(ft_listE, listE, "list", "SPLICE(1) [FULL ORDERED vs FULL DISORDERED] 1/2");
-	chk_result(ft_listF, listF, "list", "SPLICE(1) [FULL ORDERED vs FULL DISORDERED] 2/2");
+	chk_result(ft_listE, listE, "list", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listF, listF, "list", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
 
 	ft::List<int> ft_listG(size, 1);
 	ft_listG.push_back(1);
@@ -916,8 +918,8 @@ int test_list_splice() {
 
 	ft_listH.splice(ft_listH.begin(), ft_listG);
 	listH.splice(listH.begin(), listG);
-	chk_result(ft_listH, listH, "list", "SPLICE(1) [FULL DISORDERED vs FULL ORDERED] 1/2");
-	chk_result(ft_listG, listG, "list", "SPLICE(1) [FULL DISORDERED vs FULL ORDERED] 2/2");
+	chk_result(ft_listH, listH, "list", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listG, listG, "list", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	//------------------------------------------------------------------------
@@ -946,8 +948,8 @@ int test_list_splice() {
 
 	ft_listI.splice(ft_listI.begin(), ft_listJ, ft_it);
 	listI.splice(listI.begin(), listJ, it);
-	chk_result(ft_listI, listI, "list", "SPLICE(2) [BEGIN] 1/2");
-	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [BEGIN] 2/2");
+	chk_result(ft_listI, listI, "list", title, "[BEGIN] 1/2");
+	chk_result(ft_listJ, listJ, "list", title, "[BEGIN] 2/2");
 
 	ft_it = ft_listJ.begin();
 	ft_it++;
@@ -956,8 +958,8 @@ int test_list_splice() {
 
 	ft_listI.splice(ft_listI.begin(), ft_listJ, ft_it);
 	listI.splice(listI.begin(), listJ, it);
-	chk_result(ft_listI, listI, "list", "SPLICE(2) [MIDDLE] 1/2");
-	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [MIDDLE] 2/2");
+	chk_result(ft_listI, listI, "list", title, "[MIDDLE] 1/2");
+	chk_result(ft_listJ, listJ, "list", title, "[MIDDLE] 2/2");
 
 	//END = UNDEFINED BEHAVIOUR
 	// ft_listI.splice(ft_listI.begin(), ft_listJ, ft_listJ.end());
@@ -996,8 +998,8 @@ int test_list_splice() {
 
 	ft_listK.splice(ft_listK.begin(), ft_listL, ft_itFirst, ft_itLast);
 	listK.splice(listK.begin(), listL, itFirst, itLast);
-	chk_result(ft_listK, listK, "list", "SPLICE(3) [BEGIN] 1/2");
-	chk_result(ft_listL, listL, "list", "SPLICE(3) [BEGIN] 2/2");
+	chk_result(ft_listK, listK, "list", title, "[BEGIN] 1/2");
+	chk_result(ft_listL, listL, "list", title, "[BEGIN] 2/2");
 
 	ft_itFirst = ft_listL.begin();
 	ft_itFirst++;
@@ -1012,8 +1014,8 @@ int test_list_splice() {
 
 	ft_listK.splice(ft_listK.begin(), ft_listL, ft_itFirst, ft_itLast);
 	listK.splice(listK.begin(), listL, itFirst, itLast);
-	chk_result(ft_listI, listI, "list", "SPLICE(2) [MIDDLE] 1/2");
-	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [MIDDLE] 2/2");
+	chk_result(ft_listI, listI, "list", title, "[MIDDLE] 1/2");
+	chk_result(ft_listJ, listJ, "list", title, "[MIDDLE] 2/2");
 	
 	ft_itFirst = ft_listL.begin();
 	ft_itLast = ft_listL.end();
@@ -1022,8 +1024,8 @@ int test_list_splice() {
 
 	ft_listK.splice(ft_listK.begin(), ft_listL, ft_itFirst, ft_itLast);
 	listK.splice(listK.begin(), listL, itFirst, itLast);
-	chk_result(ft_listI, listI, "list", "SPLICE(2) [END] 1/2");
-	chk_result(ft_listJ, listJ, "list", "SPLICE(2) [END] 2/2");
+	chk_result(ft_listI, listI, "list", title, "[END] 1/2");
+	chk_result(ft_listJ, listJ, "list", title, "[END] 2/2");
 	
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -1050,21 +1052,21 @@ int test_list_remove() {
 
 	ft_list.remove('a');
 	list.remove('a');
-	chk_result(ft_list, list, "list", "REMOVE [WITH DOUBLES]");
+	chk_result(ft_list, list, "list", title, "[WITH DOUBLES]");
 
 	ft_list.remove('!');
 	list.remove('!');
-	chk_result(ft_list, list, "list", "REMOVE [WITH BEGIN]");
+	chk_result(ft_list, list, "list", title, "[WITH BEGIN]");
 
 	ft_list.remove('b');
 	list.remove('b');
-	chk_result(ft_list, list, "list", "REMOVE [WITH ALL]");
+	chk_result(ft_list, list, "list", title, "[WITH ALL]");
 
 	ft::List<char> ft_listEmpty;
 	std::list<char> listEmpty;
 	ft_listEmpty.remove('a');
 	listEmpty.remove('a');
-	chk_result(ft_listEmpty, listEmpty, "list", "REMOVE [EMPTY LIST]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY LIST]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -1098,15 +1100,15 @@ int test_list_removeIf() {
 
 	ft_list.remove_if(is_odd());
 	list.remove_if(is_odd());
-	chk_result(ft_list, list, "list", "REMOVE_IF [MIDDLE AND END]");
+	chk_result(ft_list, list, "list", title, "[MIDDLE AND END]");
 
 	ft_list.remove_if(is_even());
 	list.remove_if(is_even());
-	chk_result(ft_list, list, "list", "REMOVE_IF [ALL WITH BEGIN]");
+	chk_result(ft_list, list, "list", title, "[ALL WITH BEGIN]");
 
 	ft_list.remove_if(is_even());
 	list.remove_if(is_even());
-	chk_result(ft_list, list, "list", "REMOVE_IF [EMPTY LIST]");
+	chk_result(ft_list, list, "list", title, "[EMPTY LIST]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -1137,17 +1139,17 @@ int test_list_unique() {
 
 	ft_list.unique();
 	list.unique();
-	chk_result(ft_list, list, "list", "UNIQUE(1) [WITH DOUBLES]");
+	chk_result(ft_list, list, "list", title, "[WITH DOUBLES]");
 
 	ft_list.unique();
 	list.unique();
-	chk_result(ft_list, list, "list", "UNIQUE(1) [NO DOUBLES]");
+	chk_result(ft_list, list, "list", title, "[NO DOUBLES]");
 
 	ft::List<char> ft_listEmpty;
 	std::list<char> listEmpty;
 	ft_listEmpty.unique();
 	listEmpty.unique();
-	chk_result(ft_listEmpty, listEmpty, "list", "UNIQUE(1) [EMPTY LIST]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY LIST]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	//------------------------------------------------------------------------
@@ -1164,15 +1166,15 @@ int test_list_unique() {
 
 	ft_list.unique(is_near());
 	list.unique(is_near());
-	chk_result(ft_list, list, "list", "UNIQUE(2) [WITH DOUBLES]");
+	chk_result(ft_list, list, "list", title, "[WITH DOUBLES]");
 
 	ft_list.unique(is_near());
 	list.unique(is_near());
-	chk_result(ft_list, list, "list", "UNIQUE(2) [NO DOUBLES]");
+	chk_result(ft_list, list, "list", title, "[NO DOUBLES]");
 
 	ft_listEmpty.unique(is_near());
 	listEmpty.unique(is_near());
-	chk_result(ft_listEmpty, listEmpty, "list", "UNIQUE(2) [EMPTY LIST]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY LIST]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -1202,8 +1204,8 @@ int test_list_merge() {
 
 	ft_listA.merge(ft_listB);
 	listA.merge(listB);
-	chk_result(ft_listA, listA, "list", "MERGE(1) [FULL ORDERED vs FULL ORDERED] 1/2");
-	chk_result(ft_listB, listB, "list", "MERGE(1) [FULL ORDERED vs FULL ORDERED] 2/2");
+	chk_result(ft_listA, listA, "list", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listB, listB, "list", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
 	
 	ft::List<int> ft_listEmptyA;
 	std::list<int> listEmptyA;
@@ -1211,18 +1213,18 @@ int test_list_merge() {
 	std::list<int> listEmptyB;
 	ft_listEmptyA.merge(ft_listEmptyB);
 	listEmptyA.merge(listEmptyB);
-	chk_result(ft_listEmptyA, listEmptyA, "list", "MERGE(1) [EMPTY vs EMPTY] 1/2");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(1) [EMPTY vs EMPTY] 2/2");
+	chk_result(ft_listEmptyA, listEmptyA, "list", title, "[EMPTY vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[EMPTY vs EMPTY] 2/2");
 
 	ft_listA.merge(ft_listEmptyB);
 	listA.merge(listEmptyB);
-	chk_result(ft_listA, listA, "list", "MERGE(1) [FULL vs EMPTY] 1/2");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(1) [FULL vs EMPTY] 2/2");
+	chk_result(ft_listA, listA, "list", title, "[FULL vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[FULL vs EMPTY] 2/2");
 
 	ft_listEmptyB.merge(ft_listA);
 	listEmptyB.merge(listA);
-	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(1) [EMPTY vs FULL] 1/2");
-	chk_result(ft_listA, listA, "list", "MERGE(1) [EMPTY vs FULL] 2/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[EMPTY vs FULL] 1/2");
+	chk_result(ft_listA, listA, "list", title, "[EMPTY vs FULL] 2/2");
  
 	ft::List<int> ft_listC(size, 2);
 	ft_listC.push_back(4);
@@ -1243,8 +1245,8 @@ int test_list_merge() {
 	
 	ft_listC.merge(ft_listD);
 	listC.merge(listD);
-	chk_result(ft_listC, listC, "list", "MERGE(1) [FULL DISORDERED vs FULL DISORDERED] 1/2");
-	chk_result(ft_listD, listD, "list", "MERGE(1) [FULL DISORDERED vs FULL DISORDERED] 2/2");
+	chk_result(ft_listC, listC, "list", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listD, listD, "list", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
 
 	ft::List<int> ft_listE(size, 1);
 	ft_listE.push_back(1);
@@ -1265,8 +1267,8 @@ int test_list_merge() {
 
 	ft_listE.merge(ft_listF);
 	listE.merge(listF);
-	chk_result(ft_listE, listE, "list", "MERGE(1) [FULL ORDERED vs FULL DISORDERED] 1/2");
-	chk_result(ft_listF, listF, "list", "MERGE(1) [FULL ORDERED vs FULL DISORDERED] 2/2");
+	chk_result(ft_listE, listE, "list", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listF, listF, "list", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
 
 	ft::List<int> ft_listG(size, 1);
 	ft_listG.push_back(1);
@@ -1287,8 +1289,8 @@ int test_list_merge() {
 
 	ft_listH.merge(ft_listG);
 	listH.merge(listG);
-	chk_result(ft_listH, listH, "list", "MERGE(1) [FULL DISORDERED vs FULL ORDERED] 1/2");
-	chk_result(ft_listG, listG, "list", "MERGE(1) [FULL DISORDERED vs FULL ORDERED] 2/2");
+	chk_result(ft_listH, listH, "list", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listG, listG, "list", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return test_list_mergeComp();
@@ -1321,8 +1323,8 @@ int test_list_mergeComp() {
 
 	ft_listA.merge(ft_listB, is_bigger());
 	listA.merge(listB, is_bigger());
-	chk_result(ft_listA, listA, "list", "MERGE(2) [FULL ORDERED vs FULL ORDERED] 1/2");
-	chk_result(ft_listB, listB, "list", "MERGE(2) [FULL ORDERED vs FULL ORDERED] 2/2");
+	chk_result(ft_listA, listA, "list", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listB, listB, "list", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
 	
 	ft::List<int> ft_listEmptyA;
 	std::list<int> listEmptyA;
@@ -1330,18 +1332,18 @@ int test_list_mergeComp() {
 	std::list<int> listEmptyB;
 	ft_listEmptyA.merge(ft_listEmptyB, is_bigger());
 	listEmptyA.merge(listEmptyB, is_bigger());
-	chk_result(ft_listEmptyA, listEmptyA, "list", "MERGE(2) [EMPTY vs EMPTY] 1/2");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(2) [EMPTY vs EMPTY] 2/2");
+	chk_result(ft_listEmptyA, listEmptyA, "list", title, "[EMPTY vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[EMPTY vs EMPTY] 2/2");
 
 	ft_listA.merge(ft_listEmptyB, is_bigger());
 	listA.merge(listEmptyB, is_bigger());
-	chk_result(ft_listA, listA, "list", "MERGE(2) [FULL vs EMPTY] 1/2");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(2) [FULL vs EMPTY] 2/2");
+	chk_result(ft_listA, listA, "list", title, "[FULL vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[FULL vs EMPTY] 2/2");
 
 	ft_listEmptyB.merge(ft_listA, is_bigger());
 	listEmptyB.merge(listA, is_bigger());
-	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(2) [EMPTY vs FULL] 1/2");
-	chk_result(ft_listA, listA, "list", "MERGE(2) [EMPTY vs FULL] 2/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", title, "[EMPTY vs FULL] 1/2");
+	chk_result(ft_listA, listA, "list", title, "[EMPTY vs FULL] 2/2");
  
 	ft::List<int> ft_listC(size, 2);
 	ft_listC.push_back(4);
@@ -1362,8 +1364,8 @@ int test_list_mergeComp() {
 	
 	ft_listC.merge(ft_listD, is_bigger());
 	listC.merge(listD, is_bigger());
-	chk_result(ft_listC, listC, "list", "MERGE(2) [FULL DISORDERED vs FULL DISORDERED] 1/2");
-	chk_result(ft_listD, listD, "list", "MERGE(2) [FULL DISORDERED vs FULL DISORDERED] 2/2");
+	chk_result(ft_listC, listC, "list", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listD, listD, "list", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
 
 	ft::List<int> ft_listE(size, 1);
 	ft_listE.push_back(1);
@@ -1384,8 +1386,8 @@ int test_list_mergeComp() {
 
 	ft_listE.merge(ft_listF, is_bigger());
 	listE.merge(listF, is_bigger());
-	chk_result(ft_listE, listE, "list", "MERGE(2) [FULL ORDERED vs FULL DISORDERED] 1/2");
-	chk_result(ft_listF, listF, "list", "MERGE(2) [FULL ORDERED vs FULL DISORDERED] 2/2");
+	chk_result(ft_listE, listE, "list", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listF, listF, "list", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
 
 	ft::List<int> ft_listG(size, 1);
 	ft_listG.push_back(1);
@@ -1406,8 +1408,8 @@ int test_list_mergeComp() {
 
 	ft_listH.merge(ft_listG, is_bigger());
 	listH.merge(listG, is_bigger());
-	chk_result(ft_listH, listH, "list", "MERGE(2) [FULL DISORDERED vs FULL ORDERED] 1/2");
-	chk_result(ft_listG, listG, "list", "MERGE(2) [FULL DISORDERED vs FULL ORDERED] 2/2");
+	chk_result(ft_listH, listH, "list", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listG, listG, "list", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -1430,13 +1432,13 @@ int test_list_sort() {
 
 	ft_list.sort();
 	list.sort();
-	chk_result(ft_list, list, "list", "SORT(1)");
+	chk_result(ft_list, list, "list", title);
 
 	ft::List<int> ft_listEmpty;
 	std::list<int> listEmpty;
 	ft_listEmpty.sort();
 	listEmpty.sort();
-	chk_result(ft_listEmpty, listEmpty, "list", "SORT(1) [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	//----------------------------------------------------------
@@ -1446,11 +1448,11 @@ int test_list_sort() {
 	
 	ft_list.sort(is_bigger());
 	list.sort(is_bigger());
-	chk_result(ft_list, list, "list", "SORT(2)");
+	chk_result(ft_list, list, "list", title);
 
 	ft_listEmpty.sort(is_bigger());
 	listEmpty.sort(is_bigger());
-	chk_result(ft_listEmpty, listEmpty, "list", "SORT(2) [EMPTY]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -1478,16 +1480,16 @@ int test_list_reverse() {
 
 	ft_list.reverse();
 	list.reverse();
-	chk_result(ft_list, list, "list", "REVERSE [FULL, EVEN]");
+	chk_result(ft_list, list, "list", title, "[FULL, EVEN NODES]");
 	ft_list.pop_front();
 	list.pop_front();
-	chk_result(ft_list, list, "list", "REVERSE [FULL, ODD]");
+	chk_result(ft_list, list, "list", title, "[FULL, ODD NODES]");
 
 	ft::List<char> ft_listEmpty;
 	std::list<char> listEmpty;
 	ft_listEmpty.reverse();
 	listEmpty.reverse();
-	chk_result(ft_listEmpty, listEmpty, "list", "REVERSE [EMPTY LIST]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY LIST]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
@@ -1528,7 +1530,7 @@ int test_list_nonMembers() {
 	bool ft_bool = (ft_listA == ft_listB);
 	bool std_bool = (listA == listB);
 	if (ft_bool != std_bool) {
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR== [EQUAL]", "CONTENT");
+		handle_error(ft_listA, ft_listB, "list", title, "[EQUAL]", "CONTENT");
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
 	}
 
@@ -1546,7 +1548,7 @@ int test_list_nonMembers() {
 	ft_bool = (ft_listA == ft_listC);
 	std_bool = (listA == listC);
 	if (ft_bool != std_bool) {
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR== [DIFF]", "CONTENT");
+		handle_error(ft_listA, ft_listC, "list", title, "[DIFF]", "CONTENT");
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
 	}
 
@@ -1559,14 +1561,14 @@ int test_list_nonMembers() {
 	ft_bool = (ft_listA != ft_listB);
 	std_bool = (listA != listB);
 	if (ft_bool != std_bool) {
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR!= [EQUAL]", "CONTENT");
+		handle_error(ft_listA, ft_listB, "list", title, "[EQUAL]", "CONTENT");
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
 	}
 
 	ft_bool = (ft_listA != ft_listC);
 	std_bool = (listA != listC);
 	if (ft_bool != std_bool) {
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR!= [DIFF]", "CONTENT");
+		handle_error(ft_listA, ft_listC, "list", title, "[DIFF]", "CONTENT");
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
 	}
 
@@ -1580,21 +1582,21 @@ int test_list_nonMembers() {
 	std_bool = (listC < listA);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listC, ft_listA, "list", "OPERATOR< ", "CONTENT");
+		handle_error(ft_listC, ft_listA, "list", title, "", "CONTENT");
 	}
 
 	ft_bool = (ft_listA < ft_listC);
 	std_bool = (listA < listC);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR<", "CONTENT");
+		handle_error(ft_listA, ft_listC, "list", title, "", "CONTENT");
 	}
 
 	ft_bool = (ft_listA < ft_listB);
 	std_bool = (listA < listB);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR<", "CONTENT");
+		handle_error(ft_listA, ft_listB, "list", title, "", "CONTENT");
 	}
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	//------------------------------------------------------------------------
@@ -1606,21 +1608,21 @@ int test_list_nonMembers() {
 	std_bool = (listC <= listA);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listC, ft_listA, "list", "OPERATOR<= ", "CONTENT");
+		handle_error(ft_listC, ft_listA, "list", title, "", "CONTENT");
 	}
 
 	ft_bool = (ft_listA <= ft_listC);
 	std_bool = (listA <= listC);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR<=", "CONTENT");
+		handle_error(ft_listA, ft_listC, "list", title, "", "CONTENT");
 	}
 
 	ft_bool = (ft_listA <= ft_listB);
 	std_bool = (listA <= listB);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR<=", "CONTENT");
+		handle_error(ft_listA, ft_listB, "list", title, "", "CONTENT");
 	}
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -1633,21 +1635,21 @@ int test_list_nonMembers() {
 	std_bool = (listC > listA);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listC, ft_listA, "list", "OPERATOR>", "CONTENT");
+		handle_error(ft_listC, ft_listA, "list", title, "", "CONTENT");
 	}
 
 	ft_bool = (ft_listA > ft_listC);
 	std_bool = (listA > listC);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR>", "CONTENT");
+		handle_error(ft_listA, ft_listC, "list", title, "", "CONTENT");
 	}
 
 	ft_bool = (ft_listA > ft_listB);
 	std_bool = (listA > listB);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR>", "CONTENT");
+		handle_error(ft_listA, ft_listB, "list", title, "", "CONTENT");
 	}
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -1660,21 +1662,21 @@ int test_list_nonMembers() {
 	std_bool = (listC >= listA);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listC, ft_listA, "list", "OPERATOR>=", "CONTENT");
+		handle_error(ft_listC, ft_listA, "list", title, "", "CONTENT");
 	}
 
 	ft_bool = (ft_listA >= ft_listC);
 	std_bool = (listA >= listC);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listC, "list", "OPERATOR>=", "CONTENT");
+		handle_error(ft_listA, ft_listC, "list", title, "", "CONTENT");
 	}
 
 	ft_bool = (ft_listA >= ft_listB);
 	std_bool = (listA >= listB);
 	if (ft_bool != std_bool) {
 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-		handle_error(ft_listA, ft_listB, "list", "OPERATOR>=", "CONTENT");
+		handle_error(ft_listA, ft_listB, "list", title, "", "CONTENT");
 	}
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -1685,15 +1687,15 @@ int test_list_nonMembers() {
 
 	swap(ft_listA, ft_listC);
 	swap(listA, listC);
-	chk_result(ft_listA, listA, "list", "SWAP [1/2]");
-	chk_result(ft_listC, listC, "list", "SWAP [2/2]");
+	chk_result(ft_listA, listA, "list", title, "[1/2]");
+	chk_result(ft_listC, listC, "list", title, "[2/2]");
 
 	ft::List<int> ft_listEmpty;
 	std::list<int> listEmpty;
 	swap(ft_listEmpty, ft_listC);
 	swap(listEmpty, listC);
-	chk_result(ft_listEmpty, listEmpty, "list", "SWAP [EMPTY vs FULL] [1/2]");
-	chk_result(ft_listC, listC, "list", "SWAP [EMPTY vs FULL] [2/2]");
+	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY vs FULL] [1/2]");
+	chk_result(ft_listC, listC, "list", title, "[EMPTY vs FULL] [2/2]");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;

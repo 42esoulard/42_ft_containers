@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/12 12:17:07 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/12 13:11:36 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,17 +119,20 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 
 template <class ft_class, class std_class>
 void handle_error(ft_class ft_container, std_class std_container, std::string const &type, std::string const &func, 
-	std::string const &errorTheme) {
-			std::cerr << ">---FAIL--->>>  ON TEST: " << func << std::endl;
+	std::string const &testInfo, std::string const &errorTheme) {
+			std::cout << std::setfill('.') << std::setw(WIDTH - func.size()) << " ✘" << std::endl;
+			std::cerr << ">---FAIL--->>>  ON FUNCTION: " << func << std::endl;
+			if (testInfo.size())
+				std::cerr << std::string(15, ' ') << " Test info: " << testInfo << std::endl;
 			output_containers(ft_container, std_container, type, std::cerr);
 			throw customException("ft_container " + errorTheme + " doesn't match std::container's!");
 };
 
 template <class ft_class, class std_class>
-int chk_result(ft_class ft_container, std_class std_container, std::string const &type, std::string const &func) {
+int chk_result(ft_class ft_container, std_class std_container, std::string const &type, std::string const &func, std::string const &testInfo = "") {
 
 	if (ft_container.size() != std_container.size())
-		handle_error(ft_container, std_container, type, func, "SIZE");
+		handle_error(ft_container, std_container, type, func, testInfo, "SIZE");
 
 	typename ft_class::iterator ft_it = ft_container.begin();
 	typename ft_class::iterator ft_ite = ft_container.end();
@@ -138,7 +141,7 @@ int chk_result(ft_class ft_container, std_class std_container, std::string const
 
 	for (ft_it = ft_container.begin(); ft_it != ft_ite; ft_it++) {
 		if (*ft_it != *std_it)
-			handle_error(ft_container, std_container, type, func, "CONTENT");
+			handle_error(ft_container, std_container, type, func, testInfo, "CONTENT");
 		std_it++;
 	}
 

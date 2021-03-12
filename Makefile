@@ -20,7 +20,7 @@ INC_TDIR	= tests/
 INC_TEST	:= $(addprefix ${INC_TDIR}, ${INC_TEST})
 #############################################################
 
-##################### ADDING TEST FILES #####################
+################# GROUPING ALL SRCS/INCLUDES ################
 SRCS 			+= ${SRC_TEST}
 OBJS			= ${SRCS:.cpp=.o}
 INCLUDES		= ${INC_CONT} ${INC_UTILS} ${INC_TEST}

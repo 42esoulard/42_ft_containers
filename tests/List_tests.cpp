@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/11 21:29:47 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:09:25 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1027,8 +1027,10 @@ int test_list_unique() {
 	return 0;
 };
 
+int test_list_mergeComp();
+
 int test_list_merge() {
-	/*std::cout << "[MERGE(1)]" << std::endl;
+	std::cout << "[MERGE(1)]" << std::endl;
 
 	size_t size = 6;
 	ft::List<int> ft_listA(size, 1);
@@ -1048,8 +1050,8 @@ int test_list_merge() {
 
 	ft_listA.merge(ft_listB);
 	listA.merge(listB);
-	chk_result(ft_listA, listA, "list", "merge(1) [FULL ORDERED vs FULL ORDERED] 1/2");
-	chk_result(ft_listB, listB, "list", "merge(1) [FULL ORDERED vs FULL ORDERED] 2/2");
+	chk_result(ft_listA, listA, "list", "MERGE(1) [FULL ORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listB, listB, "list", "MERGE(1) [FULL ORDERED vs FULL ORDERED] 2/2");
 	
 	ft::List<int> ft_listEmptyA;
 	std::list<int> listEmptyA;
@@ -1057,18 +1059,18 @@ int test_list_merge() {
 	std::list<int> listEmptyB;
 	ft_listEmptyA.merge(ft_listEmptyB);
 	listEmptyA.merge(listEmptyB);
-	chk_result(ft_listEmptyA, listEmptyA, "list", "merge(1) [EMPTY vs EMPTY] 1/2");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "merge(1) [EMPTY vs EMPTY] 2/2");
+	chk_result(ft_listEmptyA, listEmptyA, "list", "MERGE(1) [EMPTY vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(1) [EMPTY vs EMPTY] 2/2");
 
 	ft_listA.merge(ft_listEmptyB);
 	listA.merge(listEmptyB);
-	chk_result(ft_listA, listA, "list", "merge(1) [FULL vs EMPTY] 1/2");
-	chk_result(ft_listEmptyB, listEmptyB, "list", "merge(1) [FULL vs EMPTY] 2/2");
+	chk_result(ft_listA, listA, "list", "MERGE(1) [FULL vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(1) [FULL vs EMPTY] 2/2");
 
 	ft_listEmptyB.merge(ft_listA);
 	listEmptyB.merge(listA);
-	chk_result(ft_listEmptyB, listEmptyB, "list", "merge(1) [EMPTY vs FULL] 1/2");
-	chk_result(ft_listA, listA, "list", "merge(1) [EMPTY vs FULL] 2/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(1) [EMPTY vs FULL] 1/2");
+	chk_result(ft_listA, listA, "list", "MERGE(1) [EMPTY vs FULL] 2/2");
  
 	ft::List<int> ft_listC(size, 2);
 	ft_listC.push_back(4);
@@ -1089,8 +1091,8 @@ int test_list_merge() {
 	
 	ft_listC.merge(ft_listD);
 	listC.merge(listD);
-	chk_result(ft_listC, listC, "list", "merge(1) [FULL DISORDERED vs FULL DISORDERED] 1/2");
-	chk_result(ft_listD, listD, "list", "merge(1) [FULL DISORDERED vs FULL DISORDERED] 2/2");
+	chk_result(ft_listC, listC, "list", "MERGE(1) [FULL DISORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listD, listD, "list", "MERGE(1) [FULL DISORDERED vs FULL DISORDERED] 2/2");
 
 	ft::List<int> ft_listE(size, 1);
 	ft_listE.push_back(1);
@@ -1111,8 +1113,8 @@ int test_list_merge() {
 
 	ft_listE.merge(ft_listF);
 	listE.merge(listF);
-	chk_result(ft_listE, listE, "list", "merge(1) [FULL ORDERED vs FULL DISORDERED] 1/2");
-	chk_result(ft_listF, listF, "list", "merge(1) [FULL ORDERED vs FULL DISORDERED] 2/2");
+	chk_result(ft_listE, listE, "list", "MERGE(1) [FULL ORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listF, listF, "list", "MERGE(1) [FULL ORDERED vs FULL DISORDERED] 2/2");
 
 	ft::List<int> ft_listG(size, 1);
 	ft_listG.push_back(1);
@@ -1133,15 +1135,127 @@ int test_list_merge() {
 
 	ft_listH.merge(ft_listG);
 	listH.merge(listG);
-	chk_result(ft_listH, listH, "list", "merge(1) [FULL DISORDERED vs FULL ORDERED] 1/2");
-	chk_result(ft_listG, listG, "list", "merge(1) [FULL DISORDERED vs FULL ORDERED] 2/2");
-*/
-	return 0;
+	chk_result(ft_listH, listH, "list", "MERGE(1) [FULL DISORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listG, listG, "list", "MERGE(1) [FULL DISORDERED vs FULL ORDERED] 2/2");
+
+	return test_list_mergeComp();
 };
 
 struct is_bigger {
   bool operator() (int first, int second)
   { return (first > second); }
+};
+
+int test_list_mergeComp() {
+	std::cout << "[MERGE(2) [COMP]]" << std::endl;
+
+	size_t size = 6;
+	ft::List<int> ft_listA(size, 1);
+	ft_listA.push_back(3);
+	ft_listA.push_back(6);
+	ft::List<int> ft_listB(size, 2);
+	ft_listB.push_back(4);
+	ft_listB.push_back(5);
+	ft_listB.push_back(8);
+	std::list<int> listA(size, 1);
+	listA.push_back(3);
+	listA.push_back(6);
+	std::list<int> listB(size, 2);
+	listB.push_back(4);
+	listB.push_back(5);
+	listB.push_back(8);
+
+	ft_listA.merge(ft_listB, is_bigger());
+	listA.merge(listB, is_bigger());
+	chk_result(ft_listA, listA, "list", "MERGE(2) [FULL ORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listB, listB, "list", "MERGE(2) [FULL ORDERED vs FULL ORDERED] 2/2");
+	
+	ft::List<int> ft_listEmptyA;
+	std::list<int> listEmptyA;
+	ft::List<int> ft_listEmptyB;
+	std::list<int> listEmptyB;
+	ft_listEmptyA.merge(ft_listEmptyB, is_bigger());
+	listEmptyA.merge(listEmptyB, is_bigger());
+	chk_result(ft_listEmptyA, listEmptyA, "list", "MERGE(2) [EMPTY vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(2) [EMPTY vs EMPTY] 2/2");
+
+	ft_listA.merge(ft_listEmptyB, is_bigger());
+	listA.merge(listEmptyB, is_bigger());
+	chk_result(ft_listA, listA, "list", "MERGE(2) [FULL vs EMPTY] 1/2");
+	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(2) [FULL vs EMPTY] 2/2");
+
+	ft_listEmptyB.merge(ft_listA, is_bigger());
+	listEmptyB.merge(listA, is_bigger());
+	chk_result(ft_listEmptyB, listEmptyB, "list", "MERGE(2) [EMPTY vs FULL] 1/2");
+	chk_result(ft_listA, listA, "list", "MERGE(2) [EMPTY vs FULL] 2/2");
+ 
+	ft::List<int> ft_listC(size, 2);
+	ft_listC.push_back(4);
+	ft_listC.push_back(5);
+	ft_listC.push_back(8);
+	ft::List<int> ft_listD(size, 2);
+	ft_listD.push_back(9);
+	ft_listD.push_back(1);
+	ft_listD.push_back(1);
+	std::list<int> listC(size, 2);
+	listC.push_back(4);
+	listC.push_back(5);
+	listC.push_back(8);
+	std::list<int> listD(size, 2);
+	listD.push_back(9);
+	listD.push_back(1);
+	listD.push_back(1);
+	
+	ft_listC.merge(ft_listD, is_bigger());
+	listC.merge(listD, is_bigger());
+	chk_result(ft_listC, listC, "list", "MERGE(2) [FULL DISORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listD, listD, "list", "MERGE(2) [FULL DISORDERED vs FULL DISORDERED] 2/2");
+
+	ft::List<int> ft_listE(size, 1);
+	ft_listE.push_back(1);
+	ft_listE.push_back(2);
+	ft_listE.push_back(3);
+	std::list<int> listE(size, 1);
+	listE.push_back(1);
+	listE.push_back(2);
+	listE.push_back(3);
+	ft::List<int> ft_listF(size, 1);
+	ft_listF.push_back(5);
+	ft_listF.push_back(1);
+	ft_listF.push_back(3);
+	std::list<int> listF(size, 1);
+	listF.push_back(5);
+	listF.push_back(1);
+	listF.push_back(3);
+
+	ft_listE.merge(ft_listF, is_bigger());
+	listE.merge(listF, is_bigger());
+	chk_result(ft_listE, listE, "list", "MERGE(2) [FULL ORDERED vs FULL DISORDERED] 1/2");
+	chk_result(ft_listF, listF, "list", "MERGE(2) [FULL ORDERED vs FULL DISORDERED] 2/2");
+
+	ft::List<int> ft_listG(size, 1);
+	ft_listG.push_back(1);
+	ft_listG.push_back(2);
+	ft_listG.push_back(3);
+	std::list<int> listG(size, 1);
+	listG.push_back(1);
+	listG.push_back(2);
+	listG.push_back(3);
+	ft::List<int> ft_listH(size, 1);
+	ft_listH.push_back(5);
+	ft_listH.push_back(1);
+	ft_listH.push_back(3);
+	std::list<int> listH(size, 1);
+	listH.push_back(5);
+	listH.push_back(1);
+	listH.push_back(3);
+
+	ft_listH.merge(ft_listG, is_bigger());
+	listH.merge(listG, is_bigger());
+	chk_result(ft_listH, listH, "list", "MERGE(2) [FULL DISORDERED vs FULL ORDERED] 1/2");
+	chk_result(ft_listG, listG, "list", "MERGE(2) [FULL DISORDERED vs FULL ORDERED] 2/2");
+
+	return 0;
 };
 
 int test_list_sort() {

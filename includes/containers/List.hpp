@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/11 21:28:50 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:07:34 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,24 +489,29 @@ namespace ft {
 					return ;
 					
 				iterator otherIt = other.begin();
-				// iterator otherIte = other.end();
+				iterator otherIte = other.end();
 				iterator otherNext = otherIt;
 				iterator thisIt = this->begin();
 				iterator thisIte = this->end();
 
-				for (thisIt = this->begin(); thisIt != thisIte; ++thisIt) {
-					if (*otherIt < *thisIt) {
+				while (thisIt != thisIte) {
+					if (otherIt != otherIte && *otherIt < *thisIt) {
 						otherNext = otherIt;
 						otherNext++;
 						splice(thisIt, other, otherIt);
 						otherIt = otherNext;
 					}
+					else
+						thisIt++;
 				}
+				if (otherIt != otherIte)
+					splice(thisIt, other, otherIt, otherIte);
 			};
 
 			template <class Compare>
   			void merge (List& other, Compare comp) {
-				  if (other == *this)
+			
+				if (other == *this)
 					return ;
 					
 				iterator otherIt = other.begin();
@@ -515,14 +520,18 @@ namespace ft {
 				iterator thisIt = this->begin();
 				iterator thisIte = this->end();
 
-				for (thisIt = this->begin(); thisIt != thisIte; ++thisIt) {
-					if (comp(*otherIt, *thisIt)) {
+				while (thisIt != thisIte) {
+					if (otherIt != otherIte && comp(*otherIt, *thisIt)) {
 						otherNext = otherIt;
 						otherNext++;
 						splice(thisIt, other, otherIt);
 						otherIt = otherNext;
 					}
+					else
+						thisIt++;
 				}
+				if (otherIt != otherIte)
+					splice(thisIt, other, otherIt, otherIte);
 			};
   			//remove elements from x and insert them in container in orderly fashion
 			
@@ -572,12 +581,6 @@ namespace ft {
 
 			};
 			//reverse the order of elements
-
-			//----------------------------------------------
-		//
-			//----------------------------------------------
-			//----------------------------------------------
-			//----------------------------------------------
 
 
 		private:

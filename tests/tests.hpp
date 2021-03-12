@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/11 21:18:12 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/12 12:17:07 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #if defined(__linux__)
 	#define _NOEXCEPT _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT
 #endif
+
+# define WIDTH 60
 
 #include "ft_containers.h"
 #include <iomanip>
@@ -40,42 +42,42 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 	int ft_size = ft_container.size();
 	int std_size = std_container.size();
 
-	int w = 60;
 	std::string tmp;
 	std::string a;
 	std::stringstream conv;
+	std::setfill(' ');
 
 	tmp = "------------------------------------";
-	int nb = (w - tmp.size()) / 2;
-	o << std::string( nb, ' ' ) << tmp << std::endl;
+	int nb = (WIDTH - tmp.size()) / 2;
+	o << std::endl << std::string( nb, ' ' ) << tmp << std::endl;
 
 	tmp = "- SIZE -";
-	nb = (w - tmp.size()) / 2;
+	nb = (WIDTH - tmp.size()) / 2;
 	o << std::string( nb, ' ' ) << tmp << std::endl;
 
 	conv << ft_size;
 	tmp = "ft_" + type + ": <" + conv.str() + ">";
 	conv.str(std::string());
-	nb = (w - tmp.size()) / 2;
+	nb = (WIDTH - tmp.size()) / 2;
 	o << tmp << std::string( nb, ' ' );
 
 	conv << std_size;
 	tmp = "std_" + type + ": <" + conv.str() + ">";
 	conv.str(std::string());
-	nb = (w - tmp.size()) / 2;
+	nb = (WIDTH - tmp.size()) / 2;
 	o << std::string( nb, ' ' ) << tmp << std::endl;
 	//o << std::setw(step) << "std_" << type << ": " << std_size << std::endl;
 
 	tmp =  "- CONTENT -";
-	nb = (w - tmp.size()) / 2;
+	nb = (WIDTH - tmp.size()) / 2;
 	o << std::string( nb, ' ' ) << tmp << std::endl;
 
 	tmp = "ft_" + type + ": ";
-	nb = (w - tmp.size()) / 2;
+	nb = (WIDTH - tmp.size()) / 2;
 	o << tmp << std::string( nb, ' ' );
 
 	tmp = "std_" + type + ": ";
-	nb = (w - tmp.size()) / 2;
+	nb = (WIDTH - tmp.size()) / 2;
 	o << std::string( nb, ' ' ) << tmp << std::endl;
 
 	typename ft_class::iterator ft_it = ft_container.begin();
@@ -92,26 +94,26 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 	while (++i < max) {
 		if (ft_it != ft_ite) {
 			conv << *ft_it;
-			nb = (w - conv.str().size()) / 2;
+			nb = (WIDTH - conv.str().size()) / 2;
 			o << "[" << conv.str() << "]" << std::string( nb, ' ' );
 			conv.str(std::string());
 			ft_it++;
 		}
 		else
-			o << std::string( w/2, ' ' );
+			o << std::string(WIDTH/2 + 2, ' ' );
 		if (std_it != std_ite) {
 			conv << *std_it;
-			nb = (w - conv.str().size()) / 2;
+			nb = (WIDTH - conv.str().size()) / 2;
 			o << std::string( nb, ' ' ) << "[" << conv.str() << "]" << std::endl;
 			conv.str(std::string());
 			std_it++;
 		}
 		else
-			o << std::string( w/2, ' ' ) << std::endl;
+			o << std::string(WIDTH/2, ' ' ) << std::endl;
 	}
 
 	tmp = "------------------------------------";
-	nb = (w - tmp.size()) / 2;
+	nb = (WIDTH - tmp.size()) / 2;
 	o << std::string( nb, ' ' ) << tmp << std::endl;
 };
 
@@ -160,6 +162,7 @@ int test_list_opEqual();
 int test_list_pushBack_iterate();
 //CAPACITY
 int test_list_empty();
+int test_list_maxSize();
 //ELEMENT ACCESS
 int test_list_front_back();
 //MODIFIERS

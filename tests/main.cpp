@@ -6,7 +6,7 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/11 21:18:57 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/12 12:37:35 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "tests.hpp"
 
 #include <iostream>
+#include <iomanip>
 
 int main(void) {
 
@@ -22,13 +23,19 @@ int main(void) {
 	//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
 	/*     [in List_tests.cpp]     */
 
-	testsPtr listTests[24] = {&test_list_fillConstr, &test_list_rangeConstr, &test_list_copyConstr, &test_list_opEqual, &test_list_pushBack_iterate, 
-/*ADD TEST_MAX_SIZE HERE*/	&test_list_empty, &test_list_front_back,  &test_list_assign, &test_list_pushFront, 
+	testsPtr listTests[25] = {&test_list_fillConstr, &test_list_rangeConstr, &test_list_copyConstr, &test_list_opEqual, &test_list_pushBack_iterate, 
+							&test_list_empty, &test_list_maxSize, &test_list_front_back,  &test_list_assign, &test_list_pushFront, 
                         	&test_list_popFront, &test_list_popBack, &test_list_insert, &test_list_erase, &test_list_swap, 
                        	 	&test_list_resize, &test_list_clear, &test_list_splice, &test_list_remove, &test_list_removeIf, 
                         	&test_list_unique, &test_list_merge, &test_list_sort, &test_list_reverse, &test_list_nonMembers, };
 
 	try {
+		
+		std::string title = "- LIST TESTS -";
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << std::string(title.size(), '-') << std::endl;
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << title << std::endl;
+		std::cout << std::string((WIDTH - title.size())/2, ' ') << std::string(title.size(), '-') << std::endl;
+		
 		for (unsigned int i = 0; i < (sizeof(listTests) / sizeof(*(listTests))); i++) {
 			(*listTests[i])();
 		}

@@ -6,13 +6,14 @@
 /*   By: stella <stella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/12 11:07:34 by stella           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:33:58 by stella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIST_HPP
 #define LIST_HPP
 
+#include <limits>
 #include "Iterator.hpp"
 
 namespace ft {
@@ -36,7 +37,7 @@ namespace ft {
 			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
 			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
 			// typedef typename difference_type Iterator_traits<Iterator>::difference_type;
-			typedef unsigned int 										size_type;
+			typedef unsigned long  										size_type;
 			
 
 			//----------------------------------------------
@@ -145,7 +146,9 @@ namespace ft {
 				return _size;
 			};
 
-			//size_type max_size() const;
+			size_type max_size() const {
+				return (std::numeric_limits<size_type>::max() / (sizeof(Node<T>)));
+			};
 			//returns max nb of elements List can hold, due to system or library limitations
 
 			//----------------------------------------------

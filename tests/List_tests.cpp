@@ -6,15 +6,16 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/12 13:18:42 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/13 11:30:08 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.hpp"
 
-#include <list>
 #include <iomanip>
 #include <string>
+
+#include <list>
 
 class customException;
 

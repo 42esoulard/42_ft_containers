@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Node.hpp                                           :+:      :+:    :+:   */
+/*   ListNode.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,24 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NODE_HPP
-#define NODE_HPP
+#ifndef LISTNODE_HPP
+#define LISTNODE_HPP
 
 namespace ft {
 
 	template <class T>
-	class Node {
+	class ListNode {
 
 		public:
 			typedef T 					value_type;
-			typedef Node<value_type> 	node_type;
+			typedef ListNode<value_type> 	node_type;
 
-			Node() : _value(), _prev(NULL), _next(NULL) {};
-			Node(value_type const &value) : _value(value),  _prev(NULL), _next(NULL) {};
-			Node(Node const &src) : _value(src._value), _prev(src._prev), _next(src._next) {};
-			~Node() {}
+			ListNode() : _value(), _prev(NULL), _next(NULL) {};
+			ListNode(value_type const &value) : _value(value),  _prev(NULL), _next(NULL) {};
+			ListNode(ListNode const &src) : _value(src._value), _prev(src._prev), _next(src._next) {};
+			~ListNode() {}
 
-			Node &operator=(Node const &src) {
+			ListNode &operator=(ListNode const &src) {
 				this->_value = src._value;
 				this->_prev = src._prev;
 				this->_next = src._next;
@@ -42,19 +42,19 @@ namespace ft {
 				return _value;
 			};
 			
-			Node 		*getNext() {
+			ListNode 		*getNext() {
 				return _next;
 			};
 
-			Node const 	*getNext() const {
+			ListNode const 	*getNext() const {
 				return _next;
 			};
 
-			Node	*getPrev() {
+			ListNode	*getPrev() {
 				return _prev;
 			};
 
-			Node const	*getPrev() const {
+			ListNode const	*getPrev() const {
 				return _prev;
 			};
 
@@ -63,8 +63,8 @@ namespace ft {
 				_prev = NULL;
 			};
 
-			Node 		*getBegin() {
-				Node *begin = this;
+			ListNode 		*getBegin() {
+				ListNode *begin = this;
 
 				while(begin->_prev)
 					begin = begin->_prev;
@@ -72,7 +72,7 @@ namespace ft {
 			};
 
 			void 	addNext(value_type const &value) {
-				Node *newNode = new Node(value);
+				ListNode *newNode = new ListNode(value);
 				if (this->_next)
 					newNode->_next = this->_next;
 				this->_next = newNode;
@@ -80,7 +80,7 @@ namespace ft {
 			};
 
 			void 	addPrev(value_type const &value) {
-				Node *newNode = new Node(value);
+				ListNode *newNode = new ListNode(value);
 				if (this->_prev) {
 					newNode->_prev = this->_prev;
 					this->_prev->_next = newNode;
@@ -103,8 +103,8 @@ namespace ft {
 			void 	delNode() {//node0 node1 node2 endNode
 				//case: pop_front = gotta rm node0
 				
-				Node *prevNode = this->_prev; //NULL
-				Node *nextNode = this->_next; //node1
+				ListNode *prevNode = this->_prev; //NULL
+				ListNode *nextNode = this->_next; //node1
 
 				if (prevNode)//si size != 0
 					prevNode->_next = nextNode;
@@ -117,8 +117,8 @@ namespace ft {
 			void 	forgetNode() {//node0 node1 node2 endNode NO DELETE
 				//case: pop_front = gotta rm node0
 				
-				Node *prevNode = this->_prev; //NULL
-				Node *nextNode = this->_next; //node1
+				ListNode *prevNode = this->_prev; //NULL
+				ListNode *nextNode = this->_next; //node1
 
 				if (prevNode)//si size != 0
 					prevNode->_next = nextNode;
@@ -138,7 +138,7 @@ namespace ft {
 			void 	swapNodes(node_type *one, node_type *two) {//beg node1 node2 end should become beg node2 node1 end
 
 			//	std::cout << "fffffcuk" <<std::endl;
-				Node *stock = two->_next;
+				ListNode *stock = two->_next;
 
 				one->_next = two->_next;
 				two->_next = one;

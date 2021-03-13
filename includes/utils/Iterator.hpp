@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:25:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/12 13:19:03 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/13 11:21:54 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define ITERATOR_HPP
 
 #include <iostream>
-#include "Node.hpp"
+#include "ListNode.hpp"
 
 //EXAMPLE OF ITERATOR IMPLEMENTATION, cplusplus.com
 //https://www.cplusplus.com/reference/Iterator/Iterator/

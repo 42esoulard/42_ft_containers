@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   List.hpp                                           :+:      :+:    :+:   */
+/*   Vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/13 11:28:58 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/13 11:31:33 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_HPP
-#define LIST_HPP
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
 
 #include <limits>
 #include "Iterator.hpp"
-#include "ListNode.hpp"
+#include "VectorNode.hpp"
 
 namespace ft {
 

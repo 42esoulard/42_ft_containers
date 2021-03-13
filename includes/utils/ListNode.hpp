@@ -71,6 +71,14 @@ namespace ft {
 				return begin;
 			};
 
+			void 	setEnd() {
+				ListNode *begin = this;
+
+				while(begin->_prev)
+					begin = begin->_prev;
+				this->_next = begin;
+			};
+
 			void 	addNext(value_type const &value) {
 				ListNode *newNode = new ListNode(value);
 				if (this->_next)

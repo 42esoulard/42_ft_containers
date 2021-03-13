@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/13 11:28:58 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/13 15:42:17 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ namespace ft {
 			explicit List () {
 				_begin = new node_type();
 				_end = _begin;
+				_end->setEnd();
 				_size = 0;
 			};
 
@@ -56,6 +57,7 @@ namespace ft {
 			explicit List (size_type n, const value_type& val = value_type()) {
 				_begin = new node_type();
 				_end = _begin;
+				_end->setEnd();
 				_size = 0;
 				assign(n, val);
 			};
@@ -65,6 +67,7 @@ namespace ft {
 		 	List (InputIterator first, InputIterator last)  {
 		 		_begin = new node_type();
 				_end = _begin;
+				_end->setEnd();
 				_size = 0;
 		 		assign(first, last);
 		 	};	
@@ -73,6 +76,7 @@ namespace ft {
 			List (const List& x) {
 				_begin = new node_type();
 				_end = _begin;
+				_end->setEnd();
 				_size = 0;
 		 		assign(x.begin(), x.end());
 			}; 
@@ -193,6 +197,8 @@ namespace ft {
 		 			this->push_back(*first);
 		 			first++;
 		 		}
+				 _begin = _end->getBegin();
+				_end->setEnd();
   			};//RANGE
 
 			void assign (size_type n, const value_type& val) {
@@ -200,6 +206,8 @@ namespace ft {
 				while (_size < n) {
 					push_back(val);
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};//FILL
 			//Assigns new contents to the List container, replacing its current contents, and modifying its size accordingly.
 
@@ -207,6 +215,8 @@ namespace ft {
 				_begin->addPrev(val);
 				_begin = _begin->getPrev();
 				_size++;
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			//insert elem at the beginning. 
 
@@ -219,6 +229,8 @@ namespace ft {
 					_begin = tmp;
 					_size--;
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			//remove & destroy first element.
 
@@ -228,6 +240,8 @@ namespace ft {
 				if (empty())
 					_begin = _end->getPrev();
 				_size++;
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			//add element at the end
 
@@ -242,6 +256,8 @@ namespace ft {
 					_end->getPrev()->delNode();//delete Node3
 					_size--;
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 				//std::cout << "popped back " << std::endl;
 			};
 			//remove & destroy last element
@@ -254,6 +270,8 @@ namespace ft {
 				while (_begin->getPrev())
 					_begin = _begin->getPrev();
 				//std::cout << "in insert1 beg value: " << _begin->getValue() << std::endl;
+				_begin = _end->getBegin();
+				_end->setEnd();
 				return iterator(position.getNode()->getPrev());
 
 			}; //1 ELEMENT
@@ -266,6 +284,8 @@ namespace ft {
 					position = insert(position, val);
 					//std::cout << "beg value: " << _begin->getValue() << std::endl;
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};//FILL
 			
 			template <class InputIterator>
@@ -274,6 +294,8 @@ namespace ft {
 					insert(position, *first);
 					first++;
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};//RANGE
     		//Extend the container by inserting new elements before the element at the specified position
 
@@ -293,7 +315,8 @@ namespace ft {
 				position.getNode()->delNode();
 				_begin = tmp;
 				_size--;
-
+				_begin = _end->getBegin();
+				_end->setEnd();
 				return ret;
 			};
 			
@@ -306,7 +329,9 @@ namespace ft {
 
 				while (first != last)
 					erase(first++);
-
+				_begin = _end->getBegin();
+				_end->setEnd();
+				
 				return ret;
 			};
 			// remove & destroy either 1 element or a range of elements. 
@@ -351,6 +376,8 @@ namespace ft {
 						it = insert(it, val);
 				}
 				_size = n;
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			//either removes elements beyond n elements or add elements until container size is n 
 
@@ -364,6 +391,7 @@ namespace ft {
 				}
 				_end->resetNode();
 				_begin = _end;
+				_end->setEnd();
 				_size = 0;
 			};
 			//removes all elements (size == 0)
@@ -386,6 +414,7 @@ namespace ft {
 				_begin = _end->getBegin();
 				other._end->resetNode();
 				other._begin = other._end;
+				other._end->setEnd();
 			}; //ENTIRE LIST
 			
 			void splice (iterator position, List& other, iterator it) {
@@ -394,8 +423,10 @@ namespace ft {
 				it.getNode()->forgetNode();
 				cur = position.getNode();
 				cur->addPrevNode(it.getNode());
-				_begin = _end->getBegin();				
+				_begin = _end->getBegin();
+				_end->setEnd();				
 				other._begin = other._end->getBegin();
+				other._end->setEnd();		
 			}; //1 ELEMENT
 			
 			void splice (iterator position, List& other, iterator first, iterator last) {
@@ -409,6 +440,7 @@ namespace ft {
 					first = next;
 				}
 				_begin = _end->getBegin();
+				_end->setEnd();	
 			}; //RANGE
 			// Transfer of elements from other into the container
 
@@ -429,6 +461,8 @@ namespace ft {
 					else
 						it++;
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			//remove elements with specific value
 
@@ -453,6 +487,8 @@ namespace ft {
 					else
 						it++;
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			// pred is a function returning a bool. Check if p(val) is true for each element
 
@@ -468,6 +504,8 @@ namespace ft {
 						it = tmp;
 					}
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			//remove all but the first element from every consecutive group of equal elements in the container
 			
@@ -484,6 +522,8 @@ namespace ft {
 						it = tmp;
 					}
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			//can take any "comparison" function
 
@@ -510,6 +550,8 @@ namespace ft {
 				}
 				if (otherIt != otherIte)
 					splice(thisIt, other, otherIt, otherIte);
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 
 			template <class Compare>
@@ -536,6 +578,8 @@ namespace ft {
 				}
 				if (otherIt != otherIte)
 					splice(thisIt, other, otherIt, otherIte);
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
   			//remove elements from x and insert them in container in orderly fashion
 			
@@ -551,6 +595,8 @@ namespace ft {
 						it = begin();
 					}			
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 			//use < for comparison
 			
@@ -567,6 +613,8 @@ namespace ft {
 						it = begin();
 					}			
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 			};
 
   			void reverse() {
@@ -582,6 +630,8 @@ namespace ft {
 					it++;
 					rit++;
 				}
+				_begin = _end->getBegin();
+				_end->setEnd();
 
 			};
 			//reverse the order of elements

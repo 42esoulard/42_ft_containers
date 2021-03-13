@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/13 11:56:54 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/13 11:59:39 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void output_title(std::string const &title) {
 	std::cout << std::string((WIDTH - title.size())/2, ' ') << std::string(title.size(), '-') << std::endl;
 }
 
-int main(void) {
+int main(void) { 
 
 							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
 							///*\*/*\*/*\LIST TESTS/*\*/*\*//

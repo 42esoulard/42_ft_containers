@@ -39,10 +39,30 @@ namespace ft {
 			value_type const &getValue() const {
 				return _value;
 			};
+			
+			// VectorNode 		*getNext() {
+				// VectorNode *next = this;
+				// (next)++;
+				// return next;
+			// 	return next;
+			// };
 
-			// void resetNode() {
-			// 	_next = NULL;
-			// 	_prev = NULL;
+			// VectorNode const 	*getNext() const {
+				// VectorNode *next = this;
+				// (next)++;
+				// return next;
+			// };
+
+			// VectorNode	*getPrev() {
+				// VectorNode *prev = this;
+				// (prev)--;
+			// 	return prev;
+			// };
+
+			// VectorNode const	*getPrev() const {
+			// 	// VectorNode *prev = this;
+				// (prev)--;
+			// 	return prev;
 			// };
 
 			// VectorNode 		*getBegin() {

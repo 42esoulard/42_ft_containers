@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:25:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/13 11:21:54 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/13 17:21:11 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define ITERATOR_HPP
 
 #include <iostream>
-#include "ListNode.hpp"
 
 //EXAMPLE OF ITERATOR IMPLEMENTATION, cplusplus.com
 //https://www.cplusplus.com/reference/Iterator/Iterator/
@@ -43,7 +42,12 @@ class Iterator {
 		Iterator(node_type *x) :p(x) {};
 		Iterator(const Iterator& mit) : p(mit.p) {};
 
-		Iterator& operator++() {p = p->getNext();return *this;};
+		Iterator& operator++() {
+			p = p->getNext();
+			
+			return *this;
+		};
+
 		Iterator operator++(int) {Iterator tmp(*this); operator++(); return tmp;};
 		Iterator const operator++(int) const {Iterator tmp(*this); operator++(); return tmp;};
 

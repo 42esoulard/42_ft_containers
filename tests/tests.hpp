@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/13 11:30:24 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/13 17:00:30 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,15 +190,44 @@ int test_list_reverse();
 //NON-MEMBER FUNCTION OVERLOADS
 int test_list_nonMembers();
 
-// testsPtr listTests[21] = {&test_pushBack_iterate, &test_front_back, &test_fillConstr, &test_rangeConstr, &test_copyConstr,
-//                         &test_opEqual, &test_pushFront, &test_popFront, &test_popBack, &test_insert,
-//                         &test_erase, &test_swap, &test_resize, &test_clear, &test_splice, 
-//                         &test_remove, &test_removeIf, &test_unique, &test_merge, &test_sort,
-//                         &test_nonMembers};
 
+//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
+///*\*/*\*/*\VECTOR TESTS/*\*/*//
+//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
+/*     [in Vector_tests.cpp]     */
 
-/*----------VECTOR TESTS----------*/
-/*     [in Vector_tests.cpp]      */
+//CONSTRUCTORS
+int test_vector_fillConstr();
+// int test_vector_rangeConstr();
+// int test_vector_copyConstr();
+// int test_vector_opEqual();
+// //ITERATORS
+// int test_vector_pushBack_iterate();
+// //CAPACITY
+// int test_vector_empty();
+// int test_vector_maxSize();
+// //ELEMENT ACCESS
+// int test_vector_front_back();
+// //MODIFIERS
+// int test_vector_assign();
+// int test_vector_pushFront();
+// int test_vector_popFront();
+// int test_vector_popBack();
+// int test_vector_insert();
+// int test_vector_erase();
+// int test_vector_swap();
+// int test_vector_resize();
+// int test_vector_clear();
+// //OPERATIONS
+// int test_vector_splice();
+// int test_vector_remove();
+// int test_vector_removeIf();
+// int test_vector_unique();
+// int test_vector_merge();
+// int test_vector_sort();
+// int test_vector_reverse();
+// //NON-MEMBER FUNCTION OVERLOADS
+// int test_vector_nonMembers();
 
 /*----------MAP TESTS----------*/
 /*     [in Map_tests.cpp]      */

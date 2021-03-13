@@ -6,13 +6,13 @@ INC_CONT 	:= $(addprefix ${INC_CDIR}, ${INC_CONT})
 
 ########################### UTILS ###########################
 INC_UTILS	= ft_containers.h Iterator.hpp ListNode.hpp \
-				#VectorNode.hpp
+				VectorNode.hpp
 INC_UDIR	= includes/utils/
 INC_UTILS	:= $(addprefix ${INC_UDIR},${INC_UTILS})
 #############################################################
 
 ######################### TEST FILES ########################
-SRC_TEST	= main.cpp List_tests.cpp #Vector_tests.cpp
+SRC_TEST	= main.cpp List_tests.cpp Vector_tests.cpp
 SRC_TDIR	= tests/
 SRC_TEST 	:= $(addprefix ${SRC_TDIR}, ${SRC_TEST})
 

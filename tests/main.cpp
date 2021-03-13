@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/13 16:25:33 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/13 16:58:43 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main(void) {
 							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
 							/*    [in Vector_tests.cpp]    */
 
-	// testsPtr vectorTests[1] = { &test_vector_fillConstr, };
+	testsPtr vectorTests[1] = { &test_vector_fillConstr, };
 
 	/* &test_vector_rangeConstr, &test_vector_copyConstr, &test_vector_opEqual, &test_vector_pushBack_iterate, 
 							&test_vector_empty, &test_vector_maxSize, &test_vector_front_back,  &test_vector_assign, &test_vector_pushFront, 
@@ -60,16 +60,16 @@ int main(void) {
                        	 	&test_vector_resize, &test_vector_clear, &test_vector_splice, &test_vector_remove, &test_vector_removeIf, 
                         	&test_vector_unique, &test_vector_merge, &test_vector_sort, &test_vector_reverse, &test_vector_nonMembers, */
 
-	// try {
-	// 	output_title("- VECTOR TESTS -");
-	// 	for (unsigned int i = 0; i < (sizeof(vectorTests) / sizeof(*(vectorTests))); i++)
-	// 		(*vectorTests[i])();
-	// 	output_title(">>>>>>>>> Vector tests: SUCCESS! <<<<<<<<<");
-	// }
-	// catch(std::exception &e) {
-	// 	std::cerr << "ERROR: " << e.what() << std::endl;
-	// 	output_title(">>>>>>>>> Vector tests: FAIL :( <<<<<<<<<");
-	// }
+	try {
+		output_title("- VECTOR TESTS -");
+		for (unsigned int i = 0; i < (sizeof(vectorTests) / sizeof(*(vectorTests))); i++)
+			(*vectorTests[i])();
+		output_title(">>>>>>>>> Vector tests: SUCCESS! <<<<<<<<<");
+	}
+	catch(std::exception &e) {
+		std::cerr << "ERROR: " << e.what() << std::endl;
+		output_title(">>>>>>>>> Vector tests: FAIL :( <<<<<<<<<");
+	}
 
 
 

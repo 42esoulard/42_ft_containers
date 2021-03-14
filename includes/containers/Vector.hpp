@@ -108,7 +108,7 @@ namespace ft {
 			~Vector() { 
 
 				clear(); 
-				//delete _end; 
+			//	delete[] _containerPtr; 
 			};
 
 
@@ -239,17 +239,20 @@ namespace ft {
 					newCapacity *= 2;
 
 				node_type *newVector = new node_type[newCapacity];
-				node_type *newVectorStock = newVector;
+				iterator newIt = iterator(newVector);
+				iterator oldIt = iterator(_containerPtr);
 
 				if (_capacity > 0) {
-					node_type *oldVector = _containerPtr;
-					for (size_type i = 0; i < _size; i++)
-						*(newVector++) = *(oldVector++);
+					for (size_type i = 0; i < _size; i++) {
+						*newIt = *oldIt;
+						newIt++;
+						oldIt++;
+					}
 
 					delete[] _containerPtr;
 				}
 
-				_containerPtr = newVectorStock;
+				_containerPtr = newVector;
 				_capacity = newCapacity;
 			};
 			// requests that the vector capacity be at least enough to contain n elements, reallocate if needed.
@@ -448,6 +451,12 @@ namespace ft {
 			void clear() {
 				
 				// _containerPtr = NULL;
+				// iterator it = iterator(_containerPtr);
+
+				// for (size_t i = 0; i < _size; i++) {
+				// 	*it = 0;
+				// 	it++;
+				// }
 				_size = 0;
 			};
 	// 		//removes all elements (size == 0)

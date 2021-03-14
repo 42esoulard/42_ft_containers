@@ -75,10 +75,10 @@ namespace ft {
 				return next;
 			};
 
-			void resetNode() {
+			// void resetNode() {
 
-				_value = value_type();
-			};
+			// 	_value = value_type();
+			// };
 
 			// VectorNode 		*getBegin() {
 
@@ -144,8 +144,10 @@ namespace ft {
 
 			void 	delNode() {
 				
-				forgetNode();
-				delete(this);
+				_value = 0;
+
+				// forgetNode();
+				// delete(this);
 			};
 
 			void 	linkNodes(node_type first, node_type second) {

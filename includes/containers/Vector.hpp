@@ -341,8 +341,19 @@ namespace ft {
 
 			void push_back (const value_type& val) { 
 
+				// iterator it = iterator(_containerPtr);
+				// std::cout << "push back bef reserve" << std::endl;
+				// for (size_t i = 0; i < _size; i++) {
+				// 	std::cout << *it << std::endl;
+				// 	it++;
+				// }
 				reserve(_size + 1);
-
+				// it = iterator(_containerPtr);
+				// std::cout << "push back aft reserve" << std::endl;
+				// for (size_t i = 0; i < _size; i++) {
+				// 	std::cout << *it << std::endl;
+				// 	it++;
+				// }
 				*(end()) = val;
 				_size++;
 			};
@@ -450,13 +461,12 @@ namespace ft {
 	
 			void clear() {
 				
-				// _containerPtr = NULL;
-				// iterator it = iterator(_containerPtr);
+				iterator it = iterator(_containerPtr);
 
-				// for (size_t i = 0; i < _size; i++) {
-				// 	*it = 0;
-				// 	it++;
-				// }
+				for (size_t i = 0; i < _size; i++) {
+					//it.getNode()->delNode();
+					it++;
+				}
 				_size = 0;
 			};
 	// 		//removes all elements (size == 0)

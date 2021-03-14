@@ -71,15 +71,14 @@ namespace ft {
 
 				VectorNode *next = this;
 				
-				(*next)--;
+				next--;
 				return next;
 			};
 
-			// void resetNode() {
+			void resetNode() {
 
-			// 	_next = NULL;
-			// 	_prev = NULL;
-			// };
+				_value = value_type();
+			};
 
 			// VectorNode 		*getBegin() {
 

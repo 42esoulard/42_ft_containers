@@ -56,18 +56,13 @@ namespace ft {
 			};
 
 			// >>> fill
-			// explicit Vector (size_type n, const value_type& val = value_type()) {
+			explicit Vector (size_type n, const value_type& val = value_type()) {
 
-			// 	_begin = NULL;
-			// 	_end = NULL;
-			// 	_size = 0;
-			// 	_capacity = 0;
+				_size = 0;
+				_capacity = 0;
 
-			// 	assign(n, val);
-
-			// 	_end->setEnd(_begin, _size);
-			// 	//in setEnd : go from begin, increment size times, and point end there
-			// };
+				assign(n, val);
+			};
 
 			// // >>> range
 			// template <class InputIterator>
@@ -110,11 +105,11 @@ namespace ft {
 
 			//DESTRUCTOR:
 
-			// ~Vector() { 
+			~Vector() { 
 
-			// 	clear(); 
-			// 	//delete _end; 
-			// };
+				clear(); 
+				//delete _end; 
+			};
 
 
 			//----------------------------------------------
@@ -239,12 +234,13 @@ namespace ft {
 
 				size_type newCapacity = _capacity;
 				if (newCapacity == 0)
-					newCapacity++;
+					newCapacity = n;
 				while (n > newCapacity)
 					newCapacity *= 2;
 
 				node_type *newVector = new node_type[newCapacity];
-				
+				node_type *newVectorStock = newVector;
+
 				if (_capacity > 0) {
 					node_type *oldVector = _containerPtr;
 					for (size_type i = 0; i < _size; i++)
@@ -253,7 +249,7 @@ namespace ft {
 					delete[] _containerPtr;
 				}
 
-				_containerPtr = newVector;
+				_containerPtr = newVectorStock;
 				_capacity = newCapacity;
 			};
 			// requests that the vector capacity be at least enough to contain n elements, reallocate if needed.
@@ -295,45 +291,27 @@ namespace ft {
 
 	// 		// MODIFIERS
 
-	// 		// >>> range
-	// 		template <class InputIterator>
-  	// 		void assign (InputIterator first, InputIterator last) {
+			// >>> range
+			template <class InputIterator>
+  			void assign (InputIterator first, InputIterator last) {
 
-	// 			this->clear();
+				clear();
 
-  	// 			while (first != last) {
-	// 	 			this->push_back(*first);
-	// 	 			first++;
-	// 	 		}
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-  	// 		};
+  				while (first != last) {
+		 			push_back(*first);
+		 			first++;
+		 		}
+  			};
 
-	// 		// >>> fill
-	// 		void assign (size_type n, const value_type& val) {
+			// >>> fill
+			void assign (size_type n, const value_type& val) {
 
-	// 			// node_type *newVector = this;
-	// 			// //this->clear();
-	// 			// size_t newCapacity = _capacity;
-	// 			// if (n > _capacity) {
-	// 			// 	while (n > newCapacity)
-	// 			// 		new_capacity *= 2;
-	// 			// 	newVector = new node_type[newCapacity];
-	// 				// node_type *oldVector = this;
-					
+				clear();
+				reserve(n);
 
-	// 			}
-	// 			// for (int i = 0; i < n; i++) {
-	// 			// 	*newVector++ = push_back(val);;
-	// 			// }
-
-	// 			// while (_size < n) {
-	// 			// 	push_back(val);
-	// 			// }
-
-	// 			// _begin = _end->getBegin();
-	// 			// _end->setEnd();
-	// 		};
+				while (_size < n) 
+					push_back(val);
+			};
 	// 		//Assigns new contents to the Vector container, replacing its current contents, and modifying its size accordingly.
 
 	// 		void push_front (const value_type& val) {
@@ -358,15 +336,14 @@ namespace ft {
 	// 		};
 	// 		//remove & destroy first element.
 
-	// 		void push_back (const value_type& val) { 
+			void push_back (const value_type& val) { 
 
-	// 			_end->addPrev(val);
-	// 			_size++;
-				
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		//Adding elements to a vector = adding nodes before end. 
+				reserve(_size + 1);
+
+				*(end()) = val;
+				_size++;
+			};
+			//Adding elements to a vector = adding nodes before end. 
 
 	// 		void pop_back() {
 
@@ -468,21 +445,11 @@ namespace ft {
 	// 		//exchange content with container of the same type
 
 	
-	// 		void clear() {
-
-	// 			node_type *tmp;
-
-	// 			while (_begin != _end) {
-	// 				tmp = _begin->getNext();
-	// 				delete _begin;
-	// 				_begin = tmp;
-	// 			}
-			
-	// 			_begin = NULL;
-	// 			_end = NULL;
-	// 			_size = 0;
-	// 			_capacity = 0;
-	// 		};
+			void clear() {
+				
+				// _containerPtr = NULL;
+				_size = 0;
+			};
 	// 		//removes all elements (size == 0)
 			
 

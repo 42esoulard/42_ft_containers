@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/13 17:02:09 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:47:10 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,17 @@ class customException;
 //*\*/*\/*\*/*\/*\*/*\/*\*///
 
 int test_vector_fillConstr() {
-	// std::string title = "[FILL CONSTRUCTOR]";
-	// std::cout << title;
+	std::string title = "[FILL CONSTRUCTOR]";
+	std::cout << title;
+
+	ft::Vector<int> ft_vector;
+	std::vector<int> vector;
+	chk_resultVector(&ft_vector, &vector, "vector", title, "0");
+	
+	ft_vector.reserve(2);
+	vector.reserve(2);
+	std::cout << "CAPACITY ft : " << ft_vector.capacity() << " | std : " << vector.capacity() << std::endl;
+	chk_resultVector(&ft_vector, &vector, "vector", title, "after reserve(2)");
 
 	// ft::Vector<char> ft_vector(5, 'a');
 	// std::vector<char> vector(5, 'a');

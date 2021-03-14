@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/13 17:00:30 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:46:42 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,45 @@ int chk_result(ft_class ft_container, std_class std_container, std::string const
 		std_it++;
 	}
 
+	return 0;
+};
+
+template <class ft_class, class std_class>
+void handle_errorVector(ft_class *ft_container, std_class *std_container, std::string const &type, std::string const &func, 
+	std::string const &testInfo, std::string const &errorTheme) {
+			std::cout << std::setfill('.') << std::setw(WIDTH - func.size()) << " ✘" << std::endl;
+			std::cerr << ">---FAIL--->>>  ON FUNCTION: " << func << std::endl;
+			if (testInfo.size())
+				std::cerr << std::string(15, ' ') << " Test info: " << testInfo << std::endl;
+			
+			std::string tmp = "- CAPACITY -";
+			int nb = (WIDTH - tmp.size()) / 2;
+			std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
+
+			std::stringstream conv;
+			conv << ft_container->capacity();
+			tmp = "ft_" + type + ": <" + conv.str() + ">";
+			conv.str(std::string());
+			nb = (WIDTH - tmp.size()) / 2;
+			std::cerr << tmp << std::string( nb, ' ' );
+
+			conv << std_container->capacity();
+			tmp = "std_" + type + ": <" + conv.str() + ">";
+			conv.str(std::string());
+			nb = (WIDTH - tmp.size()) / 2;
+			std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
+
+			output_containers(*ft_container, *std_container, type, std::cerr);
+			throw customException("ft_container " + errorTheme + " doesn't match std::container's!");
+};
+
+template <class ft_class, class std_class>
+int chk_resultVector(ft_class *ft_container, std_class *std_container, std::string const &type, std::string const &func, std::string const &testInfo = "") {
+		
+	if (ft_container->capacity() != std_container->capacity())
+		handle_errorVector(ft_container, std_container, type, func, testInfo, "CAPACITY");
+
+	chk_result(*ft_container, *std_container, type, func, testInfo);
 	return 0;
 };
 

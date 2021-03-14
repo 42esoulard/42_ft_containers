@@ -6,10 +6,12 @@
 int main() {
 
     std::vector<int> vectorEmpty;
+    vectorEmpty.reserve(2);
 
     int i = 0;
     while (i < 100) {
         std::cout << "Size:" << vectorEmpty.size() << " // Capacity: " << vectorEmpty.capacity() << std::endl;
+        vectorEmpty.reserve(12);
         vectorEmpty.push_back(1);
         i++;
     }

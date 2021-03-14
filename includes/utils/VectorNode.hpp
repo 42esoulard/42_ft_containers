@@ -47,7 +47,7 @@ namespace ft {
 
 				VectorNode *next = this;
 
-				(*next)++;
+				next++;
 				return next;
 			};
 
@@ -55,7 +55,7 @@ namespace ft {
 
 				VectorNode *next = this;
 				
-				(*next)++;
+				next++;
 				return next;
 			};
 
@@ -63,7 +63,7 @@ namespace ft {
 
 				VectorNode *next = this;
 				
-				(*next)--;
+				next--;
 				return next;
 			};
 

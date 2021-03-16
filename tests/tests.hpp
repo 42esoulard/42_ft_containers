@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/14 14:46:42 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/16 16:18:49 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,17 +140,19 @@ int chk_result(ft_class ft_container, std_class std_container, std::string const
 	
 	typename std_class::iterator std_it = std_container.begin();
 
+	
 	for (ft_it = ft_container.begin(); ft_it != ft_ite; ft_it++) {
 		if (*ft_it != *std_it)
 			handle_error(ft_container, std_container, type, func, testInfo, "CONTENT");
 		std_it++;
 	}
+	
 
 	return 0;
 };
 
 template <class ft_class, class std_class>
-void handle_errorVector(ft_class *ft_container, std_class *std_container, std::string const &type, std::string const &func, 
+void handle_errorVector(ft_class ft_container, std_class std_container, size_t std_capac, std::string const &type, std::string const &func, 
 	std::string const &testInfo, std::string const &errorTheme) {
 			std::cout << std::setfill('.') << std::setw(WIDTH - func.size()) << " ✘" << std::endl;
 			std::cerr << ">---FAIL--->>>  ON FUNCTION: " << func << std::endl;
@@ -162,29 +164,30 @@ void handle_errorVector(ft_class *ft_container, std_class *std_container, std::s
 			std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
 
 			std::stringstream conv;
-			conv << ft_container->capacity();
+			conv << ft_container.capacity();
 			tmp = "ft_" + type + ": <" + conv.str() + ">";
 			conv.str(std::string());
 			nb = (WIDTH - tmp.size()) / 2;
 			std::cerr << tmp << std::string( nb, ' ' );
 
-			conv << std_container->capacity();
+			conv << std_capac;
 			tmp = "std_" + type + ": <" + conv.str() + ">";
 			conv.str(std::string());
 			nb = (WIDTH - tmp.size()) / 2;
 			std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
 
-			output_containers(*ft_container, *std_container, type, std::cerr);
+			output_containers(ft_container, std_container, type, std::cerr);
 			throw customException("ft_container " + errorTheme + " doesn't match std::container's!");
 };
 
 template <class ft_class, class std_class>
-int chk_resultVector(ft_class *ft_container, std_class *std_container, std::string const &type, std::string const &func, std::string const &testInfo = "") {
+int chk_resultVector(ft_class ft_container, std_class std_container, size_t std_capac, std::string const &type, std::string const &func, std::string const &testInfo = "") {
 		
-	if (ft_container->capacity() != std_container->capacity())
-		handle_errorVector(ft_container, std_container, type, func, testInfo, "CAPACITY");
+	if (ft_container.capacity() != std_capac)
+		handle_errorVector(ft_container, std_container, std_capac, type, func, testInfo, "CAPACITY");
 
-	chk_result(*ft_container, *std_container, type, func, testInfo);
+
+	chk_result(ft_container, std_container, type, func, testInfo);
 	return 0;
 };
 

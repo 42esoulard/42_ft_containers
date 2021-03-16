@@ -145,7 +145,7 @@ namespace ft {
 			void 	delNode() {
 				
 				_value = 0;
-
+				//std::cout << "forgot Node" << std::endl;
 				// forgetNode();
 				// delete(this);
 			};

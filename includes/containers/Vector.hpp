@@ -28,8 +28,8 @@ namespace ft {
 
 			typedef T 													value_type;
 			typedef VectorNode<value_type> 								node_type;
-			typedef typename std::allocator<node_type> 					allocator_type;
-			//typedef allocator_type 										Alloc;
+			typedef std::allocator<node_type> 							allocator_type;
+			typedef allocator_type 										node_allocator;
 			typedef value_type											&reference;
 			typedef value_type const	 								&const_reference;
 			typedef node_type 											*pointer;
@@ -50,7 +50,8 @@ namespace ft {
 			// >>> default
 			explicit Vector () {
 
-				_containerPtr = NULL;
+				_begin = NULL;
+				_end = _begin;
 				_size = 0;
 				_capacity = 0;
 			};
@@ -58,6 +59,8 @@ namespace ft {
 			// >>> fill
 			explicit Vector (size_type n, const value_type& val = value_type()) {
 
+				_begin = NULL;
+				_end = _begin;
 				_size = 0;
 				_capacity = 0;
 
@@ -106,9 +109,10 @@ namespace ft {
 			//DESTRUCTOR:
 
 			~Vector() { 
-
-				clear(); 
-			//	delete[] _containerPtr; 
+				// if (_capacity)
+				// 	delete[] _begin;
+				//clear(); 
+				//delete[] _containerPtr; 
 			};
 
 
@@ -119,16 +123,16 @@ namespace ft {
 
 			iterator 		begin() {
 
-				return iterator(_containerPtr);
+				return iterator(_begin);
 			};
 
 			const_iterator 	begin() const{
 
-				return const_iterator(_containerPtr);
+				return const_iterator(_begin);
 			};
 
 			iterator end(){
-				node_type *end = _containerPtr;
+				node_type *end = _begin;
 
 				for (size_type i = 0; i < _size; i++)
 					end++;
@@ -136,7 +140,7 @@ namespace ft {
 			};
 
 			const_iterator end() const{
-				node_type *end = _containerPtr;
+				node_type *end = _begin;
 
 				for (size_type i = 0; i < _size; i++)
 					end++;
@@ -238,21 +242,28 @@ namespace ft {
 				while (n > newCapacity)
 					newCapacity *= 2;
 
-				node_type *newVector = new node_type[newCapacity];
-				iterator newIt = iterator(newVector);
-				iterator oldIt = iterator(_containerPtr);
+				node_type *newVector = new node_type[newCapacity]();
 
-				if (_capacity > 0) {
 					for (size_type i = 0; i < _size; i++) {
-						*newIt = *oldIt;
-						newIt++;
-						oldIt++;
+						newVector[i] = _begin[i];
+						// *newIt = *oldIt;
+						// newIt++;
+						// oldIt++;
 					}
+					if (_capacity)
+						delete[] _begin;
+					_begin = newVector;
+					_end = &newVector[_size - 1];
 
-					delete[] _containerPtr;
-				}
-
-				_containerPtr = newVector;
+				//_containerPtr = newVector;
+				// iterator it = iterator(_containerPtr);
+				// for (size_type i = 0; i < _size; i++) {
+				// 		std::cout << *it << std::endl;
+				// 		it++;
+				// 		// *newIt = *oldIt;
+				// 		// newIt++;
+				// 		// oldIt++;
+				// 	}
 				_capacity = newCapacity;
 			};
 			// requests that the vector capacity be at least enough to contain n elements, reallocate if needed.
@@ -309,11 +320,21 @@ namespace ft {
 			// >>> fill
 			void assign (size_type n, const value_type& val) {
 
-				clear();
+				// clear();
+				// reserve(n);
+
+				// while (_size < n) 
+				// 	push_back(val);
+
+				this->clear();
 				reserve(n);
 
-				while (_size < n) 
+				while (_size < n) {
 					push_back(val);
+				}
+				
+				// _begin = _end->getBegin();
+				// _end->setEnd();
 			};
 	// 		//Assigns new contents to the Vector container, replacing its current contents, and modifying its size accordingly.
 
@@ -354,7 +375,7 @@ namespace ft {
 				// 	std::cout << *it << std::endl;
 				// 	it++;
 				// }
-				*(end()) = val;
+				_begin[_size] = node_type(val);
 				_size++;
 			};
 			//Adding elements to a vector = adding nodes before end. 
@@ -461,11 +482,12 @@ namespace ft {
 	
 			void clear() {
 				
-				iterator it = iterator(_containerPtr);
-
+				// iterator it = iterator(_begin);
+				//int a = 0;
 				for (size_t i = 0; i < _size; i++) {
-					//it.getNode()->delNode();
-					it++;
+					//std::cout << "clearing " << a++ << "[" << *it << "]" << std::endl;
+					_begin[i].delNode();
+					//it++;
 				}
 				_size = 0;
 			};
@@ -748,9 +770,12 @@ namespace ft {
 
 		private:
 
-			pointer 			_containerPtr;
+			//pointer 			_containerPtr;
+			pointer 			_begin;
+			pointer 			_end;
 			size_type 			_size;
 			size_type 			_capacity;
+			node_allocator 		_node_allocator;
 			
 	};
 	

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/14 16:59:48 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/16 16:19:37 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,34 @@ int test_vector_fillConstr() {
 	ft::Vector<char> ft_vector(5, 'a');
 	std::vector<char> vector(5, 'a');
 
-	chk_resultVector(&ft_vector, &vector, "vector", title);
-	chk_resultVector(&ft_vector, &vector, "vector", title);
+	//std::cout << "0" << std::endl;
+
+	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title);
+	//std::cout << "0.5" << std::endl;
+	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title);
+
+	//std::cout << "1" << std::endl;
 
 	ft_vector.push_back('u');
 	vector.push_back('u');
 
-	chk_resultVector(&ft_vector, &vector, "vector", title, "aft push back");
-	chk_resultVector(&ft_vector, &vector, "vector", title, "aft push back");
+	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft push back");
+	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft push back");
+
+	//std::cout << "2" << std::endl;
+
 	ft_vector.clear();
 	vector.clear();
 
-	chk_resultVector(&ft_vector, &vector, "vector", title, "aft clear");
-	chk_resultVector(&ft_vector, &vector, "vector", title, "aft clear");
+	//std::cout << "3" << std::endl;
+
+	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft clear");
+	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft clear");
 
 	ft_vector.push_back('u');
 	vector.push_back('u');
-	chk_resultVector(&ft_vector, &vector, "vector", title, "aft clear");
-	chk_resultVector(&ft_vector, &vector, "vector", title, "aft clear");
+	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft clear");
+	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft clear");
 	// ft::Vector<char> ft_vectorEmpty(0, 'a');
 	// std::vector<char> vectorEmpty(0, 'a');
 

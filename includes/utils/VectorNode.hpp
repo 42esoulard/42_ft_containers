@@ -90,14 +90,12 @@ namespace ft {
 			// 	return begin;
 			// };
 
-			// void 	setEnd() {
-
-			// 	VectorNode *begin = this;
-
-			// 	while(begin && begin->_prev)
-			// 		begin = begin->_prev;
-			// 	this->_next = begin;
-			// };
+			template < typename size_type>
+			VectorNode 	*getEnd(size_type size) {
+				if (size < 0)
+					return &this[size - 1];
+				return this;
+			};
 
 			void 	addNext(value_type const &value) {
 

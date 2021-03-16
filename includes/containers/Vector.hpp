@@ -67,21 +67,21 @@ namespace ft {
 				assign(n, val);
 			};
 
-			// // >>> range
-			// template <class InputIterator>
-		 	// Vector (InputIterator first, InputIterator last)  {
+			// >>> range
+			template <class InputIterator>
+		 	Vector (InputIterator first, InputIterator last)  {
 
-		 	// 	_begin = NULL;
-			// 	_end = NULL;
-			// 	_size = 0;
-			// 	_capacity = 0;
+		 		_begin = NULL;
+				_end = _begin;
+				_size = 0;
+				_capacity = 0;
 
-		 	// 	assign(first, last);
+		 		assign(first, last);
 
-			// 	_end->setEnd(_begin, _size);
-		 	// };	
+				_end =  _begin->getEnd(_size);
+		 	};	
 			
-			// // >>> copy 
+			// // // >>> copy 
 			// Vector (const Vector& x) {
 
 			// 	_begin = NULL;
@@ -132,19 +132,15 @@ namespace ft {
 			};
 
 			iterator end(){
-				node_type *end = _begin;
 
-				for (size_type i = 0; i < _size; i++)
-					end++;
-				return iterator(end);
+				_end =  _begin->getEnd(_size);
+				return iterator(_end);
 			};
 
 			const_iterator end() const{
-				node_type *end = _begin;
-
-				for (size_type i = 0; i < _size; i++)
-					end++;
-				return const_iterator(end);
+				
+				_end =  _begin->getEnd(_size);
+				return const_iterator(_end);
 			};
 			// points after last Vector element
 
@@ -253,7 +249,7 @@ namespace ft {
 					if (_capacity)
 						delete[] _begin;
 					_begin = newVector;
-					_end = &newVector[_size - 1];
+					_end =  _begin->getEnd(_size);;
 
 				//_containerPtr = newVector;
 				// iterator it = iterator(_containerPtr);
@@ -332,9 +328,7 @@ namespace ft {
 				while (_size < n) {
 					push_back(val);
 				}
-				
-				// _begin = _end->getBegin();
-				// _end->setEnd();
+				_end = _begin->getEnd(_size);
 			};
 	// 		//Assigns new contents to the Vector container, replacing its current contents, and modifying its size accordingly.
 

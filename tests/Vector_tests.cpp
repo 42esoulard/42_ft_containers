@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/16 16:19:37 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/16 17:23:32 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,110 +27,72 @@ int test_vector_fillConstr() {
 	std::string title = "[FILL CONSTRUCTOR]";
 	std::cout << title;
 
-	// ft::Vector<int> ft_vector;
-	// std::vector<int> vector;
-	// chk_resultVector(&ft_vector, &vector, "vector", title, "0");
-	
-	// ft_vector.reserve(2);
-	// vector.reserve(2);
-	// std::cout << "CAPACITY ft : " << ft_vector.capacity() << " | std : " << vector.capacity() << std::endl;
-	// chk_resultVector(&ft_vector, &vector, "vector", title, "after reserve(2)");
-
 	ft::Vector<char> ft_vector(5, 'a');
 	std::vector<char> vector(5, 'a');
 
-	//std::cout << "0" << std::endl;
+	chk_result(ft_vector, vector, "vector", title);
 
-	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title);
-	//std::cout << "0.5" << std::endl;
-	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title);
+	ft::Vector<char> ft_vectorEmpty(0, 'a');
+	std::vector<char> vectorEmpty(0, 'a');
 
-	//std::cout << "1" << std::endl;
-
-	ft_vector.push_back('u');
-	vector.push_back('u');
-
-	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft push back");
-	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft push back");
-
-	//std::cout << "2" << std::endl;
-
-	ft_vector.clear();
-	vector.clear();
-
-	//std::cout << "3" << std::endl;
-
-	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft clear");
-	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft clear");
-
-	ft_vector.push_back('u');
-	vector.push_back('u');
-	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft clear");
-	chk_resultVector(ft_vector, vector, vector.capacity(), "vector", title, "aft clear");
-	// ft::Vector<char> ft_vectorEmpty(0, 'a');
-	// std::vector<char> vectorEmpty(0, 'a');
-
-	// chk_resultVector(&ft_vector, &vector, "vector", title, "0");
+	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "0");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
 };
 
-// int test_vector_rangeConstr() {
-// 	std::string title = "[RANGE CONSTRUCTOR]";
-// 	std::cout << title;
+int test_vector_rangeConstr() {
+	std::string title = "[RANGE CONSTRUCTOR]";
+	std::cout << title;
 
-// 	std::vector<char> src(10, '!');
-// 	src.push_back('@');
-// 	src.push_front('&');
-// 	ft::Vector<char> ft_vector(src.begin(), src.end());
-// 	std::vector<char> vector(src.begin(), src.end());
+	std::vector<char> src(10, '!');
+	src.push_back('@');
+	ft::Vector<char> ft_vector(src.begin(), src.end());
+	std::vector<char> vector(src.begin(), src.end());
 
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+	chk_result(ft_vector, vector, "vector", title);
 
-// 	ft::Vector<char> ft_vectorEmpty(src.end(), src.end());
-// 	std::vector<char> vectorEmpty(src.end(), src.end());
+	ft::Vector<char> ft_vectorEmpty(src.end(), src.end());
+	std::vector<char> vectorEmpty(src.end(), src.end());
 
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
-// int test_vector_copyConstr() {
-// 	std::string title = "[COPY CONSTR]";
-// 	std::cout << title;
+int test_vector_copyConstr() {
+	std::string title = "[COPY CONSTR]";
+	std::cout << title;
 
-// 	ft::Vector<char> ft_src(10, '!');
-// 	ft_src.push_back('@');
-// 	ft_src.push_front('&');
+	ft::Vector<char> ft_src(10, '!');
+	ft_src.push_back('@');
 
-// 	std::vector<char> src(10, '!');
-// 	src.push_back('@');
-// 	src.push_front('&');
+	std::vector<char> src(10, '!');
+	src.push_back('@');
 
-// 	ft::Vector<char> ft_vector(ft_src);
-// 	std::vector<char> vector(src);
+	ft::Vector<char> ft_vector(ft_src);
+	std::vector<char> vector(src);
 
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+	chk_result(ft_vector, vector, "vector", title);
 
-// 	ft::Vector<char> ft_srcB(0, '!');
-// 	std::vector<char> srcB(0, '!');
-// 	ft::Vector<char> ft_vectorEmpty(ft_srcB);
-// 	std::vector<char> vectorEmpty(srcB);
+	ft::Vector<char> ft_srcB(0, '!');
+	std::vector<char> srcB(0, '!');
+	ft::Vector<char> ft_vectorEmpty(ft_srcB);
+	std::vector<char> vectorEmpty(srcB);
 
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
-// 	//INVALID SRC = UNDEFINED BEHAVIOR
-// 	// ft::Vector<char> *ft_nullSrc = nullptr;
-// 	// ft::Vector<char> ft_vectorNull(*ft_nullSrc);
-// 	// ft::Vector<char> *nullSrc = nullptr;
-// 	// ft::Vector<char> vectorNull(*nullSrc)
-// 	//	chk_resultVector(&ft_vectorNull, vectorNull, "vector", "COPY CONSTRUCTOR [NULL SRC]");
+	//INVALID SRC = UNDEFINED BEHAVIOR
+	// ft::Vector<char> *ft_nullSrc = nullptr;
+	// ft::Vector<char> ft_vectorNull(*ft_nullSrc);
+	// ft::Vector<char> *nullSrc = nullptr;
+	// ft::Vector<char> vectorNull(*nullSrc)
+	//	chk_result(ft_vectorNull, vectorNull, "vector", "COPY CONSTRUCTOR [NULL SRC]");
 	
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 // int test_vector_opEqual() {
 // 	std::string title = "[OPERATOR=]";
@@ -138,28 +100,26 @@ int test_vector_fillConstr() {
 
 // 	ft::Vector<char> ft_src(10, '!');
 // 	ft_src.push_back('@');
-// 	ft_src.push_front('&');
 
 // 	std::vector<char> src(10, '!');
 // 	src.push_back('@');
-// 	src.push_front('&');
 
 // 	ft::Vector<char> ft_vector = ft_src;
 // 	std::vector<char> vector = src;
 
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	ft::Vector<char> ft_srcB(0, '!');
 // 	std::vector<char> srcB(0, '!');
 // 	ft::Vector<char> ft_vectorEmpty = ft_srcB;
 // 	std::vector<char> vectorEmpty = srcB;
 
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
 // 	ft_vector = ft_srcB;
 // 	vector = srcB;
 
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[FULL = EMPTY]");
+// 	chk_result(ft_vector, vector, "vector", title, "[FULL = EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -185,14 +145,14 @@ int test_vector_fillConstr() {
 // 	vector.push_back(12);
 // 	vector.push_back(18);
 
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	ft::Vector<char> ft_vectorEmpty;
 // 	ft_vector.push_back('&');
 // 	std::vector<char> vectorEmpty;
 // 	vector.push_back('&');
 
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
 // 	title = "[BASIC ITERATING + DEREFERENCING]";
@@ -205,7 +165,7 @@ int test_vector_fillConstr() {
 // 		tmp = *it;
 // 		it++;
 // 	}
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
@@ -218,7 +178,7 @@ int test_vector_fillConstr() {
 // 		tmp = *rit;
 // 		rit++;
 // 	}
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 //     return 0;
@@ -386,13 +346,13 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.assign(ft_src.begin(), ft_src.end());
 // 	vector.assign(src.begin(), src.end());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[FULL to EMPTY][1/2]");
-// 	chk_resultVector(&ft_src, src, "vector", title, "[FULL to EMPTY][2/2]");
+// 	chk_result(ft_vector, vector, "vector", title, "[FULL to EMPTY][1/2]");
+// 	chk_result(ft_src, src, "vector", title, "[FULL to EMPTY][2/2]");
 
 // 	ft_src.assign(ft_vector.begin(), ft_vector.end());
 // 	src.assign(vector.begin(), vector.end());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[FULL to FULL][1/2]");
-// 	chk_resultVector(&ft_src, src, "vector", title, "[FULL to EMPTY][2/2]");
+// 	chk_result(ft_vector, vector, "vector", title, "[FULL to FULL][1/2]");
+// 	chk_result(ft_src, src, "vector", title, "[FULL to EMPTY][2/2]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
@@ -405,15 +365,15 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorA.assign(12, 'W');
 // 	vectorA.assign(12, 'W');
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[to EMPTY]");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[to EMPTY]");
 	
 // 	ft_vectorA.assign(4, '8');
 // 	vectorA.assign(4, '8');
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[to FULL]");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[to FULL]");
 
 // 	ft_vectorA.assign(24, 'U');
 // 	vectorA.assign(24, 'U');
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[to FULL]");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[to FULL]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -431,14 +391,14 @@ int test_vector_fillConstr() {
 // 	vector.push_back('@');
 // 	vector.push_front('&');
 
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	ft::Vector<char> ft_vectorEmpty;
 // 	ft_vector.push_front('&');
 // 	std::vector<char> vectorEmpty;
 // 	vector.push_front('&');
 
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -460,14 +420,14 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.pop_front();
 // 	vector.pop_front();
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	ft::Vector<char> ft_vectorEmpty;
 // 	ft_vector.pop_front();
 // 	std::vector<char> vectorEmpty;
 // 	vector.pop_front();
 
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -489,14 +449,14 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.pop_back();
 // 	vector.pop_back();
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	ft::Vector<char> ft_vectorEmpty;
 // 	ft_vector.pop_back();
 // 	std::vector<char> vectorEmpty;
 // 	vector.pop_back();
 
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -529,7 +489,7 @@ int test_vector_fillConstr() {
 // 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_vector, vector, "vector", title, "", "CONTENT");
 // 	}
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 	
 
 // 	ft::Vector<char> ft_vectorEmpty;
@@ -543,7 +503,7 @@ int test_vector_fillConstr() {
 // 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]", "CONTENT");
 // 	}
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
@@ -564,7 +524,7 @@ int test_vector_fillConstr() {
 // 		std::cerr << "*ft_it after insert(2) = [" << *ft_it << "] | *it after insert(2) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "", "CONTENT");
 // 	}
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title);
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title);
 	
 // 	ft::Vector<char> ft_vectorEmptyB;
 // 	ft_it = ft_vectorEmptyB.begin();
@@ -573,7 +533,7 @@ int test_vector_fillConstr() {
 // 	it = vectorEmptyB.begin();
 // 	vectorEmptyB.insert(it, size, '6');
 
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY to FULL]");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY to FULL]");
 
 // 	size = 0;
 // 	ft::Vector<char> ft_vectorEmptyC;
@@ -583,7 +543,7 @@ int test_vector_fillConstr() {
 // 	it = vectorEmptyC.begin();
 // 	vectorEmptyC.insert(it, size, '6');
 
-// 	chk_resultVector(&ft_vectorEmptyC, vectorEmptyC, "vector", title, "[EMPTY to EMPTY]");
+// 	chk_result(ft_vectorEmptyC, vectorEmptyC, "vector", title, "[EMPTY to EMPTY]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
@@ -611,7 +571,7 @@ int test_vector_fillConstr() {
 // 		std::cerr << "*ft_it after insert(3) = [" << *ft_it << "] | *it after insert(3) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_vector, vector, "vector", title, "", "CONTENT");
 // 	}
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	ft::Vector<char> ft_vectorEmptyD;
 // 	ft_it = ft_vectorEmptyC.begin();
@@ -619,19 +579,19 @@ int test_vector_fillConstr() {
 // 	std::vector<char> vectorEmptyD;
 // 	it = vectorEmptyC.begin();
 // 	vectorEmptyC.insert(it, vectorEmptyD.begin(), vectorEmptyD.end());
-// 	chk_resultVector(&ft_vectorEmptyC, vectorEmptyC, "vector", title, "[EMPTY to EMPTY]");
+// 	chk_result(ft_vectorEmptyC, vectorEmptyC, "vector", title, "[EMPTY to EMPTY]");
 	
 // 	ft_it = ft_vector.begin();
 // 	ft_vector.insert(ft_it, ft_vectorEmptyD.begin(), ft_vectorEmptyD.end());
 // 	it = vector.begin();
 // 	vector.insert(it, vectorEmptyD.begin(), vectorEmptyD.end());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[EMPTY to FULL]");
+// 	chk_result(ft_vector, vector, "vector", title, "[EMPTY to FULL]");
 	
 // 	ft_it = ft_vectorEmptyD.begin();
 // 	ft_vectorEmptyD.insert(ft_it, ft_vector.begin(), ft_vector.end());
 // 	it = vectorEmptyD.begin();
 // 	vectorEmptyD.insert(it, vector.begin(), vector.end());
-// 	chk_resultVector(&ft_vectorEmptyD, vectorEmptyD, "vector", title, "[FULL TO EMPTY]");
+// 	chk_result(ft_vectorEmptyD, vectorEmptyD, "vector", title, "[FULL TO EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -660,7 +620,7 @@ int test_vector_fillConstr() {
 // 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_vector, vector, "vector", title, "[begin]", "CONTENT");
 // 	}
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[begin]");
+// 	chk_result(ft_vector, vector, "vector", title, "[begin]");
 
 // 	ft_it = ft_vector.erase(ft_it);
 // 	it = vector.erase(it);
@@ -668,27 +628,27 @@ int test_vector_fillConstr() {
 // 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_vector, vector, "vector", title, "[begin]", "CONTENT");
 // 	}
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[begin]");
+// 	chk_result(ft_vector, vector, "vector", title, "[begin]");
 
 // 	//INVALID POSITION = UNDEFINED BEHAVIOR
 // 	// ft_it = ft_vector.end();
 // 	// it = vector.end();
 // 	// ft_it = ft_vector.erase(ft_it);
 // 	// it = vector.erase(it);
-// 	// chk_resultVector(&ft_vector, vector, "vector", "ERASE(1) [end]");
+// 	// chk_result(ft_vector, vector, "vector", "ERASE(1) [end]");
 
 // 	while (ft_it != ft_vector.end())
 // 		ft_it = ft_vector.erase(ft_it);
 // 	while (it != vector.end())
 // 		it = vector.erase(it);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[all]");
+// 	chk_result(ft_vector, vector, "vector", title, "[all]");
 
 // 	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
 // 	//ft::Vector<char> ft_vectorEmpty;
 // 	//std::vector<char> vectorEmpty;
 // 	//ft_vectorEmpty.erase(ft_vectorEmpty.begin());
 // 	//vectorEmpty.erase(vectorEmpty.begin());
-// 	//chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", "ERASE(1) [EMPTY]");
+// 	//chk_result(ft_vectorEmpty, vectorEmpty, "vector", "ERASE(1) [EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
@@ -698,7 +658,7 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.erase(ft_vector.begin(), ft_vector.end());
 // 	vector.erase(vector.begin(), vector.end());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vector, vector, "vector", title, "[EMPTY]");
 	
 // 	ft_vector.insert(ft_vector.begin(), 10, '!');
 // 	ft_vector.push_back('@');
@@ -726,11 +686,11 @@ int test_vector_fillConstr() {
 // 		std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_vector, vector, "vector", title, "[PARTIAL]", "CONTENT");
 // 	}
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[PARTIAL]");
+// 	chk_result(ft_vector, vector, "vector", title, "[PARTIAL]");
 	
 // 	ft_it = ft_vector.erase(ft_vector.begin(), ft_vector.end());
 // 	it = vector.erase(vector.begin(), vector.end());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[TOTAL]");
+// 	chk_result(ft_vector, vector, "vector", title, "[TOTAL]");
 // 	//not comparing return pointers because they point after end() in this case
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -756,20 +716,20 @@ int test_vector_fillConstr() {
 // 	ft_vectorEmpty.swap(ft_vector);
 // 	vectorEmpty.swap(vector);
 
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[Full vs Empty][1/2]");
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[Full vs Empty][2/2]");
+// 	chk_result(ft_vector, vector, "vector", title, "[Full vs Empty][1/2]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[Full vs Empty][2/2]");
 	
 // 	ft_vectorEmpty.swap(ft_vector);
 // 	vectorEmpty.swap(vector);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[Empty vs Full][1/2]");
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[Empty vs Full][2/2]");
+// 	chk_result(ft_vector, vector, "vector", title, "[Empty vs Full][1/2]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[Empty vs Full][2/2]");
 
 // 	ft_vectorEmpty.insert(ft_vectorEmpty.begin(), 56, 'v');
 // 	vectorEmpty.insert(vectorEmpty.begin(), 56, 'v');
 // 	ft_vectorEmpty.swap(ft_vector);
 // 	vectorEmpty.swap(vector);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[Full vs Full][1/2]");
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[Full vs Full][2/2]");
+// 	chk_result(ft_vector, vector, "vector", title, "[Full vs Full][1/2]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[Full vs Full][2/2]");
 
 // 	ft::Vector<char> ft_vectorEmptyA;
 // 	std::vector<char> vectorEmptyA;
@@ -777,8 +737,8 @@ int test_vector_fillConstr() {
 // 	std::vector<char> vectorEmptyB;
 // 	ft_vectorEmptyA.swap(ft_vectorEmptyB);
 // 	vectorEmptyA.swap(vectorEmptyB);
-// 	chk_resultVector(&ft_vectorEmptyA, vectorEmptyA, "vector", title, "[Empty vs Empty][1/2]");
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[Empty vs Empty][2/2]");
+// 	chk_result(ft_vectorEmptyA, vectorEmptyA, "vector", title, "[Empty vs Empty][1/2]");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[Empty vs Empty][2/2]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -793,32 +753,32 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.resize(2);
 // 	vector.resize(2);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[5 TO 2]");
+// 	chk_result(ft_vector, vector, "vector", title, "[5 TO 2]");
 
 // 	ft_vector.resize(0);
 // 	vector.resize(0);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[2 TO 0]");
+// 	chk_result(ft_vector, vector, "vector", title, "[2 TO 0]");
 
 // 	ft_vector.resize(0);
 // 	vector.resize(0);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[0 TO 0]");
+// 	chk_result(ft_vector, vector, "vector", title, "[0 TO 0]");
 
 // 	ft_vector.resize(5);
 // 	vector.resize(5);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[0 TO 5]");
+// 	chk_result(ft_vector, vector, "vector", title, "[0 TO 5]");
 	
 // 	ft_vector.resize(100);
 // 	vector.resize(100);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[5 TO 100]");
+// 	chk_result(ft_vector, vector, "vector", title, "[5 TO 100]");
 
 // 	ft_vector.resize(100);
 // 	vector.resize(100);
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[100 TO 100]");
+// 	chk_result(ft_vector, vector, "vector", title, "[100 TO 100]");
 
 // 	//UNDEFINED BEHAVIOUR
 // 	//ft_vector.resize(-50);
 // 	//vector.resize(-50);
-// 	//chk_resultVector(&ft_vector, vector, "vector", "RESIZE [100 TO -50]");
+// 	//chk_result(ft_vector, vector, "vector", "RESIZE [100 TO -50]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -833,11 +793,11 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.clear();
 // 	vector.clear();
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[FULL Vector]");
+// 	chk_result(ft_vector, vector, "vector", title, "[FULL Vector]");
 
 // 	ft_vector.clear();
 // 	vector.clear();
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[EMPTY Vector]");
+// 	chk_result(ft_vector, vector, "vector", title, "[EMPTY Vector]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -869,8 +829,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorA.splice(ft_vectorA.begin(), ft_vectorB);
 // 	vectorA.splice(vectorA.begin(), vectorB);
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorB, vectorB, "vector", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
+// 	chk_result(ft_vectorB, vectorB, "vector", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
 	
 // 	ft::Vector<int> ft_vectorEmptyA;
 // 	std::vector<int> vectorEmptyA;
@@ -878,18 +838,18 @@ int test_vector_fillConstr() {
 // 	std::vector<int> vectorEmptyB;
 // 	ft_vectorEmptyA.splice(ft_vectorEmptyA.begin(), ft_vectorEmptyB);
 // 	vectorEmptyA.splice(vectorEmptyA.begin(), vectorEmptyB);
-// 	chk_resultVector(&ft_vectorEmptyA, vectorEmptyA, "vector", title, "[EMPTY vs EMPTY] 1/2");
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs EMPTY] 2/2");
+// 	chk_result(ft_vectorEmptyA, vectorEmptyA, "vector", title, "[EMPTY vs EMPTY] 1/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs EMPTY] 2/2");
 
 // 	ft_vectorA.splice(ft_vectorA.begin(), ft_vectorEmptyB);
 // 	vectorA.splice(vectorA.begin(), vectorEmptyB);
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[FULL vs EMPTY] 1/2");
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[FULL vs EMPTY] 2/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[FULL vs EMPTY] 1/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[FULL vs EMPTY] 2/2");
 
 // 	ft_vectorEmptyB.splice(ft_vectorEmptyB.begin(), ft_vectorA);
 // 	vectorEmptyB.splice(vectorEmptyB.begin(), vectorA);
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs FULL] 1/2");
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[EMPTY vs FULL] 2/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs FULL] 1/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[EMPTY vs FULL] 2/2");
  
 // 	ft::Vector<int> ft_vectorC(size, 2);
 // 	ft_vectorC.push_back(4);
@@ -910,8 +870,8 @@ int test_vector_fillConstr() {
 	
 // 	ft_vectorC.splice(ft_vectorC.begin(), ft_vectorD);
 // 	vectorC.splice(vectorC.begin(), vectorD);
-// 	chk_resultVector(&ft_vectorC, vectorC, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorD, vectorD, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
+// 	chk_result(ft_vectorC, vectorC, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
+// 	chk_result(ft_vectorD, vectorD, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
 
 // 	ft::Vector<int> ft_vectorE(size, 1);
 // 	ft_vectorE.push_back(1);
@@ -932,8 +892,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorE.splice(ft_vectorE.begin(), ft_vectorF);
 // 	vectorE.splice(vectorE.begin(), vectorF);
-// 	chk_resultVector(&ft_vectorE, vectorE, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorF, vectorF, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
+// 	chk_result(ft_vectorE, vectorE, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
+// 	chk_result(ft_vectorF, vectorF, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
 
 // 	ft::Vector<int> ft_vectorG(size, 1);
 // 	ft_vectorG.push_back(1);
@@ -954,8 +914,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorH.splice(ft_vectorH.begin(), ft_vectorG);
 // 	vectorH.splice(vectorH.begin(), vectorG);
-// 	chk_resultVector(&ft_vectorH, vectorH, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorG, vectorG, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
+// 	chk_result(ft_vectorH, vectorH, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
+// 	chk_result(ft_vectorG, vectorG, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
@@ -984,8 +944,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorI.splice(ft_vectorI.begin(), ft_vectorJ, ft_it);
 // 	vectorI.splice(vectorI.begin(), vectorJ, it);
-// 	chk_resultVector(&ft_vectorI, vectorI, "vector", title, "[BEGIN] 1/2");
-// 	chk_resultVector(&ft_vectorJ, vectorJ, "vector", title, "[BEGIN] 2/2");
+// 	chk_result(ft_vectorI, vectorI, "vector", title, "[BEGIN] 1/2");
+// 	chk_result(ft_vectorJ, vectorJ, "vector", title, "[BEGIN] 2/2");
 
 // 	ft_it = ft_vectorJ.begin();
 // 	ft_it++;
@@ -994,14 +954,14 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorI.splice(ft_vectorI.begin(), ft_vectorJ, ft_it);
 // 	vectorI.splice(vectorI.begin(), vectorJ, it);
-// 	chk_resultVector(&ft_vectorI, vectorI, "vector", title, "[MIDDLE] 1/2");
-// 	chk_resultVector(&ft_vectorJ, vectorJ, "vector", title, "[MIDDLE] 2/2");
+// 	chk_result(ft_vectorI, vectorI, "vector", title, "[MIDDLE] 1/2");
+// 	chk_result(ft_vectorJ, vectorJ, "vector", title, "[MIDDLE] 2/2");
 
 // 	//END = UNDEFINED BEHAVIOUR
 // 	// ft_vectorI.splice(ft_vectorI.begin(), ft_vectorJ, ft_vectorJ.end());
 // 	// vectorI.splice(vectorI.begin(), vectorJ, vectorJ.end());
-// 	// chk_resultVector(&ft_vectorI, vectorI, "vector", "SPLICE(2) [END] 1/2");
-// 	// chk_resultVector(&ft_vectorJ, vectorJ, "vector", "SPLICE(2) [END] 2/2");
+// 	// chk_result(ft_vectorI, vectorI, "vector", "SPLICE(2) [END] 1/2");
+// 	// chk_result(ft_vectorJ, vectorJ, "vector", "SPLICE(2) [END] 2/2");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
@@ -1034,8 +994,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorK.splice(ft_vectorK.begin(), ft_vectorL, ft_itFirst, ft_itLast);
 // 	vectorK.splice(vectorK.begin(), vectorL, itFirst, itLast);
-// 	chk_resultVector(&ft_vectorK, vectorK, "vector", title, "[BEGIN] 1/2");
-// 	chk_resultVector(&ft_vectorL, vectorL, "vector", title, "[BEGIN] 2/2");
+// 	chk_result(ft_vectorK, vectorK, "vector", title, "[BEGIN] 1/2");
+// 	chk_result(ft_vectorL, vectorL, "vector", title, "[BEGIN] 2/2");
 
 // 	ft_itFirst = ft_vectorL.begin();
 // 	ft_itFirst++;
@@ -1050,8 +1010,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorK.splice(ft_vectorK.begin(), ft_vectorL, ft_itFirst, ft_itLast);
 // 	vectorK.splice(vectorK.begin(), vectorL, itFirst, itLast);
-// 	chk_resultVector(&ft_vectorI, vectorI, "vector", title, "[MIDDLE] 1/2");
-// 	chk_resultVector(&ft_vectorJ, vectorJ, "vector", title, "[MIDDLE] 2/2");
+// 	chk_result(ft_vectorI, vectorI, "vector", title, "[MIDDLE] 1/2");
+// 	chk_result(ft_vectorJ, vectorJ, "vector", title, "[MIDDLE] 2/2");
 	
 // 	ft_itFirst = ft_vectorL.begin();
 // 	ft_itLast = ft_vectorL.end();
@@ -1060,8 +1020,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorK.splice(ft_vectorK.begin(), ft_vectorL, ft_itFirst, ft_itLast);
 // 	vectorK.splice(vectorK.begin(), vectorL, itFirst, itLast);
-// 	chk_resultVector(&ft_vectorI, vectorI, "vector", title, "[END] 1/2");
-// 	chk_resultVector(&ft_vectorJ, vectorJ, "vector", title, "[END] 2/2");
+// 	chk_result(ft_vectorI, vectorI, "vector", title, "[END] 1/2");
+// 	chk_result(ft_vectorJ, vectorJ, "vector", title, "[END] 2/2");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -1088,21 +1048,21 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.remove('a');
 // 	vector.remove('a');
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[WITH DOUBLES]");
+// 	chk_result(ft_vector, vector, "vector", title, "[WITH DOUBLES]");
 
 // 	ft_vector.remove('!');
 // 	vector.remove('!');
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[WITH BEGIN]");
+// 	chk_result(ft_vector, vector, "vector", title, "[WITH BEGIN]");
 
 // 	ft_vector.remove('b');
 // 	vector.remove('b');
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[WITH ALL]");
+// 	chk_result(ft_vector, vector, "vector", title, "[WITH ALL]");
 
 // 	ft::Vector<char> ft_vectorEmpty;
 // 	std::vector<char> vectorEmpty;
 // 	ft_vectorEmpty.remove('a');
 // 	vectorEmpty.remove('a');
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY Vector]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY Vector]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -1136,15 +1096,15 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.remove_if(is_odd());
 // 	vector.remove_if(is_odd());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[MIDDLE AND END]");
+// 	chk_result(ft_vector, vector, "vector", title, "[MIDDLE AND END]");
 
 // 	ft_vector.remove_if(is_even());
 // 	vector.remove_if(is_even());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[ALL WITH BEGIN]");
+// 	chk_result(ft_vector, vector, "vector", title, "[ALL WITH BEGIN]");
 
 // 	ft_vector.remove_if(is_even());
 // 	vector.remove_if(is_even());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[EMPTY Vector]");
+// 	chk_result(ft_vector, vector, "vector", title, "[EMPTY Vector]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -1175,17 +1135,17 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.unique();
 // 	vector.unique();
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[WITH DOUBLES]");
+// 	chk_result(ft_vector, vector, "vector", title, "[WITH DOUBLES]");
 
 // 	ft_vector.unique();
 // 	vector.unique();
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[NO DOUBLES]");
+// 	chk_result(ft_vector, vector, "vector", title, "[NO DOUBLES]");
 
 // 	ft::Vector<char> ft_vectorEmpty;
 // 	std::vector<char> vectorEmpty;
 // 	ft_vectorEmpty.unique();
 // 	vectorEmpty.unique();
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY Vector]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY Vector]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
@@ -1202,15 +1162,15 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.unique(is_near());
 // 	vector.unique(is_near());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[WITH DOUBLES]");
+// 	chk_result(ft_vector, vector, "vector", title, "[WITH DOUBLES]");
 
 // 	ft_vector.unique(is_near());
 // 	vector.unique(is_near());
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[NO DOUBLES]");
+// 	chk_result(ft_vector, vector, "vector", title, "[NO DOUBLES]");
 
 // 	ft_vectorEmpty.unique(is_near());
 // 	vectorEmpty.unique(is_near());
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY Vector]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY Vector]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -1240,8 +1200,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorA.merge(ft_vectorB);
 // 	vectorA.merge(vectorB);
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorB, vectorB, "vector", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
+// 	chk_result(ft_vectorB, vectorB, "vector", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
 	
 // 	ft::Vector<int> ft_vectorEmptyA;
 // 	std::vector<int> vectorEmptyA;
@@ -1249,18 +1209,18 @@ int test_vector_fillConstr() {
 // 	std::vector<int> vectorEmptyB;
 // 	ft_vectorEmptyA.merge(ft_vectorEmptyB);
 // 	vectorEmptyA.merge(vectorEmptyB);
-// 	chk_resultVector(&ft_vectorEmptyA, vectorEmptyA, "vector", title, "[EMPTY vs EMPTY] 1/2");
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs EMPTY] 2/2");
+// 	chk_result(ft_vectorEmptyA, vectorEmptyA, "vector", title, "[EMPTY vs EMPTY] 1/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs EMPTY] 2/2");
 
 // 	ft_vectorA.merge(ft_vectorEmptyB);
 // 	vectorA.merge(vectorEmptyB);
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[FULL vs EMPTY] 1/2");
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[FULL vs EMPTY] 2/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[FULL vs EMPTY] 1/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[FULL vs EMPTY] 2/2");
 
 // 	ft_vectorEmptyB.merge(ft_vectorA);
 // 	vectorEmptyB.merge(vectorA);
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs FULL] 1/2");
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[EMPTY vs FULL] 2/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs FULL] 1/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[EMPTY vs FULL] 2/2");
  
 // 	ft::Vector<int> ft_vectorC(size, 2);
 // 	ft_vectorC.push_back(4);
@@ -1281,8 +1241,8 @@ int test_vector_fillConstr() {
 	
 // 	ft_vectorC.merge(ft_vectorD);
 // 	vectorC.merge(vectorD);
-// 	chk_resultVector(&ft_vectorC, vectorC, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorD, vectorD, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
+// 	chk_result(ft_vectorC, vectorC, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
+// 	chk_result(ft_vectorD, vectorD, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
 
 // 	ft::Vector<int> ft_vectorE(size, 1);
 // 	ft_vectorE.push_back(1);
@@ -1303,8 +1263,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorE.merge(ft_vectorF);
 // 	vectorE.merge(vectorF);
-// 	chk_resultVector(&ft_vectorE, vectorE, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorF, vectorF, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
+// 	chk_result(ft_vectorE, vectorE, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
+// 	chk_result(ft_vectorF, vectorF, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
 
 // 	ft::Vector<int> ft_vectorG(size, 1);
 // 	ft_vectorG.push_back(1);
@@ -1325,8 +1285,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorH.merge(ft_vectorG);
 // 	vectorH.merge(vectorG);
-// 	chk_resultVector(&ft_vectorH, vectorH, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorG, vectorG, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
+// 	chk_result(ft_vectorH, vectorH, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
+// 	chk_result(ft_vectorG, vectorG, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return test_vector_mergeComp();
@@ -1359,8 +1319,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorA.merge(ft_vectorB, is_bigger());
 // 	vectorA.merge(vectorB, is_bigger());
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorB, vectorB, "vector", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[FULL ORDERED vs FULL ORDERED] 1/2");
+// 	chk_result(ft_vectorB, vectorB, "vector", title, "[FULL ORDERED vs FULL ORDERED] 2/2");
 	
 // 	ft::Vector<int> ft_vectorEmptyA;
 // 	std::vector<int> vectorEmptyA;
@@ -1368,18 +1328,18 @@ int test_vector_fillConstr() {
 // 	std::vector<int> vectorEmptyB;
 // 	ft_vectorEmptyA.merge(ft_vectorEmptyB, is_bigger());
 // 	vectorEmptyA.merge(vectorEmptyB, is_bigger());
-// 	chk_resultVector(&ft_vectorEmptyA, vectorEmptyA, "vector", title, "[EMPTY vs EMPTY] 1/2");
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs EMPTY] 2/2");
+// 	chk_result(ft_vectorEmptyA, vectorEmptyA, "vector", title, "[EMPTY vs EMPTY] 1/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs EMPTY] 2/2");
 
 // 	ft_vectorA.merge(ft_vectorEmptyB, is_bigger());
 // 	vectorA.merge(vectorEmptyB, is_bigger());
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[FULL vs EMPTY] 1/2");
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[FULL vs EMPTY] 2/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[FULL vs EMPTY] 1/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[FULL vs EMPTY] 2/2");
 
 // 	ft_vectorEmptyB.merge(ft_vectorA, is_bigger());
 // 	vectorEmptyB.merge(vectorA, is_bigger());
-// 	chk_resultVector(&ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs FULL] 1/2");
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[EMPTY vs FULL] 2/2");
+// 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[EMPTY vs FULL] 1/2");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[EMPTY vs FULL] 2/2");
  
 // 	ft::Vector<int> ft_vectorC(size, 2);
 // 	ft_vectorC.push_back(4);
@@ -1400,8 +1360,8 @@ int test_vector_fillConstr() {
 	
 // 	ft_vectorC.merge(ft_vectorD, is_bigger());
 // 	vectorC.merge(vectorD, is_bigger());
-// 	chk_resultVector(&ft_vectorC, vectorC, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorD, vectorD, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
+// 	chk_result(ft_vectorC, vectorC, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 1/2");
+// 	chk_result(ft_vectorD, vectorD, "vector", title, "[FULL DISORDERED vs FULL DISORDERED] 2/2");
 
 // 	ft::Vector<int> ft_vectorE(size, 1);
 // 	ft_vectorE.push_back(1);
@@ -1422,8 +1382,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorE.merge(ft_vectorF, is_bigger());
 // 	vectorE.merge(vectorF, is_bigger());
-// 	chk_resultVector(&ft_vectorE, vectorE, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorF, vectorF, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
+// 	chk_result(ft_vectorE, vectorE, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 1/2");
+// 	chk_result(ft_vectorF, vectorF, "vector", title, "[FULL ORDERED vs FULL DISORDERED] 2/2");
 
 // 	ft::Vector<int> ft_vectorG(size, 1);
 // 	ft_vectorG.push_back(1);
@@ -1444,8 +1404,8 @@ int test_vector_fillConstr() {
 
 // 	ft_vectorH.merge(ft_vectorG, is_bigger());
 // 	vectorH.merge(vectorG, is_bigger());
-// 	chk_resultVector(&ft_vectorH, vectorH, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
-// 	chk_resultVector(&ft_vectorG, vectorG, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
+// 	chk_result(ft_vectorH, vectorH, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 1/2");
+// 	chk_result(ft_vectorG, vectorG, "vector", title, "[FULL DISORDERED vs FULL ORDERED] 2/2");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -1468,13 +1428,13 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.sort();
 // 	vector.sort();
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	ft::Vector<int> ft_vectorEmpty;
 // 	std::vector<int> vectorEmpty;
 // 	ft_vectorEmpty.sort();
 // 	vectorEmpty.sort();
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//----------------------------------------------------------
@@ -1484,11 +1444,11 @@ int test_vector_fillConstr() {
 	
 // 	ft_vector.sort(is_bigger());
 // 	vector.sort(is_bigger());
-// 	chk_resultVector(&ft_vector, vector, "vector", title);
+// 	chk_result(ft_vector, vector, "vector", title);
 
 // 	ft_vectorEmpty.sort(is_bigger());
 // 	vectorEmpty.sort(is_bigger());
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -1516,16 +1476,16 @@ int test_vector_fillConstr() {
 
 // 	ft_vector.reverse();
 // 	vector.reverse();
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[FULL, EVEN NODES]");
+// 	chk_result(ft_vector, vector, "vector", title, "[FULL, EVEN NODES]");
 // 	ft_vector.pop_front();
 // 	vector.pop_front();
-// 	chk_resultVector(&ft_vector, vector, "vector", title, "[FULL, ODD NODES]");
+// 	chk_result(ft_vector, vector, "vector", title, "[FULL, ODD NODES]");
 
 // 	ft::Vector<char> ft_vectorEmpty;
 // 	std::vector<char> vectorEmpty;
 // 	ft_vectorEmpty.reverse();
 // 	vectorEmpty.reverse();
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY Vector]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY Vector]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -1723,15 +1683,15 @@ int test_vector_fillConstr() {
 
 // 	swap(ft_vectorA, ft_vectorC);
 // 	swap(vectorA, vectorC);
-// 	chk_resultVector(&ft_vectorA, vectorA, "vector", title, "[1/2]");
-// 	chk_resultVector(&ft_vectorC, vectorC, "vector", title, "[2/2]");
+// 	chk_result(ft_vectorA, vectorA, "vector", title, "[1/2]");
+// 	chk_result(ft_vectorC, vectorC, "vector", title, "[2/2]");
 
 // 	ft::Vector<int> ft_vectorEmpty;
 // 	std::vector<int> vectorEmpty;
 // 	swap(ft_vectorEmpty, ft_vectorC);
 // 	swap(vectorEmpty, vectorC);
-// 	chk_resultVector(&ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY vs FULL] [1/2]");
-// 	chk_resultVector(&ft_vectorC, vectorC, "vector", title, "[EMPTY vs FULL] [2/2]");
+// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY vs FULL] [1/2]");
+// 	chk_result(ft_vectorC, vectorC, "vector", title, "[EMPTY vs FULL] [2/2]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;

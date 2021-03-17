@@ -14,8 +14,8 @@
 #define VECTOR_HPP
 
 #include <limits>
-#include "Iterator.hpp"
-#include "VectorNode.hpp"
+#include "VectorIterator.hpp"
+#include "Node.hpp"
 
 namespace ft {
 
@@ -27,17 +27,17 @@ namespace ft {
 			// ALIASES:
 
 			typedef T 													value_type;
-			typedef VectorNode<value_type> 								node_type;
+			typedef Node<value_type> 									node_type;
 			typedef std::allocator<node_type> 							allocator_type;
 			typedef allocator_type 										node_allocator;
 			typedef value_type											&reference;
 			typedef value_type const	 								&const_reference;
 			typedef node_type 											*pointer;
 			typedef node_type const	 									*const_pointer;
-			typedef Iterator<value_type, node_type> 					iterator;
-			typedef Iterator<value_type const, node_type const> 		const_iterator;
-			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
-			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
+			typedef VectorIterator<value_type > 						iterator;
+			typedef VectorIterator<value_type const > 					const_iterator;
+			typedef VectorReverse_Iterator<value_type > 				reverse_iterator;
+			typedef VectorReverse_Iterator<value_type const > 			const_reverse_iterator;
 			// typedef typename difference_type Iterator_traits<Iterator>::difference_type;
 			typedef unsigned long  										size_type;
 			
@@ -49,9 +49,8 @@ namespace ft {
 
 			// >>> default
 			explicit Vector () {
+				_container = NULL;
 
-				_begin = NULL;
-				_end = _begin;
 				_size = 0;
 				_capacity = 0;
 			};
@@ -59,8 +58,8 @@ namespace ft {
 			// >>> fill
 			explicit Vector (size_type n, const value_type& val = value_type()) {
 
-				_begin = NULL;
-				_end = _begin;
+				_container = NULL;
+
 				_size = 0;
 				_capacity = 0;
 
@@ -71,36 +70,33 @@ namespace ft {
 			template <class InputIterator>
 		 	Vector (InputIterator first, InputIterator last)  {
 
-		 		_begin = NULL;
-				_end = _begin;
+		 		_container = NULL;
 				_size = 0;
 				_capacity = 0;
 
 		 		assign(first, last);
 
-				_end =  _begin->getEnd(_size);
 		 	};	
 			
-			// // // >>> copy 
-			// Vector (const Vector& x) {
+			// // >>> copy 
+			Vector (const Vector& x) {
+				//std::cout << "COPYING" << std::endl;
+				_container = NULL;
+				_size = 0;
+				_capacity = 0;
 
-			// 	_begin = NULL;
-			// 	_end = NULL;
-			// 	_size = 0;
-			// 	_capacity = 0;
+		 		assign(x.begin(), x.end());
 
-		 	// 	assign(x.begin(), x.end());
+			}; 
 
-			// 	_end->setEnd(_begin, _size);
-			// }; 
+			Vector& operator= (const Vector& x) {
+				//std::cout << "IN OP=" << std::endl;
+				clear();
 
-			// Vector& operator= (const Vector& x) {
+				assign(x.begin(), x.end());
 
-			// 	clear();
-			// 	assign(x.begin(), x.end());
-
-			// 	return *this;
-			// }; //destroy all content then copy
+				return *this;
+			}; //destroy all content then copy
 
 
 			//----------------------------------------------
@@ -109,9 +105,10 @@ namespace ft {
 			//DESTRUCTOR:
 
 			~Vector() { 
-				// if (_capacity)
-				// 	delete[] _begin;
-				//clear(); 
+				clear(); 
+				// if (_container)
+				// 	delete[] _container;
+				
 				//delete[] _containerPtr; 
 			};
 
@@ -123,52 +120,50 @@ namespace ft {
 
 			iterator 		begin() {
 
-				return iterator(_begin);
+				return iterator(_container);
 			};
 
 			const_iterator 	begin() const{
 
-				return const_iterator(_begin);
+				return const_iterator(_container);
 			};
 
 			iterator end(){
 
-				_end =  _begin->getEnd(_size);
-				return iterator(_end);
+				return iterator(&_container[_size]);
 			};
 
 			const_iterator end() const{
 				
-				_end =  _begin->getEnd(_size);
-				return const_iterator(_end);
+				return const_iterator(&_container[_size]);
 			};
 			// points after last Vector element
 
-	// 		reverse_iterator rbegin() {
+			reverse_iterator rbegin() {
 
-	// 			if (_end->getPrev())
-	// 				return (reverse_iterator(_end->getPrev()));
-	// 			return (reverse_iterator(_end));
-	// 		};
+				if (_size)
+					return (reverse_iterator(&_container[_size - 1]));
+				return (reverse_iterator(&_container[_size]));
+			};
 
-	// 		const_reverse_iterator rbegin() const {
+			const_reverse_iterator rbegin() const {
 
-	// 			if (_end->getPrev())
-	// 				return (const_reverse_iterator(_end->getPrev()));
-	// 			return (const_reverse_iterator(_end));
-	// 		};
-	// 		// point to last element, incrementing actually decrements
+				if (_size)
+					return (const_reverse_iterator(&_container[_size - 1]));
+				return (const_reverse_iterator(&_container[_size]));
+			};
+			// point to last element, incrementing actually decrements
 
-	// 		reverse_iterator rend() {
+			reverse_iterator rend() {
 
-	// 			return (reverse_iterator(_begin->getPrev()));
-	// 		};
+				return (reverse_iterator(_container));
+			};
 
-	// 		const_reverse_iterator rend() const {
+			const_reverse_iterator rend() const {
 
-	// 			return (const_reverse_iterator(_begin->getPrev()));
-	// 		};
-	// 		// point to hypothetical element BEFORE first element
+				return (const_reverse_iterator(_container));
+			};
+			// point to hypothetical element BEFORE first element
 
 
 	// 		//----------------------------------------------
@@ -233,33 +228,27 @@ namespace ft {
 					return;
 
 				size_type newCapacity = _capacity;
+				
+				//MUST CHECK THIS
+				// if (n > 128)
+				// 	n = 128;
 				if (newCapacity == 0)
 					newCapacity = n;
 				while (n > newCapacity)
 					newCapacity *= 2;
 
-				node_type *newVector = new node_type[newCapacity]();
+				value_type *newVector = new value_type[newCapacity]();
 
-					for (size_type i = 0; i < _size; i++) {
-						newVector[i] = _begin[i];
-						// *newIt = *oldIt;
-						// newIt++;
-						// oldIt++;
-					}
-					if (_capacity)
-						delete[] _begin;
-					_begin = newVector;
-					_end =  _begin->getEnd(_size);;
+				for (size_type i = 0; i < _size; i++) {
+					newVector[i] = _container[i];
+					// *newIt = *oldIt;
+					// newIt++;
+					// oldIt++;
+				}
+				if (_capacity)
+					delete[] _container;
+				_container = newVector;
 
-				//_containerPtr = newVector;
-				// iterator it = iterator(_containerPtr);
-				// for (size_type i = 0; i < _size; i++) {
-				// 		std::cout << *it << std::endl;
-				// 		it++;
-				// 		// *newIt = *oldIt;
-				// 		// newIt++;
-				// 		// oldIt++;
-				// 	}
 				_capacity = newCapacity;
 			};
 			// requests that the vector capacity be at least enough to contain n elements, reallocate if needed.
@@ -268,6 +257,11 @@ namespace ft {
 
 
 	// 		// ELEMENT ACCESS:
+			//reference operator[] (size_type n);
+			//const_reference operator[] (size_type n) const;
+
+			// reference at (size_type n);
+			// const_reference at (size_type n) const;
 
 	// 		reference front() {
 
@@ -322,37 +316,13 @@ namespace ft {
 				// while (_size < n) 
 				// 	push_back(val);
 
-				this->clear();
+				clear();
 				reserve(n);
-
 				while (_size < n) {
 					push_back(val);
 				}
-				_end = _begin->getEnd(_size);
 			};
 	// 		//Assigns new contents to the Vector container, replacing its current contents, and modifying its size accordingly.
-
-	// 		void push_front (const value_type& val) {
-
-	// 			_begin->addPrev(val);
-	// 			_begin = _end->getBegin();
-	// 			_size++;
-				
-	// 			_end->setEnd();
-	// 		};
-	// 		//insert elem at the beginning. 
-
-	// 		void pop_front() {
-
-	// 			if (_size) {
-	// 				_begin->delNode();
-	// 				_size--;
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		//remove & destroy first element.
 
 			void push_back (const value_type& val) { 
 
@@ -369,8 +339,9 @@ namespace ft {
 				// 	std::cout << *it << std::endl;
 				// 	it++;
 				// }
-				_begin[_size] = node_type(val);
+				_container[_size] = val;
 				_size++;
+				//_end->setEnd();
 			};
 			//Adding elements to a vector = adding nodes before end. 
 
@@ -390,42 +361,43 @@ namespace ft {
 	// 		};
 	// 		//remove & destroy last element
 
-	// 		iterator insert (iterator position, const value_type& val) {
+			// iterator insert (iterator position, const value_type& val) {
 
-	// 			position.getNode()->addPrev(val);
-	// 			_size++;
+			// 	position.getNode()->addPrev(val);
+			// 	_size++;
 
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
+			// 	_begin = _end->getBegin();
+			// 	_end->setEnd();
 
-	// 			return iterator(position.getNode()->getPrev());
+			// 	return iterator(position.getNode()->getPrev());
 
-	// 		}; 
-	// 		//remove 1 element
+			// }; 
+			// //remove 1 element
     		
-	// 		// >>> fill
-	// 		void insert (iterator position, size_type n, const value_type& val) {
+			// // >>> fill
+			// void insert (iterator position, size_type n, const value_type& val) {
 
-	// 			for (size_type i = 0; i < n; i++)
-	// 				position = insert(position, val);
+			// 	reserve(_size + )
+			// 	for (size_type i = 0; i < n; i++)
+			// 		position = insert(position, val);
 
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
+			// 	_begin = _end->getBegin();
+			// 	_end->setEnd();
+			// };
 			
-	// 		// >>> range
-	// 		template <class InputIterator>
-    // 		void insert (iterator position, InputIterator first, InputIterator last) {
+			// // >>> range
+			// template <class InputIterator>
+    		// void insert (iterator position, InputIterator first, InputIterator last) {
 
-	// 			while (first != last) {
-	// 				insert(position, *first);
-	// 				first++;
-	// 			}
+			// 	while (first != last) {
+			// 		insert(position, *first);
+			// 		first++;
+			// 	}
 
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-    // 		//Extend the container by inserting new elements before the element at the specified position
+			// 	_begin = _end->getBegin();
+			// 	_end->setEnd();
+			// };
+    		//Extend the container by inserting new elements before the element at the specified position
 
 	// 		iterator erase (iterator position) {
 				
@@ -478,295 +450,21 @@ namespace ft {
 				
 				// iterator it = iterator(_begin);
 				//int a = 0;
-				for (size_t i = 0; i < _size; i++) {
-					//std::cout << "clearing " << a++ << "[" << *it << "]" << std::endl;
-					_begin[i].delNode();
-					//it++;
+				for (size_type i = 0; i < _size; i++) {
+					_container[i] = value_type();
+					// _container[i].forgetValue();
+					// _container[i].forgetNode();
 				}
 				_size = 0;
 			};
 	// 		//removes all elements (size == 0)
 			
 
-	// 		//----------------------------------------------
-
-
-	// 		//OPERATIONS
-
-	// 		void splice (iterator position, Vector& other) {
-
-	// 			iterator srcIt = other.begin();
-	// 			iterator srcEnd = other.end();
-	// 			iterator otherNext = srcIt;
-				
-	// 			node_type *cur = position.getNode();;
-
-	// 			while (srcIt != srcEnd) {
-	// 				otherNext++;
-	// 				cur->addPrevNode(srcIt.getNode());
-	// 				srcIt = otherNext;
-	// 			}
-				
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-
-	// 			other._end->resetNode();
-	// 			other._begin = other._end;
-	// 			other._end->setEnd();
-	// 		}; 
-	// 		//entire vector
-			
-	// 		void splice (iterator position, Vector& other, iterator it) {
-
-	// 			node_type *cur;
-
-	// 			it.getNode()->forgetNode();
-
-	// 			cur = position.getNode();
-	// 			cur->addPrevNode(it.getNode());
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();				
-
-	// 			other._begin = other._end->getBegin();
-	// 			other._end->setEnd();		
-	// 		}; 
-	// 		// just 1 element
-
-	// 		// >>> range
-	// 		void splice (iterator position, Vector& other, iterator first, iterator last) {
-
-	// 			iterator next;
-
-	// 			while (first != last) {
-	// 				next = first;
-	// 				next++;
-	// 				splice(position, other, first);
-	// 				first = next;
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();	
-	// 		}; 
-	// 		// Transfer of elements from other into the container
-
-	// 		void remove (const value_type& val) {
-
-	// 			iterator it = this->begin();
-	// 			iterator ite = this->end();
-	// 			iterator tmp;
-
-	// 			while(it != ite) {
-	// 				if (*it == val) {
-	// 					tmp = iterator(it.getNode()->getNext());
-	// 					it.getNode()->delNode();
-	// 					_begin = tmp.getNode()->getBegin();
-
-	// 					if (tmp.getNode() == _end)
-	// 						break ;
-	// 					it = begin();
-	// 				}
-	// 				else
-	// 					it++;
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		//remove elements with specific value
-
-	// 		template <class Predicate>
-  	// 		void remove_if (Predicate pred) {
-
-	// 			iterator it = this->begin();
-	// 			iterator ite = this->end();
-	// 			iterator tmp;
-
-	// 			int index = -1;
-
-	// 			while(it != ite) {
-	// 				index++;
-	// 				if (pred(*it)) {
-	// 					tmp = iterator(it.getNode()->getNext());
-	// 					it.getNode()->delNode();
-	// 					_begin = _end->getBegin();
-						
-	// 					if (tmp.getNode() == _end)
-	// 						break ;
-	// 					it = begin();
-	// 					index = -1;
-	// 				}
-	// 				else
-	// 					it++;
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		// pred is a function returning a bool. Check if p(val) is true for each element
-
-	// 		void unique() {
-
-	// 			iterator it = this->begin();
-	// 			iterator tmp = it;
-	// 			iterator ite = this->end();
-
-	// 			for (it = this->begin(); it != ite; it++) {
-	// 				if (it.getNode()->getPrev() && it.getNode()->getPrev()->getValue() == *it) {
-	// 					tmp = iterator(it.getNode()->getPrev());
-	// 					it.getNode()->delNode();
-	// 					it = tmp;
-	// 				}
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		//remove all but the first element from every consecutive group of equal elements in the container
-			
-	// 		template <class BinaryPredicate>
-  	// 		void unique (BinaryPredicate binary_pred) {
-
-	// 			iterator it = this->begin();
-	// 			iterator tmp = it;
-	// 			iterator ite = this->end();
-
-	// 			for (it = this->begin(); it != ite; it++) {
-	// 				if (it.getNode()->getPrev() && binary_pred(it.getNode()->getPrev()->getValue(), *it)) {
-	// 					tmp = iterator(it.getNode()->getPrev());
-	// 					it.getNode()->delNode();
-	// 					it = tmp;
-	// 				}
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		//can take any "comparison" function
-
-	// 		void merge (Vector& other) {
-
-	// 			if (other == *this)
-	// 				return ;
-
-	// 			iterator thisIt = this->begin();
-	// 			iterator thisIte = this->end();
-				
-	// 			iterator otherIt = other.begin();
-	// 			iterator otherIte = other.end();
-	// 			iterator otherNext = otherIt;
-
-	// 			while (thisIt != thisIte) {
-	// 				if (otherIt != otherIte && *otherIt < *thisIt) {
-	// 					otherNext = otherIt;
-	// 					otherNext++;
-	// 					splice(thisIt, other, otherIt);
-	// 					otherIt = otherNext;
-	// 				}
-	// 				else
-	// 					thisIt++;
-	// 			}
-	// 			if (otherIt != otherIte)
-	// 				splice(thisIt, other, otherIt, otherIte);
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-
-	// 		template <class Compare>
-  	// 		void merge (Vector& other, Compare comp) {
-			
-	// 			if (other == *this)
-	// 				return ;
-				
-	// 			iterator thisIt = this->begin();
-	// 			iterator thisIte = this->end();
-
-	// 			iterator otherIt = other.begin();
-	// 			iterator otherIte = other.end();
-	// 			iterator otherNext = otherIt;
-
-	// 			while (thisIt != thisIte) {
-	// 				if (otherIt != otherIte && comp(*otherIt, *thisIt)) {
-	// 					otherNext = otherIt;
-	// 					otherNext++;
-	// 					splice(thisIt, other, otherIt);
-	// 					otherIt = otherNext;
-	// 				}
-	// 				else
-	// 					thisIt++;
-	// 			}
-	// 			if (otherIt != otherIte)
-	// 				splice(thisIt, other, otherIt, otherIte);
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-  	// 		//remove elements from x and insert them in container in orderly fashion
-			
-	// 		void sort() {
-
-	// 			iterator it = this->begin();
-	// 			iterator ite = this->end();
-				
-	// 			for (it = this->begin(); it != ite; ++it) {
-	// 				if (it.getNode()->getPrev() && *it < it.getNode()->getPrev()->getValue()) {
-	// 					it.getNode()->swapNodes(it.getNode()->getPrev(), it.getNode());
-	// 					_begin = it.getNode()->getBegin();
-	// 					it = begin();
-	// 				}			
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		//use < for comparison
-			
-	// 		template <class Compare>
-  	// 		void sort (Compare comp) {
-			
-	// 			iterator it = this->begin();
-	// 			iterator ite = this->end();
-				
-	// 			for (it = this->begin(); it != ite; ++it) {
-	// 				if (it.getNode()->getPrev() && comp(*it, it.getNode()->getPrev()->getValue())) {
-	// 					it.getNode()->swapNodes(it.getNode()->getPrev(), it.getNode());
-	// 					_begin = it.getNode()->getBegin();
-	// 					it = begin();
-	// 				}			
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-
-  	// 		void reverse() {
-
-	// 			iterator it = this->begin();
-	// 			reverse_iterator rit = this->rbegin();
-
-	// 			value_type tmp;
-				
-	// 			int i = -1;
-	// 			while (++i != _size / 2) {
-	// 				tmp = *it;
-	// 				*it = *rit;
-	// 				*rit = tmp;
-	// 				it++;
-	// 				rit++;
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-
-	// 		};
-	// 		//reverse the order of elements
-
 		private:
 
 			//pointer 			_containerPtr;
-			pointer 			_begin;
-			pointer 			_end;
+			value_type 			*_container;
+
 			size_type 			_size;
 			size_type 			_capacity;
 			node_allocator 		_node_allocator;
@@ -785,8 +483,8 @@ namespace ft {
 	// 	if (lhs.size() != rhs.size())
 	// 		return false;
 
-	// 	Iterator< const T, const VectorNode<T> > lhsIt = lhs.begin();
-	// 	Iterator< const T, const VectorNode<T> > rhsIt = rhs.begin();
+	// 	Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+	// 	Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 		
 	// 	size_t i = 0;
 
@@ -815,8 +513,8 @@ namespace ft {
 	// 	if (lhs.size() > rhs.size())
 	// 	 	return false;
 
-	// 	Iterator< const T, const VectorNode<T> > lhsIt = lhs.begin();
-	// 	Iterator< const T, const VectorNode<T> > rhsIt = rhs.begin();
+	// 	Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+	// 	Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 	
 	// 	size_t i = 0;
 	// 	while (i != lhs.size() && i != rhs.size()) {
@@ -845,8 +543,8 @@ namespace ft {
 	// 	if (lhs.size() < rhs.size())
 	// 		return false;
 
-	// 	Iterator< const T, const VectorNode<T> > lhsIt = lhs.begin();
-	// 	Iterator< const T, const VectorNode<T> > rhsIt = rhs.begin();
+	// 	Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+	// 	Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 	
 	// 	size_t i = 0;
 	// 	while (i != lhs.size() && i != rhs.size()) {

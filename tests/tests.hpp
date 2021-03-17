@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/16 17:24:48 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:59:37 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,10 +242,10 @@ int test_list_nonMembers();
 //CONSTRUCTORS
 int test_vector_fillConstr();
 int test_vector_rangeConstr();
-//int test_vector_copyConstr();
-// int test_vector_opEqual();
-// //ITERATORS
-// int test_vector_pushBack_iterate();
+int test_vector_copyConstr();
+int test_vector_opEqual();
+//ITERATORS
+int test_vector_pushBack_iterate();
 // //CAPACITY
 // int test_vector_empty();
 // int test_vector_maxSize();

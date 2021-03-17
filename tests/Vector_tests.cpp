@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/16 17:23:32 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:20:04 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,138 +94,138 @@ int test_vector_copyConstr() {
 	return 0;
 };
 
-// int test_vector_opEqual() {
-// 	std::string title = "[OPERATOR=]";
-// 	std::cout << title;
+int test_vector_opEqual() {
+	std::string title = "[OPERATOR=]";
+	std::cout << title;
 
-// 	ft::Vector<char> ft_src(10, '!');
-// 	ft_src.push_back('@');
+	ft::Vector<char> ft_src(10, '!');
+	ft_src.push_back('@');
 
-// 	std::vector<char> src(10, '!');
-// 	src.push_back('@');
+	std::vector<char> src(10, '!');
+	src.push_back('@');
 
-// 	ft::Vector<char> ft_vector = ft_src;
-// 	std::vector<char> vector = src;
+	ft::Vector<char> ft_vector = ft_src;
+	std::vector<char> vector = src;
 
-// 	chk_result(ft_vector, vector, "vector", title);
+	chk_result(ft_vector, vector, "vector", title);
 
-// 	ft::Vector<char> ft_srcB(0, '!');
-// 	std::vector<char> srcB(0, '!');
-// 	ft::Vector<char> ft_vectorEmpty = ft_srcB;
-// 	std::vector<char> vectorEmpty = srcB;
+	ft::Vector<char> ft_srcB(0, '!');
+	std::vector<char> srcB(0, '!');
+	ft::Vector<char> ft_vectorEmpty = ft_srcB;
+	std::vector<char> vectorEmpty = srcB;
 
-// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
-// 	ft_vector = ft_srcB;
-// 	vector = srcB;
+	ft_vector = ft_srcB;
+	vector = srcB;
 
-// 	chk_result(ft_vector, vector, "vector", title, "[FULL = EMPTY]");
+	chk_result(ft_vector, vector, "vector", title, "[FULL = EMPTY]");
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 
-// //*\*/*\/*\*/*\/*\*/*\/*\*///
-// //*\*/*\*/ITERATORS/*\*/*\*//
-// //*\*/*\/*\*/*\/*\*/*\/*\*///
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+//*\*/*\*/ITERATORS/*\*/*\*//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-// int test_vector_pushBack_iterate() {
-// 	std::string title = "[BASIC INSTANCE + PUSH_BACK]";
-// 	std::cout << title;
+int test_vector_pushBack_iterate() {
+	std::string title = "[BASIC INSTANCE + PUSH_BACK]";
+	std::cout << title;
 
-// 	ft::Vector<int> ft_vector;
-// 	std::vector<int> vector;
+	ft::Vector<int> ft_vector;
+	std::vector<int> vector;
 
-// 	ft_vector.push_back(10);
-// 	ft_vector.push_back(12);
-// 	ft_vector.push_back(18);
+	ft_vector.push_back(10);
+	ft_vector.push_back(12);
+	ft_vector.push_back(18);
 
-// 	vector.push_back(10);
-// 	vector.push_back(12);
-// 	vector.push_back(18);
+	vector.push_back(10);
+	vector.push_back(12);
+	vector.push_back(18);
 
-// 	chk_result(ft_vector, vector, "vector", title);
+	chk_result(ft_vector, vector, "vector", title);
 
-// 	ft::Vector<char> ft_vectorEmpty;
-// 	ft_vector.push_back('&');
-// 	std::vector<char> vectorEmpty;
-// 	vector.push_back('&');
+	ft::Vector<char> ft_vectorEmpty;
+	ft_vector.push_back('&');
+	std::vector<char> vectorEmpty;
+	vector.push_back('&');
 
-// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
-// 	title = "[BASIC ITERATING + DEREFERENCING]";
-// 	std::cout << title;
+	title = "[BASIC ITERATING + DEREFERENCING]";
+	std::cout << title;
 
-// 	int tmp;
-// 	ft::Vector<int>::iterator it = ft_vector.begin();
-// 	while (it != ft_vector.end()) {
-// 		//std::cout << *it << std::endl; //commented to keep test output clean
-// 		tmp = *it;
-// 		it++;
-// 	}
-// 	chk_result(ft_vector, vector, "vector", title);
+	int tmp;
+	ft::Vector<int>::iterator it = ft_vector.begin();
+	while (it != ft_vector.end()) {
+		//std::cout << *it << std::endl; //commented to keep test output clean
+		tmp = *it;
+		it++;
+	}
+	chk_result(ft_vector, vector, "vector", title);
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
-// 	title = "[BASIC REVERSE ITERATING + DEREFERENCING]";
-// 	std::cout << title;
+	title = "[BASIC REVERSE ITERATING + DEREFERENCING]";
+	std::cout << title;
 
-// 	ft::Vector<int>::reverse_iterator rit = ft_vector.rbegin();
-// 	while (rit != ft_vector.rend()) {
-// 		//std::cout << *it << std::endl; //commented to keep test output clean
-// 		tmp = *rit;
-// 		rit++;
-// 	}
-// 	chk_result(ft_vector, vector, "vector", title);
+	ft::Vector<int>::reverse_iterator rit = ft_vector.rbegin();
+	while (rit != ft_vector.rend()) {
+		//std::cout << *it << std::endl; //commented to keep test output clean
+		tmp = *rit;
+		rit++;
+	}
+	chk_result(ft_vector, vector, "vector", title);
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-//     return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+    return 0;
+};
 
-// //*\*/*\/*\*/*\/*\*/*\/*\*///
-// ///*\*/*\*/CAPACITY/*\*/*\*//
-// //*\*/*\/*\*/*\/*\*/*\/*\*///
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+///*\*/*\*/CAPACITY/*\*/*\*//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-// int test_vector_empty() {
-// 	std::string title = "[EMPTY]";
-// 	std::cout << title;
+int test_vector_empty() {
+	// std::string title = "[EMPTY]";
+	// std::cout << title;
 
-// 	ft::Vector<char> ft_vector(5, '!');
-// 	std::vector<char> vector(5, '!');
-// 	ft::Vector<char>::iterator ft_it = ft_vector.begin();
-// 	std::vector<char>::iterator it = vector.begin();
-// 	ft_it++;
-// 	it++;
+	// ft::Vector<char> ft_vector(5, '!');
+	// std::vector<char> vector(5, '!');
+	// ft::Vector<char>::iterator ft_it = ft_vector.begin();
+	// std::vector<char>::iterator it = vector.begin();
+	// ft_it++;
+	// it++;
 
-// 	ft_vector.push_back('a');
-// 	ft_vector.insert(ft_it, 'a');
-// 	ft_vector.insert(ft_it, 'b');
-// 	vector.push_back('a');
-// 	vector.insert(it, 'a');
-// 	vector.insert(it, 'b');
-// 	bool ft_empty = ft_vector.empty();
-// 	bool std_empty = vector.empty();
-// 	if (ft_empty != std_empty) {
-// 		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
-// 		handle_error(ft_vector, vector, "vector", title, "[FULL]", "CONTENT");
-// 	}
+	// ft_vector.push_back('a');
+	// ft_vector.insert(ft_it, 'a');
+	// ft_vector.insert(ft_it, 'b');
+	// vector.push_back('a');
+	// vector.insert(it, 'a');
+	// vector.insert(it, 'b');
+	// bool ft_empty = ft_vector.empty();
+	// bool std_empty = vector.empty();
+	// if (ft_empty != std_empty) {
+	// 	std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
+	// 	handle_error(ft_vector, vector, "vector", title, "[FULL]", "CONTENT");
+	// }
 	
-// 	ft::Vector<char> ft_vectorEmpty;
-// 	std::vector<char> vectorEmpty;
-// 	ft_vectorEmpty.empty();
-// 	vectorEmpty.empty();
-// 	ft_empty = ft_vector.empty();
-// 	std_empty = vector.empty();
-// 	if (ft_empty != std_empty) {
-// 		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
-// 		handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
-// 	}
+	// ft::Vector<char> ft_vectorEmpty;
+	// std::vector<char> vectorEmpty;
+	// ft_vectorEmpty.empty();
+	// vectorEmpty.empty();
+	// ft_empty = ft_vector.empty();
+	// std_empty = vector.empty();
+	// if (ft_empty != std_empty) {
+	// 	std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
+	// 	handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
+	// }
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 // int test_vector_maxSize() {
 // 	std::string title = "[MAX_SIZE]";

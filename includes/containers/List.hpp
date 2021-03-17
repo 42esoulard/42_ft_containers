@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/14 13:28:34 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/17 13:05:19 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <limits>
 #include "Iterator.hpp"
-#include "ListNode.hpp"
+#include "Node.hpp"
 
 namespace ft {
 
@@ -27,7 +27,7 @@ namespace ft {
 			// ALIASES:
 
 			typedef T 													value_type;
-			typedef ListNode<value_type> 								node_type;
+			typedef Node<value_type> 								node_type;
 			typedef typename std::allocator<node_type> 					allocator_type;
 			//typedef allocator_type 										Alloc;
 			typedef value_type											&reference;
@@ -728,8 +728,8 @@ namespace ft {
 		if (lhs.size() != rhs.size())
 			return false;
 
-		Iterator< const T, const ListNode<T> > lhsIt = lhs.begin();
-		Iterator< const T, const ListNode<T> > rhsIt = rhs.begin();
+		Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+		Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 		
 		size_t i = 0;
 
@@ -758,8 +758,8 @@ namespace ft {
 		if (lhs.size() > rhs.size())
 		 	return false;
 
-		Iterator< const T, const ListNode<T> > lhsIt = lhs.begin();
-		Iterator< const T, const ListNode<T> > rhsIt = rhs.begin();
+		Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+		Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 	
 		size_t i = 0;
 		while (i != lhs.size() && i != rhs.size()) {
@@ -788,8 +788,8 @@ namespace ft {
 		if (lhs.size() < rhs.size())
 			return false;
 
-		Iterator< const T, const ListNode<T> > lhsIt = lhs.begin();
-		Iterator< const T, const ListNode<T> > rhsIt = rhs.begin();
+		Iterator< const T, const Node<T> > lhsIt = lhs.begin();
+		Iterator< const T, const Node<T> > rhsIt = rhs.begin();
 	
 		size_t i = 0;
 		while (i != lhs.size() && i != rhs.size()) {

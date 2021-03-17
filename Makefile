@@ -5,8 +5,8 @@ INC_CONT 	:= $(addprefix ${INC_CDIR}, ${INC_CONT})
 #############################################################
 
 ########################### UTILS ###########################
-INC_UTILS	= ft_containers.h Iterator.hpp ListNode.hpp \
-				VectorNode.hpp
+INC_UTILS	= ft_containers.h Iterator.hpp Node.hpp \
+			VectorIterator.hpp
 INC_UDIR	= includes/utils/
 INC_UTILS	:= $(addprefix ${INC_UDIR},${INC_UTILS})
 #############################################################

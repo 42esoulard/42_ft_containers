@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/17 15:20:04 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:56:47 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,41 +189,41 @@ int test_vector_pushBack_iterate() {
 //*\*/*\/*\*/*\/*\*/*\/*\*///
 
 int test_vector_empty() {
-	// std::string title = "[EMPTY]";
-	// std::cout << title;
+	std::string title = "[EMPTY]";
+	std::cout << title;
 
-	// ft::Vector<char> ft_vector(5, '!');
-	// std::vector<char> vector(5, '!');
-	// ft::Vector<char>::iterator ft_it = ft_vector.begin();
-	// std::vector<char>::iterator it = vector.begin();
-	// ft_it++;
-	// it++;
+	ft::Vector<char> ft_vector(5, '!');
+	std::vector<char> vector(5, '!');
+	ft::Vector<char>::iterator ft_it = ft_vector.begin();
+	std::vector<char>::iterator it = vector.begin();
+	ft_it++;
+	it++;
 
-	// ft_vector.push_back('a');
-	// ft_vector.insert(ft_it, 'a');
-	// ft_vector.insert(ft_it, 'b');
-	// vector.push_back('a');
-	// vector.insert(it, 'a');
-	// vector.insert(it, 'b');
-	// bool ft_empty = ft_vector.empty();
-	// bool std_empty = vector.empty();
-	// if (ft_empty != std_empty) {
-	// 	std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
-	// 	handle_error(ft_vector, vector, "vector", title, "[FULL]", "CONTENT");
-	// }
+	ft_vector.push_back('a');
+	ft_vector.insert(ft_vector.begin(), 'a');
+	ft_vector.insert(ft_vector.begin(), 'b');
+	vector.push_back('a');
+	vector.insert(vector.begin(), 'a');
+	vector.insert(vector.begin(), 'b');
+	bool ft_empty = ft_vector.empty();
+	bool std_empty = vector.empty();
+	if (ft_empty != std_empty) {
+		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[FULL]", "CONTENT");
+	}
 	
-	// ft::Vector<char> ft_vectorEmpty;
-	// std::vector<char> vectorEmpty;
-	// ft_vectorEmpty.empty();
-	// vectorEmpty.empty();
-	// ft_empty = ft_vector.empty();
-	// std_empty = vector.empty();
-	// if (ft_empty != std_empty) {
-	// 	std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
-	// 	handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
-	// }
+	ft::Vector<char> ft_vectorEmpty;
+	std::vector<char> vectorEmpty;
+	ft_vectorEmpty.empty();
+	vectorEmpty.empty();
+	ft_empty = ft_vector.empty();
+	std_empty = vector.empty();
+	if (ft_empty != std_empty) {
+		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
+	}
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
 };
 

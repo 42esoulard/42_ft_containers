@@ -361,42 +361,63 @@ namespace ft {
 	// 		};
 	// 		//remove & destroy last element
 
-			// iterator insert (iterator position, const value_type& val) {
+			iterator insert (iterator position, const value_type& val) {
+				
+				reserve(_size + 1);
+				iterator it = begin();
+				size_type index = 0;
+				if (position != it)
+					while (++it != position)
+						index++;
+				
+				iterator ret = it;
+				value_type stockNext;//stockNext = c
+				value_type stock = *it;//stock = b
+	
+                           //a b d e
+					_container[index++] = val; //1 2 3 4
+				while (index <= _size) {//pos = 3
+					stockNext = _container[index];
+					_container[index++] = stock;
 
-			// 	position.getNode()->addPrev(val);
-			// 	_size++;
+					stock = stockNext;
+					//prev = stock;
+				}
+				_container[index++] = stock;
+				_size++;
 
-			// 	_begin = _end->getBegin();
-			// 	_end->setEnd();
+				return ret;
 
-			// 	return iterator(position.getNode()->getPrev());
-
-			// }; 
-			// //remove 1 element
+			}; 
+			//remove 1 element
     		
-			// // >>> fill
-			// void insert (iterator position, size_type n, const value_type& val) {
+			// >>> fill
+			void insert (iterator position, size_type n, const value_type& val) {
 
-			// 	reserve(_size + )
-			// 	for (size_type i = 0; i < n; i++)
-			// 		position = insert(position, val);
+				reserve(_size + n);
+				iterator it = begin();
+				while (it != position)
+					it++;
 
-			// 	_begin = _end->getBegin();
-			// 	_end->setEnd();
-			// };
+				for (size_type i = 0; i < n; i++)
+					it = insert(it, val);
+			};
 			
-			// // >>> range
-			// template <class InputIterator>
-    		// void insert (iterator position, InputIterator first, InputIterator last) {
+			// >>> range
+			template <class InputIterator>
+    		void insert (iterator position, InputIterator first, InputIterator last) {
 
-			// 	while (first != last) {
-			// 		insert(position, *first);
-			// 		first++;
-			// 	}
+				reserve(_size + (last - first));
+				iterator it = begin();
+				while (it != position)
+					it++;
 
-			// 	_begin = _end->getBegin();
-			// 	_end->setEnd();
-			// };
+				while (first != last) {
+					insert(it, *first);
+					first++;
+				}
+
+			};
     		//Extend the container by inserting new elements before the element at the specified position
 
 	// 		iterator erase (iterator position) {

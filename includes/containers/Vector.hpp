@@ -188,10 +188,11 @@ namespace ft {
 			void resize (size_type n, value_type val = value_type()) {
 
 				size_type i = 0;
+	
 				reserve(n);
 
 				if (_size > n) {
-					while (i <= n)
+					while (i < n)
 						i++;
 					while (i < _size)
 						_container[i++] = value_type();
@@ -200,6 +201,7 @@ namespace ft {
 					iterator it = this->end();
 					it++;
 					i = _size;
+
 					while (++i < n)
 						it = insert(it, val);		
 				}
@@ -232,8 +234,10 @@ namespace ft {
 				// if (newCapacity == 0)
 				// 	newCapacity = n;
 				//std::cout << "_capacity = "<< _capacity << "newCapacity" << newCapacity << std::endl; 
-				if (n <= _capacity * 2)
-					newCapacity = 2 * _capacity;
+				// if (n <= _capacity * 2)
+				// 	newCapacity = 2 * _capacity;
+				// if (n > _capacity && n < _capacity * 2)
+				// 	newCapacity = 2 * _capacity;
 				// else
 				// 	newCapacity = n;
 
@@ -322,6 +326,8 @@ namespace ft {
 				// 	newCapacity *= 2;
 				// else
 				// 	newCapacity = n;
+				if (n > _capacity && n < _capacity * 2)
+					n = 2 * _capacity;
 				reserve(n);
 				while (_size < n) {
 					push_back(val);
@@ -337,7 +343,10 @@ namespace ft {
 				// 	std::cout << *it << std::endl;
 				// 	it++;
 				// }
-				reserve(_size + 1);
+				size_t n = _size + 1;
+				if (n > _capacity && n < _capacity * 2)
+					n = 2 * _capacity;
+				reserve(n);
 				// it = iterator(_containerPtr);
 				// std::cout << "push back aft reserve" << std::endl;
 				// for (size_t i = 0; i < _size; i++) {
@@ -368,16 +377,23 @@ namespace ft {
 
 			iterator insert (iterator position, const value_type& val) {
 
-				reserve(_size + 1);
 				iterator it = begin();
 				size_type index = 0;
 				if (position != it)
 					while (++it != position)
 						index++;
+				
+				size_t n = _size + 1;
+				if (n > _capacity && n < _capacity * 2)
+					n = 2 * _capacity;
+				//std::cout << "capac bef" << _capacity << " | newCapac " << n << std::endl;
+				reserve(n);
 
-				iterator ret = it;
+				iterator ret = begin();
+				for (size_t i = 0; i < index; i++)
+					ret++;
 				value_type stockNext;//stockNext = c
-				value_type stock = *it;//stock = b
+				value_type stock = *ret;//stock = b
                            //a b d e
 				_container[index++] = val; //1 2 3 4
 				while (index <= _size) {//pos = 3
@@ -398,9 +414,19 @@ namespace ft {
 			// >>> fill
 			void insert (iterator position, size_type n, const value_type& val) {
 
-				reserve(_size + n);
 				iterator it = begin();
-				while (it != position)
+				size_type index = 0;
+				if (position != it)
+					while (++it != position)
+						index++;
+				
+				size_t newCap = _size + n;
+				if (newCap > _capacity && newCap < _capacity * 2)
+					newCap = 2 * _capacity;
+				reserve(newCap);
+
+				it = begin();
+				for (size_t i = 0; i < index; i++)
 					it++;
 				
 				for (size_type i = 0; i < n; i++)
@@ -411,9 +437,19 @@ namespace ft {
 			template <class InputIterator>
     		void insert (iterator position, InputIterator first, InputIterator last) {
 
-				reserve(_size + (last - first));
 				iterator it = begin();
-				while (it != position)
+				size_type index = 0;
+				if (position != it)
+					while (++it != position)
+						index++;
+				
+				size_t n = _size + (last - first);
+				if (n > _capacity && n < _capacity * 2)
+					n = 2 * _capacity;
+				reserve(n);
+
+				it = begin();
+				for (size_t i = 0; i < index; i++)
 					it++;
 
 				while (first != last) {

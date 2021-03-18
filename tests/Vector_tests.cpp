@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/18 14:20:04 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:51:47 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,6 @@ int test_vector_capacity() {
 	it++;
 
 	ft_vector.push_back('a');
-		
 	ft_vector.insert(ft_vector.begin(), 'a');
 	ft_vector.insert(ft_vector.begin(), 'b');
 	vector.push_back('a');

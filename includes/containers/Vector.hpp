@@ -394,10 +394,11 @@ namespace ft {
 					n = 2 * _capacity;
 				//std::cout << "capac bef" << _capacity << " | newCapac " << n << std::endl;
 				reserve(n);
-
+				std::cout << "---- index " << index << std::endl;
 				iterator ret = begin();
 				for (size_t i = 0; i < index; i++)
 					ret++;
+				std::cout << "++++ index " << index << std::endl;
 				value_type stockNext;//stockNext = c
 				value_type stock = *ret;//stock = b
                            //a b d e
@@ -409,9 +410,10 @@ namespace ft {
 					stock = stockNext;
 					//prev = stock;
 				}
+				std::cout << "fasdasd" << index << std::endl;
 				_container[index++] = stock;
 				_size++;
-
+	std::cout << "poipoipoi " << index << std::endl;
 				return ret;
 
 			}; 
@@ -439,18 +441,23 @@ namespace ft {
 				if (position != it)
 					while (++it != position)
 						index++;
-				
+				std::cout << " index " << index << std::endl;
 				size_t newCap = _size + n;
-				// if (newCap > _capacity && newCap < _capacity * 2)
-				// 	newCap = 2 * _capacity;
+				if (newCap > _capacity && newCap < _capacity * 2)
+					newCap = 2 * _capacity;
+				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 				reserve(newCap);
+				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 
 				it = begin();
-				for (size_t i = 0; i < index; i++)
+				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
+				for (size_t i = 0; i < index; ++i)
 					it++;
-				
+				std::cout << " index " << index << std::endl;
+				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 				for (size_type i = 0; i < n; i++)
 					it = insert(it, val);
+				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 			};
 			
 			// >>> range

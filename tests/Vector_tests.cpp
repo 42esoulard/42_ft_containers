@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/18 17:10:28 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:12:20 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -511,13 +511,13 @@ int test_vector_oparray() {
 	ft_vector.push_back(10);
 	ft_vector.push_back(12);
 	ft_vector.push_back(18);
-	//ft_vector.insert(ft_vector.begin(), 12, 'a');
+	ft_vector.insert(ft_vector.begin(), 12, 'a');
 	// ft_vector.insert(ft_vector.begin(), 5, 'b');
 
 	vector.push_back(10);
 	vector.push_back(12);
 	vector.push_back(18);
-	//vector.insert(vector.begin(), 12, 'a');
+	vector.insert(vector.begin(), 12, 'a');
 	// vector.insert(vector.begin(), 5, 'b');
 	
 	for (size_t i = 0; i < ft_vector.size(); i++) {

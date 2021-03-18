@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/17 16:56:47 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:47:13 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,57 +227,57 @@ int test_vector_empty() {
 	return 0;
 };
 
-// int test_vector_maxSize() {
-// 	std::string title = "[MAX_SIZE]";
-// 	std::cout << title;
+int test_vector_maxSize() {
+	std::string title = "[MAX_SIZE]";
+	std::cout << title;
 
-// 	ft::Vector<int> ft_vectorint;
-// 	std::vector<int> vectorint;
+	ft::Vector<int> ft_vectorint;
+	std::vector<int> vectorint;
 
-// 	ft::Vector<char> ft_vectorchar;
-// 	std::vector<char> vectorchar;
+	ft::Vector<char> ft_vectorchar;
+	std::vector<char> vectorchar;
 
-// 	ft::Vector<double> ft_vectordouble;
-// 	std::vector<double> vectordouble;
+	ft::Vector<double> ft_vectordouble;
+	std::vector<double> vectordouble;
 
-// 	ft::Vector<std::string> ft_vectorstring;
-// 	std::vector<std::string> vectorstring;
+	ft::Vector<std::string> ft_vectorstring;
+	std::vector<std::string> vectorstring;
 
-// 	size_t ft_max = ft_vectorint.max_size();
-// 	size_t max = vectorint.max_size();
+	size_t ft_max = ft_vectorint.max_size();
+	size_t max = vectorint.max_size();
 
-// 	if (max != ft_max) {
-// 		std::cerr << "int ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-// 		handle_error(ft_vectorint, vectorint, "vector", title, "int vector", "MAX_SIZE");
-// 	}
+	if (max != ft_max) {
+		std::cerr << "int ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
+		handle_error(ft_vectorint, vectorint, "vector", title, "int vector", "MAX_SIZE");
+	}
 
-// 	ft_max = ft_vectorchar.max_size();
-// 	max = vectorchar.max_size();
+	ft_max = ft_vectorchar.max_size();
+	max = vectorchar.max_size();
 
-// 	if (max != ft_max) {
-// 		std::cerr << "char ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-// 		handle_error(ft_vectorchar, vectorchar, "vector", title, "char vector", "MAX_SIZE");
-// 	}
+	if (max != ft_max) {
+		std::cerr << "char ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
+		handle_error(ft_vectorchar, vectorchar, "vector", title, "char vector", "MAX_SIZE");
+	}
 
-// 	ft_max = ft_vectordouble.max_size();
-// 	max = vectordouble.max_size();
+	ft_max = ft_vectordouble.max_size();
+	max = vectordouble.max_size();
 
-// 	if (max != ft_max) {
-// 		std::cerr << "double ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-// 		handle_error(ft_vectordouble, vectordouble, "vector", title, "double vector", "MAX_SIZE");
-// 	}
+	if (max != ft_max) {
+		std::cerr << "double ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
+		handle_error(ft_vectordouble, vectordouble, "vector", title, "double vector", "MAX_SIZE");
+	}
 
-// 	ft_max = ft_vectorstring.max_size();
-// 	max = vectorstring.max_size();
+	ft_max = ft_vectorstring.max_size();
+	max = vectorstring.max_size();
 
-// 	if (max != ft_max) {
-// 		std::cerr << "string ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-// 		handle_error(ft_vectorstring, vectorstring, "vector", title, "std::string vector", "MAX_SIZE");
-// 	}
+	if (max != ft_max) {
+		std::cerr << "string ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
+		handle_error(ft_vectorstring, vectorstring, "vector", title, "std::string vector", "MAX_SIZE");
+	}
 	
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// }
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+}
 
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 // //*\*/ELEMENT ACCESS/*\*/*\//

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/17 15:45:13 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:53:03 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,28 +247,22 @@ int test_vector_opEqual();
 //ITERATORS
 int test_vector_pushBack_iterate();
 // //CAPACITY
+int test_vector_maxSize();
+// int test_vector_resize();
+// int test_vector_capacity();
 int test_vector_empty();
-// int test_vector_maxSize();
+// int test_vector_reserve();
 // //ELEMENT ACCESS
+// int test_vector_oparray();
+// int test_vector_at();
 // int test_vector_front_back();
 // //MODIFIERS
 // int test_vector_assign();
-// int test_vector_pushFront();
-// int test_vector_popFront();
 // int test_vector_popBack();
 // int test_vector_insert();
 // int test_vector_erase();
 // int test_vector_swap();
-// int test_vector_resize();
 // int test_vector_clear();
-// //OPERATIONS
-// int test_vector_splice();
-// int test_vector_remove();
-// int test_vector_removeIf();
-// int test_vector_unique();
-// int test_vector_merge();
-// int test_vector_sort();
-// int test_vector_reverse();
 // //NON-MEMBER FUNCTION OVERLOADS
 // int test_vector_nonMembers();
 

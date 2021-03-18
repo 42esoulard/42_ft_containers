@@ -38,7 +38,7 @@ namespace ft {
 			typedef VectorIterator<value_type const > 					const_iterator;
 			typedef VectorReverse_Iterator<value_type > 				reverse_iterator;
 			typedef VectorReverse_Iterator<value_type const > 			const_reverse_iterator;
-			// typedef typename difference_type Iterator_traits<Iterator>::difference_type;
+			typedef std::ptrdiff_t 										difference_type;
 			typedef unsigned long  										size_type;
 			
 
@@ -106,8 +106,8 @@ namespace ft {
 
 			~Vector() { 
 				clear(); 
-				// if (_container)
-				// 	delete[] _container;
+				if (_container)
+					delete[] _container;
 				
 				//delete[] _containerPtr; 
 			};
@@ -177,8 +177,11 @@ namespace ft {
 			};
 
 			size_type max_size() const {
-
-				return (std::numeric_limits<size_type>::max() / (sizeof(node_type)));
+				size_type maxDiff = std::numeric_limits<difference_type>::max();
+				size_type maxVal = std::numeric_limits<size_type>::max() / (sizeof(value_type));
+				if (maxDiff < maxVal)
+					return maxDiff;
+				return maxVal;
 			};
 			//returns max nb of elements Vector can hold, due to system or library limitations
 
@@ -488,7 +491,7 @@ namespace ft {
 
 			size_type 			_size;
 			size_type 			_capacity;
-			node_allocator 		_node_allocator;
+			//node_allocator 		_node_allocator;
 			
 	};
 	

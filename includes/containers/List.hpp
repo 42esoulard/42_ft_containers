@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/17 13:05:19 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:54:44 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ namespace ft {
 			typedef Iterator<value_type const, node_type const> 		const_iterator;
 			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
 			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
-			// typedef typename difference_type Iterator_traits<Iterator>::difference_type;
+			typedef std::ptrdiff_t 										difference_type;
 			typedef unsigned long  										size_type;
 			
 

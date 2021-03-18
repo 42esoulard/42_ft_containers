@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/18 16:51:47 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:10:28 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -500,6 +500,37 @@ int test_vector_reserve() {
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 // //*\*/ELEMENT ACCESS/*\*/*\//
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
+
+int test_vector_oparray() {
+	std::string title = "[OPERATOR[]]";
+	std::cout << title;
+
+	ft::Vector<int> ft_vector;
+	std::vector<int> vector;
+
+	ft_vector.push_back(10);
+	ft_vector.push_back(12);
+	ft_vector.push_back(18);
+	//ft_vector.insert(ft_vector.begin(), 12, 'a');
+	// ft_vector.insert(ft_vector.begin(), 5, 'b');
+
+	vector.push_back(10);
+	vector.push_back(12);
+	vector.push_back(18);
+	//vector.insert(vector.begin(), 12, 'a');
+	// vector.insert(vector.begin(), 5, 'b');
+	
+	for (size_t i = 0; i < ft_vector.size(); i++) {
+		std::cout << "ft_vector[" << i << "]" << std::endl;
+		
+		if (ft_vector[i] != vector[i]) {
+			std::cerr << "ft_vector[" << i << "] = [" << ft_vector[i] << "] | vector[" << i << "] = [" << vector[i] << std::endl;
+			handle_error(ft_vector, vector, "vector", title, "[COMPARE]", "");
+		}
+	}
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 // int test_vector_front_back() {
 // 	std::string title = "[FRONT/BACK]";

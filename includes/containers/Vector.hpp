@@ -261,8 +261,14 @@ namespace ft {
 
 
 	// 		// ELEMENT ACCESS:
-			//reference operator[] (size_type n);
-			//const_reference operator[] (size_type n) const;
+			reference operator[] (size_type n) {
+				std::cout << "Heeeere" << std::endl;
+				return _container[n];
+			};
+
+			const_reference operator[] (size_type n) const {
+				return _container[n];
+			};
 
 			// reference at (size_type n);
 			// const_reference at (size_type n) const;
@@ -410,7 +416,21 @@ namespace ft {
 
 			}; 
 			//remove 1 element
-    		
+    			// iterator it = begin();
+				// size_type index = 0;
+				// if (position != it)
+				// 	while (++it != position)
+				// 		index++;
+				
+				// size_t n = _size + 1;
+				// if (n > _capacity && n < _capacity * 2)
+				// 	n = 2 * _capacity;
+				// //std::cout << "capac bef" << _capacity << " | newCapac " << n << std::endl;
+				// reserve(n);
+
+				// iterator ret = begin();
+				// for (size_t i = 0; i < index; i++)
+				// 	ret++;
 			// >>> fill
 			void insert (iterator position, size_type n, const value_type& val) {
 
@@ -421,8 +441,8 @@ namespace ft {
 						index++;
 				
 				size_t newCap = _size + n;
-				if (newCap > _capacity && newCap < _capacity * 2)
-					newCap = 2 * _capacity;
+				// if (newCap > _capacity && newCap < _capacity * 2)
+				// 	newCap = 2 * _capacity;
 				reserve(newCap);
 
 				it = begin();

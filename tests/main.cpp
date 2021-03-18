@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/18 13:17:03 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:02:30 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int main(void) {
 							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
 							/*    [in Vector_tests.cpp]    */
 
-	testsPtr vectorTests[10] = { &test_vector_fillConstr, &test_vector_rangeConstr, &test_vector_copyConstr, &test_vector_opEqual, &test_vector_pushBack_iterate, 
-							&test_vector_maxSize, &test_vector_capacity, &test_vector_empty, &test_vector_resize, &test_vector_reserve, };
+	testsPtr vectorTests[11] = { &test_vector_fillConstr, &test_vector_rangeConstr, &test_vector_copyConstr, &test_vector_opEqual, &test_vector_pushBack_iterate, 
+							&test_vector_maxSize, &test_vector_capacity, &test_vector_empty, &test_vector_resize, &test_vector_reserve, &test_vector_oparray, };
 
 	/*    
 							  &test_vector_front_back,  &test_vector_assign, &test_vector_pushFront, 

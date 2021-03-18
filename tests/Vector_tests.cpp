@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/18 10:47:13 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:05:34 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,45 +188,6 @@ int test_vector_pushBack_iterate() {
 ///*\*/*\*/CAPACITY/*\*/*\*//
 //*\*/*\/*\*/*\/*\*/*\/*\*///
 
-int test_vector_empty() {
-	std::string title = "[EMPTY]";
-	std::cout << title;
-
-	ft::Vector<char> ft_vector(5, '!');
-	std::vector<char> vector(5, '!');
-	ft::Vector<char>::iterator ft_it = ft_vector.begin();
-	std::vector<char>::iterator it = vector.begin();
-	ft_it++;
-	it++;
-
-	ft_vector.push_back('a');
-	ft_vector.insert(ft_vector.begin(), 'a');
-	ft_vector.insert(ft_vector.begin(), 'b');
-	vector.push_back('a');
-	vector.insert(vector.begin(), 'a');
-	vector.insert(vector.begin(), 'b');
-	bool ft_empty = ft_vector.empty();
-	bool std_empty = vector.empty();
-	if (ft_empty != std_empty) {
-		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
-		handle_error(ft_vector, vector, "vector", title, "[FULL]", "CONTENT");
-	}
-	
-	ft::Vector<char> ft_vectorEmpty;
-	std::vector<char> vectorEmpty;
-	ft_vectorEmpty.empty();
-	vectorEmpty.empty();
-	ft_empty = ft_vector.empty();
-	std_empty = vector.empty();
-	if (ft_empty != std_empty) {
-		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
-		handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
-	}
-
-	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-	return 0;
-};
-
 int test_vector_maxSize() {
 	std::string title = "[MAX_SIZE]";
 	std::cout << title;
@@ -278,6 +239,85 @@ int test_vector_maxSize() {
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
 }
+
+int test_vector_resize() {
+	std::string title = "[RESIZE]";
+	std::cout << title;
+
+	ft::Vector<char> ft_vector(5, '!');
+	std::vector<char> vector(5, '!');
+	chk_result(ft_vector, vector, "vector", title, "[before all]");
+	ft_vector.resize(8);
+	vector.resize(8);
+	chk_result(ft_vector, vector, "vector", title, "[5 TO 2]");
+
+	ft_vector.resize(0);
+	vector.resize(0);
+	chk_result(ft_vector, vector, "vector", title, "[2 TO 0]");
+
+	ft_vector.resize(0);
+	vector.resize(0);
+	chk_result(ft_vector, vector, "vector", title, "[0 TO 0]");
+
+	ft_vector.resize(5);
+	vector.resize(5);
+	chk_result(ft_vector, vector, "vector", title, "[0 TO 5]");
+	
+	ft_vector.resize(100);
+	vector.resize(100);
+	chk_result(ft_vector, vector, "vector", title, "[5 TO 100]");
+
+	ft_vector.resize(100);
+	vector.resize(100);
+	chk_result(ft_vector, vector, "vector", title, "[100 TO 100]");
+
+	//UNDEFINED BEHAVIOUR
+	//ft_vector.resize(-50);
+	//vector.resize(-50);
+	//chk_result(ft_vector, vector, "vector", "RESIZE [100 TO -50]");
+	
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
+
+int test_vector_empty() {
+	std::string title = "[EMPTY]";
+	std::cout << title;
+
+	ft::Vector<char> ft_vector(5, '!');
+	std::vector<char> vector(5, '!');
+	ft::Vector<char>::iterator ft_it = ft_vector.begin();
+	std::vector<char>::iterator it = vector.begin();
+	ft_it++;
+	it++;
+
+	ft_vector.push_back('a');
+	ft_vector.insert(ft_vector.begin(), 'a');
+	ft_vector.insert(ft_vector.begin(), 'b');
+	vector.push_back('a');
+	vector.insert(vector.begin(), 'a');
+	vector.insert(vector.begin(), 'b');
+	bool ft_empty = ft_vector.empty();
+	bool std_empty = vector.empty();
+	if (ft_empty != std_empty) {
+		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[FULL]", "CONTENT");
+	}
+	
+	ft::Vector<char> ft_vectorEmpty;
+	std::vector<char> vectorEmpty;
+	ft_vectorEmpty.empty();
+	vectorEmpty.empty();
+	ft_empty = ft_vector.empty();
+	std_empty = vector.empty();
+	if (ft_empty != std_empty) {
+		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
+	}
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 // //*\*/ELEMENT ACCESS/*\*/*\//
@@ -739,46 +779,6 @@ int test_vector_maxSize() {
 // 	vectorEmptyA.swap(vectorEmptyB);
 // 	chk_result(ft_vectorEmptyA, vectorEmptyA, "vector", title, "[Empty vs Empty][1/2]");
 // 	chk_result(ft_vectorEmptyB, vectorEmptyB, "vector", title, "[Empty vs Empty][2/2]");
-	
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
-
-// int test_vector_resize() {
-// 	std::string title = "[RESIZE]";
-// 	std::cout << title;
-
-// 	ft::Vector<char> ft_vector(5, '!');
-// 	std::vector<char> vector(5, '!');
-
-// 	ft_vector.resize(2);
-// 	vector.resize(2);
-// 	chk_result(ft_vector, vector, "vector", title, "[5 TO 2]");
-
-// 	ft_vector.resize(0);
-// 	vector.resize(0);
-// 	chk_result(ft_vector, vector, "vector", title, "[2 TO 0]");
-
-// 	ft_vector.resize(0);
-// 	vector.resize(0);
-// 	chk_result(ft_vector, vector, "vector", title, "[0 TO 0]");
-
-// 	ft_vector.resize(5);
-// 	vector.resize(5);
-// 	chk_result(ft_vector, vector, "vector", title, "[0 TO 5]");
-	
-// 	ft_vector.resize(100);
-// 	vector.resize(100);
-// 	chk_result(ft_vector, vector, "vector", title, "[5 TO 100]");
-
-// 	ft_vector.resize(100);
-// 	vector.resize(100);
-// 	chk_result(ft_vector, vector, "vector", title, "[100 TO 100]");
-
-// 	//UNDEFINED BEHAVIOUR
-// 	//ft_vector.resize(-50);
-// 	//vector.resize(-50);
-// 	//chk_result(ft_vector, vector, "vector", "RESIZE [100 TO -50]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;

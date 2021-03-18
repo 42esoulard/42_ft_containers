@@ -185,33 +185,27 @@ namespace ft {
 			};
 			//returns max nb of elements Vector can hold, due to system or library limitations
 
-	// 		void resize (size_type n, value_type val = value_type()) {
+			void resize (size_type n, value_type val = value_type()) {
 
-	// 			node_type *tmp = _begin;
-	// 			node_type *next;
-	// 			size_type i = 0;
+				size_type i = 0;
+				reserve(n);
 
-	// 			if (_size > n) {
-	// 				while (i++ < n)
-	// 					tmp = tmp->getNext();
-	// 				while (i++ <= _size) {
-	// 					next = tmp->getNext();
-	// 					tmp->delNode();
-	// 					tmp = next;
-	// 				}
-	// 			}
-	// 			else if (_size < n) {
-	// 				iterator it = this->end();
-	// 				i = _size;
-	// 				while (i++ < n)
-	// 					it = insert(it, val);
-	// 			}
-	// 			_size = n;
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		//either removes elements beyond n elements or add elements until container size is n 
+				if (_size > n) {
+					while (i <= n)
+						i++;
+					while (i < _size)
+						_container[i++] = value_type();
+				}
+				else if (_size < n) {
+					iterator it = this->end();
+					it++;
+					i = _size;
+					while (++i < n)
+						it = insert(it, val);		
+				}
+				_size = n;
+			};
+			//either removes elements beyond n elements or add elements until container size is n 
 
 			size_type capacity() const {
 
@@ -365,20 +359,19 @@ namespace ft {
 	// 		//remove & destroy last element
 
 			iterator insert (iterator position, const value_type& val) {
-				
+
 				reserve(_size + 1);
 				iterator it = begin();
 				size_type index = 0;
 				if (position != it)
 					while (++it != position)
 						index++;
-				
+
 				iterator ret = it;
 				value_type stockNext;//stockNext = c
 				value_type stock = *it;//stock = b
-	
                            //a b d e
-					_container[index++] = val; //1 2 3 4
+				_container[index++] = val; //1 2 3 4
 				while (index <= _size) {//pos = 3
 					stockNext = _container[index];
 					_container[index++] = stock;
@@ -401,7 +394,7 @@ namespace ft {
 				iterator it = begin();
 				while (it != position)
 					it++;
-
+				
 				for (size_type i = 0; i < n; i++)
 					it = insert(it, val);
 			};

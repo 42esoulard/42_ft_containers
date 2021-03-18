@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/18 12:15:04 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:20:04 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,11 +252,13 @@ int test_vector_capacity() {
 	it++;
 
 	ft_vector.push_back('a');
+		
 	ft_vector.insert(ft_vector.begin(), 'a');
 	ft_vector.insert(ft_vector.begin(), 'b');
 	vector.push_back('a');
 	vector.insert(vector.begin(), 'a');
 	vector.insert(vector.begin(), 'b');
+
 	size_t ft_capacity = ft_vector.capacity();
 	size_t std_capacity = vector.capacity();
 	if (ft_capacity != std_capacity) {
@@ -266,8 +268,8 @@ int test_vector_capacity() {
 	
 	ft::Vector<char> ft_vectorEmpty;
 	std::vector<char> vectorEmpty;
-	ft_capacity = ft_vectorEmpty.empty();
-	std_capacity = vectorEmpty.empty();
+	ft_capacity = ft_vectorEmpty.capacity();
+	std_capacity = vectorEmpty.capacity();
 	if (ft_capacity != std_capacity) {
 		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
 		handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
@@ -348,6 +350,148 @@ int test_vector_empty() {
 	if (ft_empty != std_empty) {
 		std::cerr << "ft_vector.empty() = [" << ft_empty << "] | vector.empty() = [" << std_empty << "]" << std::endl;
 		handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
+	}
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
+
+int test_vector_reserve() {
+	std::string title = "[RESERVE]";
+	std::cout << title;
+
+	ft::Vector<char> ft_vector(5, '!');
+	std::vector<char> vector(5, '!');
+
+	size_t ft_size = ft_vector.size();
+	size_t std_size = vector.size();
+	size_t ft_capacity = ft_vector.capacity();
+	size_t std_capacity = vector.capacity();
+
+	if (ft_size != std_size) {
+		std::cerr << "ft_vector.size() = [" << ft_size << "] | vector.size() = [" << std_size << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[SIZE 5]", "SIZE");
+	}
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[SIZE 5]", "CAPACITY");
+	}
+
+	ft_vector.reserve(2);
+	vector.reserve(2);
+	ft_size = ft_vector.size();
+	std_size = vector.size();
+	ft_capacity = ft_vector.capacity();
+	std_capacity = vector.capacity();
+
+	if (ft_size != std_size) {
+		std::cerr << "ft_vector.size() = [" << ft_size << "] | vector.size() = [" << std_size << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[SIZE 5 RESERVE 2]", "SIZE");
+	}
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[SIZE 5 RESERVE 2]", "CAPACITY");
+	}
+
+	ft_vector.reserve(6);
+	vector.reserve(6);
+	ft_size = ft_vector.size();
+	std_size = vector.size();
+	ft_capacity = ft_vector.capacity();
+	std_capacity = vector.capacity();
+
+	if (ft_size != std_size) {
+		std::cerr << "ft_vector.size() = [" << ft_size << "] | vector.size() = [" << std_size << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[SIZE 5 RESERVE 6]", "SIZE");
+	}
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[SIZE 5 RESERVE 6]", "CAPACITY");
+	}
+
+	ft_vector.push_back('a');
+	ft_vector.insert(ft_vector.begin(), 'a');
+	ft_vector.insert(ft_vector.begin(), 'b');
+	vector.push_back('a');
+	vector.insert(vector.begin(), 'a');
+	vector.insert(vector.begin(), 'b');
+
+	ft_size = ft_vector.size();
+	std_size = vector.size();
+	ft_capacity = ft_vector.capacity();
+	std_capacity = vector.capacity();
+
+	if (ft_size != std_size) {
+		std::cerr << "ft_vector.size() = [" << ft_size << "] | vector.size() = [" << std_size << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[PUSH BACK AND STUFF AFTER RESERVE]", "SIZE");
+	}
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[PUSH BACK AND STUFF AFTER RESERVE]", "CAPACITY");
+	}
+
+	ft_vector.reserve(10000);
+	vector.reserve(10000);
+	ft_size = ft_vector.size();
+	std_size = vector.size();
+	ft_capacity = ft_vector.capacity();
+	std_capacity = vector.capacity();
+
+	if (ft_size != std_size) {
+		std::cerr << "ft_vector.size() = [" << ft_size << "] | vector.size() = [" << std_size << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[SIZE 5 RESERVE 10000]", "SIZE");
+	}
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[SIZE 5 RESERVE 10000]", "CAPACITY");
+	}
+	
+	ft::Vector<char> ft_vectorEmpty;
+	std::vector<char> vectorEmpty;
+	ft_size = ft_vectorEmpty.size();
+	std_size = vectorEmpty.size();
+	ft_capacity = ft_vectorEmpty.capacity();
+	std_capacity = vectorEmpty.capacity();
+
+	if (ft_size != std_size) {
+		std::cerr << "ft_vector.size() = [" << ft_size << "] | vector.size() = [" << std_size << "]" << std::endl;
+		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]", "SIZE");
+	}
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]", "CAPACITY");
+	}
+
+	ft_vectorEmpty.reserve(0);
+	vectorEmpty.reserve(0);
+	ft_size = ft_vectorEmpty.size();
+	std_size = vectorEmpty.size();
+	ft_capacity = ft_vectorEmpty.capacity();
+	std_capacity = vectorEmpty.capacity();
+
+	if (ft_size != std_size) {
+		std::cerr << "ft_vector.size() = [" << ft_size << "] | vector.size() = [" << std_size << "]" << std::endl;
+		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY RESERVE 0]", "SIZE");
+	}
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY RESERVE 0]", "CAPACITY");
+	}
+
+	ft_vectorEmpty.reserve(50000);
+	vectorEmpty.reserve(50000);
+	ft_size = ft_vectorEmpty.size();
+	std_size = vectorEmpty.size();
+	ft_capacity = ft_vectorEmpty.capacity();
+	std_capacity = vectorEmpty.capacity();
+
+	if (ft_size != std_size) {
+		std::cerr << "ft_vector.size() = [" << ft_size << "] | vector.size() = [" << std_size << "]" << std::endl;
+		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY RESERVE 50000]", "SIZE");
+	}
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY RESERVE 50000]", "CAPACITY");
 	}
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;

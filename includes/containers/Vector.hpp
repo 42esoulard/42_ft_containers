@@ -224,15 +224,18 @@ namespace ft {
 				if (n <= _capacity)
 					return;
 
-				size_type newCapacity = _capacity;
+				size_type newCapacity = n;
 				
 				//MUST CHECK THIS
 				// if (n > 128)
 				// 	n = 128;
-				if (newCapacity == 0)
-					newCapacity = n;
-				while (n > newCapacity)
-					newCapacity *= 2;
+				// if (newCapacity == 0)
+				// 	newCapacity = n;
+				//std::cout << "_capacity = "<< _capacity << "newCapacity" << newCapacity << std::endl; 
+				if (n <= _capacity * 2)
+					newCapacity = 2 * _capacity;
+				// else
+				// 	newCapacity = n;
 
 				value_type *newVector = new value_type[newCapacity]();
 
@@ -314,6 +317,11 @@ namespace ft {
 				// 	push_back(val);
 
 				clear();
+				// size_type newCapacity = n;
+				// if (n <= _capacity * 2)
+				// 	newCapacity *= 2;
+				// else
+				// 	newCapacity = n;
 				reserve(n);
 				while (_size < n) {
 					push_back(val);

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/18 12:15:10 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:05:47 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,7 @@ int test_vector_maxSize();
 int test_vector_resize();
 int test_vector_capacity();
 int test_vector_empty();
-// int test_vector_reserve();
+int test_vector_reserve();
 // //ELEMENT ACCESS
 // int test_vector_oparray();
 // int test_vector_at();

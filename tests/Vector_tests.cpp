@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/18 12:05:34 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:15:04 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,15 +240,52 @@ int test_vector_maxSize() {
 	return 0;
 }
 
+int test_vector_capacity() {
+	std::string title = "[CAPACITY]";
+	std::cout << title;
+
+	ft::Vector<char> ft_vector(5, '!');
+	std::vector<char> vector(5, '!');
+	ft::Vector<char>::iterator ft_it = ft_vector.begin();
+	std::vector<char>::iterator it = vector.begin();
+	ft_it++;
+	it++;
+
+	ft_vector.push_back('a');
+	ft_vector.insert(ft_vector.begin(), 'a');
+	ft_vector.insert(ft_vector.begin(), 'b');
+	vector.push_back('a');
+	vector.insert(vector.begin(), 'a');
+	vector.insert(vector.begin(), 'b');
+	size_t ft_capacity = ft_vector.capacity();
+	size_t std_capacity = vector.capacity();
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[FULL]", "CONTENT");
+	}
+	
+	ft::Vector<char> ft_vectorEmpty;
+	std::vector<char> vectorEmpty;
+	ft_capacity = ft_vectorEmpty.empty();
+	std_capacity = vectorEmpty.empty();
+	if (ft_capacity != std_capacity) {
+		std::cerr << "ft_vector.capacity() = [" << ft_capacity << "] | vector.capacity() = [" << std_capacity << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
+	}
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
+
 int test_vector_resize() {
 	std::string title = "[RESIZE]";
 	std::cout << title;
 
 	ft::Vector<char> ft_vector(5, '!');
 	std::vector<char> vector(5, '!');
-	chk_result(ft_vector, vector, "vector", title, "[before all]");
-	ft_vector.resize(8);
-	vector.resize(8);
+
+	ft_vector.resize(2);
+	vector.resize(2);
 	chk_result(ft_vector, vector, "vector", title, "[5 TO 2]");
 
 	ft_vector.resize(0);
@@ -300,18 +337,16 @@ int test_vector_empty() {
 	bool ft_empty = ft_vector.empty();
 	bool std_empty = vector.empty();
 	if (ft_empty != std_empty) {
-		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
+		std::cerr << "ft_vector.empty() = [" << ft_empty << "] | vector.empty() = [" << std_empty << "]" << std::endl;
 		handle_error(ft_vector, vector, "vector", title, "[FULL]", "CONTENT");
 	}
 	
 	ft::Vector<char> ft_vectorEmpty;
 	std::vector<char> vectorEmpty;
-	ft_vectorEmpty.empty();
-	vectorEmpty.empty();
-	ft_empty = ft_vector.empty();
-	std_empty = vector.empty();
+	ft_empty = ft_vectorEmpty.empty();
+	std_empty = vectorEmpty.empty();
 	if (ft_empty != std_empty) {
-		std::cerr << "*ft_vector.empty() = [" << *ft_it << "] | vector.empty() = [" << *it << "]" << std::endl;
+		std::cerr << "ft_vector.empty() = [" << ft_empty << "] | vector.empty() = [" << std_empty << "]" << std::endl;
 		handle_error(ft_vector, vector, "vector", title, "[EMPTY]", "CONTENT");
 	}
 

@@ -505,32 +505,58 @@ namespace ft {
 			};
     		//Extend the container by inserting new elements before the element at the specified position
 
-	// 		iterator erase (iterator position) {
+			iterator erase (iterator position) {
 				
-	// 			iterator ret = iterator(position.getNode()->getNext());
-				
-	// 			position.getNode()->delNode();
-	// 			_size--;
+				iterator it = begin();
+				size_type index = 0;
+				if (position != it)
+					while (it++ != position)
+						index++;
 
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 			return ret;
-	// 		};
+				size_type cursor = 0;
+				while (cursor != index)
+					cursor++;
+	
+				it = iterator(&_container[cursor]);
+				while (cursor < _size - 1) {
+					_container[cursor] = _container[cursor + 1];
+					cursor++;
+				}
+				_container[cursor] = value_type();
+				_size--;
+				return it;
+			};
 			
-	// 		iterator erase (iterator first, iterator last) {
+			iterator erase (iterator first, iterator last) {
 
-	// 			iterator ret = iterator(last.getNode()->getNext());
+				iterator it = begin();
+				size_type index = 0;
+				if (first != it)
+					while (it++ != first)
+						index++;
 
-	// 			if (last.getNode() == _end)
-	// 				ret = this->end();
-
-	// 			while (first != last)
-	// 				erase(first++);
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 			return ret;
-	// 		};
+				iterator tmp = first;
+				size_t step = 0;
+				while (tmp++ != last)
+					step++;
+				//std::cout << "index " << index << " // step " << step << std::endl;
+				it = iterator(&_container[index]);
+				if (_size) {
+					while (index < _size) {
+					//	std::cout << index + step << "//" << _size - 1 << std::endl;
+						if (index + step < _size)
+							_container[index] = _container[index + step];
+						else
+							_container[index] = value_type();
+						index++;
+					}
+					//_container[index] = value_type();
+				}
+			//	std::cout << "SEGV??" << std::endl;
+				//_container[cursor] = value_type();
+				_size -= step;
+				return it;
+			};
 	// 		// remove & destroy either 1 element or a range of elements. 
 
 	// 		void swap (Vector& x) {

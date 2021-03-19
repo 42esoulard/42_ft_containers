@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 13:57:37 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 14:20:33 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ int test_vector_front_back();
 int test_vector_assign();
 int test_vector_popBack();
 int test_vector_insert();
-// int test_vector_erase();
+int test_vector_erase();
 // int test_vector_swap();
 // int test_vector_clear();
 // //NON-MEMBER FUNCTION OVERLOADS

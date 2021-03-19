@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 13:58:08 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 14:28:36 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -846,105 +846,103 @@ int test_vector_insert() {
 	return 0;
 };
 
-// int test_vector_erase() {
-// 	std::string title = "[ERASE(1)]";
-// 	std::cout << title;
+int test_vector_erase() {
+	std::string title = "[ERASE(1)]";
+	std::cout << title;
 
-// 	ft::Vector<char> ft_vector(10, '!');
-// 	ft_vector.push_back('@');
-// 	ft_vector.push_back('&');
-// 	ft_vector.push_front('z');
+	ft::Vector<char> ft_vector(10, '!');
+	ft_vector.push_back('@');
+	ft_vector.push_back('&');
 	
-// 	std::vector<char> vector(10, '!');
-// 	vector.push_back('@');
-// 	vector.push_back('&');
-// 	vector.push_front('z');
+	std::vector<char> vector(10, '!');
+	vector.push_back('@');
+	vector.push_back('&');
 
-// 	ft::Vector<char>::iterator ft_it = ft_vector.begin();
-// 	std::vector<char>::iterator it = vector.begin();
+	ft::Vector<char>::iterator ft_it = ft_vector.begin();
+	std::vector<char>::iterator it = vector.begin();
 
-// 	ft_it = ft_vector.erase(ft_it);
-// 	it = vector.erase(it);
-// 	if (*it != *ft_it) {
-// 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
-// 		handle_error(ft_vector, vector, "vector", title, "[begin]", "CONTENT");
-// 	}
-// 	chk_result(ft_vector, vector, "vector", title, "[begin]");
+	ft_it = ft_vector.erase(ft_it);
+	it = vector.erase(it);
+	if (*it != *ft_it) {
+		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[begin]", "CONTENT");
+	}
+	chk_result(ft_vector, vector, "vector", title, "[begin]");
 
-// 	ft_it = ft_vector.erase(ft_it);
-// 	it = vector.erase(it);
-// 	if (*it != *ft_it) {
-// 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
-// 		handle_error(ft_vector, vector, "vector", title, "[begin]", "CONTENT");
-// 	}
-// 	chk_result(ft_vector, vector, "vector", title, "[begin]");
+	ft_it = ft_vector.erase(ft_it);
+	it = vector.erase(it);
+	if (*it != *ft_it) {
+		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[begin]", "CONTENT");
+	}
+	chk_result(ft_vector, vector, "vector", title, "[begin]");
 
-// 	//INVALID POSITION = UNDEFINED BEHAVIOR
-// 	// ft_it = ft_vector.end();
-// 	// it = vector.end();
-// 	// ft_it = ft_vector.erase(ft_it);
-// 	// it = vector.erase(it);
-// 	// chk_result(ft_vector, vector, "vector", "ERASE(1) [end]");
+	//INVALID POSITION = UNDEFINED BEHAVIOR
+	// ft_it = ft_vector.end();
+	// it = vector.end();
+	// ft_it = ft_vector.erase(ft_it);
+	// it = vector.erase(it);
+	// chk_result(ft_vector, vector, "vector", "ERASE(1) [end]");
 
-// 	while (ft_it != ft_vector.end())
-// 		ft_it = ft_vector.erase(ft_it);
-// 	while (it != vector.end())
-// 		it = vector.erase(it);
-// 	chk_result(ft_vector, vector, "vector", title, "[all]");
+	while (ft_it != ft_vector.end())
+		ft_it = ft_vector.erase(ft_it);
+	while (it != vector.end())
+		it = vector.erase(it);
+	chk_result(ft_vector, vector, "vector", title, "[all]");
 
-// 	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
-// 	//ft::Vector<char> ft_vectorEmpty;
-// 	//std::vector<char> vectorEmpty;
-// 	//ft_vectorEmpty.erase(ft_vectorEmpty.begin());
-// 	//vectorEmpty.erase(vectorEmpty.begin());
-// 	//chk_result(ft_vectorEmpty, vectorEmpty, "vector", "ERASE(1) [EMPTY]");
+	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
+	//ft::Vector<char> ft_vectorEmpty;
+	//std::vector<char> vectorEmpty;
+	//ft_vectorEmpty.erase(ft_vectorEmpty.begin());
+	//vectorEmpty.erase(vectorEmpty.begin());
+	//chk_result(ft_vectorEmpty, vectorEmpty, "vector", "ERASE(1) [EMPTY]");
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	//------------------------------------------------------------------------
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	//------------------------------------------------------------------------
 
-// 	title = "[ERASE(2)[RANGE]]";
-// 	std::cout << title;
+	title = "[ERASE(2)[RANGE]]";
+	std::cout << title;
 
-// 	ft_vector.erase(ft_vector.begin(), ft_vector.end());
-// 	vector.erase(vector.begin(), vector.end());
-// 	chk_result(ft_vector, vector, "vector", title, "[EMPTY]");
+	ft_vector.erase(ft_vector.begin(), ft_vector.end());
+	vector.erase(vector.begin(), vector.end());
+	chk_result(ft_vector, vector, "vector", title, "[EMPTY]");
 	
-// 	ft_vector.insert(ft_vector.begin(), 10, '!');
-// 	ft_vector.push_back('@');
-// 	ft_vector.push_back('&');
-// 	ft_vector.push_front('z');
-// 	ft_it = ft_vector.begin();
-// 	ft_it++;
-// 	ft_it++;
+	ft_vector.insert(ft_vector.begin(), 10, '!');
+	ft_vector.push_back('@');
+	ft_vector.push_back('&');
+	ft_it = ft_vector.begin();
+	ft_it++;
+	ft_it++;
 
-// 	vector.insert(vector.begin(), 10, '!');
-// 	vector.push_back('@');
-// 	vector.push_back('&');
-// 	vector.push_front('z');
-// 	it = vector.begin();
-// 	it++;
-// 	it++;
+	vector.insert(vector.begin(), 10, '!');
+	vector.push_back('@');
+	vector.push_back('&');
+	it = vector.begin();
+	it++;
+	it++;
 
-// 	ft::Vector<char>::iterator ft_last = ft_it;
-// 	std::vector<char>::iterator last = it;
-// 	ft_last++;
-// 	last++;
-// 	ft_it = ft_vector.erase(ft_it, ft_last);
-// 	it = vector.erase(it, last);
-// 	if (*it != *ft_it) {
-// 		std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
-// 		handle_error(ft_vector, vector, "vector", title, "[PARTIAL]", "CONTENT");
-// 	}
-// 	chk_result(ft_vector, vector, "vector", title, "[PARTIAL]");
+	ft::Vector<char>::iterator ft_last = ft_it;
+	std::vector<char>::iterator last = it;
+	ft_last++;
+	last++;
+		
+	ft_it = ft_vector.erase(ft_it, ft_last);
+	it = vector.erase(it, last);
+
+	if (*it != *ft_it) {
+		std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "[PARTIAL]", "CONTENT");
+	}
+	chk_result(ft_vector, vector, "vector", title, "[PARTIAL]");
 	
-// 	ft_it = ft_vector.erase(ft_vector.begin(), ft_vector.end());
-// 	it = vector.erase(vector.begin(), vector.end());
-// 	chk_result(ft_vector, vector, "vector", title, "[TOTAL]");
-// 	//not comparing return pointers because they point after end() in this case
+	ft_it = ft_vector.erase(ft_vector.begin(), ft_vector.end());
+	it = vector.erase(vector.begin(), vector.end());
+	chk_result(ft_vector, vector, "vector", title, "[TOTAL]");
+	//not comparing return pointers because they point after end() in this case
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 // int test_vector_swap() {
 // 	std::string title = "[SWAP]";

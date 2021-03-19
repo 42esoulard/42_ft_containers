@@ -367,21 +367,14 @@ namespace ft {
 			};
 			//Adding elements to a vector = adding nodes before end. 
 
-	// 		void pop_back() {
+			void pop_back() {
 
-	// 			if (_size == 1) { //case 1 = Node1 endNode 
-	// 				_begin->delNode();//last node = Node1
-	// 				_size--;
-	// 			}
-	// 			else if (_size > 1) { //case 2 = Node1 Node2 Node3 endNode
-	// 				_end->getPrev()->delNode();//delete Node3
-	// 				_size--;
-	// 			}
-
-	// 			_begin = _end->getBegin();
-	// 			_end->setEnd();
-	// 		};
-	// 		//remove & destroy last element
+				if (_size) {
+					_container[_size - 1] = value_type();
+					_size--;
+				}
+			};
+			//remove & destroy last element
 
 			iterator insert (iterator position, const value_type& val) {
 

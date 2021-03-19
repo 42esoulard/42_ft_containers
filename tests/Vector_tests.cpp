@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 13:29:30 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:58:08 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -628,136 +628,80 @@ int test_vector_front_back() {
 	return 0;
 };
 
-// //*\*/*\/*\*/*\/*\*/*\/*\*///
-// ///*\*/*\*/MODIFIERS/*\*/*\//
-// //*\*/*\/*\*/*\/*\*/*\/*\*///
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+///*\*/*\*/MODIFIERS/*\*/*\//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-// int test_vector_assign() {
-// 	std::string title = "[ASSIGN(1)]";
-// 	std::cout << title;
+int test_vector_assign() {
+	std::string title = "[ASSIGN(1)]";
+	std::cout << title;
 
-// 	ft::Vector<char> ft_src(8, 'k');
-// 	std::vector<char> src(8, 'k');
-// 	ft::Vector<char> ft_vector;
-// 	std::vector<char> vector;
+	ft::Vector<char> ft_src(8, 'k');
+	std::vector<char> src(8, 'k');
+	ft::Vector<char> ft_vector;
+	std::vector<char> vector;
 
-// 	ft_vector.assign(ft_src.begin(), ft_src.end());
-// 	vector.assign(src.begin(), src.end());
-// 	chk_result(ft_vector, vector, "vector", title, "[FULL to EMPTY][1/2]");
-// 	chk_result(ft_src, src, "vector", title, "[FULL to EMPTY][2/2]");
+	ft_vector.assign(ft_src.begin(), ft_src.end());
+	vector.assign(src.begin(), src.end());
+	chk_result(ft_vector, vector, "vector", title, "[FULL to EMPTY][1/2]");
+	chk_result(ft_src, src, "vector", title, "[FULL to EMPTY][2/2]");
 
-// 	ft_src.assign(ft_vector.begin(), ft_vector.end());
-// 	src.assign(vector.begin(), vector.end());
-// 	chk_result(ft_vector, vector, "vector", title, "[FULL to FULL][1/2]");
-// 	chk_result(ft_src, src, "vector", title, "[FULL to EMPTY][2/2]");
+	ft_src.assign(ft_vector.begin(), ft_vector.end());
+	src.assign(vector.begin(), vector.end());
+	chk_result(ft_vector, vector, "vector", title, "[FULL to FULL][1/2]");
+	chk_result(ft_src, src, "vector", title, "[FULL to EMPTY][2/2]");
 	
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
-// 	//------------------------------------------------------------------------
-// 	title = "[ASSIGN(2)]";
-// 	std::cout << title;
+	//------------------------------------------------------------------------
+	title = "[ASSIGN(2)]";
+	std::cout << title;
 
-// 	ft::Vector<char> ft_vectorA;
-// 	std::vector<char> vectorA;
+	ft::Vector<char> ft_vectorA;
+	std::vector<char> vectorA;
 
-// 	ft_vectorA.assign(12, 'W');
-// 	vectorA.assign(12, 'W');
-// 	chk_result(ft_vectorA, vectorA, "vector", title, "[to EMPTY]");
+	ft_vectorA.assign(12, 'W');
+	vectorA.assign(12, 'W');
+	chk_result(ft_vectorA, vectorA, "vector", title, "[to EMPTY]");
 	
-// 	ft_vectorA.assign(4, '8');
-// 	vectorA.assign(4, '8');
-// 	chk_result(ft_vectorA, vectorA, "vector", title, "[to FULL]");
+	ft_vectorA.assign(4, '8');
+	vectorA.assign(4, '8');
+	chk_result(ft_vectorA, vectorA, "vector", title, "[to FULL]");
 
-// 	ft_vectorA.assign(24, 'U');
-// 	vectorA.assign(24, 'U');
-// 	chk_result(ft_vectorA, vectorA, "vector", title, "[to FULL]");
+	ft_vectorA.assign(24, 'U');
+	vectorA.assign(24, 'U');
+	chk_result(ft_vectorA, vectorA, "vector", title, "[to FULL]");
 	
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// }
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+}
 
-// int test_vector_pushFront() {
-// 	std::string title = "[PUSH_FRONT]";
-// 	std::cout << title;
+int test_vector_popBack() {
+	std::string title = "[POP_BACK]";
+	std::cout << title;
 
-// 	ft::Vector<char> ft_vector(10, '!');
-// 	ft_vector.push_back('@');
-// 	ft_vector.push_front('&');
+	ft::Vector<char> ft_vector(10, '!');
+	ft_vector.push_back('@');
+	ft_vector.push_back('&');
 
-// 	std::vector<char> vector(10, '!');
-// 	vector.push_back('@');
-// 	vector.push_front('&');
+	std::vector<char> vector(10, '!');
+	vector.push_back('@');
+	vector.push_back('&');
 
-// 	chk_result(ft_vector, vector, "vector", title);
+	ft_vector.pop_back();
+	vector.pop_back();
+	chk_result(ft_vector, vector, "vector", title);
 
-// 	ft::Vector<char> ft_vectorEmpty;
-// 	ft_vector.push_front('&');
-// 	std::vector<char> vectorEmpty;
-// 	vector.push_front('&');
+	ft::Vector<char> ft_vectorEmpty;
+	ft_vector.pop_back();
+	std::vector<char> vectorEmpty;
+	vector.pop_back();
 
-// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
+	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
-
-// int test_vector_popFront() {
-// 	std::string title = "[POP_FRONT]";
-// 	std::cout << title;
-
-// 	ft::Vector<char> ft_vector(10, '!');
-// 	ft_vector.push_back('@');
-// 	ft_vector.push_front('&');
-// 	ft_vector.push_front('z');
-
-// 	std::vector<char> vector(10, '!');
-// 	vector.push_back('@');
-// 	vector.push_front('&');
-// 	vector.push_front('z');
-
-// 	ft_vector.pop_front();
-// 	vector.pop_front();
-// 	chk_result(ft_vector, vector, "vector", title);
-
-// 	ft::Vector<char> ft_vectorEmpty;
-// 	ft_vector.pop_front();
-// 	std::vector<char> vectorEmpty;
-// 	vector.pop_front();
-
-// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
-
-// int test_vector_popBack() {
-// 	std::string title = "[POP_BACK]";
-// 	std::cout << title;
-
-// 	ft::Vector<char> ft_vector(10, '!');
-// 	ft_vector.push_back('@');
-// 	ft_vector.push_back('&');
-// 	ft_vector.push_front('z');
-
-// 	std::vector<char> vector(10, '!');
-// 	vector.push_back('@');
-// 	vector.push_back('&');
-// 	vector.push_front('z');
-
-// 	ft_vector.pop_back();
-// 	vector.pop_back();
-// 	chk_result(ft_vector, vector, "vector", title);
-
-// 	ft::Vector<char> ft_vectorEmpty;
-// 	ft_vector.pop_back();
-// 	std::vector<char> vectorEmpty;
-// 	vector.pop_back();
-
-// 	chk_result(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]");
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 int test_vector_insert() {
 	//------------------------------------------------------------------------

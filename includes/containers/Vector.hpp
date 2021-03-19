@@ -262,7 +262,6 @@ namespace ft {
 
 	// 		// ELEMENT ACCESS:
 			reference operator[] (size_type n) {
-				std::cout << "Heeeere" << std::endl;
 				return _container[n];
 			};
 
@@ -386,7 +385,7 @@ namespace ft {
 				iterator it = begin();
 				size_type index = 0;
 				if (position != it)
-					while (++it != position)
+					while (it++ != position)
 						index++;
 				
 				size_t n = _size + 1;
@@ -394,27 +393,27 @@ namespace ft {
 					n = 2 * _capacity;
 				//std::cout << "capac bef" << _capacity << " | newCapac " << n << std::endl;
 				reserve(n);
-				std::cout << "---- index " << index << std::endl;
-				iterator ret = begin();
-				for (size_t i = 0; i < index; i++)
-					ret++;
-				std::cout << "++++ index " << index << std::endl;
+			//	std::cout << "---- index " << index << std::endl;
+				// iterator ret = begin();
+				// for (size_t i = 0; i < index; i++)
+				// 	ret++;
+			//	std::cout << "++++ index " << index << std::endl;
 				value_type stockNext;//stockNext = c
+				iterator ret = iterator(&_container[index]);
 				value_type stock = *ret;//stock = b
                            //a b d e
 				_container[index++] = val; //1 2 3 4
 				while (index < _size) {//pos = 3
 					stockNext = _container[index];
 					_container[index++] = stock;
-
 					stock = stockNext;
 					//prev = stock;
 				}
-				std::cout << "fasdasd" << index << std::endl;
+				//std::cout << "fasdasd" << index << std::endl;
 				if (_size)
 					_container[index++] = stock;
 				_size++;
-	std::cout << "poipoipoi " << index << std::endl;
+	//std::cout << "poipoipoi " << index << std::endl;
 				return ret;
 
 			}; 
@@ -440,25 +439,26 @@ namespace ft {
 				iterator it = begin();
 				size_type index = 0;
 				if (position != it)
-					while (++it != position)
+					while (it++ != position)
 						index++;
-				std::cout << " index " << index << std::endl;
+				//std::cout << " index " << index << std::endl;
 				size_t newCap = _size + n;
 				if (newCap > _capacity && newCap < _capacity * 2)
 					newCap = 2 * _capacity;
-				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
+				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 				reserve(newCap);
-				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
+				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 
 				it = begin();
-				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
-				for (size_t i = 0; i < index; ++i)
+				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
+				//std::cout << "INDEX " << index << std::endl;
+				for (size_t i = 0; i < index; i++)
 					it++;
-				std::cout << " index " << index << std::endl;
-				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
+				//std::cout << " index " << index << std::endl;
+				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 				for (size_type i = 0; i < n; i++)
 					it = insert(it, val);
-				std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
+				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 			};
 			
 			// >>> range
@@ -468,22 +468,43 @@ namespace ft {
 				iterator it = begin();
 				size_type index = 0;
 				if (position != it)
-					while (++it != position)
+					while (it++ != position)
 						index++;
 				
-				size_t n = _size + (last - first);
+				iterator tmp = first;
+				size_type n = _size;
+				while (tmp++ != last)
+					n++;
 				if (n > _capacity && n < _capacity * 2)
 					n = 2 * _capacity;
-				reserve(n);
+				value_type *newContainer = new value_type[n]();
 
-				it = begin();
-				for (size_t i = 0; i < index; i++)
-					it++;
-
+				size_type cursor = 0;
+				while (cursor != index) {
+					newContainer[cursor] = _container[cursor];
+					cursor++;
+				}
 				while (first != last) {
-					insert(it, *first);
+					newContainer[cursor++] = *first;
 					first++;
 				}
+				while (index != _size) 
+					newContainer[cursor++] = _container[index++];
+				delete[] _container;
+				_container = newContainer;
+				_size = cursor;
+				// it = begin();
+				// for (size_t i = 0; i < index; i++)
+				// 	it++;
+				// iterator tmpa = it;
+				// while (first != last) {
+
+				// 	insert(it, *first);
+				// 	it = tmpa;
+				// 	// if (it != end())
+				// 	// 	it++;
+				// 	first++;
+				// }
 
 			};
     		//Extend the container by inserting new elements before the element at the specified position

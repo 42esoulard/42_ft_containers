@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 14:56:35 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 17:06:52 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ int main(void) {
 							&test_vector_at, &test_vector_front_back, &test_vector_assign, &test_vector_popBack, &test_vector_insert, &test_vector_erase, 
 							&test_vector_swap, &test_vector_clear, &test_vector_nonMembers, };
 
-	/*    
-							     
-                       	 	  &test_vector_splice, &test_vector_remove, &test_vector_removeIf, 
-                        	&test_vector_unique, &test_vector_merge, &test_vector_sort, &test_vector_reverse,  */
-
 	try {
 		output_title("- VECTOR TESTS -");
 		for (unsigned int i = 0; i < (sizeof(vectorTests) / sizeof(*(vectorTests))); i++)
@@ -71,6 +66,33 @@ int main(void) {
 	catch(std::exception &e) {
 		std::cerr << "ERROR: " << e.what() << std::endl;
 		output_title(">>>>>>>>> Vector tests: FAIL :( <<<<<<<<<");
+	}
+
+
+							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*////
+							///*\*/*\*/*\STACK TESTS/*\*/*\///
+							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*////
+							/*     [in Stack_tests.cpp]     */
+
+	testsPtr stackTests[0] = { };
+
+	/* &test_stack_constr, 
+// int test_stack_empty();
+// int test_stack_size();
+// int test_stack_back();
+// int test_stack_pushBack();
+// int test_stack_popBack();
+// int test_stack_nonMembers(); */
+
+	try {
+		output_title("- STACK TESTS -");
+		for (unsigned int i = 0; i < (sizeof(stackTests) / sizeof(*(stackTests))); i++)
+			(*stackTests[i])();
+		output_title(">>>>>>>>> Stack tests: SUCCESS! <<<<<<<<<");
+	}
+	catch(std::exception &e) {
+		std::cerr << "ERROR: " << e.what() << std::endl;
+		output_title(">>>>>>>>> Stack tests: FAIL :( <<<<<<<<<");
 	}
 
 

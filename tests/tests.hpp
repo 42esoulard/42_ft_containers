@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 14:52:49 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 17:05:27 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,54 +151,13 @@ int chk_result(ft_class ft_container, std_class std_container, std::string const
 	return 0;
 };
 
-// template <class ft_class, class std_class>
-// void handle_errorVector(ft_class ft_container, std_class std_container, size_t std_capac, std::string const &type, std::string const &func, 
-// 	std::string const &testInfo, std::string const &errorTheme) {
-// 			std::cout << std::setfill('.') << std::setw(WIDTH - func.size()) << " ✘" << std::endl;
-// 			std::cerr << ">---FAIL--->>>  ON FUNCTION: " << func << std::endl;
-// 			if (testInfo.size())
-// 				std::cerr << std::string(15, ' ') << " Test info: " << testInfo << std::endl;
-			
-// 			std::string tmp = "- CAPACITY -";
-// 			int nb = (WIDTH - tmp.size()) / 2;
-// 			std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
-
-// 			std::stringstream conv;
-// 			conv << ft_container.capacity();
-// 			tmp = "ft_" + type + ": <" + conv.str() + ">";
-// 			conv.str(std::string());
-// 			nb = (WIDTH - tmp.size()) / 2;
-// 			std::cerr << tmp << std::string( nb, ' ' );
-
-// 			conv << std_capac;
-// 			tmp = "std_" + type + ": <" + conv.str() + ">";
-// 			conv.str(std::string());
-// 			nb = (WIDTH - tmp.size()) / 2;
-// 			std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
-
-// 			output_containers(ft_container, std_container, type, std::cerr);
-// 			throw customException("ft_container " + errorTheme + " doesn't match std::container's!");
-// };
-
-// template <class ft_class, class std_class>
-// int chk_resultVector(ft_class ft_container, std_class std_container, size_t std_capac, std::string const &type, std::string const &func, std::string const &testInfo = "") {
-		
-// 	std::cout << std_capac << " vs cont capac " << std_container.capacity() << std::endl;
-// 	if (ft_container.capacity() != std_capac)
-// 		handle_errorVector(ft_container, std_container, std_capac, type, func, testInfo, "CAPACITY");
-
-
-// 	chk_result(ft_container, std_container, type, func, testInfo);
-// 	return 0;
-// };
-
 typedef int (*testsPtr)();
 
 
-//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
-///*\*/*\*/*\LIST TESTS/*\*/*\*//
-//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
-/*     [in List_tests.cpp]     */
+		//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
+		///*\*/*\*/*\LIST TESTS/*\*/*\*//
+		//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
+		/*     [in List_tests.cpp]     */
 
 //CONSTRUCTORS
 int test_list_fillConstr();
@@ -234,10 +193,10 @@ int test_list_reverse();
 int test_list_nonMembers();
 
 
-//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
-///*\*/*\*/*\VECTOR TESTS/*\*/*//
-//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
-/*     [in Vector_tests.cpp]     */
+		//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
+		///*\*/*\*/*\VECTOR TESTS/*\*/*//
+		//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
+		/*     [in Vector_tests.cpp]     */
 
 //CONSTRUCTORS
 int test_vector_fillConstr();
@@ -266,8 +225,23 @@ int test_vector_clear();
 // //NON-MEMBER FUNCTION OVERLOADS
 int test_vector_nonMembers();
 
-/*----------MAP TESTS----------*/
-/*     [in Map_tests.cpp]      */
+
+		//*\*/*\/*\*/*\/*\*/*\/*\*/*\*////
+		///*\*/*\*/*\STACK TESTS/*\*/*\///
+		//*\*/*\/*\*/*\/*\*/*\/*\*/*\*////
+		/*     [in Stack_tests.cpp]     */
+
+//CONSTRUCTORS
+int test_stack_constr();
+// MEMBER FUNCTIONS
+// int test_stack_empty();
+// int test_stack_size();
+// int test_stack_back();
+// int test_stack_pushBack();
+// int test_stack_popBack();
+// //NON-MEMBER FUNCTION OVERLOADS
+// int test_stack_nonMembers();
+
 
 /*----------STACK TESTS----------*/
 /*     [in Stack_tests.cpp]      */

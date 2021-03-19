@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 15:57:12 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 16:33:20 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ namespace ft {
 			// ALIASES:
 
 			typedef T 													value_type;
-			typedef Node<value_type> 								node_type;
+			typedef Node<value_type> 									node_type;
 			typedef typename std::allocator<node_type> 					allocator_type;
 			//typedef allocator_type 										Alloc;
 			typedef value_type											&reference;
@@ -92,10 +92,12 @@ namespace ft {
 			typedef unsigned long  										size_type;
 			
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			// CONSTRUCTORS:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					//*\*/*\CONSTRUCTORS/*\*/*\//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> default
 			explicit List () {
@@ -153,10 +155,12 @@ namespace ft {
 			}; //destroy all content then copy
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			//DESTRUCTOR:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					//*\*/*\DESTRUCTORS/*\*/*\///
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			~List() { 
 
@@ -165,10 +169,12 @@ namespace ft {
 			};
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			//ITERATORS:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					//*\*/*\*/ITERATORS/*\*/*\*//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			iterator 		begin() {
 
@@ -218,10 +224,12 @@ namespace ft {
 			// point to hypothetical element BEFORE first element
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			//SIZE:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					///*\*/*\*/CAPACITY/*\*/*\*//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			bool empty() const {
 
@@ -247,10 +255,12 @@ namespace ft {
 			//returns max nb of elements List can hold, due to system or library limitations
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			// ELEMENT ACCESS:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					//*\*/ELEMENT ACCESS/*\*/*\//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			reference front() {
 
@@ -279,10 +289,12 @@ namespace ft {
 			//returns a reference to the last List element(not after it)
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 			
 
-			// MODIFIERS
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					///*\*/*\*/MODIFIERS/*\*/*\//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> range
 			template <class InputIterator>
@@ -489,10 +501,12 @@ namespace ft {
 			//removes all elements (size == 0)
 			
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			//OPERATIONS
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					///*\*/*\*/OPERATIONS/*\*/*//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			void splice (iterator position, List& other) {
 
@@ -772,10 +786,12 @@ namespace ft {
 	};
 	
 	
-	//----------------------------------------------		
+	//----------------------------------------------//		
 
 
-	//NON MEMBER FUNCTION OVERLOADS
+			//*\*/*\/*\*/*\/*\*/*\/*\*///
+			///*\*/*\NON-MEMBERS/*\*/*\//
+			//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 	template < class T, class Alloc>
 	bool operator== (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {

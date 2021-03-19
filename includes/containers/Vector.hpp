@@ -87,10 +87,12 @@ namespace ft {
 			typedef unsigned long  										size_type;
 			
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			// CONSTRUCTORS:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					//*\*/*\CONSTRUCTORS/*\*/*\//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> default
 			explicit Vector () {
@@ -141,10 +143,12 @@ namespace ft {
 			//destroy all content then copy
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			//DESTRUCTOR:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					//*\*/*\DESTRUCTORS/*\*/*\///
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			~Vector() { 
 
@@ -154,10 +158,12 @@ namespace ft {
 			};
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-	// 		//ITERATORS:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					//*\*/*\*/ITERATORS/*\*/*\*//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			iterator 		begin() {
 
@@ -207,10 +213,12 @@ namespace ft {
 			// point to hypothetical element BEFORE first element
 
 
-	// 		//----------------------------------------------
+			//----------------------------------------------//
 
 
-	// 		//SIZE:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					///*\*/*\*/CAPACITY/*\*/*\*//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			size_type size() const {
 
@@ -281,10 +289,13 @@ namespace ft {
 			// requests that the vector capacity be at least enough to contain n elements, reallocate if needed.
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 
 
-			// ELEMENT ACCESS:
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					//*\*/ELEMENT ACCESS/*\*/*\//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+
 			reference operator[] (size_type n) {
 
 				return _container[n];
@@ -332,10 +343,12 @@ namespace ft {
 			//returns a reference to the last Vector element(not after it)
 
 
-			//----------------------------------------------
+			//----------------------------------------------//
 			
 
-			// MODIFIERS
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					///*\*/*\*/MODIFIERS/*\*/*\//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> range
 			template <class InputIterator>
@@ -559,10 +572,12 @@ namespace ft {
 	};
 	
 	
-	//----------------------------------------------		
+	//----------------------------------------------//		
 
 
-	//NON MEMBER FUNCTION OVERLOADS
+			///*\*/*\/*\*/*\/*\*/*\/*\*///
+			///*\*/*\NON-MEMBERS/*\*/*\//
+			//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 	template < class T, class Alloc>
 	bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {

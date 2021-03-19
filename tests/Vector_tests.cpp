@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 12:18:18 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:16:21 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -532,53 +532,55 @@ int test_vector_oparray() {
 	return 0;
 };
 
-// int test_vector_front_back() {
-// 	std::string title = "[FRONT/BACK]";
-// 	std::cout << title;
+int test_vector_front_back() {
+	std::string title = "[FRONT/BACK]";
+	std::cout << title;
 
-// 	ft::Vector<int> ft_vector;
-// 	std::vector<int> vector;
+	ft::Vector<int> ft_vector;
+	std::vector<int> vector;
 
-// 	ft_vector.push_back(10);
-// 	ft_vector.push_back(12);
-// 	ft_vector.push_back(18);
+	ft_vector.push_back(10);
+	ft_vector.push_back(12);
+	ft_vector.push_back(18);
 
-// 	vector.push_back(10);
-// 	vector.push_back(12);
-// 	vector.push_back(18);
+	vector.push_back(10);
+	vector.push_back(12);
+	vector.push_back(18);
 
-// 	if (ft_vector.front() != vector.front() || ft_vector.back() != vector.back()) {
-// 		std::cerr << "ft_vector.front() = [" << ft_vector.front() << "] | vector.front() = [" << vector.front() << "]" << std::endl;
-// 		std::cerr << "ft_vector.back() = [" << ft_vector.back() << "] | vector.back() = [" << vector.back() << "]" << std::endl;
-// 		handle_error(ft_vector, vector, "vector", title, "", "CONTENT");
-// 	}
+	if (ft_vector.front() != vector.front() || ft_vector.back() != vector.back()) {
+		std::cerr << "ft_vector.front() = [" << ft_vector.front() << "] | vector.front() = [" << vector.front() << "]" << std::endl;
+		std::cerr << "ft_vector.back() = [" << ft_vector.back() << "] | vector.back() = [" << vector.back() << "]" << std::endl;
+		handle_error(ft_vector, vector, "vector", title, "", "CONTENT");
+	}
 
-// 	ft::Vector<int> ft_vectorEmpty;
-// 	std::vector<int> vectorEmpty;
+	//UNDEFINED
+	// ft::Vector<int> ft_vectorEmpty;
+	// std::vector<int> vectorEmpty;
 
-// 	if (ft_vectorEmpty.front() != vectorEmpty.front() || ft_vectorEmpty.back() != vectorEmpty.back()) {
-// 		std::cerr << "ft_vectorEmpty.front() = [" << ft_vectorEmpty.front() << "] | vectorEmpty.front() = [" << vectorEmpty.front() << "]" << std::endl;
-// 		std::cerr << "ft_vectorEmpty.back() = [" << ft_vectorEmpty.back() << "] | vectorEmpty.back() = [" << vectorEmpty.back() << "]" << std::endl;
-// 		handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]", "CONTENT");
-// 	}
+	// if (ft_vectorEmpty.front() != vectorEmpty.front() || ft_vectorEmpty.back() != vectorEmpty.back()) {
+	// 	std::cerr << "ft_vectorEmpty.front() = [" << ft_vectorEmpty.front() << "] | vectorEmpty.front() = [" << vectorEmpty.front() << "]" << std::endl;
+	// 	std::cerr << "ft_vectorEmpty.back() = [" << ft_vectorEmpty.back() << "] | vectorEmpty.back() = [" << vectorEmpty.back() << "]" << std::endl;
+	// 	handle_error(ft_vectorEmpty, vectorEmpty, "vector", title, "[EMPTY]", "CONTENT");
+	// }
 	
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
-// 	title = "[FRONT/BACK CONST OVERLOAD]";
-// 	std::cout << title;
+	title = "[FRONT/BACK CONST OVERLOAD]";
+	std::cout << title;
 
-// 	ft::Vector<int> const ft_constVector;
-// 	std::vector<int> const constVector;
+	size_t size = 12;
+	ft::Vector<int> const ft_constVector(size, 8);
+	std::vector<int> const constVector(size, 8);
 
-// 	if (ft_constVector.front() != constVector.front() || ft_constVector.back() != constVector.back()) {
-// 		std::cerr << "ft_constVector.front() = [" << ft_constVector.front() << "] | constVector.front() = [" << constVector.front() << "]" << std::endl;
-// 		std::cerr << "ft_constVector.back() = [" << ft_constVector.back() << "] | constVector.back() = [" << constVector.back() << "]" << std::endl;
-// 		handle_error(ft_constVector, constVector, "vector", title, "[CONST]", "CONTENT");
-// 	}
+	if (ft_constVector.front() != constVector.front() || ft_constVector.back() != constVector.back()) {
+		std::cerr << "ft_constVector.front() = [" << ft_constVector.front() << "] | constVector.front() = [" << constVector.front() << "]" << std::endl;
+		std::cerr << "ft_constVector.back() = [" << ft_constVector.back() << "] | constVector.back() = [" << constVector.back() << "]" << std::endl;
+		handle_error(ft_constVector, constVector, "vector", title, "[CONST]", "CONTENT");
+	}
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 // ///*\*/*\*/MODIFIERS/*\*/*\//

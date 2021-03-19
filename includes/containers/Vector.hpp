@@ -272,31 +272,25 @@ namespace ft {
 			// reference at (size_type n);
 			// const_reference at (size_type n) const;
 
-	// 		reference front() {
+			reference front() {
+				return _container[0];
+			};
 
-	// 			return _begin->getValue();
-	// 		};
+			const_reference front() const{
+					return _container[0];
+			};
+			//same as begin() but returns a reference
 
-	// 		const_reference front() const{
+			reference back() {
 
-	// 			return _begin->getValue();
-	// 		};
-	// 		//same as begin() but returns a reference
+				return _container[_size - 1];
+			};
 
-	// 		reference back() {
+			const_reference back() const{
 
-	// 			if (size())
-	// 				return _end->getPrev()->getValue();
-	// 			return _end->getValue();
-	// 		};
-
-	// 		const_reference back() const{
-
-	// 			if (size())
-	// 				return _end->getPrev()->getValue();
-	// 			return _end->getValue();
-	// 		};
-	// 		//returns a reference to the last Vector element(not after it)
+				return _container[_size - 1];
+			};
+			//returns a reference to the last Vector element(not after it)
 
 
 	// 		//----------------------------------------------

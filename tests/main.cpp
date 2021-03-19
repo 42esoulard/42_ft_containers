@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 17:06:52 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 17:23:24 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int main(void) {
 							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*////
 							/*     [in Stack_tests.cpp]     */
 
-	testsPtr stackTests[0] = { };
+	testsPtr stackTests[1] = { &test_stack_constr, };
 
-	/* &test_stack_constr, 
+	/*  
 // int test_stack_empty();
 // int test_stack_size();
 // int test_stack_back();

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 17:13:41 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 17:26:02 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <iomanip>
 #include <string>
 
+#include <list>
+#include <vector>
 #include <stack>
 
 class customException;
@@ -26,10 +28,29 @@ class customException;
                     //*\*/*\CONSTRUCTORS/*\*/*\//
                     //*\*/*\/*\*/*\/*\*/*\/*\*///
 					
-// int test_stack_constr() {
-// 	std::string title = "[FILL CONSTRUCTOR]";
-// 	std::cout << title;
+int test_stack_constr() {
+	// std::string title = "[CONSTRUCTOR]";
+	// std::cout << title;
+	// size_t sz = 3;
+	// ft::List<int> ft_list (sz,100);
+	// std::list<int> std_list (sz,100);
+	// sz = 2;
+	// ft::Vector<int> ft_vector (sz,200); 
+	// std::vector<int> std_vector (sz,200); 
 
+	// ft::Stack<int> ft_firstStack;  
+	// std::stack<int> std_firstStack;
+
+	// ft::Stack<int> ft_secondStack(ft_list);
+	// std::stack<int> std_secondStack(std_list); 
+
+	// ft::Stack<int,ft::Vector<int> > thirdStack;
+	// ft::Stack<int,ft::Vector<int> > fourthStack (ft_vector);
+
+	// std::cout << "size of first: " << firstStack.size() << '\n';
+	// std::cout << "size of second: " << secondStack.size() << '\n';
+	// std::cout << "size of third: " << thirdStack.size() << '\n';
+	// std::cout << "size of fourth: " << fourthStack.size() << '\n';		
 // 	ft::List<char> ft_list(5, 'a');
 // 	std::list<char> list(5, 'a');
 
@@ -41,8 +62,8 @@ class customException;
 // 	chk_result(ft_list, list, "list", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	return 0;
+};
 
 // int test_list_rangeConstr() {
 // 	std::string title = "[RANGE CONSTRUCTOR]";

@@ -61,6 +61,7 @@
         "utility": "cpp",
         "vector": "cpp",
         "list": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "stack": "cpp"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 14:20:28 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/19 14:54:36 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ int main(void) {
 							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
 							/*    [in Vector_tests.cpp]    */
 
-	testsPtr vectorTests[17] = { &test_vector_fillConstr, &test_vector_rangeConstr, &test_vector_copyConstr, &test_vector_opEqual, &test_vector_pushBack_iterate, 
+	testsPtr vectorTests[20] = { &test_vector_fillConstr, &test_vector_rangeConstr, &test_vector_copyConstr, &test_vector_opEqual, &test_vector_pushBack_iterate, 
 							&test_vector_maxSize, &test_vector_capacity, &test_vector_empty, &test_vector_resize, &test_vector_reserve, &test_vector_oparray, 
-							&test_vector_at, &test_vector_front_back, &test_vector_assign, &test_vector_popBack, &test_vector_insert, &test_vector_erase, };
+							&test_vector_at, &test_vector_front_back, &test_vector_assign, &test_vector_popBack, &test_vector_insert, &test_vector_erase, 
+							&test_vector_swap, &test_vector_clear, &test_vector_nonMembers, };
 
 	/*    
-							     &test_vector_swap, 
-                       	 	 &test_vector_clear, &test_vector_splice, &test_vector_remove, &test_vector_removeIf, 
-                        	&test_vector_unique, &test_vector_merge, &test_vector_sort, &test_vector_reverse, &test_vector_nonMembers, */
+							     
+                       	 	  &test_vector_splice, &test_vector_remove, &test_vector_removeIf, 
+                        	&test_vector_unique, &test_vector_merge, &test_vector_sort, &test_vector_reverse,  */
 
 	try {
 		output_title("- VECTOR TESTS -");

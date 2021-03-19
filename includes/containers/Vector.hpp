@@ -559,23 +559,21 @@ namespace ft {
 			};
 	// 		// remove & destroy either 1 element or a range of elements. 
 
-	// 		void swap (Vector& x) {
+			void swap (Vector& x) {
 
-	// 			node_type *tmp;
-	// 			int sz = _size;
+				value_type *tmp = x._container;
+				size_type sz = x._size;
+				size_type ca = x._capacity;
 
-	// 			tmp = _begin;
-	// 			_begin = x._begin;
-	// 			x._begin = tmp;
+				x._container = _container;
+				x._size = _size;
+				x._capacity = _capacity;
 
-	// 			tmp = _end;
-	// 			_end = x._end;
-	// 			x._end = tmp;
-
-	// 			_size = x._size;
-	// 			x._size = sz;
-	// 		};
-	// 		//exchange content with container of the same type
+				_container = tmp;
+				_size = sz;
+				_capacity = ca;
+			};
+			//exchange content with container of the same type
 
 	
 			void clear() {
@@ -604,106 +602,106 @@ namespace ft {
 	};
 	
 	
-	// //----------------------------------------------		
+	//----------------------------------------------		
 
 
-	// //NON MEMBER FUNCTION OVERLOADS
+	//NON MEMBER FUNCTION OVERLOADS
 
-	// template < class T, class Alloc>
-	// bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
+	template < class T, class Alloc>
+	bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
 	
-	// 	if (lhs.size() != rhs.size())
-	// 		return false;
+		if (lhs.size() != rhs.size())
+			return false;
 
-	// 	Iterator< const T, const Node<T> > lhsIt = lhs.begin();
-	// 	Iterator< const T, const Node<T> > rhsIt = rhs.begin();
+		VectorIterator< const T > lhsIt = lhs.begin();
+		VectorIterator< const T > rhsIt = rhs.begin();
 		
-	// 	size_t i = 0;
+		size_t i = 0;
 
-	// 	while (i++ != lhs.size()) {
-	// 		if (*lhsIt != *rhsIt)
-	// 			return false;
-	// 		lhsIt++;
-	// 		rhsIt++;
-	// 	}
+		while (i++ != lhs.size()) {
+			if (*lhsIt != *rhsIt)
+				return false;
+			lhsIt++;
+			rhsIt++;
+		}
 
-	// 	return true;
-	// };
+		return true;
+	};
 
-	// template <class T, class Alloc>
-	// bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
+	template <class T, class Alloc>
+	bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
 
-	// 	if (rhs == lhs)
-	// 		return false;
+		if (rhs == lhs)
+			return false;
 
-	// 	return true;
-	// };
+		return true;
+	};
 
-	// template <class T, class Alloc>
-	// bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
+	template <class T, class Alloc>
+	bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
 
-	// 	if (lhs.size() > rhs.size())
-	// 	 	return false;
+		if (lhs.size() > rhs.size())
+		 	return false;
 
-	// 	Iterator< const T, const Node<T> > lhsIt = lhs.begin();
-	// 	Iterator< const T, const Node<T> > rhsIt = rhs.begin();
+		VectorIterator< const T > lhsIt = lhs.begin();
+		VectorIterator< const T > rhsIt = rhs.begin();
 	
-	// 	size_t i = 0;
-	// 	while (i != lhs.size() && i != rhs.size()) {
-	// 		if (*lhsIt < *rhsIt)
-	// 			return true;
-	// 		lhsIt++;
-	// 		rhsIt++;
-	// 		i++;
-	// 	}
+		size_t i = 0;
+		while (i != lhs.size() && i != rhs.size()) {
+			if (*lhsIt < *rhsIt)
+				return true;
+			lhsIt++;
+			rhsIt++;
+			i++;
+		}
 		
-	// 	return false;
-	// };
+		return false;
+	};
 
-	// template <class T, class Alloc>
-	// bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
+	template <class T, class Alloc>
+	bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
 
-	// 	if (lhs == rhs)
-	// 		return true;
+		if (lhs == rhs)
+			return true;
 
-	// 	return (lhs < rhs);
-	// };
+		return (lhs < rhs);
+	};
 
-	// template <class T, class Alloc>
-	// bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
+	template <class T, class Alloc>
+	bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
 	
-	// 	if (lhs.size() < rhs.size())
-	// 		return false;
+		if (lhs.size() < rhs.size())
+			return false;
 
-	// 	Iterator< const T, const Node<T> > lhsIt = lhs.begin();
-	// 	Iterator< const T, const Node<T> > rhsIt = rhs.begin();
+		VectorIterator< const T > lhsIt = lhs.begin();
+		VectorIterator< const T > rhsIt = rhs.begin();
 	
-	// 	size_t i = 0;
-	// 	while (i != lhs.size() && i != rhs.size()) {
-	// 		if (*lhsIt > *rhsIt)
-	// 			return true;
-	// 		lhsIt++;
-	// 		rhsIt++;
-	// 		i++;
-	// 	}
+		size_t i = 0;
+		while (i != lhs.size() && i != rhs.size()) {
+			if (*lhsIt > *rhsIt)
+				return true;
+			lhsIt++;
+			rhsIt++;
+			i++;
+		}
 		
-	// 	return false;
-	// };
+		return false;
+	};
 
-	// template <class T, class Alloc>
-	// bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
+	template <class T, class Alloc>
+	bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
 
-	// 	if (lhs == rhs)
-	// 		return true;
+		if (lhs == rhs)
+			return true;
 
-	// 	return (lhs > rhs);
-	// };
+		return (lhs > rhs);
+	};
 
-	// template <class T, class Alloc>
-  	// void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y) {
+	template <class T, class Alloc>
+  	void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y) {
 
-	// 	  x.swap(y);
-	// };
+		  x.swap(y);
+	};
 
 };
 

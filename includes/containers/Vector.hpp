@@ -14,10 +14,58 @@
 #define VECTOR_HPP
 
 #include <limits>
-#include "VectorIterator.hpp"
-#include "Node.hpp"
+#include <iostream>
 
 namespace ft {
+
+	template < class value_type >
+	class VectorIterator {
+
+		public:
+
+			VectorIterator() {value_type *tmp = NULL; p = tmp;};
+			VectorIterator(value_type *x) :p(x) {};
+			VectorIterator(const VectorIterator& mit) : p(mit.p) {};
+
+			VectorIterator& operator++() {
+				++p;
+				return *this;
+			};
+
+			VectorIterator operator++(int) {VectorIterator tmp(*this); operator++(); return tmp;};
+			VectorIterator const operator++(int) const {VectorIterator tmp(*this); operator++(); return tmp;};
+
+			// node_type *getNode() {return p;};
+
+			bool operator==(const VectorIterator& rhs) const {return p==rhs.p;};
+			bool operator!=(const VectorIterator& rhs) const {return p!=rhs.p;};
+			value_type &operator*() const {return *p;};
+
+		private:
+
+			value_type* p;
+	};
+
+	template < class value_type >
+	class VectorReverse_Iterator : public VectorIterator<value_type > {
+
+		public:
+			VectorReverse_Iterator() {value_type *tmp = NULL; p = tmp;};
+			VectorReverse_Iterator(value_type *x) :p(x) {};
+			VectorReverse_Iterator(const VectorReverse_Iterator& mit) : p(mit.p) {};
+
+			VectorReverse_Iterator< value_type >& operator++() {--p;return *this;};
+			VectorReverse_Iterator< value_type > operator++(int) {VectorReverse_Iterator<value_type > tmp(*this); operator++(); return tmp;};
+			bool operator==(const VectorReverse_Iterator< value_type >& rhs) const {return p==rhs.p;}
+			bool operator!=(const VectorReverse_Iterator< value_type >& rhs) const {return p!=rhs.p;}
+			value_type &operator*() const {return *p;};
+
+		private:
+
+			value_type* p;
+	};
+
+	//************************************************************************************************
 
 	template < class T, class Alloc = std::allocator<T> > 
 	class Vector {
@@ -27,13 +75,10 @@ namespace ft {
 			// ALIASES:
 
 			typedef T 													value_type;
-			typedef Node<value_type> 									node_type;
-			typedef std::allocator<node_type> 							allocator_type;
-			typedef allocator_type 										node_allocator;
 			typedef value_type											&reference;
 			typedef value_type const	 								&const_reference;
-			typedef node_type 											*pointer;
-			typedef node_type const	 									*const_pointer;
+			typedef value_type 											*pointer;
+			typedef value_type const	 								*const_pointer;
 			typedef VectorIterator<value_type > 						iterator;
 			typedef VectorIterator<value_type const > 					const_iterator;
 			typedef VectorReverse_Iterator<value_type > 				reverse_iterator;
@@ -49,8 +94,8 @@ namespace ft {
 
 			// >>> default
 			explicit Vector () {
-				_container = NULL;
 
+				_container = NULL;
 				_size = 0;
 				_capacity = 0;
 			};
@@ -59,7 +104,6 @@ namespace ft {
 			explicit Vector (size_type n, const value_type& val = value_type()) {
 
 				_container = NULL;
-
 				_size = 0;
 				_capacity = 0;
 
@@ -75,28 +119,26 @@ namespace ft {
 				_capacity = 0;
 
 		 		assign(first, last);
-
 		 	};	
 			
-			// // >>> copy 
+			// >>> copy 
 			Vector (const Vector& x) {
-				//std::cout << "COPYING" << std::endl;
+
 				_container = NULL;
 				_size = 0;
 				_capacity = 0;
 
 		 		assign(x.begin(), x.end());
-
 			}; 
 
 			Vector& operator= (const Vector& x) {
-				//std::cout << "IN OP=" << std::endl;
-				clear();
 
+				clear();
 				assign(x.begin(), x.end());
 
 				return *this;
-			}; //destroy all content then copy
+			}; 
+			//destroy all content then copy
 
 
 			//----------------------------------------------
@@ -105,11 +147,10 @@ namespace ft {
 			//DESTRUCTOR:
 
 			~Vector() { 
+
 				clear(); 
 				if (_container)
 					delete[] _container;
-				
-				//delete[] _containerPtr; 
 			};
 
 
@@ -177,8 +218,10 @@ namespace ft {
 			};
 
 			size_type max_size() const {
+
 				size_type maxDiff = std::numeric_limits<difference_type>::max();
 				size_type maxVal = std::numeric_limits<size_type>::max() / (sizeof(value_type));
+
 				if (maxDiff < maxVal)
 					return maxDiff;
 				return maxVal;
@@ -187,10 +230,9 @@ namespace ft {
 
 			void resize (size_type n, value_type val = value_type()) {
 
-				size_type i = 0;
-	
 				reserve(n);
 
+				size_type i = 0;
 				if (_size > n) {
 					while (i < n)
 						i++;
@@ -226,66 +268,54 @@ namespace ft {
 				if (n <= _capacity)
 					return;
 
-				size_type newCapacity = n;
-				
-				//MUST CHECK THIS
-				// if (n > 128)
-				// 	n = 128;
-				// if (newCapacity == 0)
-				// 	newCapacity = n;
-				//std::cout << "_capacity = "<< _capacity << "newCapacity" << newCapacity << std::endl; 
-				// if (n <= _capacity * 2)
-				// 	newCapacity = 2 * _capacity;
-				// if (n > _capacity && n < _capacity * 2)
-				// 	newCapacity = 2 * _capacity;
-				// else
-				// 	newCapacity = n;
-
-				value_type *newVector = new value_type[newCapacity]();
-
-				for (size_type i = 0; i < _size; i++) {
+				value_type *newVector = new value_type[n]();
+				for (size_type i = 0; i < _size; i++)
 					newVector[i] = _container[i];
-					// *newIt = *oldIt;
-					// newIt++;
-					// oldIt++;
-				}
+			
 				if (_capacity)
 					delete[] _container;
-				_container = newVector;
 
-				_capacity = newCapacity;
+				_container = newVector;
+				_capacity = n;
 			};
 			// requests that the vector capacity be at least enough to contain n elements, reallocate if needed.
 
-	// 		//----------------------------------------------
+
+			//----------------------------------------------
 
 
-	// 		// ELEMENT ACCESS:
+			// ELEMENT ACCESS:
 			reference operator[] (size_type n) {
+
 				return _container[n];
 			};
 
 			const_reference operator[] (size_type n) const {
+
 				return _container[n];
 			};
 
 			reference at (size_type n){
+
 				if (n >= _size)
 					throw std::out_of_range("vector");
 				return _container[n];
 			};
 
 			const_reference at (size_type n) const {
+
 				if (n >= _size)
 					throw std::out_of_range("vector");
 				return _container[n];
 			};
 
 			reference front() {
+
 				return _container[0];
 			};
 
 			const_reference front() const{
+
 					return _container[0];
 			};
 			//same as begin() but returns a reference
@@ -302,10 +332,10 @@ namespace ft {
 			//returns a reference to the last Vector element(not after it)
 
 
-	// 		//----------------------------------------------
+			//----------------------------------------------
 			
 
-	// 		// MODIFIERS
+			// MODIFIERS
 
 			// >>> range
 			template <class InputIterator>
@@ -322,48 +352,26 @@ namespace ft {
 			// >>> fill
 			void assign (size_type n, const value_type& val) {
 
-				// clear();
-				// reserve(n);
-
-				// while (_size < n) 
-				// 	push_back(val);
-
 				clear();
-				// size_type newCapacity = n;
-				// if (n <= _capacity * 2)
-				// 	newCapacity *= 2;
-				// else
-				// 	newCapacity = n;
+
 				if (n > _capacity && n < _capacity * 2)
 					n = 2 * _capacity;
 				reserve(n);
-				while (_size < n) {
+
+				while (_size < n)
 					push_back(val);
-				}
 			};
-	// 		//Assigns new contents to the Vector container, replacing its current contents, and modifying its size accordingly.
+			//Assigns new contents to the Vector container, replacing its current contents, and modifying its size accordingly.
 
 			void push_back (const value_type& val) { 
 
-				// iterator it = iterator(_containerPtr);
-				// std::cout << "push back bef reserve" << std::endl;
-				// for (size_t i = 0; i < _size; i++) {
-				// 	std::cout << *it << std::endl;
-				// 	it++;
-				// }
 				size_t n = _size + 1;
 				if (n > _capacity && n < _capacity * 2)
 					n = 2 * _capacity;
 				reserve(n);
-				// it = iterator(_containerPtr);
-				// std::cout << "push back aft reserve" << std::endl;
-				// for (size_t i = 0; i < _size; i++) {
-				// 	std::cout << *it << std::endl;
-				// 	it++;
-				// }
+
 				_container[_size] = val;
 				_size++;
-				//_end->setEnd();
 			};
 			//Adding elements to a vector = adding nodes before end. 
 
@@ -387,48 +395,25 @@ namespace ft {
 				size_t n = _size + 1;
 				if (n > _capacity && n < _capacity * 2)
 					n = 2 * _capacity;
-				//std::cout << "capac bef" << _capacity << " | newCapac " << n << std::endl;
 				reserve(n);
-			//	std::cout << "---- index " << index << std::endl;
-				// iterator ret = begin();
-				// for (size_t i = 0; i < index; i++)
-				// 	ret++;
-			//	std::cout << "++++ index " << index << std::endl;
-				value_type stockNext;//stockNext = c
+
+				value_type stockNext;
 				iterator ret = iterator(&_container[index]);
-				value_type stock = *ret;//stock = b
-                           //a b d e
-				_container[index++] = val; //1 2 3 4
-				while (index < _size) {//pos = 3
+				value_type stock = *ret;
+                    
+				_container[index++] = val;
+				while (index < _size) {
 					stockNext = _container[index];
 					_container[index++] = stock;
 					stock = stockNext;
-					//prev = stock;
 				}
-				//std::cout << "fasdasd" << index << std::endl;
 				if (_size)
 					_container[index++] = stock;
 				_size++;
-	//std::cout << "poipoipoi " << index << std::endl;
+
 				return ret;
-
 			}; 
-			//remove 1 element
-    			// iterator it = begin();
-				// size_type index = 0;
-				// if (position != it)
-				// 	while (++it != position)
-				// 		index++;
-				
-				// size_t n = _size + 1;
-				// if (n > _capacity && n < _capacity * 2)
-				// 	n = 2 * _capacity;
-				// //std::cout << "capac bef" << _capacity << " | newCapac " << n << std::endl;
-				// reserve(n);
 
-				// iterator ret = begin();
-				// for (size_t i = 0; i < index; i++)
-				// 	ret++;
 			// >>> fill
 			void insert (iterator position, size_type n, const value_type& val) {
 
@@ -437,24 +422,17 @@ namespace ft {
 				if (position != it)
 					while (it++ != position)
 						index++;
-				//std::cout << " index " << index << std::endl;
+
 				size_t newCap = _size + n;
 				if (newCap > _capacity && newCap < _capacity * 2)
 					newCap = 2 * _capacity;
-				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 				reserve(newCap);
-				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 
 				it = begin();
-				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
-				//std::cout << "INDEX " << index << std::endl;
 				for (size_t i = 0; i < index; i++)
 					it++;
-				//std::cout << " index " << index << std::endl;
-				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 				for (size_type i = 0; i < n; i++)
 					it = insert(it, val);
-				//std::cout << _capacity << " oldcap | new cap " << newCap << std::endl;
 			};
 			
 			// >>> range
@@ -486,22 +464,10 @@ namespace ft {
 				}
 				while (index != _size) 
 					newContainer[cursor++] = _container[index++];
+				
 				delete[] _container;
 				_container = newContainer;
 				_size = cursor;
-				// it = begin();
-				// for (size_t i = 0; i < index; i++)
-				// 	it++;
-				// iterator tmpa = it;
-				// while (first != last) {
-
-				// 	insert(it, *first);
-				// 	it = tmpa;
-				// 	// if (it != end())
-				// 	// 	it++;
-				// 	first++;
-				// }
-
 			};
     		//Extend the container by inserting new elements before the element at the specified position
 
@@ -524,6 +490,7 @@ namespace ft {
 				}
 				_container[cursor] = value_type();
 				_size--;
+
 				return it;
 			};
 			
@@ -539,25 +506,22 @@ namespace ft {
 				size_t step = 0;
 				while (tmp++ != last)
 					step++;
-				//std::cout << "index " << index << " // step " << step << std::endl;
+
 				it = iterator(&_container[index]);
+
 				if (_size) {
 					while (index < _size) {
-					//	std::cout << index + step << "//" << _size - 1 << std::endl;
 						if (index + step < _size)
 							_container[index] = _container[index + step];
 						else
 							_container[index] = value_type();
 						index++;
 					}
-					//_container[index] = value_type();
 				}
-			//	std::cout << "SEGV??" << std::endl;
-				//_container[cursor] = value_type();
 				_size -= step;
 				return it;
 			};
-	// 		// remove & destroy either 1 element or a range of elements. 
+			// remove & destroy either 1 element or a range of elements. 
 
 			void swap (Vector& x) {
 
@@ -578,26 +542,19 @@ namespace ft {
 	
 			void clear() {
 				
-				// iterator it = iterator(_begin);
-				//int a = 0;
-				for (size_type i = 0; i < _size; i++) {
+				for (size_type i = 0; i < _size; i++)
 					_container[i] = value_type();
-					// _container[i].forgetValue();
-					// _container[i].forgetNode();
-				}
+
 				_size = 0;
 			};
-	// 		//removes all elements (size == 0)
+			//removes all elements (size == 0)
 			
 
 		private:
 
-			//pointer 			_containerPtr;
 			value_type 			*_container;
-
 			size_type 			_size;
 			size_type 			_capacity;
-			//node_allocator 		_node_allocator;
 			
 	};
 	

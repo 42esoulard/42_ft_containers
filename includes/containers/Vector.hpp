@@ -403,7 +403,7 @@ namespace ft {
 				value_type stock = *ret;//stock = b
                            //a b d e
 				_container[index++] = val; //1 2 3 4
-				while (index <= _size) {//pos = 3
+				while (index < _size) {//pos = 3
 					stockNext = _container[index];
 					_container[index++] = stock;
 
@@ -411,7 +411,8 @@ namespace ft {
 					//prev = stock;
 				}
 				std::cout << "fasdasd" << index << std::endl;
-				_container[index++] = stock;
+				if (_size)
+					_container[index++] = stock;
 				_size++;
 	std::cout << "poipoipoi " << index << std::endl;
 				return ret;

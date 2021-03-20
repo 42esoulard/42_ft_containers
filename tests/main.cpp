@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/20 12:37:09 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/20 17:14:26 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,23 @@ int main(void) {
 		output_title(">>>>>>>>> Stack tests: FAIL :( <<<<<<<<<");
 	}
 
+							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*////
+							///*\*/*\*/*\QUEUE TESTS/*\*/*\///
+							//*\*/*\/*\*/*\/*\*/*\/*\*/*\*////
+							/*     [in Queue_tests.cpp]     */
 
+	testsPtr queueTests[4] = { &test_queue_constr_size, &test_queue_empty, &test_queue_top_push_pop, &test_queue_nonMembers, };
+
+	try {
+		output_title("- QUEUE TESTS -");
+		for (unsigned int i = 0; i < (sizeof(queueTests) / sizeof(*(queueTests))); i++)
+			(*queueTests[i])();
+		output_title(">>>>>>>>> Queue tests: SUCCESS! <<<<<<<<<");
+	}
+	catch(std::exception &e) {
+		std::cerr << "ERROR: " << e.what() << std::endl;
+		output_title(">>>>>>>>> Queue tests: FAIL :( <<<<<<<<<");
+	}
 
 	//system("leaks ft_containers"); //MUST REMOVE fsanitize from Makefile
 

@@ -7,3 +7,5 @@ to do list:
    - test it as a ft::Vector<char *> and see if it breaks
 
 -ALL: add max tests, 10000 elems for example
+
+- map

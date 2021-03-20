@@ -8,4 +8,11 @@ to do list:
 
 -ALL: add max tests, 10000 elems for example
 
-- map
+- map: order elements as a binary search list ordered depending on Compare()
+   EXAMPLE key d
+            /    \
+            a     r
+          /  \   / \
+              b f   
+               \
+                c

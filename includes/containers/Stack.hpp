@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:09:27 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 17:06:32 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/20 12:36:38 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ namespace ft {
                 return _container.back();
             };
 
-            void push (const value_type& val) {
+            void push(const value_type& val) {
 
                 _container.push_back(val);
             };
@@ -76,9 +76,26 @@ namespace ft {
                 _container.pop_back();
             };
 
-
         private:
             container_type _container;
+
+			template <class A, class B>
+			friend bool	operator==(const Stack<A, B> &lhs, const Stack<A, B> &rhs);
+
+			template <class A, class B>
+			friend bool	operator!=(const Stack<A, B> &lhs, const Stack<A, B> &rhs);
+
+			template <class A, class B>
+			friend bool	operator<(const Stack<A, B> &lhs, const Stack<A, B> &rhs);
+
+			template <class A, class B>
+			friend bool	operator<=(const Stack<A, B> &lhs, const Stack<A, B> &rhs);
+
+			template <class A, class B>
+			friend bool	operator>(const Stack<A, B> &lhs, const Stack<A, B> &rhs);
+            
+			template <class A, class B>
+			friend bool	operator>=(const Stack<A, B> &lhs, const Stack<A, B> &rhs);
     };
 
 	
@@ -102,7 +119,7 @@ namespace ft {
     };
 
     template <class T, class Container>
-     bool operator<  (const Stack<T,Container>& lhs, const Stack<T,Container>& rhs) {
+    bool operator<  (const Stack<T,Container>& lhs, const Stack<T,Container>& rhs) {
 
          return lhs._container < rhs._container;
      };

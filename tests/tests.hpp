@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 17:05:27 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/20 12:37:25 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ class customException : public std::exception {
 	protected:
 		std::string const _err;	
 };
-
 
 template <class ft_class, class std_class>
 void output_containers(ft_class ft_container, std_class std_container, std::string const &type, std::ostream &o) {
@@ -119,12 +118,80 @@ void output_containers(ft_class ft_container, std_class std_container, std::stri
 };
 
 template <class ft_class, class std_class>
+void handle_stack_error(ft_class ft_container, std_class std_container, std::string const &type, std::string const &func, 
+	std::string const &testInfo, std::string const &errorTheme) {
+			std::cout << std::setfill('.') << std::setw(WIDTH - func.size()) << " ✘" << std::endl;
+			std::cerr << ">---FAIL--->>>  ON FUNCTION: " << func << std::endl;
+			if (testInfo.size())
+				std::cerr << std::string(15, ' ') << " Test info: " << testInfo << std::endl;
+			
+			int ft_size = ft_container.size();
+			int std_size = std_container.size();
+
+			std::string tmp;
+			std::string a;
+			std::stringstream conv;
+			std::setfill(' ');
+
+			tmp = "------------------------------------";
+			int nb = (WIDTH - tmp.size()) / 2;
+			std::cerr << std::endl << std::string( nb, ' ' ) << tmp << std::endl;
+
+			tmp = "- SIZE -";
+			nb = (WIDTH - tmp.size()) / 2;
+			std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
+
+			conv << ft_size;
+			tmp = "ft_" + type + ": <" + conv.str() + ">";
+			conv.str(std::string());
+			nb = (WIDTH - tmp.size()) / 2;
+			std::cerr << tmp << std::string( nb, ' ' );
+
+			conv << std_size;
+			tmp = "std_" + type + ": <" + conv.str() + ">";
+			conv.str(std::string());
+			nb = (WIDTH - tmp.size()) / 2;
+			std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
+			//o << std::setw(step) << "std_" << type << ": " << std_size << std::endl;
+
+			try {
+				tmp =  "- TOP -";
+				nb = (WIDTH - tmp.size()) / 2;
+				std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
+
+				tmp = "ft_" + type + ".top() : ";
+				nb = (WIDTH - tmp.size()) / 2;
+				std::cerr << tmp << std::string( nb, ' ' );
+
+				tmp = "std_" + type + ".top() : ";
+				nb = (WIDTH - tmp.size()) / 2;
+				std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
+
+				conv << ft_container.top();
+				tmp = "[" + conv.str() + "]";
+				conv.str(std::string());
+				nb = (WIDTH - tmp.size()) / 2;
+				std::cerr << tmp << std::string( nb, ' ' );
+
+				conv << std_container.top();
+				tmp = "[" + conv.str() + "]";
+				conv.str(std::string());
+				nb = (WIDTH - tmp.size()) / 2;
+				std::cerr << tmp << std::string( nb, ' ' );
+				std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
+			}
+			catch (std::exception &e) {}
+			throw customException("ft_container " + errorTheme + " doesn't match std::container's!");
+};
+
+template <class ft_class, class std_class>
 void handle_error(ft_class ft_container, std_class std_container, std::string const &type, std::string const &func, 
 	std::string const &testInfo, std::string const &errorTheme) {
 			std::cout << std::setfill('.') << std::setw(WIDTH - func.size()) << " ✘" << std::endl;
 			std::cerr << ">---FAIL--->>>  ON FUNCTION: " << func << std::endl;
 			if (testInfo.size())
 				std::cerr << std::string(15, ' ') << " Test info: " << testInfo << std::endl;
+
 			output_containers(ft_container, std_container, type, std::cerr);
 			throw customException("ft_container " + errorTheme + " doesn't match std::container's!");
 };
@@ -146,7 +213,6 @@ int chk_result(ft_class ft_container, std_class std_container, std::string const
 			handle_error(ft_container, std_container, type, func, testInfo, "CONTENT");
 		std_it++;
 	}
-	
 
 	return 0;
 };
@@ -222,7 +288,7 @@ int test_vector_insert();
 int test_vector_erase();
 int test_vector_swap();
 int test_vector_clear();
-// //NON-MEMBER FUNCTION OVERLOADS
+//NON-MEMBER FUNCTION OVERLOADS
 int test_vector_nonMembers();
 
 
@@ -232,15 +298,12 @@ int test_vector_nonMembers();
 		/*     [in Stack_tests.cpp]     */
 
 //CONSTRUCTORS
-int test_stack_constr();
-// MEMBER FUNCTIONS
-// int test_stack_empty();
-// int test_stack_size();
-// int test_stack_back();
-// int test_stack_pushBack();
-// int test_stack_popBack();
-// //NON-MEMBER FUNCTION OVERLOADS
-// int test_stack_nonMembers();
+int test_stack_constr_size();
+//MEMBER FUNCTIONS
+int test_stack_empty();
+int test_stack_top_push_pop();
+//NON-MEMBER FUNCTION OVERLOADS
+int test_stack_nonMembers();
 
 
 /*----------STACK TESTS----------*/

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 17:26:02 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/20 12:28:07 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,106 +21,61 @@
 
 class customException;
 
-            //----------------------------------------------//
+            //-------------------------------------------//
            
            
                     //*\*/*\/*\*/*\/*\*/*\/*\*///
                     //*\*/*\CONSTRUCTORS/*\*/*\//
                     //*\*/*\/*\*/*\/*\*/*\/*\*///
 					
-int test_stack_constr() {
-	// std::string title = "[CONSTRUCTOR]";
-	// std::cout << title;
-	// size_t sz = 3;
-	// ft::List<int> ft_list (sz,100);
-	// std::list<int> std_list (sz,100);
-	// sz = 2;
-	// ft::Vector<int> ft_vector (sz,200); 
-	// std::vector<int> std_vector (sz,200); 
+int test_stack_constr_size() {
+	std::string title = "[CONSTRUCTOR + SIZE]";
+	std::cout << title;
+	
+	size_t sz = 3;
+	ft::List<int> ft_list (sz,100);
+	std::list<int> std_list (sz,100);
+	sz = 2;
+	ft::Vector<int> ft_vector (sz,200); 
+	std::vector<int> std_vector (sz,200); 
 
-	// ft::Stack<int> ft_firstStack;  
-	// std::stack<int> std_firstStack;
+	ft::Stack<int> ft_firstStack;  
+	std::stack<int,std::list<int> > std_firstStack;
+	/* I set my Stack default container as List cuz I didn't do deque 
+	but u might have made another choice and THAT'S OK <3 */
 
-	// ft::Stack<int> ft_secondStack(ft_list);
-	// std::stack<int> std_secondStack(std_list); 
+	if (ft_firstStack.size() != std_firstStack.size())
+		handle_stack_error(ft_firstStack, std_firstStack, "stack", title, "", "SIZE");
+	// if ((ft_firstStack.top() && std_firstStack.top()) && ft_firstStack.top() != std_firstStack.top())
+	// 	handle_stack_error(ft_firstStack, std_firstStack, "stack", title, "", "BACK");
 
-	// ft::Stack<int,ft::Vector<int> > thirdStack;
-	// ft::Stack<int,ft::Vector<int> > fourthStack (ft_vector);
+	ft::Stack<int> ft_secondStack(ft_list); 
+	std::stack<int,std::list<int> > std_secondStack(std_list); 
 
-	// std::cout << "size of first: " << firstStack.size() << '\n';
-	// std::cout << "size of second: " << secondStack.size() << '\n';
-	// std::cout << "size of third: " << thirdStack.size() << '\n';
-	// std::cout << "size of fourth: " << fourthStack.size() << '\n';		
-// 	ft::List<char> ft_list(5, 'a');
-// 	std::list<char> list(5, 'a');
+	if (ft_secondStack.size() != std_secondStack.size())
+		handle_stack_error(ft_secondStack, std_secondStack, "stack", title, "", "SIZE");
+	if ((ft_secondStack.top() && std_secondStack.top()) && ft_secondStack.top() != std_secondStack.top()) 
+		handle_stack_error(ft_secondStack, std_secondStack, "stack", title, "", "BACK");
 
-// 	chk_result(ft_list, list, "list", title);
+	ft::Stack<int,ft::Vector<int> > ft_thirdStack;
+	std::stack<int,std::vector<int> > std_thirdStack;
 
-// 	ft::List<char> ft_listEmpty(0, 'a');
-// 	std::list<char> listEmpty(0, 'a');
+	if (ft_thirdStack.size() != std_thirdStack.size())
+		handle_stack_error(ft_thirdStack, std_thirdStack, "stack", title, "", "SIZE");
+	// if ((ft_thirdStack.top() && std_thirdStack.top()) && ft_thirdStack.top() != std_thirdStack.top())
+	// 	handle_stack_error(ft_thirdStack, std_thirdStack, "stack", title, "", "BACK");
+	
+	ft::Stack<int,ft::Vector<int> > ft_fourthStack (ft_vector);
+	std::stack<int,std::vector<int> > std_fourthStack (std_vector);
 
-// 	chk_result(ft_list, list, "list", title, "[EMPTY]");
+	if (ft_fourthStack.size() != std_fourthStack.size())
+		handle_stack_error(ft_fourthStack, std_fourthStack, "stack", title, "", "SIZE");
+	if ((ft_fourthStack.top() && std_fourthStack.top()) && ft_fourthStack.top() != std_fourthStack.top())
+		handle_stack_error(ft_fourthStack, std_fourthStack, "stack", title, "", "BACK");
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
 };
-
-// int test_list_rangeConstr() {
-// 	std::string title = "[RANGE CONSTRUCTOR]";
-// 	std::cout << title;
-
-// 	std::list<char> src(10, '!');
-// 	src.push_back('@');
-// 	src.push_front('&');
-// 	ft::List<char> ft_list(src.begin(), src.end());
-// 	std::list<char> list(src.begin(), src.end());
-
-// 	chk_result(ft_list, list, "list", title);
-
-// 	ft::List<char> ft_listEmpty(src.end(), src.end());
-// 	std::list<char> listEmpty(src.end(), src.end());
-
-// 	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
-
-// int test_list_copyConstr() {
-// 	std::string title = "[COPY CONSTR]";
-// 	std::cout << title;
-
-// 	ft::List<char> ft_src(10, '!');
-// 	ft_src.push_back('@');
-// 	ft_src.push_front('&');
-
-// 	std::list<char> src(10, '!');
-// 	src.push_back('@');
-// 	src.push_front('&');
-
-// 	ft::List<char> ft_list(ft_src);
-// 	std::list<char> list(src);
-
-// 	chk_result(ft_list, list, "list", title);
-
-// 	ft::List<char> ft_srcB(0, '!');
-// 	std::list<char> srcB(0, '!');
-// 	ft::List<char> ft_listEmpty(ft_srcB);
-// 	std::list<char> listEmpty(srcB);
-
-// 	chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
-
-// 	//INVALID SRC = UNDEFINED BEHAVIOR
-// 	// ft::List<char> *ft_nullSrc = nullptr;
-// 	// ft::List<char> ft_listNull(*ft_nullSrc);
-// 	// ft::List<char> *nullSrc = nullptr;
-// 	// ft::List<char> listNull(*nullSrc)
-// 	//	chk_result(ft_listNull, listNull, "list", "COPY CONSTRUCTOR [NULL SRC]");
-	
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
-
 
             //----------------------------------------------//
 
@@ -130,360 +85,358 @@ int test_stack_constr() {
                     //*\*/*\/*\*/*\/*\*/*\/*\*/*\*///
 
 int test_stack_empty() {
-	// std::string title = "[EMPTY]";
-	// std::cout << title;
-
-	// ft::List<char> ft_list(5, '!');
-	// std::list<char> list(5, '!');
-	// ft::List<char>::iterator ft_it = ft_list.begin();
-	// std::list<char>::iterator it = list.begin();
-	// ft_it++;
-	// it++;
-
-	// ft_list.push_back('a');
-	// ft_list.insert(ft_it, 'a');
-	// ft_list.insert(ft_it, 'b');
-	// list.push_back('a');
-	// list.insert(it, 'a');
-	// list.insert(it, 'b');
-	// bool ft_empty = ft_list.empty();
-	// bool std_empty = list.empty();
-	// if (ft_empty != std_empty) {
-	// 	std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
-	// 	handle_error(ft_list, list, "list", title, "[FULL]", "CONTENT");
-	// }
+	std::string title = "[EMPTY]";
+	std::cout << title;
 	
-	// ft::List<char> ft_listEmpty;
-	// std::list<char> listEmpty;
-	// ft_listEmpty.empty();
-	// listEmpty.empty();
-	// ft_empty = ft_list.empty();
-	// std_empty = list.empty();
-	// if (ft_empty != std_empty) {
-	// 	std::cerr << "*ft_list.empty() = [" << *ft_it << "] | list.empty() = [" << *it << "]" << std::endl;
-	// 	handle_error(ft_list, list, "list", title, "[EMPTY]", "CONTENT");
-	// }
+	size_t sz = 3;
+	ft::List<int> ft_list (sz,100);
+	std::list<int> std_list (sz,100);
+	sz = 2;
+	ft::Vector<int> ft_vector (sz,200); 
+	std::vector<int> std_vector (sz,200); 
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-	return 0;
-};
+	ft::Stack<int> ft_firstStack;  
+	std::stack<int,std::list<int> > std_firstStack;
+	/* I set my Stack default container as List cuz I didn't do deque 
+	but u might have made another choice and THAT'S OK <3 */
 
-int test_stack_back() {
-	// std::string title = "[BACK]";
-	// std::cout << title;
+	if (ft_firstStack.empty() != std_firstStack.empty())
+		handle_stack_error(ft_firstStack, std_firstStack, "stack", title, "", "empty");
 
-	// ft::List<int> ft_list;
-	// std::list<int> list;
+	ft::Stack<int> ft_secondStack(ft_list); 
+	std::stack<int,std::list<int> > std_secondStack(std_list); 
 
-	// ft_list.push_back(10);
-	// ft_list.push_back(12);
-	// ft_list.push_back(18);
+	if (ft_secondStack.empty() != std_secondStack.empty())
+		handle_stack_error(ft_secondStack, std_secondStack, "stack", title, "", "empty");
 
-	// list.push_back(10);
-	// list.push_back(12);
-	// list.push_back(18);
+	ft::Stack<int,ft::Vector<int> > ft_thirdStack;
+	std::stack<int,std::vector<int> > std_thirdStack;
 
-	// if (ft_list.front() != list.front() || ft_list.back() != list.back()) {
-	// 	std::cerr << "ft_list.front() = [" << ft_list.front() << "] | list.front() = [" << list.front() << "]" << std::endl;
-	// 	std::cerr << "ft_list.back() = [" << ft_list.back() << "] | list.back() = [" << list.back() << "]" << std::endl;
-	// 	handle_error(ft_list, list, "list", title, "", "CONTENT");
-	// }
-
-	// ft::List<int> ft_listEmpty;
-	// std::list<int> listEmpty;
-
-	// if (ft_listEmpty.front() != listEmpty.front() || ft_listEmpty.back() != listEmpty.back()) {
-	// 	std::cerr << "ft_listEmpty.front() = [" << ft_listEmpty.front() << "] | listEmpty.front() = [" << listEmpty.front() << "]" << std::endl;
-	// 	std::cerr << "ft_listEmpty.back() = [" << ft_listEmpty.back() << "] | listEmpty.back() = [" << listEmpty.back() << "]" << std::endl;
-	// 	handle_error(ft_listEmpty, listEmpty, "list", title, "[EMPTY]", "CONTENT");
-	// }
+	if (ft_thirdStack.empty() != std_thirdStack.empty())
+		handle_stack_error(ft_thirdStack, std_thirdStack, "stack", title, "", "empty");
 	
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	ft::Stack<int,ft::Vector<int> > ft_fourthStack (ft_vector);
+	std::stack<int,std::vector<int> > std_fourthStack (std_vector);
 
-	// title = "[FRONT/BACK CONST OVERLOAD]";
-	// std::cout << title;
+	if (ft_fourthStack.empty() != std_fourthStack.empty())
+		handle_stack_error(ft_fourthStack, std_fourthStack, "stack", title, "", "empty");
 
-	// ft::List<int> const ft_constList;
-	// std::list<int> const constList;
-
-	// if (ft_constList.front() != constList.front() || ft_constList.back() != constList.back()) {
-	// 	std::cerr << "ft_constList.front() = [" << ft_constList.front() << "] | constList.front() = [" << constList.front() << "]" << std::endl;
-	// 	std::cerr << "ft_constList.back() = [" << ft_constList.back() << "] | constList.back() = [" << constList.back() << "]" << std::endl;
-	// 	handle_error(ft_constList, constList, "list", title, "[CONST]", "CONTENT");
-	// }
-
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
 };
 
-int test_stack_pushBack() {
-	// std::string title = "[BASIC INSTANCE + PUSH_BACK]";
-	// std::cout << title;
+int test_stack_top_push_pop() {
+	std::string title = "[TOP/PUSH/POP]";
+	std::cout << title;
 
-	// ft::List<int> ft_list;
-	// std::list<int> list;
+	size_t sz = 3;
+	ft::List<int> ft_list (sz,100);
+	std::list<int> std_list (sz,100);
+	sz = 2;
+	ft::Vector<int> ft_vector (sz,200); 
+	std::vector<int> std_vector (sz,200); 
 
-	// ft_list.push_back(10);
-	// ft_list.push_back(12);
-	// ft_list.push_back(18);
+	ft::Stack<int> ft_firstStack(ft_list); 
+	std::stack<int,std::list<int> > std_firstStack(std_list); 
 
-	// list.push_back(10);
-	// list.push_back(12);
-	// list.push_back(18);
+	if (ft_firstStack.top() != std_firstStack.top())
+		handle_stack_error(ft_firstStack, std_firstStack, "stack", title, "list stack after constr", "");
 
-	// chk_result(ft_list, list, "list", title);
+	ft_firstStack.push(42);
+	std_firstStack.push(42);
 
-	// ft::List<char> ft_listEmpty;
-	// ft_list.push_back('&');
-	// std::list<char> listEmpty;
-	// list.push_back('&');
+	if (ft_firstStack.top() != std_firstStack.top())
+		handle_stack_error(ft_firstStack, std_firstStack, "stack", title, "list stack after push", "");
 
-	// chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	ft_firstStack.push(6);
+	std_firstStack.push(6);
 
-	// title = "[BASIC ITERATING + DEREFERENCING]";
-	// std::cout << title;
+	if (ft_firstStack.top() != std_firstStack.top())
+		handle_stack_error(ft_firstStack, std_firstStack, "stack", title, "list stack after push", "");
 
-	// int tmp;
-	// ft::List<int>::iterator it = ft_list.begin();
-	// while (it != ft_list.end()) {
-	// 	//std::cout << *it << std::endl; //commented to keep test output clean
-	// 	tmp = *it;
-	// 	it++;
-	// }
-	// chk_result(ft_list, list, "list", title);
+	ft_firstStack.push(1337);
+	std_firstStack.push(1337);
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	if (ft_firstStack.top() != std_firstStack.top())
+		handle_stack_error(ft_firstStack, std_firstStack, "stack", title, "list stack after push", "");
 
-	// title = "[BASIC REVERSE ITERATING + DEREFERENCING]";
-	// std::cout << title;
+	for (size_t i = 0; i < std_firstStack.size(); i++) {
+		ft_firstStack.pop();
+		std_firstStack.pop();
 
-	// ft::List<int>::reverse_iterator rit = ft_list.rbegin();
-	// while (rit != ft_list.rend()) {
-	// 	//std::cout << *it << std::endl; //commented to keep test output clean
-	// 	tmp = *rit;
-	// 	rit++;
-	// }
-	// chk_result(ft_list, list, "list", title);
+		if (ft_firstStack.top() != std_firstStack.top())
+			handle_stack_error(ft_firstStack, std_firstStack, "stack", title, "list stack after pop", "");
+	}
+	ft_firstStack.pop();
+	std_firstStack.pop();
+	//UNDEFINED
+	// ft_firstStack.pop();
+	// std_firstStack.pop();
+	// ft_firstStack.pop();
+	// std_firstStack.pop();
+	
+	ft::Stack<int,ft::Vector<int> > ft_secondStack (ft_vector);
+	std::stack<int,std::vector<int> > std_secondStack (std_vector);
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-    return 0;
-};
+	if (ft_secondStack.top() != std_secondStack.top())
+		handle_stack_error(ft_secondStack, std_secondStack, "stack", title, "vector stack after constr", "");
 
+	ft_secondStack.push(42);
+	std_secondStack.push(42);
 
-int test_stack_popBack() {
-	// std::string title = "[POP_BACK]";
-	// std::cout << title;
+	if (ft_secondStack.top() != std_secondStack.top())
+		handle_stack_error(ft_secondStack, std_secondStack, "stack", title, "vector stack after push", "");
 
-	// ft::List<char> ft_list(10, '!');
-	// ft_list.push_back('@');
-	// ft_list.push_back('&');
-	// ft_list.push_front('z');
+	ft_secondStack.push(6);
+	std_secondStack.push(6);
 
-	// std::list<char> list(10, '!');
-	// list.push_back('@');
-	// list.push_back('&');
-	// list.push_front('z');
+	if (ft_secondStack.top() != std_secondStack.top())
+		handle_stack_error(ft_secondStack, std_secondStack, "stack", title, "vector stack after push", "");
 
-	// ft_list.pop_back();
-	// list.pop_back();
-	// chk_result(ft_list, list, "list", title);
+	ft_secondStack.push(1337);
+	std_secondStack.push(1337);
 
-	// ft::List<char> ft_listEmpty;
-	// ft_list.pop_back();
-	// std::list<char> listEmpty;
-	// list.pop_back();
+	if (ft_secondStack.top() != std_secondStack.top())
+		handle_stack_error(ft_secondStack, std_secondStack, "stack", title, "vector stack after push", "");
 
-	// chk_result(ft_listEmpty, listEmpty, "list", title, "[EMPTY]");
+	for (size_t i = 0; i < std_secondStack.size(); i++) {
+		ft_secondStack.pop();
+		std_secondStack.pop();
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+		if (ft_secondStack.top() != std_secondStack.top())
+			handle_stack_error(ft_secondStack, std_secondStack, "stack", title, "vector stack after pop", "");
+	}
+	ft_firstStack.pop();
+	std_firstStack.pop();
+
+	ft::Stack<int,ft::Vector<int> > ft_thirdStack;
+	std::stack<int,std::vector<int> > std_thirdStack;
+
+	ft_thirdStack.push(1337);
+	std_thirdStack.push(1337);
+
+	if (ft_thirdStack.size() != std_thirdStack.size())
+		handle_stack_error(ft_thirdStack, std_thirdStack, "stack", title, "empty vector stack after push", "SIZE");
+	if (ft_thirdStack.top() != std_thirdStack.top())
+		handle_stack_error(ft_thirdStack, std_thirdStack, "stack", title, "empty vector stack after push", "");
+
+	ft_thirdStack.push(42);
+	std_thirdStack.push(42);
+	ft_thirdStack.push(42);
+	std_thirdStack.push(42);
+	ft_thirdStack.push(42);
+	std_thirdStack.push(42);
+	ft_thirdStack.push(443);
+	std_thirdStack.push(443);
+
+	if (ft_thirdStack.size() != std_thirdStack.size())
+		handle_stack_error(ft_thirdStack, std_thirdStack, "stack", title, "empty vector stack after push", "SIZE");
+	if (ft_thirdStack.top() != std_thirdStack.top())
+		handle_stack_error(ft_thirdStack, std_thirdStack, "stack", title, "empty vector stack after push", "");
+
+	for (size_t i = 0; i < std_thirdStack.size(); i++) {
+		ft_thirdStack.pop();
+		std_thirdStack.pop();
+
+		if (ft_thirdStack.top() != std_thirdStack.top())
+			handle_stack_error(ft_thirdStack, std_thirdStack, "stack", title, "vector stack after pop", "");
+	}
+	ft_firstStack.pop();
+	std_firstStack.pop();
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
 };
 
-//*\*/*\/*\*/*\/*\*/*\/*\*///
-///*\*/*\NON-MEMBERS/*\*/*\//
-//*\*/*\/*\*/*\/*\*/*\/*\*///
+
+            //----------------------------------------------//
+
+
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					///*\*/*\NON-MEMBERS/*\*/*\//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 int test_stack_nonMembers() {
-	// std::string title = "----[NON-MEMBER OPERATORS]----";
-	// std::cout << std::string((WIDTH - title.size())/2, ' ') << title << std::endl;
-	// title = "[OPERATOR==]";
-	// std::cout << title;
+	std::string title = "----[NON-MEMBER OPERATORS]----";
+	std::cout << std::string((WIDTH - title.size())/2, ' ') << title << std::endl;
+	title = "[OPERATOR==]";
+	std::cout << title;
 
-	// ft::List<int> ft_listA;
-	// std::list<int> listA;
-	// ft_listA.push_back(0);
-	// ft_listA.push_back(2145678);
-	// ft_listA.push_back(-70);
-	// ft_listA.push_back(42);
-	// listA.push_back(0);
-	// listA.push_back(2145678);
-	// listA.push_back(-70);
-	// listA.push_back(42);
-	// ft::List<int> ft_listB;
-	// std::list<int> listB;
-	// ft_listB.push_back(0);
-	// ft_listB.push_back(2145678);
-	// ft_listB.push_back(-70);
-	// ft_listB.push_back(42);
-	// listB.push_back(0);
-	// listB.push_back(2145678);
-	// listB.push_back(-70);
-	// listB.push_back(42);
+	ft::Stack<int,ft::Vector<int> > ft_stackA;
+	std::stack<int,std::vector<int> > std_stackA;
+	ft_stackA.push(0);
+	ft_stackA.push(2145678);
+	ft_stackA.push(-70);
+	ft_stackA.push(42);
+	std_stackA.push(0);
+	std_stackA.push(2145678);
+	std_stackA.push(-70);
+	std_stackA.push(42);
+	ft::Stack<int,ft::Vector<int> > ft_stackB;
+	std::stack<int,std::vector<int> > std_stackB;
+	ft_stackB.push(0);
+	ft_stackB.push(2145678);
+	ft_stackB.push(-70);
+	ft_stackB.push(42);
+	std_stackB.push(0);
+	std_stackB.push(2145678);
+	std_stackB.push(-70);
+	std_stackB.push(42);
 
-	// bool ft_bool = (ft_listA == ft_listB);
-	// bool std_bool = (listA == listB);
-	// if (ft_bool != std_bool) {
-	// 	handle_error(ft_listA, ft_listB, "list", title, "[EQUAL]", "CONTENT");
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// }
+	bool ft_bool = (ft_stackA == ft_stackB);
+	bool std_bool = (std_stackA == std_stackB);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft::List<int> ft_listC;
-	// std::list<int> listC;
-	// ft_listC.push_back(0);
-	// ft_listC.push_back(666);
-	// //ft_listC.push_back(-70);
-	// ft_listC.push_back(42);
-	// listC.push_back(0);
-	// listC.push_back(666);
-	// //listC.push_back(-70);
-	// listC.push_back(42);
+	ft::Stack<int,ft::Vector<int> > ft_stackC;
+	std::stack<int,std::vector<int> > std_stackC;
+	ft_stackC.push(0);
+	ft_stackC.push(666);
+	ft_stackC.push(-70);
+	ft_stackC.push(42);
+	std_stackC.push(0);
+	std_stackC.push(666);
+	std_stackC.push(-70);
+	std_stackC.push(42);
 
-	// ft_bool = (ft_listA == ft_listC);
-	// std_bool = (listA == listC);
-	// if (ft_bool != std_bool) {
-	// 	handle_error(ft_listA, ft_listC, "list", title, "[DIFF]", "CONTENT");
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// }
+	ft_bool = (ft_stackA == ft_stackC);
+	std_bool = (std_stackA == std_stackC);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-	// //------------------------------------------------------------------------
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	//------------------------------------------------------------------------
 
-	// title = "[OPERATOR!=]";
-	// std::cout << title;
+	title = "[OPERATOR!=]";
+	std::cout << title;
 
-	// ft_bool = (ft_listA != ft_listB);
-	// std_bool = (listA != listB);
-	// if (ft_bool != std_bool) {
-	// 	handle_error(ft_listA, ft_listB, "list", title, "[EQUAL]", "CONTENT");
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// }
+	ft_bool = (ft_stackA != ft_stackB);
+	std_bool = (std_stackA != std_stackB);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft_bool = (ft_listA != ft_listC);
-	// std_bool = (listA != listC);
-	// if (ft_bool != std_bool) {
-	// 	handle_error(ft_listA, ft_listC, "list", title, "[DIFF]", "CONTENT");
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// }
+	ft_bool = (ft_stackA != ft_stackC);
+	std_bool = (std_stackA != std_stackC);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-	// //------------------------------------------------------------------------
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	//------------------------------------------------------------------------
 
-	// title = "[OPERATOR<]";
-	// std::cout << title;
+	title = "[OPERATOR<]";
+	std::cout << title;
 
-	// ft_bool = (ft_listC < ft_listA);
-	// std_bool = (listC < listA);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listC, ft_listA, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackC < ft_stackA);
+	std_bool = (std_stackC < std_stackA);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft_bool = (ft_listA < ft_listC);
-	// std_bool = (listA < listC);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listA, ft_listC, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackA < ft_stackC);
+	std_bool = (std_stackA < std_stackC);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft_bool = (ft_listA < ft_listB);
-	// std_bool = (listA < listB);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listA, ft_listB, "list", title, "", "CONTENT");
-	// }
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-	// //------------------------------------------------------------------------
+	ft_bool = (ft_stackA < ft_stackB);
+	std_bool = (std_stackA < std_stackB);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// title = "[OPERATOR<=]";
-	// std::cout << title;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	//------------------------------------------------------------------------
 
-	// ft_bool = (ft_listC <= ft_listA);
-	// std_bool = (listC <= listA);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listC, ft_listA, "list", title, "", "CONTENT");
-	// }
+	title = "[OPERATOR<=]";
+	std::cout << title;
 
-	// ft_bool = (ft_listA <= ft_listC);
-	// std_bool = (listA <= listC);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listA, ft_listC, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackC <= ft_stackA);
+	std_bool = (std_stackC <= std_stackA);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft_bool = (ft_listA <= ft_listB);
-	// std_bool = (listA <= listB);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listA, ft_listB, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackA <= ft_stackC);
+	std_bool = (std_stackA <= std_stackC);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-	// //------------------------------------------------------------------------
+	ft_bool = (ft_stackA <= ft_stackB);
+	std_bool = (std_stackA <= std_stackB);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
+	
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	//------------------------------------------------------------------------
 
-	// title = "[OPERATOR>]";
-	// std::cout << title;
+	title = "[OPERATOR>]";
+	std::cout << title;
 
-	// ft_bool = (ft_listC > ft_listA);
-	// std_bool = (listC > listA);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listC, ft_listA, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackC > ft_stackA);
+	std_bool = (std_stackC > std_stackA);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft_bool = (ft_listA > ft_listC);
-	// std_bool = (listA > listC);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listA, ft_listC, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackA > ft_stackC);
+	std_bool = (std_stackA > std_stackC);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft_bool = (ft_listA > ft_listB);
-	// std_bool = (listA > listB);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listA, ft_listB, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackA > ft_stackB);
+	std_bool = (std_stackA > std_stackB);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-	// //------------------------------------------------------------------------
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	//------------------------------------------------------------------------
 
-	// title = "[OPERATOR>=]";
-	// std::cout << title;
+	title = "[OPERATOR>=]";
+	std::cout << title;
 
-	// ft_bool = (ft_listC >= ft_listA);
-	// std_bool = (listC >= listA);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listC, ft_listA, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackC >= ft_stackA);
+	std_bool = (std_stackC >= std_stackA);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft_bool = (ft_listA >= ft_listC);
-	// std_bool = (listA >= listC);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listA, ft_listC, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackA >= ft_stackC);
+	std_bool = (std_stackA >= std_stackC);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// ft_bool = (ft_listA >= ft_listB);
-	// std_bool = (listA >= listB);
-	// if (ft_bool != std_bool) {
-	// 	std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-	// 	handle_error(ft_listA, ft_listB, "list", title, "", "CONTENT");
-	// }
+	ft_bool = (ft_stackA >= ft_stackB);
+	std_bool = (std_stackA >= std_stackB);
+	if (ft_bool != std_bool) {
+		handle_stack_error(ft_stackA, std_stackA, "stack", title, "bad bool", "");
+		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
+	}
 
-	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
 };
 

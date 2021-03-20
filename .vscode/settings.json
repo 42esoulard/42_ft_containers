@@ -62,6 +62,7 @@
         "vector": "cpp",
         "list": "cpp",
         "iomanip": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "deque": "cpp"
     }
 }

@@ -18,4 +18,5 @@ to do list:
                 c
 
 - Do a close reading of all mans to check if my implementations match
-- Redo iterators because mine are incomplete
+- Redo iterators because mine are incomplete and I didnt get any of this "tags" or "traits" business, so help me dog
+- Use allocator ?

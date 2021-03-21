@@ -15,23 +15,26 @@
 
 namespace ft {
 
-	template <class T>
+	template < class Key, class T, class Compare = std::less<Key> >
 	class MapNode {
 
 		public:
-			typedef T 						value_type;
-			typedef MapNode<value_type> 	node_type;
+			typedef Key 												key_type;
+			typedef T 													mapped_type;
+			typedef std::pair<const key_type, mapped_type> 				value_type;
+			typedef Compare 											key_compare;
+			typedef MapNode<value_type> 								node_type;
 
-			MapNode() 							: _value(), _prev(NULL), _next(NULL) {};
-			MapNode(value_type const &value) 	: _value(value),  _prev(NULL), _next(NULL) {};
-			MapNode(MapNode const &src) 		: _value(src._value), _prev(src._prev), _next(src._next) {};
+			MapNode() 							: _value(), _left(NULL), _right(NULL) {};
+			MapNode(value_type const &value) 	: _value(value),  _left(NULL), _right(NULL) {};
+			MapNode(MapNode const &src) 		: _value(src._value), _left(src._left), _right(src._right) {};
 			~MapNode() {}
 
 			MapNode &operator=(MapNode const &src) {
 
 				this->_value = src._value;
-				this->_prev = src._prev;
-				this->_next = src._next;
+				this->_prev = src._left;
+				this->_next = src._right;
 
 				return (*this);
 			}
@@ -46,50 +49,54 @@ namespace ft {
 				return _value;
 			};
 			
-			MapNode 		*getNext() {
+			MapNode 		*getLeft() {
 
-				return _next;
+				return _left;
 			};
 
-			MapNode const 	*getNext() const {
+			MapNode const 	*getLeft() const {
 
-				return _next;
+				return _left;
 			};
 
-			MapNode	*getPrev() {
+			MapNode	*getRight() {
 
-				return _prev;
+				return _right;
 			};
 
-			MapNode const	*getPrev() const {
+			MapNode const	*getRight() const {
 
-				return _prev;
+				return _right;
 			};
 
 			void resetNode() {
 
-				_next = NULL;
-				_prev = NULL;
+				_left = NULL;
+				_right = NULL;
 			};
 
-			MapNode 		*getBegin() {
+			// MapNode 		*getBegin() {
 
-				MapNode *begin = this;
+			// 	MapNode *begin = this;
 
-				while(begin->_prev)
-					begin = begin->_prev;
+			// 	while(begin->_prev)
+			// 		begin = begin->_prev;
 
-				return begin;
-			};
+			// 	return begin;
+			// };
 
-			void 	setEnd() {
+			// void 	setEnd() {
 
-				MapNode *begin = this;
+			// 	MapNode *begin = this;
 
-				while(begin->_prev)
-					begin = begin->_prev;
-				this->_next = begin;
-			};
+			// 	while(begin->_prev)
+			// 		begin = begin->_prev;
+			// 	this->_next = begin;
+			// };
+
+			node_type 	&addNode(key_type const &key) {
+				if ()
+			}
 
 			void 	addNext(value_type const &value) {
 
@@ -168,8 +175,12 @@ namespace ft {
 		private :
 
 			value_type 		_value;
-			node_type 		*_prev;
-			node_type 		*_next;
+			
+			node_type 		*_up;
+			node_type 		*_left;
+			node_type 		*_right;
+			
+			key_compare 	comp;
 			
 	};
 };

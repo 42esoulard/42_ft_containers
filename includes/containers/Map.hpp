@@ -88,8 +88,9 @@ namespace ft {
 			typedef Key 												key_type;
 			typedef T 													mapped_type;
 			typedef std::pair<const key_type, mapped_type> 				value_type;
+			typedef Compare 											key_compare;
+			typedef MapNode<key_type, mapped_type, key_compare>			node_type;
 			typedef typename std::allocator<node_type> 					allocator_type;
-			//typedef allocator_type 										Alloc;
 			typedef value_type											&reference;
 			typedef value_type const	 								&const_reference;
 			typedef value_type 											*pointer;
@@ -99,9 +100,23 @@ namespace ft {
 			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
 			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
 			typedef std::ptrdiff_t 										difference_type;
-			typedef unsigned long  										size_type;
+			typedef size_t 		  										size_type;
 			
-
+			//template <class Key, class T, class Compare, class Alloc>
+			class value_compare {
+				friend class map;
+				protected:
+					Compare comp;
+					value_compare (Compare c) : comp(c) {}
+					
+				public:
+					typedef bool result_type;
+					typedef value_type first_argument_type;
+					typedef value_type second_argument_type;
+					bool operator() (const value_type& x, const value_type& y) const {
+						return comp(x.first, y.first);
+					}
+			}
 			//----------------------------------------------//
 
 
@@ -110,58 +125,39 @@ namespace ft {
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> default
-			explicit Map () {
+			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
+				_k_compare(comp), _allocator(alloc) {
 
-				_begin = new node_type();
-				_end = _begin;
+				_begin = NULL;//should i allocate just in case ?
 				_size = 0;
-				
-				_end->setEnd();
-			};
-
-			// >>> fill
-			explicit Map (size_type n, const value_type& val = value_type()) {
-
-				_begin = new node_type();
-				_end = _begin;
-				_size = 0;
-
-				assign(n, val);
-
-				_end->setEnd();
 			};
 
 			// >>> range
-			template <class InputIterator>
-		 	Map (InputIterator first, InputIterator last)  {
+			template <class InputIterator> map (InputIterator first, InputIterator last, 
+			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {
 
-		 		_begin = new node_type();
-				_end = _begin;
+		 		_begin = NULL;//should i allocate just in case ?
 				_size = 0;
-
-		 		assign(first, last);
-
-				_end->setEnd();
 		 	};	
 			
 			// >>> copy 
 			Map (const Map& x) {
 
-				_begin = new node_type();
-				_end = _begin;
-				_size = 0;
+				// _begin = new node_type();
+				// _end = _begin;
+				// _size = 0;
 
-		 		assign(x.begin(), x.end());
+		 		// assign(x.begin(), x.end());
 
-				_end->setEnd();
+				// _end->setEnd();
 			}; 
 
 			Map& operator= (const Map& x) {
 
-				clear();
-				assign(x.begin(), x.end());
+				// clear();
+				// assign(x.begin(), x.end());
 
-				return *this;
+				// return *this;
 			}; //destroy all content then copy
 
 
@@ -174,8 +170,8 @@ namespace ft {
 
 			~Map() { 
 
-				clear(); 
-				delete _end; 
+				// clear(); 
+				// delete _end; 
 			};
 
 
@@ -186,51 +182,51 @@ namespace ft {
 					//*\*/*\*/ITERATORS/*\*/*\*//
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-			iterator 		begin() {
+			// iterator 		begin() {
 
-				return iterator(_begin);
-			};
+			// 	return iterator(_begin);
+			// };
 
-			const_iterator 	begin() const{
+			// const_iterator 	begin() const{
 
-				return const_iterator(_begin);
-			};
+			// 	return const_iterator(_begin);
+			// };
 
-			iterator end(){
+			// iterator end(){
 
-				return iterator(_end);
-			};
+			// 	return iterator(_end);
+			// };
 
-			const_iterator end() const{
+			// const_iterator end() const{
 
-				return const_iterator(_end);
-			};
-			// points after last Map element
+			// 	return const_iterator(_end);
+			// };
+			// // points after last Map element
 
-			reverse_iterator rbegin() {
+			// reverse_iterator rbegin() {
 
-				if (_end->getPrev())
-					return (reverse_iterator(_end->getPrev()));
-				return (reverse_iterator(_end));
-			};
+			// 	// if (_end->getPrev())
+			// 	// 	return (reverse_iterator(_end->getPrev()));
+			// 	// return (reverse_iterator(_end));
+			// };
 
-			const_reverse_iterator rbegin() const {
+			// const_reverse_iterator rbegin() const {
 
-				if (_end->getPrev())
-					return (const_reverse_iterator(_end->getPrev()));
-				return (const_reverse_iterator(_end));
-			};
-			// point to last element, incrementing actually decrements
+			// 	// if (_end->getPrev())
+			// 	// 	return (const_reverse_iterator(_end->getPrev()));
+			// 	// return (const_reverse_iterator(_end));
+			// };
+			// // point to last element, incrementing actually decrements
 
-			reverse_iterator rend() {
+			// reverse_iterator rend() {
 
-				return (reverse_iterator(_begin->getPrev()));
-			};
+			// 	// return (reverse_iterator(_begin->getPrev()));
+			// };
 
-			const_reverse_iterator rend() const {
+			// const_reverse_iterator rend() const {
 
-				return (const_reverse_iterator(_begin->getPrev()));
-			};
+			// 	// return (const_reverse_iterator(_begin->getPrev()));
+			// };
 			// point to hypothetical element BEFORE first element
 
 
@@ -272,31 +268,13 @@ namespace ft {
 					//*\*/ELEMENT ACCESS/*\*/*\//
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-			reference front() {
-
-				return _begin->getValue();
+			mapped_type& operator[] (const key_type& k) {
+				//search for key , return ref to its mapped_value (content)
+				//if key k not found:
+					//insert new elem with key k and default mapped_value mapped_value()
+					//_size++
+					//return ref to its defaulted mapped_value
 			};
-
-			const_reference front() const{
-
-				return _begin->getValue();
-			};
-			//same as begin() but returns a reference
-
-			reference back() {
-
-				if (size())
-					return _end->getPrev()->getValue();
-				return _end->getValue();
-			};
-
-			const_reference back() const{
-
-				if (size())
-					return _end->getPrev()->getValue();
-				return _end->getValue();
-			};
-			//returns a reference to the last Map element(not after it)
 
 
 			//----------------------------------------------//
@@ -306,146 +284,80 @@ namespace ft {
 					///*\*/*\*/MODIFIERS/*\*/*\//
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-			// >>> range
-			template <class InputIterator>
-  			void assign (InputIterator first, InputIterator last) {
-
-				this->clear();
-
-  				while (first != last) {
-		 			this->push_back(*first);
-		 			first++;
-		 		}
-				_begin = _end->getBegin();
-				_end->setEnd();
-  			};
-
-			// >>> fill
-			void assign (size_type n, const value_type& val) {
-
-				this->clear();
-
-				while (_size < n) {
-					push_back(val);
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//Assigns new contents to the Map container, replacing its current contents, and modifying its size accordingly.
-
-			void push_front (const value_type& val) {
-
-				_begin->addPrev(val);
-				_begin = _end->getBegin();
-				_size++;
+			// >>> single element
+			pair<iterator,bool> insert (const value_type& val) {
 				
-				_end->setEnd();
 			};
-			//insert elem at the beginning. 
+			//return a pair, with its member pair::first set to an iterator pointing to either the newly inserted element or to the element with an equivalent key 
 
-			void pop_front() {
-
-				if (_size) {
-					_begin->delNode();
-					_size--;
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//remove & destroy first element.
-
-			void push_back (const value_type& val) { 
-
-				_end->addPrev(val);
-				_size++;
-				
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//Adding elements to a map = adding nodes before end. 
-
-			void pop_back() {
-
-				if (_size == 1) { //case 1 = Node1 endNode 
-					_begin->delNode();//last node = Node1
-					_size--;
-				}
-				else if (_size > 1) { //case 2 = Node1 Node2 Node3 endNode
-					_end->getPrev()->delNode();//delete Node3
-					_size--;
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//remove & destroy last element
-
+			// >>> with hint
 			iterator insert (iterator position, const value_type& val) {
 
-				position.getNode()->addPrev(val);
-				_size++;
+				// position.getNode()->addPrev(val);
+				// _size++;
 
-				_begin = _end->getBegin();
-				_end->setEnd();
+				// _begin = _end->getBegin();
+				// _end->setEnd();
 
-				return iterator(position.getNode()->getPrev());
+				// return iterator(position.getNode()->getPrev());
 
 			}; 
-			//remove 1 element
+			//return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map.
     		
-			// >>> fill
-			void insert (iterator position, size_type n, const value_type& val) {
-
-				for (size_type i = 0; i < n; i++)
-					position = insert(position, val);
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			
 			// >>> range
 			template <class InputIterator>
-    		void insert (iterator position, InputIterator first, InputIterator last) {
+    		void insert (InputIterator first, InputIterator last) {
 
-				while (first != last) {
-					insert(position, *first);
-					first++;
-				}
+				// while (first != last) {
+				// 	insert(position, *first);
+				// 	first++;
+				// }
 
-				_begin = _end->getBegin();
-				_end->setEnd();
+				// _begin = _end->getBegin();
+				// _end->setEnd();
 			};
     		//Extend the container by inserting new elements before the element at the specified position
 
-			iterator erase (iterator position) {
+			void erase (iterator position) {
 				
-				iterator ret = iterator(position.getNode()->getNext());
+				// iterator ret = iterator(position.getNode()->getNext());
 				
-				position.getNode()->delNode();
-				_size--;
+				// position.getNode()->delNode();
+				// _size--;
 
-				_begin = _end->getBegin();
-				_end->setEnd();
-				return ret;
+				// _begin = _end->getBegin();
+				// _end->setEnd();
+				// return ret;
 			};
+
+			size_type erase (const key_type &k) {
+				
+				// iterator ret = iterator(position.getNode()->getNext());
+				
+				// position.getNode()->delNode();
+				// _size--;
+
+				// _begin = _end->getBegin();
+				// _end->setEnd();
+				// return ret;
+			};
+			//returns the nb of elements removed
 			
 			iterator erase (iterator first, iterator last) {
 
-				iterator ret = iterator(last.getNode()->getNext());
+				// iterator ret = iterator(last.getNode()->getNext());
 
-				if (last.getNode() == _end)
-					ret = this->end();
+				// if (last.getNode() == _end)
+				// 	ret = this->end();
 
-				while (first != last)
-					erase(first++);
+				// while (first != last)
+				// 	erase(first++);
 
-				_begin = _end->getBegin();
-				_end->setEnd();
-				return ret;
+				// _begin = _end->getBegin();
+				// _end->setEnd();
+				// return ret;
 			};
-			// remove & destroy either 1 element or a range of elements. 
+			// remove & destroy a range of elements. 
 
 			void swap (Map& x) {
 
@@ -456,57 +368,29 @@ namespace ft {
 				_begin = x._begin;
 				x._begin = tmp;
 
-				tmp = _end;
-				_end = x._end;
-				x._end = tmp;
+				// tmp = _end;
+				// _end = x._end;
+				// x._end = tmp;
 
 				_size = x._size;
 				x._size = sz;
 			};
 			//exchange content with container of the same type
 
-			void resize (size_type n, value_type val = value_type()) {
-
-				node_type *tmp = _begin;
-				node_type *next;
-				size_type i = 0;
-
-				if (_size > n) {
-					while (i++ < n)
-						tmp = tmp->getNext();
-					while (i++ <= _size) {
-						next = tmp->getNext();
-						tmp->delNode();
-						tmp = next;
-					}
-				}
-				else if (_size < n) {
-					iterator it = this->end();
-					i = _size;
-					while (i++ < n)
-						it = insert(it, val);
-				}
-				_size = n;
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//either removes elements beyond n elements or add elements until container size is n 
-
 			void clear() {
 
-				node_type *tmp;
+				// node_type *tmp;
 
-				while (_begin != _end) {
-					tmp = _begin->getNext();
-					delete _begin;
-					_begin = tmp;
-				}
-				_size = 0;
-				_end->resetNode();
+				// while (_begin != _end) {
+				// 	tmp = _begin->getNext();
+				// 	delete _begin;
+				// 	_begin = tmp;
+				// }
+				// _size = 0;
+				// _end->resetNode();
 				
-				_begin = _end;
-				_end->setEnd();
+				// _begin = _end;
+				// _end->setEnd();
 			};
 			//removes all elements (size == 0)
 			
@@ -515,390 +399,83 @@ namespace ft {
 
 
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
+					///*\*/*\*/OBSERVERS/*\*/*\//
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
+
+			key_compare key_comp() const {
+				return _k_compare;
+			};
+			//my key_compare member, if I got that right
+
+			value_compare value_comp() const {
+				return _v_compare;
+			};
+
+			//----------------------------------------------//
+
+
+					//*\*/*\/*\*/*\/*\*/*\/*\*///
 					///*\*/*\*/OPERATIONS/*\*/*//
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-			void splice (iterator position, Map& other) {
-
-				iterator srcIt = other.begin();
-				iterator srcEnd = other.end();
-				iterator otherNext = srcIt;
-				
-				node_type *cur = position.getNode();;
-
-				while (srcIt != srcEnd) {
-					otherNext++;
-					cur->addPrevNode(srcIt.getNode());
-					srcIt = otherNext;
-				}
-				
-				_begin = _end->getBegin();
-				_end->setEnd();
-
-				other._end->resetNode();
-				other._begin = other._end;
-				other._end->setEnd();
-			}; 
-			//entire map
-			
-			void splice (iterator position, Map& other, iterator it) {
-
-				node_type *cur;
-
-				it.getNode()->forgetNode();
-
-				cur = position.getNode();
-				cur->addPrevNode(it.getNode());
-
-				_begin = _end->getBegin();
-				_end->setEnd();				
-
-				other._begin = other._end->getBegin();
-				other._end->setEnd();		
-			}; 
-			// just 1 element
-
-			// >>> range
-			void splice (iterator position, Map& other, iterator first, iterator last) {
-
-				iterator next;
-
-				while (first != last) {
-					next = first;
-					next++;
-					splice(position, other, first);
-					first = next;
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();	
-			}; 
-			// Transfer of elements from other into the container
-
-			void remove (const value_type& val) {
-
-				iterator it = this->begin();
-				iterator ite = this->end();
-				iterator tmp;
-
-				while(it != ite) {
-					if (*it == val) {
-						tmp = iterator(it.getNode()->getNext());
-						it.getNode()->delNode();
-						_begin = tmp.getNode()->getBegin();
-
-						if (tmp.getNode() == _end)
-							break ;
-						it = begin();
-					}
-					else
-						it++;
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//remove elements with specific value
-
-			template <class Predicate>
-  			void remove_if (Predicate pred) {
-
-				iterator it = this->begin();
-				iterator ite = this->end();
-				iterator tmp;
-
-				int index = -1;
-
-				while(it != ite) {
-					index++;
-					if (pred(*it)) {
-						tmp = iterator(it.getNode()->getNext());
-						it.getNode()->delNode();
-						_begin = _end->getBegin();
-						
-						if (tmp.getNode() == _end)
-							break ;
-						it = begin();
-						index = -1;
-					}
-					else
-						it++;
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			// pred is a function returning a bool. Check if p(val) is true for each element
-
-			void unique() {
-
-				iterator it = this->begin();
-				iterator tmp = it;
-				iterator ite = this->end();
-
-				for (it = this->begin(); it != ite; it++) {
-					if (it.getNode()->getPrev() && it.getNode()->getPrev()->getValue() == *it) {
-						tmp = iterator(it.getNode()->getPrev());
-						it.getNode()->delNode();
-						it = tmp;
-					}
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//remove all but the first element from every consecutive group of equal elements in the container
-			
-			template <class BinaryPredicate>
-  			void unique (BinaryPredicate binary_pred) {
-
-				iterator it = this->begin();
-				iterator tmp = it;
-				iterator ite = this->end();
-
-				for (it = this->begin(); it != ite; it++) {
-					if (it.getNode()->getPrev() && binary_pred(it.getNode()->getPrev()->getValue(), *it)) {
-						tmp = iterator(it.getNode()->getPrev());
-						it.getNode()->delNode();
-						it = tmp;
-					}
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//can take any "comparison" function
-
-			void merge (Map& other) {
-
-				if (other == *this)
-					return ;
-
-				iterator thisIt = this->begin();
-				iterator thisIte = this->end();
-				
-				iterator otherIt = other.begin();
-				iterator otherIte = other.end();
-				iterator otherNext = otherIt;
-
-				while (thisIt != thisIte) {
-					if (otherIt != otherIte && *otherIt < *thisIt) {
-						otherNext = otherIt;
-						otherNext++;
-						splice(thisIt, other, otherIt);
-						otherIt = otherNext;
-					}
-					else
-						thisIt++;
-				}
-				if (otherIt != otherIte)
-					splice(thisIt, other, otherIt, otherIte);
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-
-			template <class Compare>
-  			void merge (Map& other, Compare comp) {
-			
-				if (other == *this)
-					return ;
-				
-				iterator thisIt = this->begin();
-				iterator thisIte = this->end();
-
-				iterator otherIt = other.begin();
-				iterator otherIte = other.end();
-				iterator otherNext = otherIt;
-
-				while (thisIt != thisIte) {
-					if (otherIt != otherIte && comp(*otherIt, *thisIt)) {
-						otherNext = otherIt;
-						otherNext++;
-						splice(thisIt, other, otherIt);
-						otherIt = otherNext;
-					}
-					else
-						thisIt++;
-				}
-				if (otherIt != otherIte)
-					splice(thisIt, other, otherIt, otherIte);
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-  			//remove elements from x and insert them in container in orderly fashion
-			
-			void sort() {
-
-				iterator it = this->begin();
-				iterator ite = this->end();
-				
-				for (it = this->begin(); it != ite; ++it) {
-					if (it.getNode()->getPrev() && *it < it.getNode()->getPrev()->getValue()) {
-						it.getNode()->swapNodes(it.getNode()->getPrev(), it.getNode());
-						_begin = it.getNode()->getBegin();
-						it = begin();
-					}			
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-			//use < for comparison
-			
-			template <class Compare>
-  			void sort (Compare comp) {
-			
-				iterator it = this->begin();
-				iterator ite = this->end();
-				
-				for (it = this->begin(); it != ite; ++it) {
-					if (it.getNode()->getPrev() && comp(*it, it.getNode()->getPrev()->getValue())) {
-						it.getNode()->swapNodes(it.getNode()->getPrev(), it.getNode());
-						_begin = it.getNode()->getBegin();
-						it = begin();
-					}			
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
-			};
-
-  			void reverse() {
-
-				iterator it = this->begin();
-				reverse_iterator rit = this->rbegin();
-
-				value_type tmp;
-				
-				int i = -1;
-				while (++i != _size / 2) {
-					tmp = *it;
-					*it = *rit;
-					*rit = tmp;
-					it++;
-					rit++;
-				}
-
-				_begin = _end->getBegin();
-				_end->setEnd();
+			iterator find (const key_type& k) {
 
 			};
-			//reverse the order of elements
+			// return it to matching element if found, else iterator to end 
+
+			const_iterator find (const key_type& k) const {
+
+			};
+			// return it to matching element if found, else iterator to end 
+
+			size_type count (const key_type& k) const {
+
+			};
+			// return 1 if element is found, else 0
+
+			iterator lower_bound (const key_type& k) {
+
+			};
+			// return an iterator to the first element for which key_comp(element_key,k) would return false
+
+			const_iterator lower_bound (const key_type& k) const {
+
+			};
+			// return an iterator to the first element for which key_comp(element_key,k) would return false
+
+			iterator upper_bound (const key_type& k) {
+
+			};
+			// return an iterator to the first element for which key_comp(element_key,k) would return true
+
+			const_iterator upper_bound (const key_type& k) const {
+
+			};
+			// return an iterator to the first element for which key_comp(element_key,k) would return true
+
+			pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+
+			};
+			// returns element with k equivalent to k (for which key_comp returns fals whatever order of the elems)
+			// If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).
+
+			pair<iterator,iterator>             equal_range (const key_type& k) {
+
+			};
+			// returns element with k equivalent to k (for which key_comp returns fals whatever order of the elems)
+			// If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).
+
 
 		private:
 
 			node_type 			*_begin;
-			node_type 			*_end;
+			// node_type 			*_end;
+			allocator_type 		_allocator;
 			size_type 			_size;
+			key_compare 		_k_compare;
+			value_compare 		_v_compare;
 			
 	};
-	
-	
-	//----------------------------------------------//		
-
-
-			//*\*/*\/*\*/*\/*\*/*\/*\*///
-			///*\*/*\NON-MEMBERS/*\*/*\//
-			//*\*/*\/*\*/*\/*\*/*\/*\*///
-
-	template < class T, class Alloc>
-	bool operator== (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
-	
-		if (lhs.size() != rhs.size())
-			return false;
-
-		MapIterator< const T, const MapNode<T> > lhsIt = lhs.begin();
-		MapIterator< const T, const MapNode<T> > rhsIt = rhs.begin();
-		
-		size_t i = 0;
-
-		while (i++ != lhs.size()) {
-			if (*lhsIt != *rhsIt)
-				return false;
-			lhsIt++;
-			rhsIt++;
-		}
-
-		return true;
-	};
-
-	template <class T, class Alloc>
-	bool operator!= (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
-
-		if (rhs == lhs)
-			return false;
-
-		return true;
-	};
-
-	template <class T, class Alloc>
-	bool operator<  (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
-
-		if (lhs.size() > rhs.size())
-		 	return false;
-
-		MapIterator< const T, const MapNode<T> > lhsIt = lhs.begin();
-		MapIterator< const T, const MapNode<T> > rhsIt = rhs.begin();
-	
-		size_t i = 0;
-		while (i != lhs.size() && i != rhs.size()) {
-			if (*lhsIt < *rhsIt)
-				return true;
-			lhsIt++;
-			rhsIt++;
-			i++;
-		}
-		
-		return false;
-	};
-
-	template <class T, class Alloc>
-	bool operator<= (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
-
-		if (lhs == rhs)
-			return true;
-
-		return (lhs < rhs);
-	};
-
-	template <class T, class Alloc>
-	bool operator>  (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
-	
-		if (lhs.size() < rhs.size())
-			return false;
-
-		MapIterator< const T, const MapNode<T> > lhsIt = lhs.begin();
-		MapIterator< const T, const MapNode<T> > rhsIt = rhs.begin();
-	
-		size_t i = 0;
-		while (i != lhs.size() && i != rhs.size()) {
-			if (*lhsIt > *rhsIt)
-				return true;
-			lhsIt++;
-			rhsIt++;
-			i++;
-		}
-		
-		return false;
-	};
-
-	template <class T, class Alloc>
-	bool operator>= (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
-
-		if (lhs == rhs)
-			return true;
-
-		return (lhs > rhs);
-	};
-
-	template <class T, class Alloc>
-  	void swap (Map<T,Alloc>& x, Map<T,Alloc>& y) {
-
-		  x.swap(y);
-	};
-
 };
 
 #endif

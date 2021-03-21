@@ -16,3 +16,6 @@ to do list:
               b f   
                \
                 c
+
+- Do a close reading of all mans to check if my implementations match
+- Redo iterators because mine are incomplete

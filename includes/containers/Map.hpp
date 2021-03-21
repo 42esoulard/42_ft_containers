@@ -1,46 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   List.hpp                                           :+:      :+:    :+:   */
+/*   Map.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/21 11:54:38 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/21 11:39:19 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_HPP
-#define LIST_HPP
+#ifndef MAP_HPP
+#define MAP_HPP
 
 #include <limits>
 #include <iostream>
-#include "ListNode.hpp"
+#include "MapNode.hpp"
 
 namespace ft {
 
 	template < class value_type, class node_type >
-	class ListIterator {
+	class MapIterator {
 
 		public:
 
-			ListIterator() {node_type tmp = node_type(); p = &tmp;};
-			ListIterator(node_type *x) :p(x) {};
-			ListIterator(const ListIterator& mit) : p(mit.p) {};
+			MapIterator() {node_type tmp = node_type(); p = &tmp;};
+			MapIterator(node_type *x) :p(x) {};
+			MapIterator(const MapIterator& mit) : p(mit.p) {};
 
-			ListIterator& operator++() {
+			MapIterator& operator++() {
 				p = p->getNext();
 				
 				return *this;
 			};
 
-			ListIterator operator++(int) {ListIterator tmp(*this); operator++(); return tmp;};
-			ListIterator const operator++(int) const {ListIterator tmp(*this); operator++(); return tmp;};
+			MapIterator& operator--() {
+				p = p->getPrev();
+				
+				return *this;
+			};
+
+			MapIterator operator++(int) {MapIterator tmp(*this); operator++(); return tmp;};
+			MapIterator const operator++(int) const {MapIterator tmp(*this); operator++(); return tmp;};
+			MapIterator operator--(int) {MapIterator tmp(*this); operator--(); return tmp;};
+			MapIterator const operator--(int) const {MapIterator tmp(*this); operator--(); return tmp;};
 
 			node_type *getNode() {return p;};
 
-			bool operator==(const ListIterator& rhs) const {return p==rhs.p;};
-			bool operator!=(const ListIterator& rhs) const {return p!=rhs.p;};
+			bool operator==(const MapIterator& rhs) const {return p==rhs.p;};
+			bool operator!=(const MapIterator& rhs) const {return p!=rhs.p;};
 			value_type &operator*() const {return p->getValue();};
 
 		private:
@@ -49,7 +57,7 @@ namespace ft {
 	};
 
 	template < class value_type, class node_type >
-	class Reverse_Iterator : public ListIterator<value_type,node_type > {
+	class Reverse_Iterator : public MapIterator<value_type,node_type > {
 
 		public:
 			Reverse_Iterator() {node_type *tmp; p = tmp;};
@@ -69,23 +77,25 @@ namespace ft {
 
 	//************************************************************************************************
 
-	template < class T, class Alloc = std::allocator<T> > 
-	class List {
+	template < class Key, class T, class Compare = std::less<Key> >
+	class Map {
 
 		public:
 
 			// ALIASES:
 
-			typedef T 													value_type;
-			typedef ListNode<value_type> 								node_type;
+			
+			typedef Key 												key_type;
+			typedef T 													mapped_type;
+			typedef std::pair<const key_type, mapped_type> 				value_type;
 			typedef typename std::allocator<node_type> 					allocator_type;
 			//typedef allocator_type 										Alloc;
 			typedef value_type											&reference;
 			typedef value_type const	 								&const_reference;
-			typedef node_type 											*pointer;
-			typedef node_type const	 									*const_pointer;
-			typedef ListIterator<value_type, node_type> 					iterator;
-			typedef ListIterator<value_type const, node_type const> 		const_iterator;
+			typedef value_type 											*pointer;
+			typedef value_type const	 								*const_pointer;
+			typedef MapIterator<value_type, node_type> 					iterator;
+			typedef MapIterator<value_type const, node_type const> 		const_iterator;
 			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
 			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
 			typedef std::ptrdiff_t 										difference_type;
@@ -100,7 +110,7 @@ namespace ft {
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> default
-			explicit List () {
+			explicit Map () {
 
 				_begin = new node_type();
 				_end = _begin;
@@ -110,7 +120,7 @@ namespace ft {
 			};
 
 			// >>> fill
-			explicit List (size_type n, const value_type& val = value_type()) {
+			explicit Map (size_type n, const value_type& val = value_type()) {
 
 				_begin = new node_type();
 				_end = _begin;
@@ -123,7 +133,7 @@ namespace ft {
 
 			// >>> range
 			template <class InputIterator>
-		 	List (InputIterator first, InputIterator last)  {
+		 	Map (InputIterator first, InputIterator last)  {
 
 		 		_begin = new node_type();
 				_end = _begin;
@@ -135,7 +145,7 @@ namespace ft {
 		 	};	
 			
 			// >>> copy 
-			List (const List& x) {
+			Map (const Map& x) {
 
 				_begin = new node_type();
 				_end = _begin;
@@ -146,7 +156,7 @@ namespace ft {
 				_end->setEnd();
 			}; 
 
-			List& operator= (const List& x) {
+			Map& operator= (const Map& x) {
 
 				clear();
 				assign(x.begin(), x.end());
@@ -162,7 +172,7 @@ namespace ft {
 					//*\*/*\DESTRUCTORS/*\*/*\///
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-			~List() { 
+			~Map() { 
 
 				clear(); 
 				delete _end; 
@@ -195,7 +205,7 @@ namespace ft {
 
 				return const_iterator(_end);
 			};
-			// points after last List element
+			// points after last Map element
 
 			reverse_iterator rbegin() {
 
@@ -252,7 +262,7 @@ namespace ft {
 					return maxDiff;
 				return maxVal;
 			};
-			//returns max nb of elements List can hold, due to system or library limitations
+			//returns max nb of elements Map can hold, due to system or library limitations
 
 
 			//----------------------------------------------//
@@ -286,7 +296,7 @@ namespace ft {
 					return _end->getPrev()->getValue();
 				return _end->getValue();
 			};
-			//returns a reference to the last List element(not after it)
+			//returns a reference to the last Map element(not after it)
 
 
 			//----------------------------------------------//
@@ -322,7 +332,7 @@ namespace ft {
 				_begin = _end->getBegin();
 				_end->setEnd();
 			};
-			//Assigns new contents to the List container, replacing its current contents, and modifying its size accordingly.
+			//Assigns new contents to the Map container, replacing its current contents, and modifying its size accordingly.
 
 			void push_front (const value_type& val) {
 
@@ -354,7 +364,7 @@ namespace ft {
 				_begin = _end->getBegin();
 				_end->setEnd();
 			};
-			//Adding elements to a list = adding nodes before end. 
+			//Adding elements to a map = adding nodes before end. 
 
 			void pop_back() {
 
@@ -437,7 +447,7 @@ namespace ft {
 			};
 			// remove & destroy either 1 element or a range of elements. 
 
-			void swap (List& x) {
+			void swap (Map& x) {
 
 				node_type *tmp;
 				int sz = _size;
@@ -508,7 +518,7 @@ namespace ft {
 					///*\*/*\*/OPERATIONS/*\*/*//
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-			void splice (iterator position, List& other) {
+			void splice (iterator position, Map& other) {
 
 				iterator srcIt = other.begin();
 				iterator srcEnd = other.end();
@@ -529,9 +539,9 @@ namespace ft {
 				other._begin = other._end;
 				other._end->setEnd();
 			}; 
-			//entire list
+			//entire map
 			
-			void splice (iterator position, List& other, iterator it) {
+			void splice (iterator position, Map& other, iterator it) {
 
 				node_type *cur;
 
@@ -549,7 +559,7 @@ namespace ft {
 			// just 1 element
 
 			// >>> range
-			void splice (iterator position, List& other, iterator first, iterator last) {
+			void splice (iterator position, Map& other, iterator first, iterator last) {
 
 				iterator next;
 
@@ -659,7 +669,7 @@ namespace ft {
 			};
 			//can take any "comparison" function
 
-			void merge (List& other) {
+			void merge (Map& other) {
 
 				if (other == *this)
 					return ;
@@ -689,7 +699,7 @@ namespace ft {
 			};
 
 			template <class Compare>
-  			void merge (List& other, Compare comp) {
+  			void merge (Map& other, Compare comp) {
 			
 				if (other == *this)
 					return ;
@@ -794,13 +804,13 @@ namespace ft {
 			//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 	template < class T, class Alloc>
-	bool operator== (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	bool operator== (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
 	
 		if (lhs.size() != rhs.size())
 			return false;
 
-		ListIterator< const T, const ListNode<T> > lhsIt = lhs.begin();
-		ListIterator< const T, const ListNode<T> > rhsIt = rhs.begin();
+		MapIterator< const T, const MapNode<T> > lhsIt = lhs.begin();
+		MapIterator< const T, const MapNode<T> > rhsIt = rhs.begin();
 		
 		size_t i = 0;
 
@@ -815,7 +825,7 @@ namespace ft {
 	};
 
 	template <class T, class Alloc>
-	bool operator!= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	bool operator!= (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
 
 		if (rhs == lhs)
 			return false;
@@ -824,13 +834,13 @@ namespace ft {
 	};
 
 	template <class T, class Alloc>
-	bool operator<  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	bool operator<  (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
 
 		if (lhs.size() > rhs.size())
 		 	return false;
 
-		ListIterator< const T, const ListNode<T> > lhsIt = lhs.begin();
-		ListIterator< const T, const ListNode<T> > rhsIt = rhs.begin();
+		MapIterator< const T, const MapNode<T> > lhsIt = lhs.begin();
+		MapIterator< const T, const MapNode<T> > rhsIt = rhs.begin();
 	
 		size_t i = 0;
 		while (i != lhs.size() && i != rhs.size()) {
@@ -845,7 +855,7 @@ namespace ft {
 	};
 
 	template <class T, class Alloc>
-	bool operator<= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	bool operator<= (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
 
 		if (lhs == rhs)
 			return true;
@@ -854,13 +864,13 @@ namespace ft {
 	};
 
 	template <class T, class Alloc>
-	bool operator>  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	bool operator>  (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
 	
 		if (lhs.size() < rhs.size())
 			return false;
 
-		ListIterator< const T, const ListNode<T> > lhsIt = lhs.begin();
-		ListIterator< const T, const ListNode<T> > rhsIt = rhs.begin();
+		MapIterator< const T, const MapNode<T> > lhsIt = lhs.begin();
+		MapIterator< const T, const MapNode<T> > rhsIt = rhs.begin();
 	
 		size_t i = 0;
 		while (i != lhs.size() && i != rhs.size()) {
@@ -875,7 +885,7 @@ namespace ft {
 	};
 
 	template <class T, class Alloc>
-	bool operator>= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	bool operator>= (const Map<T,Alloc>& lhs, const Map<T,Alloc>& rhs) {
 
 		if (lhs == rhs)
 			return true;
@@ -884,7 +894,7 @@ namespace ft {
 	};
 
 	template <class T, class Alloc>
-  	void swap (List<T,Alloc>& x, List<T,Alloc>& y) {
+  	void swap (Map<T,Alloc>& x, Map<T,Alloc>& y) {
 
 		  x.swap(y);
 	};

@@ -5,7 +5,7 @@ INC_CONT 	:= $(addprefix ${INC_CDIR}, ${INC_CONT})
 #############################################################
 
 ########################### UTILS ###########################
-INC_UTILS	= ft_containers.h Node.hpp 
+INC_UTILS	= ft_containers.h ListNode.hpp 
 INC_UDIR	= includes/utils/
 INC_UTILS	:= $(addprefix ${INC_UDIR},${INC_UTILS})
 #############################################################

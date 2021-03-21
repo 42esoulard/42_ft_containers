@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Node.hpp                                           :+:      :+:    :+:   */
+/*   MapNode.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 14:37:03 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/17 14:16:45 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/12 13:19:10 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NODE_HPP
-#define NODE_HPP
+#ifndef MAPNODE_HPP
+#define MAPNODE_HPP
 
 namespace ft {
 
 	template <class T>
-	class Node {
+	class MapNode {
 
 		public:
 			typedef T 						value_type;
-			typedef Node<value_type> 		node_type;
+			typedef MapNode<value_type> 	node_type;
 
-			Node() 							: _value(), _prev(NULL), _next(NULL) {};
-			Node(value_type const &value) 	: _value(value),  _prev(NULL), _next(NULL) {};
-			Node(Node const &src) 		: _value(src._value), _prev(src._prev), _next(src._next) {};
-			~Node() {}
+			MapNode() 							: _value(), _prev(NULL), _next(NULL) {};
+			MapNode(value_type const &value) 	: _value(value),  _prev(NULL), _next(NULL) {};
+			MapNode(MapNode const &src) 		: _value(src._value), _prev(src._prev), _next(src._next) {};
+			~MapNode() {}
 
-			Node &operator=(Node const &src) {
+			MapNode &operator=(MapNode const &src) {
+
 				this->_value = src._value;
 				this->_prev = src._prev;
 				this->_next = src._next;
@@ -45,22 +46,22 @@ namespace ft {
 				return _value;
 			};
 			
-			Node 		*getNext() {
+			MapNode 		*getNext() {
 
 				return _next;
 			};
 
-			Node const 	*getNext() const {
+			MapNode const 	*getNext() const {
 
 				return _next;
 			};
 
-			Node	*getPrev() {
+			MapNode	*getPrev() {
 
 				return _prev;
 			};
 
-			Node const	*getPrev() const {
+			MapNode const	*getPrev() const {
 
 				return _prev;
 			};
@@ -71,9 +72,9 @@ namespace ft {
 				_prev = NULL;
 			};
 
-			Node 		*getBegin() {
+			MapNode 		*getBegin() {
 
-				Node *begin = this;
+				MapNode *begin = this;
 
 				while(begin->_prev)
 					begin = begin->_prev;
@@ -81,19 +82,9 @@ namespace ft {
 				return begin;
 			};
 
-			// Node 		*getEnd() {
-
-			// 	Node *end = this;
-
-			// 	while(end->_next)
-			// 		end = end->_next;
-
-			// 	return end;
-			// };
-
 			void 	setEnd() {
 
-				Node *begin = this;
+				MapNode *begin = this;
 
 				while(begin->_prev)
 					begin = begin->_prev;
@@ -102,7 +93,7 @@ namespace ft {
 
 			void 	addNext(value_type const &value) {
 
-				Node *newNode = new Node(value);
+				MapNode *newNode = new MapNode(value);
 
 				if (this->_next)
 					newNode->_next = this->_next;
@@ -112,7 +103,7 @@ namespace ft {
 
 			void 	addPrev(value_type const &value) {
 
-				Node *newNode = new Node(value);
+				MapNode *newNode = new MapNode(value);
 
 				if (this->_prev) {
 					newNode->_prev = this->_prev;
@@ -134,23 +125,13 @@ namespace ft {
 
 			void 	forgetNode() {
 				
-				Node *prevNode = this->_prev; 
-				Node *nextNode = this->_next; 
+				MapNode *prevNode = this->_prev; 
+				MapNode *nextNode = this->_next; 
 
 				if (prevNode)
 					prevNode->_next = nextNode;
 				if (nextNode)
 					nextNode->_prev = prevNode;
-			};
-
-			void 	forgetValue() {
-				
-				_value = 0;
-			};
-
-			void 	setValue(value_type const &a) {
-				
-				_value = a;
 			};
 
 			void 	delNode() {
@@ -169,7 +150,7 @@ namespace ft {
                                                       
 			void 	swapNodes(node_type *one, node_type *two) {
 		
-				Node *stock = two->_next;
+				MapNode *stock = two->_next;
 
 				one->_next = two->_next;
 				two->_next = one;

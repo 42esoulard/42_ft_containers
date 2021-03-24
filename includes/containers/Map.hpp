@@ -127,27 +127,35 @@ namespace ft {
 			// >>> default
 			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 				_k_compare(comp), _allocator(alloc) {
-
-				_begin = NULL;//should i allocate just in case ?
+				
+				_root = new node_type();
+				_begin = _root;
+				_end = _begin;
 				_size = 0;
+
 			};
 
 			// >>> range
 			template <class InputIterator> map (InputIterator first, InputIterator last, 
 			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {
 
-		 		_begin = NULL;//should i allocate just in case ?
+		 		_root = new node_type();
+				_begin = _root;
+				_end = _begin;
 				_size = 0;
+
+				//insert blabla
 		 	};	
 			
 			// >>> copy 
 			Map (const Map& x) {
 
-				_begin = NULL;
-				// _end = _begin;
+				_root = new node_type();
+				_begin = _root;
+				_end = _begin;
 				_size = 0;
 
-		 		assign(x.begin(), x.end());
+		 		insert(x.begin(), x.end());
 
 				//_end->setEnd();
 			}; 
@@ -155,7 +163,7 @@ namespace ft {
 			Map& operator= (const Map& x) {
 
 				clear();
-				assign(x.begin(), x.end());
+				insert(x.begin(), x.end());
 
 				return *this;
 			}; //destroy all content then copy
@@ -170,8 +178,8 @@ namespace ft {
 
 			~Map() { 
 
-				// clear(); 
-				// delete _end; 
+				clear(); 
+				delete _end; 
 			};
 
 
@@ -187,21 +195,21 @@ namespace ft {
 				return iterator(_begin);
 			};
 
-			const_iterator 	begin() const{
+			const_iterator 	begin() const {
 
 				return const_iterator(_begin);
 			};
 
-			// iterator end(){
+			iterator end() {
 
-			// 	return iterator(_end);
-			// };
+				return iterator(_end);
+			};
 
-			// const_iterator end() const{
+			const_iterator end() const {
 
-			// 	return const_iterator(_end);
-			// };
-			// // points after last Map element
+				return const_iterator(_end);
+			};
+			// points after last Map element
 
 			// reverse_iterator rbegin() {
 
@@ -272,15 +280,30 @@ namespace ft {
 
 				node_type *cur;
 				if (_size) {
-					cur = _begin.findKey(k);
-
+					cur = findKey(_root, k);
+					if (!cur) {
+						cur = addPair(_root, value_type(k, mapped_type()));
+						_end->setEnd(_root);
+						_begin = getBegin(_root);
+						_size++;
+					}
 				}
+				else {
+					_root = node_type(value_type(k, mapped_type()));
+					cur = _root;
+					_end->setEnd(_root);
+					_begin = _root;
+					_size++;
+				}
+
+				return cur->_value.second;
+			};
 				//search for key , return ref to its mapped_value (content)
 				//if key k not found:
 					//insert new elem with key k and default mapped_value mapped_value()
 					//_size++
 					//return ref to its defaulted mapped_value
-			};
+			
 
 
 			//----------------------------------------------//
@@ -292,35 +315,50 @@ namespace ft {
 
 			// >>> single element
 			pair<iterator,bool> insert (const value_type& val) {
+
+				node_type *newNode = findKey(_root, val.first);
+				if (newNode)
+					return std::pair(iterator(newNode), false);
 				
+				newNode = addPair(_root, val);
+				_size++;
+				_end->setEnd(_root);
+				_begin = getBegin(_root);
+				return std::pair(iterator(newNode), true);
+
 			};
 			//return a pair, with its member pair::first set to an iterator pointing to either the newly inserted element or to the element with an equivalent key 
 
 			// >>> with hint
-			iterator insert (iterator position, const value_type& val) {
+			// iterator insert (iterator position, const value_type& val) {
 
-				// position.getNode()->addPrev(val);
-				// _size++;
+			// 	position.getNode()->addPrev(val);
+			// 	_size++;
 
-				// _begin = _end->getBegin();
-				// _end->setEnd();
+			// 	_begin = _end->getBegin();
+			// 	_end->setEnd();
 
-				// return iterator(position.getNode()->getPrev());
+			// 	return iterator(position.getNode()->getPrev());
 
-			}; 
+			// }; 
 			//return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map.
     		
 			// >>> range
 			template <class InputIterator>
     		void insert (InputIterator first, InputIterator last) {
 
-				// while (first != last) {
-				// 	insert(position, *first);
-				// 	first++;
-				// }
-
-				// _begin = _end->getBegin();
-				// _end->setEnd();
+				node_type *newNode;
+				
+				while (first != last) {
+					newNode = find_key(_root, val.first);
+					if (!newNode)
+						_size++;
+					addPair(_root, first);
+					first++;
+				}
+				_end->setEnd(_root);
+				_begin = getBegin(_root);
+				return std::pair(iterator(newNode), true);
 			};
     		//Extend the container by inserting new elements before the element at the specified position
 
@@ -474,8 +512,9 @@ namespace ft {
 
 		private:
 
+			node_type 			*_root;
 			node_type 			*_begin;
-			// node_type 			*_end;
+			node_type 			*_end;
 			allocator_type 		_allocator;
 			size_type 			_size;
 			key_compare 		_k_compare;

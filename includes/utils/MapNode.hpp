@@ -25,16 +25,17 @@ namespace ft {
 			typedef Compare 											key_compare;
 			typedef MapNode<value_type> 								node_type;
 
-			MapNode() 							: _value(), _left(NULL), _right(NULL) {};
-			MapNode(value_type const &value) 	: _value(value),  _left(NULL), _right(NULL) {};
-			MapNode(MapNode const &src) 		: _value(src._value), _left(src._left), _right(src._right) {};
+			MapNode() 							: _value(), _up(NULL), _left(NULL), _right(NULL) {};
+			MapNode(value_type const &value) 	: _value(value), _up(NULL), _left(NULL), _right(NULL) {};
+			MapNode(node_type const &src) 		: _value(src._value), _up(src._up), _left(src._left), _right(src._right) {};
 			~MapNode() {}
 
 			MapNode &operator=(MapNode const &src) {
 
 				this->_value = src._value;
-				this->_prev = src._left;
-				this->_next = src._right;
+				this->_up = src._up;
+				this->_left = src._left;
+				this->_right = src._right;
 
 				return (*this);
 			}
@@ -71,19 +72,22 @@ namespace ft {
 
 			void resetNode() {
 
-				_left = NULL;
-				_right = NULL;
+				this->_value = value_type();
+				this->_up = NULL;
+				this->_left = NULL;
+				this->_right = NULL;
 			};
 
-			// MapNode 		*getBegin() {
 
-			// 	MapNode *begin = this;
+			MapNode 		*getBegin() {
 
-			// 	while(begin->_prev)
-			// 		begin = begin->_prev;
+				node_type *begin = this;
 
-			// 	return begin;
-			// };
+				while(begin->_up)
+					begin = begin->_up;
+
+				return begin;
+			};
 
 			// void 	setEnd() {
 
@@ -94,8 +98,62 @@ namespace ft {
 			// 	this->_next = begin;
 			// };
 
+			/*
+				less returns bool x<y
+				so if less(key, cur->value), go left
+				if !left go right
+			*/
+
+			node_type *findKey(node_type *cur, key_type const &key) {
+				
+				if (comp(key, cur->value.first) && cur->_left)
+					findKey(cur->_left, key);
+				if (comp(cur->value.first, key) && cur->_right)
+					findKey(cur->_right, key);
+
+				if (!comp(cur->value.first, key) && !comp(cur->value.first, key))
+					return cur;
+
+				if (comp(key, cur->value.first) && !cur->_left) {
+					cur->_left = node_type(key, mapped_type());
+					cur->_left->_up = cur;
+					return cur->_left;
+				}
+				if (comp(cur->value.first, key) && !cur->_right) {
+					cur->_right = node_type(key, mapped_type());
+					cur->_right->_up = cur;
+					return cur->_right;
+				}
+
+				return NULL; //shouldn't happen
+			}
+
+			node_type *addPair(node_type *cur, value_type const &pair) {
+
+				if (comp(pair.first, cur->value.first) && cur->_left)
+					addPair(cur->_left, pair);
+				if (comp(cur->value.first, pair) && cur->_right)
+					addPair(cur->_right, pair);
+
+				if (!comp(cur->value.first, pair) && !comp(cur->value.first, pair))
+					return cur;
+					
+				if (comp(pair, cur->value.first) && !cur->_left) {
+					cur->_left = node_type(pair, mapped_type());
+					cur->_left->_up = cur;
+					return cur->_left;
+				}
+				if (comp(cur->value.first, pair) && !cur->_right) {
+					cur->_right = node_type(pair, mapped_type());
+					cur->_right->_up = cur;
+					return cur->_right;
+				}
+
+				return NULL; //shouldn't happen
+			}
+
 			node_type 	&addNode(key_type const &key) {
-				if ()
+				node_type *parent = findParent(this, key);
 			}
 
 			void 	addNext(value_type const &value) {
@@ -180,7 +238,7 @@ namespace ft {
 			node_type 		*_left;
 			node_type 		*_right;
 			
-			key_compare 	comp;
+			key_compare 	_comp;
 			
 	};
 };

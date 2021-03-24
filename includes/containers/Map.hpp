@@ -143,21 +143,21 @@ namespace ft {
 			// >>> copy 
 			Map (const Map& x) {
 
-				// _begin = new node_type();
+				_begin = NULL;
 				// _end = _begin;
-				// _size = 0;
+				_size = 0;
 
-		 		// assign(x.begin(), x.end());
+		 		assign(x.begin(), x.end());
 
-				// _end->setEnd();
+				//_end->setEnd();
 			}; 
 
 			Map& operator= (const Map& x) {
 
-				// clear();
-				// assign(x.begin(), x.end());
+				clear();
+				assign(x.begin(), x.end());
 
-				// return *this;
+				return *this;
 			}; //destroy all content then copy
 
 
@@ -182,15 +182,15 @@ namespace ft {
 					//*\*/*\*/ITERATORS/*\*/*\*//
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
-			// iterator 		begin() {
+			iterator 		begin() {
 
-			// 	return iterator(_begin);
-			// };
+				return iterator(_begin);
+			};
 
-			// const_iterator 	begin() const{
+			const_iterator 	begin() const{
 
-			// 	return const_iterator(_begin);
-			// };
+				return const_iterator(_begin);
+			};
 
 			// iterator end(){
 
@@ -269,6 +269,12 @@ namespace ft {
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			mapped_type& operator[] (const key_type& k) {
+
+				node_type *cur;
+				if (_size) {
+					cur = _begin.findKey(k);
+
+				}
 				//search for key , return ref to its mapped_value (content)
 				//if key k not found:
 					//insert new elem with key k and default mapped_value mapped_value()

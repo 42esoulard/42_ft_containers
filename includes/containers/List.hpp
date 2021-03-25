@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/21 11:54:38 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:10:20 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ namespace ft {
 	};
 
 	template < class value_type, class node_type >
-	class Reverse_Iterator : public ListIterator<value_type,node_type > {
+	class ListReverse_Iterator : public ListIterator<value_type,node_type > {
 
 		public:
-			Reverse_Iterator() {node_type *tmp; p = tmp;};
-			Reverse_Iterator(node_type *x) :p(x) {};
-			Reverse_Iterator(const Reverse_Iterator& mit) : p(mit.p) {};
+			ListReverse_Iterator() {node_type *tmp; p = tmp;};
+			ListReverse_Iterator(node_type *x) :p(x) {};
+			ListReverse_Iterator(const ListReverse_Iterator& mit) : p(mit.p) {};
 
-			Reverse_Iterator<value_type,node_type >& operator++() {p = p->getPrev();return *this;};
-			Reverse_Iterator<value_type,node_type > operator++(int) {Reverse_Iterator<value_type,node_type > tmp(*this); operator++(); return tmp;};
-			bool operator==(const Reverse_Iterator<value_type,node_type >& rhs) const {return p==rhs.p;}
-			bool operator!=(const Reverse_Iterator<value_type,node_type >& rhs) const {return p!=rhs.p;}
+			ListReverse_Iterator<value_type,node_type >& operator++() {p = p->getPrev();return *this;};
+			ListReverse_Iterator<value_type,node_type > operator++(int) {ListReverse_Iterator<value_type,node_type > tmp(*this); operator++(); return tmp;};
+			bool operator==(const ListReverse_Iterator<value_type,node_type >& rhs) const {return p==rhs.p;}
+			bool operator!=(const ListReverse_Iterator<value_type,node_type >& rhs) const {return p!=rhs.p;}
 			value_type &operator*() const {return p->getValue();};
 
 		private:
@@ -86,8 +86,8 @@ namespace ft {
 			typedef node_type const	 									*const_pointer;
 			typedef ListIterator<value_type, node_type> 					iterator;
 			typedef ListIterator<value_type const, node_type const> 		const_iterator;
-			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
-			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
+			typedef ListReverse_Iterator<value_type, node_type> 			reverse_iterator;
+			typedef ListReverse_Iterator<value_type const, node_type const> const_reverse_iterator;
 			typedef std::ptrdiff_t 										difference_type;
 			typedef unsigned long  										size_type;
 			

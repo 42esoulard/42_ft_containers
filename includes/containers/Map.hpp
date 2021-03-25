@@ -29,13 +29,13 @@ namespace ft {
 			MapIterator(const MapIterator& mit) : p(mit.p) {};
 
 			MapIterator& operator++() {
-				p = p->getNext();
+				p = p->getNext(p);
 				
 				return *this;
 			};
 
 			MapIterator& operator--() {
-				p = p->getPrev();
+				p = p->getPrev(p);
 				
 				return *this;
 			};
@@ -57,17 +57,17 @@ namespace ft {
 	};
 
 	template < class value_type, class node_type >
-	class Reverse_Iterator : public MapIterator<value_type,node_type > {
+	class MapReverse_Iterator : public MapIterator<value_type,node_type > {
 
 		public:
-			Reverse_Iterator() {node_type *tmp; p = tmp;};
-			Reverse_Iterator(node_type *x) :p(x) {};
-			Reverse_Iterator(const Reverse_Iterator& mit) : p(mit.p) {};
+			MapReverse_Iterator() {node_type *tmp; p = tmp;};
+			MapReverse_Iterator(node_type *x) :p(x) {};
+			MapReverse_Iterator(const MapReverse_Iterator& mit) : p(mit.p) {};
 
-			Reverse_Iterator<value_type,node_type >& operator++() {p = p->getPrev();return *this;};
-			Reverse_Iterator<value_type,node_type > operator++(int) {Reverse_Iterator<value_type,node_type > tmp(*this); operator++(); return tmp;};
-			bool operator==(const Reverse_Iterator<value_type,node_type >& rhs) const {return p==rhs.p;}
-			bool operator!=(const Reverse_Iterator<value_type,node_type >& rhs) const {return p!=rhs.p;}
+			MapReverse_Iterator<value_type,node_type >& operator++() {p = p->getPrev();return *this;};
+			MapReverse_Iterator<value_type,node_type > operator++(int) {MapReverse_Iterator<value_type,node_type > tmp(*this); operator++(); return tmp;};
+			bool operator==(const MapReverse_Iterator<value_type,node_type >& rhs) const {return p==rhs.p;}
+			bool operator!=(const MapReverse_Iterator<value_type,node_type >& rhs) const {return p!=rhs.p;}
 			value_type &operator*() const {return p->getValue();};
 
 		private:
@@ -97,14 +97,14 @@ namespace ft {
 			typedef value_type const	 								*const_pointer;
 			typedef MapIterator<value_type, node_type> 					iterator;
 			typedef MapIterator<value_type const, node_type const> 		const_iterator;
-			typedef Reverse_Iterator<value_type, node_type> 			reverse_iterator;
-			typedef Reverse_Iterator<value_type const, node_type const> const_reverse_iterator;
+			typedef MapReverse_Iterator<value_type, node_type> 			reverse_iterator;
+			typedef MapReverse_Iterator<value_type const, node_type const> const_reverse_iterator;
 			typedef std::ptrdiff_t 										difference_type;
 			typedef size_t 		  										size_type;
 			
 			//template <class Key, class T, class Compare, class Alloc>
 			class value_compare {
-				friend class map;
+				friend class Map;
 				protected:
 					Compare comp;
 					value_compare (Compare c) : comp(c) {}
@@ -116,7 +116,7 @@ namespace ft {
 					bool operator() (const value_type& x, const value_type& y) const {
 						return comp(x.first, y.first);
 					}
-			}
+			};
 			//----------------------------------------------//
 
 
@@ -125,8 +125,8 @@ namespace ft {
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> default
-			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-				_k_compare(comp), _allocator(alloc) {
+			explicit Map (const key_compare& comp = key_compare()) :
+				_k_compare(comp), _v_compare(comp) {
 				
 				_root = new node_type();
 				_begin = _root;
@@ -136,19 +136,21 @@ namespace ft {
 			};
 
 			// >>> range
-			template <class InputIterator> map (InputIterator first, InputIterator last, 
-			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {
+			template <class InputIterator> Map (InputIterator first, InputIterator last, 
+			const key_compare& comp = key_compare()) :
+				_k_compare(comp), _v_compare(comp) {
 
 		 		_root = new node_type();
 				_begin = _root;
 				_end = _begin;
 				_size = 0;
 
-				//insert blabla
+				insert(first, last);
 		 	};	
 			
 			// >>> copy 
-			Map (const Map& x) {
+			Map (const Map& x) :
+				_k_compare(x._k_compare), _v_compare(x._v_compare) {
 
 				_root = new node_type();
 				_begin = _root;
@@ -156,8 +158,6 @@ namespace ft {
 				_size = 0;
 
 		 		insert(x.begin(), x.end());
-
-				//_end->setEnd();
 			}; 
 
 			Map& operator= (const Map& x) {
@@ -314,33 +314,34 @@ namespace ft {
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> single element
-			pair<iterator,bool> insert (const value_type& val) {
+			std::pair<iterator,bool> insert (const value_type& val) {
 
 				node_type *newNode = findKey(_root, val.first);
 				if (newNode)
-					return std::pair(iterator(newNode), false);
+					return std::pair<iterator,bool>(iterator(newNode), false);
 				
 				newNode = addPair(_root, val);
 				_size++;
 				_end->setEnd(_root);
 				_begin = getBegin(_root);
-				return std::pair(iterator(newNode), true);
+				return std::pair<iterator,bool>(iterator(newNode), true);
 
 			};
 			//return a pair, with its member pair::first set to an iterator pointing to either the newly inserted element or to the element with an equivalent key 
 
 			// >>> with hint
-			// iterator insert (iterator position, const value_type& val) {
+			iterator insert (iterator position, const value_type& val) {
 
-			// 	position.getNode()->addPrev(val);
-			// 	_size++;
-
-			// 	_begin = _end->getBegin();
-			// 	_end->setEnd();
-
-			// 	return iterator(position.getNode()->getPrev());
-
-			// }; 
+				node_type *newNode = findKey(_root, val.first);
+				if (newNode)
+					return iterator(newNode);
+				
+				newNode = addPair(position, val);
+				_size++;
+				_end->setEnd(_root);
+				_begin = getBegin(_root);
+				return iterator(newNode);
+			}; 
 			//return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map.
     		
 			// >>> range
@@ -350,15 +351,14 @@ namespace ft {
 				node_type *newNode;
 				
 				while (first != last) {
-					newNode = find_key(_root, val.first);
+					newNode = _root->findKey(_root, (*first).first);
 					if (!newNode)
 						_size++;
-					addPair(_root, first);
+					_root->addPair(_root, *first);
 					first++;
 				}
 				_end->setEnd(_root);
-				_begin = getBegin(_root);
-				return std::pair(iterator(newNode), true);
+				_begin = _root->getBegin(_root);
 			};
     		//Extend the container by inserting new elements before the element at the specified position
 
@@ -383,7 +383,7 @@ namespace ft {
 					}
 					_root = parent;
 				}
-				parent.ditchKids();
+				parent->ditchKids();
 
 				iterator first = getBegin(position.getNode());
 				iterator last = getLast(position.getNode());
@@ -409,7 +409,7 @@ namespace ft {
 				if (!_size)
 					return ret;
 
-				node_type *toDel = findKey(_root, k);
+				node_type *toDel = _root->findKey(_root, k);
 				if (toDel) {
 					ret = 1;
 					erase(iterator(toDel));
@@ -427,7 +427,6 @@ namespace ft {
 					erase(first);
 					first = next;
 				}
-
 			};
 			// remove & destroy a range of elements. 
 
@@ -450,14 +449,17 @@ namespace ft {
 			//exchange content with container of the same type
 
 			void clear() {
+				
+				if (!_size)
+					return ;
 
-				iterator first = getBegin(_root);
-				iterator last = getLast(_root);
+				iterator first = _root->getBegin(_root);
+				iterator last = _root->getLast(_root); 
 				iterator next = first;
 
 				while (first != last) {
 					next++;
-					delete(first->getNode());
+					delete(first.getNode());
 					first = next;
 				}
 				_root = _end;
@@ -492,7 +494,7 @@ namespace ft {
 
 			iterator find (const key_type& k) {
 
-				node_type *node = findKey(_root, k);
+				node_type *node = _root->findKey(_root, k);
 
 				if (node)
 					return (iterator(node));
@@ -533,7 +535,7 @@ namespace ft {
 					if (!_k_compare((*first).first, k))
 						return first;
 				}
-				return (iterator(_end));
+				return iterator(_end);
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return false
 
@@ -546,7 +548,7 @@ namespace ft {
 					if (!_k_compare((*first).first, k))
 						return const_iterator(first->getNode());
 				}
-				return (const_iterator(_end));
+				return const_iterator(_end);
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return false
 
@@ -559,7 +561,7 @@ namespace ft {
 					if (_k_compare((*first).first, k))
 						return first;
 				}
-				return (iterator(_end));
+				return iterator(_end);
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return true
 
@@ -572,22 +574,50 @@ namespace ft {
 					if (_k_compare((*first).first, k))
 						return const_iterator(first->getNode());
 				}
-				return (const_iterator(_end));
+				return const_iterator(_end);
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return true
 
-			pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			std::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			
+				// node_type *node = findKey(_root, k);
 
+				// if (node)
+				// 	return pair(const_iterator(node), const_iterator(node));
+
+				// iterator first = getBegin(_root);
+				// iterator last = getLast(_root);
+
+				// while (first != last) {
+				// 	if (!_k_compare((*first).first), k)
+				// 		return pair(const_iterator(first->getNode()), const_iterator(first->getNode()));
+				// 	first++;
+				// }
+				// return (pair(const_iterator(_end), const_iterator(_end));
+				return pair(lower_bound(k), upper_bound(k));
 			};
 			// returns element with k equivalent to k (for which key_comp returns fals whatever order of the elems)
 			// If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).
 
-			pair<iterator,iterator>             equal_range (const key_type& k) {
+			std::pair<iterator,iterator>             equal_range (const key_type& k) {
+				// node_type *node = findKey(_root, k);
 
+				// if (node)
+				// 	return pair(const_iterator(node), const_iterator(node));
+
+				// iterator first = getBegin(_root);
+				// iterator last = getLast(_root);
+
+				// while (first != last) {
+				// 	if (!_k_compare((*first).first), k)
+				// 		return pair(iterator(first->getNode()), iterator(first->getNode()));
+				// 	first++;
+				// }
+				// return (pair(iterator(_end), iterator(_end));
+				return pair(lower_bound(k), upper_bound(k));
 			};
 			// returns element with k equivalent to k (for which key_comp returns fals whatever order of the elems)
 			// If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).
-
 
 		private:
 

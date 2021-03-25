@@ -98,12 +98,57 @@ namespace ft {
 					return cur;
 				}
 				else if (cur->_up) {
-					value_type tmp = cur._value;
-					while (tmp.first < cur->_value.first) {
+					node_type *prev = cur;
+					cur = cur->_up;
+					while (_comp(prev->_value.first, cur->_value.first)) {
+						prev = cur;
 						if (!cur->_up)
 							return NULL;
 						cur = cur->_up;
-						tmp = cur._value;
+					}
+					return cur;
+				}
+				return NULL;
+			};
+
+			node_type 	const *getPrev(node_type *cur) const {
+
+				if (cur->_left) {
+					cur = cur->_left;
+					while (cur->_right)
+						cur = cur->_right;
+					return cur;
+				}
+				else if (cur->_up) {
+					node_type *prev = cur;
+					cur = cur->_up;
+					while (_comp(prev->_value.first, cur->_value.first)) {
+						prev = cur;
+						if (!cur->_up)
+							return NULL;
+						cur = cur->_up;
+					}
+					return cur;
+				}
+				return NULL;
+			};
+
+			node_type const		*getNext(node_type const *cur) const {
+
+				if (cur->_right) {
+					cur = cur->_right;
+					while (cur->_left)
+						cur = cur->_left;
+					return cur;
+				}
+				else if (cur->_up) {
+					node_type const *prev = cur;
+					cur = cur->_up;
+					while (!_comp(prev->_value.first, cur->_value.first)) {
+						prev = cur;
+						if (!cur->_up)
+							return NULL;
+						cur = cur->_up;
 					}
 					return cur;
 				}
@@ -119,12 +164,13 @@ namespace ft {
 					return cur;
 				}
 				else if (cur->_up) {
-					value_type tmp = cur._value;
-					while (tmp.first > cur->_value.first) {
+					node_type *prev = cur;
+					cur = cur->_up;
+					while (!_comp(prev->_value.first, cur->_value.first)) {
+						prev = cur;
 						if (!cur->_up)
 							return NULL;
 						cur = cur->_up;
-						tmp = cur._value;
 					}
 					return cur;
 				}
@@ -132,6 +178,14 @@ namespace ft {
 			};
 
 			node_type 		*getLast(node_type *cur) {
+
+				if (cur->_right)
+					getLast(cur->_right);
+
+				return cur;
+			};
+
+			node_type const 	*getLast(node_type *cur) const {
 
 				if (cur->_right)
 					getLast(cur->_right);
@@ -147,7 +201,20 @@ namespace ft {
 				return cur;
 			};
 
+			node_type const 	*getBegin(node_type *cur) const {
+
+				if (cur->_left)
+					getBegin(cur->_left);
+				
+				return cur;
+			};
+
 			node_type 	*getParent(node_type *cur) {
+
+				return cur->_up;
+			};
+
+			node_type const 	*getParent(node_type *cur) const {
 
 				return cur->_up;
 			};
@@ -155,7 +222,7 @@ namespace ft {
 			void 	setEnd(node_type *cur) {
 
 				cur = getLast(cur);
-				cur->right = this;
+				cur->_right = this;
 				this->_up = cur; 
 			};
 
@@ -209,21 +276,21 @@ namespace ft {
 
 			node_type *addPair(node_type *cur, value_type const &pair) {
 
-				if (comp(pair.first, cur->value.first) && cur->_left)
+				if (_comp(pair.first, cur->_value.first) && cur->_left)
 					addPair(cur->_left, pair);
-				if (comp(cur->value.first, pair.first) && cur->_right)
+				if (_comp(cur->_value.first, pair.first) && cur->_right)
 					addPair(cur->_right, pair);
 
-				if (!comp(cur->value.first, pair.first) && !comp(cur->value.first, pair.first))
+				if (!_comp(cur->_value.first, pair.first) && !_comp(cur->_value.first, pair.first))
 					return cur;
 				
-				if (comp(pair.first, cur->value.first) && !cur->_left) {
-					cur->_left = node_type(pair);
+				if (_comp(pair.first, cur->_value.first) && !cur->_left) {
+					cur->_left = new node_type(pair);
 					cur->_left->_up = cur;
 					return cur->_left;
 				}
-				if (comp(cur->value.first, pair.first) && !cur->_right) {
-					cur->_right = node_type(pair);
+				if (_comp(cur->_value.first, pair.first) && !cur->_right) {
+					cur->_right = new node_type(pair);
 					cur->_right->_up = cur;
 					return cur->_right;
 				}
@@ -233,12 +300,12 @@ namespace ft {
 
 			node_type *findKey(node_type *cur, key_type const &key) {
 				
-				if (comp(key, cur->value.first) && cur->_left)
+				if (_comp(key, cur->_value.first) && cur->_left)
 					findKey(cur->_left, key);
-				if (comp(cur->value.first, key) && cur->_right)
+				if (_comp(cur->_value.first, key) && cur->_right)
 					findKey(cur->_right, key);
 
-				if (!comp(cur->value.first, key) && !comp(cur->value.first, key))
+				if (!_comp(cur->_value.first, key) && !_comp(cur->_value.first, key))
 					return cur;
 					
 				return NULL;
@@ -287,19 +354,19 @@ namespace ft {
 			// 		nextNode->_prev = prevNode;
 			// };
 
-			void 	delNode() {
+			// void 	delNode() {
 				
-				forgetNode();
-				delete(this);
-			};
+			// 	forgetNode();
+			// 	delete(this);
+			// };
 
-			void 	linkNodes(node_type first, node_type second) {
+			// void 	linkNodes(node_type first, node_type second) {
 			
-				if (first)
-					first->_next = second;
-				if (second)
-					second->_prev = first;
-			};
+			// 	if (first)
+			// 		first->_next = second;
+			// 	if (second)
+			// 		second->_prev = first;
+			// };
                                                       
 			void 	swapNodes(node_type *one, node_type *two) {
 		

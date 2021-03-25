@@ -65,6 +65,8 @@
         "stack": "cpp",
         "deque": "cpp",
         "queue": "cpp",
-        "__memory": "cpp"
+        "__memory": "cpp",
+        "__tree": "cpp",
+        "map": "cpp"
     }
 }

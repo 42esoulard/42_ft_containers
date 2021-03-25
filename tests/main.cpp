@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/21 15:56:33 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:57:39 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,49 @@ int main(void) {
 		std::cerr << "ERROR: " << e.what() << std::endl;
 		output_title(">>>>>>>>> Queue tests: FAIL :( <<<<<<<<<");
 	}
+
+							//*\*/*\/*\*/*\/*\*/*\/*///
+							///*\*/*\*MAP TESTS/*\*/*//
+							//*\*/*\/*\*/*\/*\*/*\/*///
+							/*   [in Map_tests.cpp]  */
+
+	testsPtr mapTests[1] = { &test_map_rangeConstr, };
+
+	/*
+// int test_map_copyConstr();
+// int test_map_opEqual();
+// //ITERATORS
+// int test_map_iterate();
+// //CAPACITY
+// int test_map_empty();
+// int test_map_maxSize();
+// //ELEMENT ACCESS
+// int test_map_oparray();
+// //MODIFIERS
+// int test_map_insert();
+// int test_map_erase();
+// int test_map_swap();
+// int test_map_clear();
+// //OBSERVERS
+// int test_map_kvComp();
+// //OPERATIONS
+// int test_map_find();
+// int test_map_count();
+// int test_map_lowerBound();
+// int test_map_upperBound();
+// int test_map_equalRange();*/
+
+	try {
+		output_title("- MAP TESTS -");
+		for (unsigned int i = 0; i < (sizeof(mapTests) / sizeof(*(mapTests))); i++)
+			(*mapTests[i])();
+		output_title(">>>>>>>>> Map tests: SUCCESS! <<<<<<<<<");
+	}
+	catch(std::exception &e) {
+		std::cerr << "ERROR: " << e.what() << std::endl;
+		output_title(">>>>>>>>> Map tests: FAIL :( <<<<<<<<<");
+	}
+
 
 	//system("leaks ft_containers"); //MUST REMOVE fsanitize from Makefile
 

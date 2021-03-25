@@ -23,7 +23,7 @@ namespace ft {
 			typedef T 													mapped_type;
 			typedef std::pair<const key_type, mapped_type> 				value_type;
 			typedef Compare 											key_compare;
-			typedef MapNode<value_type> 								node_type;
+			typedef MapNode<Key, T, Compare> 							node_type;
 
 			MapNode() 							: _value(), _up(NULL), _left(NULL), _right(NULL) {};
 			MapNode(value_type const &value) 	: _value(value), _up(NULL), _left(NULL), _right(NULL) {};
@@ -89,18 +89,46 @@ namespace ft {
 			// 	return begin;
 			// };
 
+			node_type 		*getPrev(node_type *cur) {
+
+				if (cur->_left) {
+					cur = cur->_left;
+					while (cur->_right)
+						cur = cur->_right;
+					return cur;
+				}
+				else if (cur->_up) {
+					value_type tmp = cur._value;
+					while (tmp.first < cur->_value.first) {
+						if (!cur->_up)
+							return NULL;
+						cur = cur->_up;
+						tmp = cur._value;
+					}
+					return cur;
+				}
+				return NULL;
+			};
+
 			node_type 		*getNext(node_type *cur) {
 
 				if (cur->_right) {
 					cur = cur->_right;
 					while (cur->_left)
 						cur = cur->_left;
+					return cur;
 				}
 				else if (cur->_up) {
-					getNext(cur->_up);
+					value_type tmp = cur._value;
+					while (tmp.first > cur->_value.first) {
+						if (!cur->_up)
+							return NULL;
+						cur = cur->_up;
+						tmp = cur._value;
+					}
+					return cur;
 				}
-					
-				return cur;
+				return NULL;
 			};
 
 			node_type 		*getLast(node_type *cur) {
@@ -119,6 +147,11 @@ namespace ft {
 				return cur;
 			};
 
+			node_type 	*getParent(node_type *cur) {
+
+				return cur->_up;
+			};
+
 			void 	setEnd(node_type *cur) {
 
 				cur = getLast(cur);
@@ -132,12 +165,54 @@ namespace ft {
 				if !left go right
 			*/
 
+			void	ditchParent(node_type *cur) {
+
+				cur->_up = NULL;
+			};
+
+			void	ditchKids(node_type *cur) {
+
+				cur->_left = NULL;
+				cur->_right = NULL;
+			};
+
+			void	ditchAll(node_type *cur) {
+
+				ditchKids(cur);
+				ditchParent(cur);
+			};
+
+
+			node_type *addNode(node_type *cur, node_type const &node) {
+
+				if (comp(node->_value.first, cur->value.first) && cur->_left)
+					addPair(cur->_left, node);
+				if (comp(cur->value.first, node->_value.first) && cur->_right)
+					addPair(cur->_right, node);
+
+				if (!comp(cur->value.first, node->_value.first) && !comp(cur->value.first, node->_value.first))
+					return cur;
+				
+				if (comp(node->_value.first, cur->value.first) && !cur->_left) {
+					cur->_left = node;
+					cur->_left->_up = cur;
+					return cur->_left;
+				}
+				if (comp(cur->value.first, node->_value.first) && !cur->_right) {
+					cur->_right = node;
+					cur->_right->_up = cur;
+					return cur->_right;
+				}
+
+				return NULL; //shouldn't get there, i think all cases are covered above
+			}
+
 			node_type *addPair(node_type *cur, value_type const &pair) {
 
 				if (comp(pair.first, cur->value.first) && cur->_left)
-					addPair(cur->_left, pair.first);
+					addPair(cur->_left, pair);
 				if (comp(cur->value.first, pair.first) && cur->_right)
-					addPair(cur->_right, pair.first);
+					addPair(cur->_right, pair);
 
 				if (!comp(cur->value.first, pair.first) && !comp(cur->value.first, pair.first))
 					return cur;

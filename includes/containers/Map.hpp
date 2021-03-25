@@ -364,42 +364,70 @@ namespace ft {
 
 			void erase (iterator position) {
 				
-				// iterator ret = iterator(position.getNode()->getNext());
-				
-				// position.getNode()->delNode();
-				// _size--;
+				if (!_size)
+					return;
 
-				// _begin = _end->getBegin();
-				// _end->setEnd();
-				// return ret;
+				node_type *toDel = position.getNode();
+
+				node_type *parent = getParent(toDel);
+				if (!parent) {
+					parent = getPrev(toDel);
+					if (!parent)
+						parent = getNext(toDel);
+					if (!parent) {
+						delete(toDel);
+						_root = _end;
+						_begin = _end;
+						_size = 0;
+						return;
+					}
+					_root = parent;
+				}
+				parent.ditchKids();
+
+				iterator first = getBegin(position.getNode());
+				iterator last = getLast(position.getNode());
+				iterator next = first;
+				while (first != last) {
+					next++;
+					if (first.getNode() != parent && first.getNode() != toDel) {
+						first.getNode()->ditchAll();
+						addNode(_root, first.getNode());
+					}
+					first = next;
+				}
+				delete(toDel);
+				_end->setEnd(_root);
+				_begin = getBegin(_root);
+				_size--;
 			};
 
 			size_type erase (const key_type &k) {
 				
-				// iterator ret = iterator(position.getNode()->getNext());
-				
-				// position.getNode()->delNode();
-				// _size--;
+				size_type ret = 0;
 
-				// _begin = _end->getBegin();
-				// _end->setEnd();
-				// return ret;
+				if (!_size)
+					return ret;
+
+				node_type *toDel = findKey(_root, k);
+				if (toDel) {
+					ret = 1;
+					erase(iterator(toDel));
+				}
+				return ret;
 			};
 			//returns the nb of elements removed
 			
-			iterator erase (iterator first, iterator last) {
+			void erase (iterator first, iterator last) {
+				
+				iterator next = first;
 
-				// iterator ret = iterator(last.getNode()->getNext());
+				while (first != last) {
+					next++;
+					erase(first);
+					first = next;
+				}
 
-				// if (last.getNode() == _end)
-				// 	ret = this->end();
-
-				// while (first != last)
-				// 	erase(first++);
-
-				// _begin = _end->getBegin();
-				// _end->setEnd();
-				// return ret;
 			};
 			// remove & destroy a range of elements. 
 
@@ -423,18 +451,18 @@ namespace ft {
 
 			void clear() {
 
-				// node_type *tmp;
+				iterator first = getBegin(_root);
+				iterator last = getLast(_root);
+				iterator next = first;
 
-				// while (_begin != _end) {
-				// 	tmp = _begin->getNext();
-				// 	delete _begin;
-				// 	_begin = tmp;
-				// }
-				// _size = 0;
-				// _end->resetNode();
-				
-				// _begin = _end;
-				// _end->setEnd();
+				while (first != last) {
+					next++;
+					delete(first->getNode());
+					first = next;
+				}
+				_root = _end;
+				_begin = _end;
+				_size = 0;
 			};
 			//removes all elements (size == 0)
 			
@@ -464,36 +492,87 @@ namespace ft {
 
 			iterator find (const key_type& k) {
 
+				node_type *node = findKey(_root, k);
+
+				if (node)
+					return (iterator(node));
+
+				return (iterator(_end));
 			};
 			// return it to matching element if found, else iterator to end 
 
 			const_iterator find (const key_type& k) const {
 
+				node_type *node = findKey(_root, k);
+
+				if (node)
+					return (const_iterator(node));
+
+				return (const_iterator(_end));
 			};
 			// return it to matching element if found, else iterator to end 
 
 			size_type count (const key_type& k) const {
 
+				node_type *node = findKey(_root, k);
+
+				size_type ret = 0;
+				if (node)
+					ret = 1;
+
+				return ret;
 			};
 			// return 1 if element is found, else 0
 
 			iterator lower_bound (const key_type& k) {
 
+				iterator first = getBegin(_root);
+				iterator last = getLast(_root);
+
+				while (first != last) {
+					if (!_k_compare((*first).first, k))
+						return first;
+				}
+				return (iterator(_end));
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return false
 
 			const_iterator lower_bound (const key_type& k) const {
+				
+				iterator first = getBegin(_root);
+				iterator last = getLast(_root);
 
+				while (first != last) {
+					if (!_k_compare((*first).first, k))
+						return const_iterator(first->getNode());
+				}
+				return (const_iterator(_end));
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return false
 
 			iterator upper_bound (const key_type& k) {
 
+				iterator first = getBegin(_root);
+				iterator last = getLast(_root);
+
+				while (first != last) {
+					if (_k_compare((*first).first, k))
+						return first;
+				}
+				return (iterator(_end));
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return true
 
 			const_iterator upper_bound (const key_type& k) const {
 
+				iterator first = getBegin(_root);
+				iterator last = getLast(_root);
+
+				while (first != last) {
+					if (_k_compare((*first).first, k))
+						return const_iterator(first->getNode());
+				}
+				return (const_iterator(_end));
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return true
 

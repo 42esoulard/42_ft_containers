@@ -156,8 +156,9 @@ namespace ft {
 				_begin = _root;
 				_end = _begin;
 				_size = 0;
-
+				std::cout << "IN CONSTR CPY" << std::endl;
 		 		insert(x.begin(), x.end());
+				std::cout << "IN CONSTR CPY size:" << _size << std::endl;
 			}; 
 
 			Map& operator= (const Map& x) {
@@ -321,10 +322,14 @@ namespace ft {
 					if ((newNode = _root->findKey(_root, val.first, _end)))
 						return std::pair<iterator,bool>(iterator(newNode), false);
 					newNode = _root->addPair(_root, val, _end);
+					std::cout << "insert: pair added" << std::endl;
 				}
-				else
-					newNode = _root->initRoot(_root, val);				
+				else {
+					newNode = _root->initRoot(_root, val);	
+					std::cout << "insert: initiating root" << std::endl;
+				}			
 				_size++;
+				std::cout << "insert: new size = " << _size << std::endl;
 				_end->setEnd(_root);
 				_begin = _root->getBegin(_root);
 				return std::pair<iterator,bool>(iterator(newNode), true);
@@ -337,7 +342,7 @@ namespace ft {
 
 				node_type *newNode;
 				if (_size) {
-					newNode = _root->findKey(position, val.first, _end);
+					//newNode = _root->findKey(position, val.first, _end);
 					if ((newNode = _root->findKey(position, val.first, _end)) || (newNode = _root->findKey(_root, val.first, _end)))
 						return std::pair<iterator,bool>(iterator(newNode), false);
 					newNode = addPair(_root, val, _end);
@@ -356,6 +361,7 @@ namespace ft {
     		void insert (InputIterator first, InputIterator last) {
 
 				while (first != last) {
+
 					this->insert(*first);
 					first++;
 				}

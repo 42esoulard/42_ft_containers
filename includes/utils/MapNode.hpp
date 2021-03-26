@@ -15,18 +15,34 @@
 
 namespace ft {
 
+	template < class Key, class T >
+	class Pair {
+		public:
+			Pair() : first(Key()), second(T()) {};
+			Pair(Pair &other) : first(other.first), second(other.second) {};
+			
+			Pair &operator=(Pair &other) {
+				first = other.first; 
+				second = other.second;
+				return (*this);
+			}
+
+			Key first;
+			T second;
+	};
+
 	template < class Key, class T, class Compare = std::less<Key> >
 	class MapNode {
 
 		public:
 			typedef Key 												key_type;
 			typedef T 													mapped_type;
-			typedef std::pair<const key_type, mapped_type> 				value_type;
+			typedef ft::Pair<const key_type, mapped_type> 				value_type;
 			typedef Compare 											key_compare;
 			typedef MapNode<Key, T, Compare> 							node_type;
 
 			MapNode() 							: _value(), _up(NULL), _left(NULL), _right(NULL) {};
-			MapNode(value_type const &value) 	: _value(value), _up(NULL), _left(NULL), _right(NULL) {};
+			//MapNode(value_type const &value) 	: _value(value), _up(NULL), _left(NULL), _right(NULL) { std::cout << "----------------MAPNODE COPIED-------------" << std::endl;};
 			MapNode(node_type const &src) 		: _value(src._value), _up(src._up), _left(src._left), _right(src._right) {};
 			~MapNode() {}
 
@@ -277,7 +293,9 @@ namespace ft {
 			node_type *initRoot(node_type *root, value_type const &pair) {
 
 				node_type *end = root;
-				root = new node_type(pair);
+				root = new node_type();
+				root->_value = pair;
+				std::cout << "IN INIT ROOT index" << _value.first << "content" << _value.second << std::endl;
 				root->_right = end;
 				end->_up = root;
 
@@ -295,12 +313,14 @@ namespace ft {
 					return cur;
 				
 				if (_comp(pair.first, cur->_value.first) && !cur->_left) {
-					cur->_left = new node_type(pair);
+					cur->_left = new node_type();
+					cur->_left->_value = pair;
 					cur->_left->_up = cur;
 					return cur->_left;
 				}
 				if (_comp(cur->_value.first, pair.first) && (!cur->_right || cur->_right == end)) {
-					cur->_right = new node_type(pair);
+					cur->_right = new node_type();
+					cur->_right->_value = pair;
 					cur->_right->_up = cur;
 					return cur->_right;
 				}

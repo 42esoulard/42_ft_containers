@@ -87,7 +87,7 @@ namespace ft {
 			
 			typedef Key 												key_type;
 			typedef T 													mapped_type;
-			typedef std::pair<const key_type, mapped_type> 				value_type;
+			typedef ft::Pair<const key_type, mapped_type> 				value_type;
 			typedef Compare 											key_compare;
 			typedef MapNode<key_type, mapped_type, key_compare>			node_type;
 			typedef typename std::allocator<node_type> 					allocator_type;
@@ -136,8 +136,7 @@ namespace ft {
 			};
 
 			// >>> range
-			template <class InputIterator> Map (InputIterator first, InputIterator last, 
-			const key_compare& comp = key_compare()) :
+			template <class InputIterator> Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare()) :
 				_k_compare(comp), _v_compare(comp) {
 
 		 		_root = new node_type();
@@ -156,7 +155,7 @@ namespace ft {
 				_begin = _root;
 				_end = _begin;
 				_size = 0;
-				std::cout << "IN CONSTR CPY" << std::endl;
+				std::cout << "IN CONSTR CPY other size" << x._size << std::endl;
 		 		insert(x.begin(), x.end());
 				std::cout << "IN CONSTR CPY size:" << _size << std::endl;
 			}; 
@@ -323,15 +322,18 @@ namespace ft {
 						return std::pair<iterator,bool>(iterator(newNode), false);
 					newNode = _root->addPair(_root, val, _end);
 					std::cout << "insert: pair added" << std::endl;
+					_begin = _root->getBegin(_root);
 				}
 				else {
-					newNode = _root->initRoot(_root, val);	
+					newNode = _root->initRoot(_root, val);
+					_begin = _root;
 					std::cout << "insert: initiating root" << std::endl;
 				}			
 				_size++;
-				std::cout << "insert: new size = " << _size << std::endl;
+				std::cout << "insert: new size = " << _size << "begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
+				std::cout << "insert: new size = " << _size << "root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
 				_end->setEnd(_root);
-				_begin = _root->getBegin(_root);
+				
 				return std::pair<iterator,bool>(iterator(newNode), true);
 
 			};
@@ -340,18 +342,22 @@ namespace ft {
 			// >>> with hint
 			iterator insert (iterator position, const value_type& val) {
 
+				std::cout << "INSERT POS VAL" << std::endl;
 				node_type *newNode;
 				if (_size) {
 					//newNode = _root->findKey(position, val.first, _end);
 					if ((newNode = _root->findKey(position, val.first, _end)) || (newNode = _root->findKey(_root, val.first, _end)))
 						return std::pair<iterator,bool>(iterator(newNode), false);
 					newNode = addPair(_root, val, _end);
+					_begin = getBegin(_root);
 				}
-				else
+				else {
 					newNode = _root->initRoot(_root, val);
+					_begin = _root;
+				}
 				_size++;
 				_end->setEnd(_root);
-				_begin = getBegin(_root);
+				
 				return iterator(newNode);
 			}; 
 			//return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map.
@@ -360,11 +366,13 @@ namespace ft {
 			template <class InputIterator>
     		void insert (InputIterator first, InputIterator last) {
 
+				std::cout << "INSERT RANGE" << std::endl;
 				while (first != last) {
-
+					std::cout << "INSERT RANGE in loop" << std::endl;
 					this->insert(*first);
 					first++;
 				}
+				std::cout << "IN insert it aft" << _size << std::endl;
 			};
     		//Extend the container by inserting new elements before the element at the specified position
 

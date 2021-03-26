@@ -41,113 +41,16 @@ int test_map_rangeConstr() {
 	ft::Map<char, int> ft_mapA(src.begin(), src.end());
 	std::map<char, int> mapA(src.begin(), src.end());
 
+	ft::Map<char, int> ft_mapB(ft_mapA);
+	std::map<char, int> mapB(mapA);
+	chk_mapResult(ft_mapB, mapB, "map", title);
+
 	std::cout << "in main : size " << ft_mapA.size() << std::endl;
-
-
-//******************
-
-	ft::Map<char, int> ft_container = ft_mapA;
-	std::map<char, int> std_container = mapA;
-	std::cout << "in main22 : size " << ft_mapA.size() << std::endl;
-	int ft_size = ft_container.size();
-	int std_size = std_container.size();
-
-	std::string tmp;
-	std::string a;
-	std::stringstream conv;
-	std::setfill(' ');
-	std::string type = title;
-
-
-	tmp = "------------------------------------";
-	int nb = (WIDTH - tmp.size()) / 2;
-	std::cerr << std::endl << std::string( nb, ' ' ) << tmp << std::endl;
-
-	tmp = "- SIZE -";
-	nb = (WIDTH - tmp.size()) / 2;
-	std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
-
-	conv << ft_size;
-	tmp = "ft_" + type + ": <" + conv.str() + ">";
-	conv.str(std::string());
-	nb = (WIDTH - tmp.size()) / 2;
-	std::cerr << tmp << std::string( nb, ' ' );
-
-	conv << std_size;
-	tmp = "std_" + type + ": <" + conv.str() + ">";
-	conv.str(std::string());
-	nb = (WIDTH - tmp.size()) / 2;
-	std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
-	//o << std::setw(step) << "std_" << type << ": " << std_size << std::endl;
-
-	tmp =  "- CONTENT -";
-	nb = (WIDTH - tmp.size()) / 2;
-	std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
-
-	tmp = "ft_" + type + ": ";
-	nb = (WIDTH - tmp.size()) / 2;
-	std::cerr << tmp << std::string( nb, ' ' );
-
-	tmp = "std_" + type + ": ";
-	nb = (WIDTH - tmp.size()) / 2;
-	std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
-
-	ft::Map<char, int>::iterator ft_it = ft_container.begin();
-	ft::Map<char, int>::iterator ft_ite = ft_container.end();
-	
-	std::map<char, int>::iterator std_it = std_container.begin();
-	std::map<char, int>::iterator std_ite = std_container.end();
-
-	int i = -1;
-	int max = std_size;
-	std::string content;
-
-	if (ft_size > std_size)
-		max = ft_size;
-	while (++i < max) {
-		if (ft_it != ft_ite) {
-			content = "[";
-			conv << (*ft_it).first;
-			content += conv.str();
-			content += "]";
-			content += "[";
-			conv.str(std::string());
-			conv << (*ft_it).second;
-			content += conv.str();
-			content += "]";
-			conv.str(std::string());
-			nb = (WIDTH - content.size()) / 2;
-			std::cerr << content << std::string( nb, ' ' );
-			ft_it++;
-		}
-		else
-			std::cerr << std::string(WIDTH/2 + 2, ' ' );
-		if (std_it != std_ite) {
-			content = "[";
-			conv << (*std_it).first;
-			content += conv.str();
-			content += "]";
-			content += "[";
-			conv.str(std::string());
-			conv << (*std_it).second;
-			content += conv.str();
-			content += "]";
-			conv.str(std::string());
-			nb = (WIDTH - content.size()) / 2;
-			std::cerr << std::string( nb, ' ' ) << content << std::endl;
-			std_it++;
-		}
-		else
-			std::cerr << std::string(WIDTH/2, ' ' ) << std::endl;
-	}
-
-	tmp = "------------------------------------";
-	nb = (WIDTH - tmp.size()) / 2;
-	std::cerr << std::string( nb, ' ' ) << tmp << std::endl;
-
-//*****************
-
+	std::cout << "*****************************" << std::endl;
 	chk_mapResult(ft_mapA, mapA, "map", title);
+	std::cout << "*****************************" << std::endl;
+
+	
 
 	// ft::Map<char, int> ft_mapEmpty(src.end(), src.end());
 	// std::map<char, int> mapEmpty(src.end(), src.end());

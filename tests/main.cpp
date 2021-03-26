@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/25 16:57:39 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:53:57 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int main(void) {
 							//*\*/*\/*\*/*\/*\*/*\/*///
 							/*   [in Map_tests.cpp]  */
 
-	testsPtr mapTests[1] = { &test_map_rangeConstr, };
+	//testsPtr mapTests[1] = { &test_map_rangeConstr, };
 
 	/*
 // int test_map_copyConstr();
@@ -136,16 +136,16 @@ int main(void) {
 // int test_map_upperBound();
 // int test_map_equalRange();*/
 
-	try {
-		output_title("- MAP TESTS -");
-		for (unsigned int i = 0; i < (sizeof(mapTests) / sizeof(*(mapTests))); i++)
-			(*mapTests[i])();
-		output_title(">>>>>>>>> Map tests: SUCCESS! <<<<<<<<<");
-	}
-	catch(std::exception &e) {
-		std::cerr << "ERROR: " << e.what() << std::endl;
-		output_title(">>>>>>>>> Map tests: FAIL :( <<<<<<<<<");
-	}
+	// try {
+	// 	output_title("- MAP TESTS -");
+	// 	for (unsigned int i = 0; i < (sizeof(mapTests) / sizeof(*(mapTests))); i++)
+	// 		(*mapTests[i])();
+	// 	output_title(">>>>>>>>> Map tests: SUCCESS! <<<<<<<<<");
+	// }
+	// catch(std::exception &e) {
+	// 	std::cerr << "ERROR: " << e.what() << std::endl;
+	// 	output_title(">>>>>>>>> Map tests: FAIL :( <<<<<<<<<");
+	// }
 
 
 	//system("leaks ft_containers"); //MUST REMOVE fsanitize from Makefile

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/26 15:30:56 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:49:40 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -439,7 +439,7 @@ int chk_mapResult(ft_class ft_container, std_class std_container, std::string co
 
 	
 	for (ft_it = ft_container.begin(); ft_it != ft_ite; ft_it++) {
-		if (*ft_it != *std_it)
+		if ((*ft_it).first != (*std_it).first || (*ft_it).second != (*std_it).second)
 			handle_mapError(ft_container, std_container, type, func, testInfo, "CONTENT");
 		std_it++;
 	}

@@ -250,12 +250,12 @@ namespace ft {
 			};
 
 
-			node_type *addNode(node_type *cur, node_type const &node) {
+			node_type *addNode(node_type *cur, node_type const &node, node_type *end) {
 
 				if (comp(node->_value.first, cur->value.first) && cur->_left)
-					addPair(cur->_left, node);
-				if (comp(cur->value.first, node->_value.first) && cur->_right)
-					addPair(cur->_right, node);
+					addPair(cur->_left, node, end);
+				if (comp(cur->value.first, node->_value.first) && cur->_right != end)
+					addPair(cur->_right, node, end);
 
 				if (!comp(cur->value.first, node->_value.first) && !comp(cur->value.first, node->_value.first))
 					return cur;
@@ -265,7 +265,7 @@ namespace ft {
 					cur->_left->_up = cur;
 					return cur->_left;
 				}
-				if (comp(cur->value.first, node->_value.first) && !cur->_right) {
+				if (comp(cur->value.first, node->_value.first) && (!cur->_right || cur->_right == end)) {
 					cur->_right = node;
 					cur->_right->_up = cur;
 					return cur->_right;
@@ -274,12 +274,22 @@ namespace ft {
 				return NULL; //shouldn't get there, i think all cases are covered above
 			}
 
-			node_type *addPair(node_type *cur, value_type const &pair) {
+			node_type *initRoot(node_type *root, value_type const &pair) {
+
+				node_type *end = root;
+				root = new node_type(pair);
+				root->_right = end;
+				end->_up = root;
+
+				return root;
+			}
+
+			node_type *addPair(node_type *cur, value_type const &pair, node_type *end) {
 
 				if (_comp(pair.first, cur->_value.first) && cur->_left)
-					addPair(cur->_left, pair);
-				if (_comp(cur->_value.first, pair.first) && cur->_right)
-					addPair(cur->_right, pair);
+					addPair(cur->_left, pair, end);
+				if (_comp(cur->_value.first, pair.first) && cur->_right != end)
+					addPair(cur->_right, pair, end);
 
 				if (!_comp(cur->_value.first, pair.first) && !_comp(cur->_value.first, pair.first))
 					return cur;
@@ -289,7 +299,7 @@ namespace ft {
 					cur->_left->_up = cur;
 					return cur->_left;
 				}
-				if (_comp(cur->_value.first, pair.first) && !cur->_right) {
+				if (_comp(cur->_value.first, pair.first) && (!cur->_right || cur->_right == end)) {
 					cur->_right = new node_type(pair);
 					cur->_right->_up = cur;
 					return cur->_right;
@@ -298,12 +308,15 @@ namespace ft {
 				return NULL; //shouldn't get there, i think all cases are covered above
 			}
 
-			node_type *findKey(node_type *cur, key_type const &key) {
-				
+			node_type *findKey(node_type *cur, key_type const &key, node_type *end) {
+
+				if (cur == end)
+					return NULL;			
+
 				if (_comp(key, cur->_value.first) && cur->_left)
-					findKey(cur->_left, key);
+					findKey(cur->_left, key, end);
 				if (_comp(cur->_value.first, key) && cur->_right)
-					findKey(cur->_right, key);
+					findKey(cur->_right, key, end);
 
 				if (!_comp(cur->_value.first, key) && !_comp(cur->_value.first, key))
 					return cur;

@@ -144,7 +144,7 @@ namespace ft {
 				_begin = _root;
 				_end = _begin;
 				_size = 0;
-
+		
 				insert(first, last);
 		 	};	
 			
@@ -280,9 +280,9 @@ namespace ft {
 
 				node_type *cur;
 				if (_size) {
-					cur = findKey(_root, k);
+					cur = findKey(_root, k, _end);
 					if (!cur) {
-						cur = addPair(_root, value_type(k, mapped_type()));
+						cur = addPair(_root, value_type(k, mapped_type()), _end);
 						_end->setEnd(_root);
 						_begin = getBegin(_root);
 						_size++;
@@ -316,14 +316,17 @@ namespace ft {
 			// >>> single element
 			std::pair<iterator,bool> insert (const value_type& val) {
 
-				node_type *newNode = findKey(_root, val.first);
-				if (newNode)
-					return std::pair<iterator,bool>(iterator(newNode), false);
-				
-				newNode = addPair(_root, val);
+				node_type *newNode;
+				if (_size) {
+					if ((newNode = _root->findKey(_root, val.first, _end)))
+						return std::pair<iterator,bool>(iterator(newNode), false);
+					newNode = _root->addPair(_root, val, _end);
+				}
+				else
+					newNode = _root->initRoot(_root, val);				
 				_size++;
 				_end->setEnd(_root);
-				_begin = getBegin(_root);
+				_begin = _root->getBegin(_root);
 				return std::pair<iterator,bool>(iterator(newNode), true);
 
 			};
@@ -332,11 +335,15 @@ namespace ft {
 			// >>> with hint
 			iterator insert (iterator position, const value_type& val) {
 
-				node_type *newNode = findKey(_root, val.first);
-				if (newNode)
-					return iterator(newNode);
-				
-				newNode = addPair(position, val);
+				node_type *newNode;
+				if (_size) {
+					newNode = _root->findKey(position, val.first, _end);
+					if ((newNode = _root->findKey(position, val.first, _end)) || (newNode = _root->findKey(_root, val.first, _end)))
+						return std::pair<iterator,bool>(iterator(newNode), false);
+					newNode = addPair(_root, val, _end);
+				}
+				else
+					newNode = _root->initRoot(_root, val);
 				_size++;
 				_end->setEnd(_root);
 				_begin = getBegin(_root);
@@ -348,17 +355,10 @@ namespace ft {
 			template <class InputIterator>
     		void insert (InputIterator first, InputIterator last) {
 
-				node_type *newNode;
-				
 				while (first != last) {
-					newNode = _root->findKey(_root, (*first).first);
-					if (!newNode)
-						_size++;
-					_root->addPair(_root, *first);
+					this->insert(*first);
 					first++;
 				}
-				_end->setEnd(_root);
-				_begin = _root->getBegin(_root);
 			};
     		//Extend the container by inserting new elements before the element at the specified position
 
@@ -385,14 +385,14 @@ namespace ft {
 				}
 				parent->ditchKids();
 
-				iterator first = getBegin(position.getNode());
-				iterator last = getLast(position.getNode());
+				iterator first = _root->getBegin(position.getNode());
+				iterator last = _root->getLast(position.getNode());
 				iterator next = first;
 				while (first != last) {
 					next++;
 					if (first.getNode() != parent && first.getNode() != toDel) {
 						first.getNode()->ditchAll();
-						addNode(_root, first.getNode());
+						addNode(_root, first.getNode(), _end);
 					}
 					first = next;
 				}
@@ -409,7 +409,7 @@ namespace ft {
 				if (!_size)
 					return ret;
 
-				node_type *toDel = _root->findKey(_root, k);
+				node_type *toDel = _root->findKey(_root, k, _end);
 				if (toDel) {
 					ret = 1;
 					erase(iterator(toDel));
@@ -452,9 +452,10 @@ namespace ft {
 				
 				if (!_size)
 					return ;
-
+				
 				iterator first = _root->getBegin(_root);
-				iterator last = _root->getLast(_root); 
+				iterator last = end(); 
+				
 				iterator next = first;
 
 				while (first != last) {
@@ -494,7 +495,7 @@ namespace ft {
 
 			iterator find (const key_type& k) {
 
-				node_type *node = _root->findKey(_root, k);
+				node_type *node = _root->findKey(_root, k, _end);
 
 				if (node)
 					return (iterator(node));
@@ -505,7 +506,7 @@ namespace ft {
 
 			const_iterator find (const key_type& k) const {
 
-				node_type *node = findKey(_root, k);
+				node_type *node = findKey(_root, k, _end);
 
 				if (node)
 					return (const_iterator(node));
@@ -516,7 +517,7 @@ namespace ft {
 
 			size_type count (const key_type& k) const {
 
-				node_type *node = findKey(_root, k);
+				node_type *node = findKey(_root, k, _end);
 
 				size_type ret = 0;
 				if (node)

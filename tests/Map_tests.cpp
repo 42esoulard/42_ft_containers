@@ -38,7 +38,7 @@ int test_map_rangeConstr() {
 
 	chk_mapResult(ft_map, map, "map", title);
 
-	// ft::Map<char, int> ft_mapA(src.begin(), src.end());
+	ft::Map<char, int> ft_mapA(src.begin(), src.end());
 	// std::map<char, int> mapA(src.begin(), src.end());
 
 	// chk_mapResult(ft_mapA, mapA, "map", title);

@@ -214,28 +214,30 @@ namespace ft {
 				return NULL;
 			};
 
-			node_type 		*getLast(node_type *cur) {
+			node_type 		*getLast(node_type *cur, node_type *end) {
 
-				if (cur->_right)
-					getLast(cur->_right);
+				if (cur->_right && cur->_right != end)
+					getLast(cur->_right, end);
 				std::cout << "curLast index["<< cur->_value.first<< "] mapped value [" << cur->_value.second << "]" << std::endl;
 				return cur;
 			};
 
-			node_type const 	*getLast(node_type *cur) const {
+			node_type const 	*getLast(node_type *cur, node_type *end) const {
 
-				if (cur->_right)
-					getLast(cur->_right);
+				if (cur->_right && cur->_right != end)
+					getLast(cur->_right, end);
 				
 				return cur;
 			};
 
 			node_type 	*getBegin(node_type *cur) {
-
-				if (cur->_left)
-					getBegin(cur->_left);
 				
-				return cur;
+				node_type *beg = cur;
+				while (beg->_left)
+					beg = beg->_left;
+				
+				std::cout << ">>>getBegin index["<< cur->_value.first<< "] mapped value [" << cur->_value.second << "]" << std::endl;
+				return beg;
 			};
 
 			node_type const 	*getBegin(node_type *cur) const {
@@ -246,22 +248,22 @@ namespace ft {
 				return cur;
 			};
 
-			node_type 	*getParent(node_type *cur) {
+			node_type 	*getParent() {
 
-				return cur->_up;
+				return _up;
 			};
 
-			node_type const 	*getParent(node_type *cur) const {
+			node_type const 	*getParent() const {
 
-				return cur->_up;
+				return _up;
 			};
 
 			void 	setEnd(node_type *cur) {
 
-				cur = getLast(cur);
+				node_type *last = getLast(cur, this);
 				std::cout << "IN SETEND AFTER GET LAST" << std::endl;
-				cur->_right = this;
-				this->_up = cur; 
+				last->_right = this;
+				this->_up = last; 
 			};
 
 			/*
@@ -318,7 +320,7 @@ namespace ft {
 				if (_comp(cur->_value.first, k) && cur->_right != end)
 					findSpot(cur->_right, k, end);
 
-				if (!_comp(cur->_value.first, k) && !_comp(cur->_value.first, k))
+				if (!_comp(cur->_value.first, k) && !_comp(k, cur->_value.first))
 					return cur;
 				
 				if (_comp(k, cur->_value.first) && !cur->_left) {
@@ -343,12 +345,14 @@ namespace ft {
 				kid->_up = this;
 			};
 
-			void initRoot(node_type *end) {
+			void initRoot(node_type *begin, node_type *end) {
 
 				// node_type *end = root;
 				// root = new node_type(pair);
 			//	root->_value = pair;
 				std::cout << "IN INIT ROOT index" << _value.first << "content" << _value.second << std::endl;
+				this->_left = NULL;
+				begin = this;
 				this->_right = end;
 				end->_up = this;
 
@@ -387,12 +391,12 @@ namespace ft {
 				if (cur == end)
 					return NULL;			
 
-				if (_comp(key, cur->_value.first) && cur->_left)
+				if (_comp(key, cur->_value.first) && cur->_left && cur->_left != end)
 					findKey(cur->_left, key, end);
-				if (_comp(cur->_value.first, key) && cur->_right)
+				if (_comp(cur->_value.first, key) && cur->_right && cur->_right != end)
 					findKey(cur->_right, key, end);
 
-				if (!_comp(cur->_value.first, key) && !_comp(cur->_value.first, key))
+				if (!_comp(cur->_value.first, key) && !_comp(key, cur->_value.first))
 					return cur;
 					
 				return NULL;

@@ -288,25 +288,43 @@ namespace ft {
 						node_type *parent = _root->findSpot(_root, k, _end);
 						cur = new node_type(value_type(key_type(k), mapped_type()));
 						parent->adopt(cur);
+						std::cout << "**********CHECK PARENT NODE ADOPTION****************" << std::endl;
+						std::cout << "parent index [" << (*iterator(parent)).first << "] parent left index [" << (*iterator(parent->getLeft())).first <<"] parent right index [" << (*iterator(parent->getRight())).first << "]" << std::endl;
+						std::cout << "kid index [" << (*iterator(cur)).first << "] kid up index [" << (*iterator(cur->getParent())).first << "]" << std::endl;
+						std::cout << "**********END PARENT NODE ADOPTION****************" << std::endl;
 						std::cout << "GONNA SET END IN OP[] !cur" << std::endl;
 						_end->setEnd(_root);
 						std::cout << "AFTER SET END IN OP[] !cur" << std::endl;
 						_begin = _root->getBegin(_root);
+						std::cout << "AFTER GETBEGIN IN OP[] !cur" << std::endl;
 						_size++;
 					}
 				}
 				else {
 					_root = new node_type(value_type(k, mapped_type()));
-					_root->initRoot(_end);
+					_root->initRoot(_begin, _end);
 					cur = _root;
 					_end->setEnd(_root);
 					_begin = _root;
 					_size++;
 				}
-				std::cout << "op[]: new size = " << _size << "begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
-				std::cout << "op[]: new size = " << _size << "root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
-				std::cout << "op[]: new size = " << _size << "cur index " << (*iterator(cur)).first << "content" << (*iterator(cur)).second << std::endl;
-				std::cout << "op[]: new size = " << _size << "GETLAST index " << (*iterator(_root->getLast(_root))).first << "content" << (*iterator(_root->getLast(_root))).second << std::endl;
+				std::cout << "op[]: new size = " << _size << " begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
+				std::cout << "op[]: new size = " << _size << " root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
+				std::cout << "op[]: new size = " << _size << " cur index " << (*iterator(cur)).first << "content" << (*iterator(cur)).second << std::endl;
+				std::cout << "op[]: new size = " << _size << " GETLAST index " << (*iterator(_root->getLast(_root, _end))).first << "content" << (*iterator(_root->getLast(_root, _end))).second << std::endl;
+
+				//OUTPUT TREE
+				std::cout << std::endl;
+				iterator beg = begin();
+				while (beg != end()) {
+				
+					std::cout << "map[" << (*beg).first << "][" << (*beg).second << "]" << std::endl;
+					beg++;
+				}
+				std::cout << std::endl;
+
+				//sakdhaskjdhaskjdhakjds
+
 				return (*iterator(cur)).second;
 			};
 				//search for key , return ref to its mapped_value (content)
@@ -338,7 +356,7 @@ namespace ft {
 				else {
 					// newNode = _root->initRoot(_root, val);
 					_root = new node_type(val);
-					_root->initRoot(_end);
+					_root->initRoot(_begin, _end);
 					_begin = _root;
 					newNode = _root;
 					std::cout << "insert: initiating root" << std::endl;
@@ -366,7 +384,7 @@ namespace ft {
 					_begin = getBegin(_root);
 				}
 				else {
-					newNode = _root->initRoot(_root, val);
+					newNode = _root->initRoot(_begin, _end);
 					_begin = _root;
 				}
 				_size++;

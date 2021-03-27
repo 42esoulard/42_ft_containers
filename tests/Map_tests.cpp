@@ -30,8 +30,8 @@ int test_map_rangeConstr() {
 	std::map<char, int> src;
 	src['a']=10;
 	src['b']=30;
-	src['c']=50;
-	src['d']=70;
+	// src['c']=50;
+//	src['d']=70;
 
 	ft::Map<char, int> ft_src;
 	ft_src['b']=30;
@@ -39,26 +39,30 @@ int test_map_rangeConstr() {
 	ft_src['a']=10;
 	std::cout << "after ft_src['a']=10;" << std::endl;
 	
-	ft_src['c']=50;
-	std::cout << "after ft_src['c']=50; : ft_src['c'] = [" << ft_src['c'] << "]"  << std::endl;
-	ft_src['d']=70;
 
-	ft::Map<char, int> ft_map;
-	std::map<char, int> map;
 
-	chk_mapResult(ft_map, map, "map", title);
+	// ft_src['c']=50;
+	// std::cout << "after ft_src['c']=50; : ft_src['c'] = [" << ft_src['c'] << "]"  << std::endl;
+	//ft_src['d']=70;
 
-	ft::Map<char, int> ft_mapA(ft_src.begin(), ft_src.end());
-	std::map<char, int> mapA(src.begin(), src.end());
+		chk_mapResult(ft_src, src, "map", title);
 
-	ft::Map<char, int> ft_mapB(ft_mapA);
-	std::map<char, int> mapB(mapA);
-	chk_mapResult(ft_mapB, mapB, "map", title);
+	// ft::Map<char, int> ft_map;
+	// std::map<char, int> map;
 
-	std::cout << "in main : size " << ft_mapA.size() << std::endl;
-	std::cout << "*****************************" << std::endl;
-	chk_mapResult(ft_mapA, mapA, "map", title);
-	std::cout << "*****************************" << std::endl;
+	// chk_mapResult(ft_map, map, "map", title);
+
+	// ft::Map<char, int> ft_mapA(ft_src.begin(), ft_src.end());
+	// std::map<char, int> mapA(src.begin(), src.end());
+
+	// ft::Map<char, int> ft_mapB(ft_mapA);
+	// std::map<char, int> mapB(mapA);
+	// chk_mapResult(ft_mapB, mapB, "map", title);
+
+	// std::cout << "in main : size " << ft_mapA.size() << std::endl;
+	// std::cout << "*****************************" << std::endl;
+	// chk_mapResult(ft_mapA, mapA, "map", title);
+	// std::cout << "*****************************" << std::endl;
 
 	
 

@@ -216,18 +216,20 @@ namespace ft {
 
 			node_type 		*getLast(node_type *cur, node_type *end) {
 
-				if (cur->_right && cur->_right != end)
-					getLast(cur->_right, end);
-				std::cout << "curLast index["<< cur->_value.first<< "] mapped value [" << cur->_value.second << "]" << std::endl;
-				return cur;
+				node_type *last = cur;
+				if (last->_right && last->_right != end)
+					last = last->_right;
+				std::cout << "curLast index["<< last->_value.first<< "] mapped value [" << last->_value.second << "]" << std::endl;
+				return last;
 			};
 
 			node_type const 	*getLast(node_type *cur, node_type *end) const {
 
-				if (cur->_right && cur->_right != end)
-					getLast(cur->_right, end);
-				
-				return cur;
+				node_type *last = cur;
+				if (last->_right && last->_right != end)
+					last = last->_right;
+				std::cout << "curLast index["<< last->_value.first<< "] mapped value [" << last->_value.second << "]" << std::endl;
+				return last;
 			};
 
 			node_type 	*getBegin(node_type *cur) {
@@ -337,11 +339,16 @@ namespace ft {
 				return NULL;
 			};
 		
-			void adopt(node_type *kid) {
+			void adopt(node_type *kid, node_type *end) {
 				if (_comp(kid->_value.first, this->_value.first))
 					this->_left = kid;
-				else
+				else {
+					if (this->_right == end) {
+						kid->_right = end;
+						end->_up = kid;
+					}
 					this->_right = kid;
+				}
 				kid->_up = this;
 			};
 
@@ -389,16 +396,17 @@ namespace ft {
 			node_type *findKey(node_type *cur, key_type const &key, node_type *end) {
 
 				if (cur == end)
-					return NULL;			
-
+					return NULL;
+								
+				
 				if (_comp(key, cur->_value.first) && cur->_left && cur->_left != end)
-					findKey(cur->_left, key, end);
+					cur = findKey(cur->_left, key, end);
 				if (_comp(cur->_value.first, key) && cur->_right && cur->_right != end)
-					findKey(cur->_right, key, end);
-
+					cur = findKey(cur->_right, key, end);
+				std::cout << "before sgv key " << key << " cur key " << cur->_value.first << std::endl;
 				if (!_comp(cur->_value.first, key) && !_comp(key, cur->_value.first))
 					return cur;
-					
+				std::cout << "before sgv no match key " << key << " cur key " << cur->_value.first << std::endl;
 				return NULL;
 			}
 

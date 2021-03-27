@@ -28,9 +28,10 @@ int test_map_rangeConstr() {
 	std::cout << title;
 
 	std::map<char, int> src;
-	src['a']=10;
 	src['b']=30;
-	// src['c']=50;
+	src['a']=10;
+	
+ 	src['c']=50;
 //	src['d']=70;
 
 	ft::Map<char, int> ft_src;
@@ -41,8 +42,8 @@ int test_map_rangeConstr() {
 	
 
 
-	// ft_src['c']=50;
-	// std::cout << "after ft_src['c']=50; : ft_src['c'] = [" << ft_src['c'] << "]"  << std::endl;
+	ft_src['c']=50;
+	std::cout << "after ft_src['c']=50; : ft_src['c'] = [" << ft_src['c'] << "]"  << std::endl;
 	//ft_src['d']=70;
 
 		chk_mapResult(ft_src, src, "map", title);

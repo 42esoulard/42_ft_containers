@@ -287,7 +287,7 @@ namespace ft {
 						//cur = _root->addNode(_root, node_type(value_type(key_type(k), mapped_type())), _end);
 						node_type *parent = _root->findSpot(_root, k, _end);
 						cur = new node_type(value_type(key_type(k), mapped_type()));
-						parent->adopt(cur);
+						parent->adopt(cur, _end);
 						std::cout << "**********CHECK PARENT NODE ADOPTION****************" << std::endl;
 						std::cout << "parent index [" << (*iterator(parent)).first << "] parent left index [" << (*iterator(parent->getLeft())).first <<"] parent right index [" << (*iterator(parent->getRight())).first << "]" << std::endl;
 						std::cout << "kid index [" << (*iterator(cur)).first << "] kid up index [" << (*iterator(cur->getParent())).first << "]" << std::endl;

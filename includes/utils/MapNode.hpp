@@ -29,6 +29,12 @@ namespace ft {
 				second = other.second;
 				return (*this);
 			}
+			Pair &operator=(T const &other) {
+
+				std::cout << "fuckfuckfuckfuck" << std::endl;
+				second = other.second;
+				return (*this);
+			}
 
 			Key first;
 			T second;
@@ -51,10 +57,22 @@ namespace ft {
 
 			MapNode &operator=(MapNode const &src) {
 
+				std::cout << "AAAAAAAAAAAAAAAAA" << std::endl;
 				this->_value = src._value;
 				this->_up = src._up;
 				this->_left = src._left;
 				this->_right = src._right;
+
+				return (*this);
+			}
+
+			MapNode &operator=(mapped_type const &src) {
+
+				this->_value.second = src;
+				std::cout << "op= value" << std::endl;
+				// this->_up = src._up;
+				// this->_left = src._left;
+				// this->_right = src._right;
 
 				return (*this);
 			}
@@ -200,7 +218,7 @@ namespace ft {
 
 				if (cur->_right)
 					getLast(cur->_right);
-
+				std::cout << "curLast index["<< cur->_value.first<< "] mapped value [" << cur->_value.second << "]" << std::endl;
 				return cur;
 			};
 
@@ -208,7 +226,7 @@ namespace ft {
 
 				if (cur->_right)
 					getLast(cur->_right);
-
+				
 				return cur;
 			};
 
@@ -241,6 +259,7 @@ namespace ft {
 			void 	setEnd(node_type *cur) {
 
 				cur = getLast(cur);
+				std::cout << "IN SETEND AFTER GET LAST" << std::endl;
 				cur->_right = this;
 				this->_up = cur; 
 			};
@@ -280,18 +299,49 @@ namespace ft {
 					return cur;
 				
 				if (_comp(node->_value.first, cur->_value.first) && !cur->_left) {
-					cur->_left = node;
-					cur->_left->_up = cur;
+			//		cur->_left = node;
+			//		cur->_left->_up = cur;
 					return cur->_left;
 				}
 				if (_comp(cur->_value.first, node->_value.first) && (!cur->_right || cur->_right == end)) {
-					cur->_right = node;
-					cur->_right->_up = cur;
+				//	cur->_right = node;
+				//	cur->_right->_up = cur;
 					return cur->_right;
 				}
 
 				return NULL; //shouldn't get there, i think all cases are covered above
 			}
+
+			node_type *findSpot(node_type *cur, key_type k, node_type *end) {
+				if (_comp(k, cur->_value.first) && cur->_left)
+					findSpot(cur->_left, k, end);
+				if (_comp(cur->_value.first, k) && cur->_right != end)
+					findSpot(cur->_right, k, end);
+
+				if (!_comp(cur->_value.first, k) && !_comp(cur->_value.first, k))
+					return cur;
+				
+				if (_comp(k, cur->_value.first) && !cur->_left) {
+			//		cur->_left = node;
+			//		cur->_left->_up = cur;
+					return cur;
+				}
+				if (_comp(cur->_value.first, k) && (!cur->_right || cur->_right == end)) {
+				//	cur->_right = node;
+				//	cur->_right->_up = cur;
+					return cur;
+				}
+
+				return NULL;
+			};
+		
+			void adopt(node_type *kid) {
+				if (_comp(kid->_value.first, this->_value.first))
+					this->_left = kid;
+				else
+					this->_right = kid;
+				kid->_up = this;
+			};
 
 			void initRoot(node_type *end) {
 

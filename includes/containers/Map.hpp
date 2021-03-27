@@ -284,8 +284,13 @@ namespace ft {
 					std::cout << "in op[] with _size" << std::endl;
 					if (!cur) {
 						std::cout << "in op[] with _size !cur" << std::endl;
-						cur = _root->addNode(_root, new node_type(value_type(key_type(k), mapped_type())), _end);
+						//cur = _root->addNode(_root, node_type(value_type(key_type(k), mapped_type())), _end);
+						node_type *parent = _root->findSpot(_root, k, _end);
+						cur = new node_type(value_type(key_type(k), mapped_type()));
+						parent->adopt(cur);
+						std::cout << "GONNA SET END IN OP[] !cur" << std::endl;
 						_end->setEnd(_root);
+						std::cout << "AFTER SET END IN OP[] !cur" << std::endl;
 						_begin = _root->getBegin(_root);
 						_size++;
 					}
@@ -298,7 +303,10 @@ namespace ft {
 					_begin = _root;
 					_size++;
 				}
-
+				std::cout << "op[]: new size = " << _size << "begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
+				std::cout << "op[]: new size = " << _size << "root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
+				std::cout << "op[]: new size = " << _size << "cur index " << (*iterator(cur)).first << "content" << (*iterator(cur)).second << std::endl;
+				std::cout << "op[]: new size = " << _size << "GETLAST index " << (*iterator(_root->getLast(_root))).first << "content" << (*iterator(_root->getLast(_root))).second << std::endl;
 				return (*iterator(cur)).second;
 			};
 				//search for key , return ref to its mapped_value (content)
@@ -375,7 +383,7 @@ namespace ft {
 				std::cout << "INSERT RANGE" << std::endl;
 				while (first != last) {
 					std::cout << "INSERT RANGE in loop" << std::endl;
-					this->insert(*first);
+					insert(*first);
 					first++;
 				}
 				std::cout << "IN insert it aft" << _size << std::endl;

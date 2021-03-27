@@ -281,15 +281,18 @@ namespace ft {
 				node_type *cur;
 				if (_size) {
 					cur = _root->findKey(_root, k, _end);
+					std::cout << "in op[] with _size" << std::endl;
 					if (!cur) {
-						cur = _root->addPair(_root, value_type(key_type(k), mapped_type()), _end);
+						std::cout << "in op[] with _size !cur" << std::endl;
+						cur = _root->addNode(_root, new node_type(value_type(key_type(k), mapped_type())), _end);
 						_end->setEnd(_root);
 						_begin = _root->getBegin(_root);
 						_size++;
 					}
 				}
 				else {
-					_root = _root->initRoot(_root, value_type(key_type(k), mapped_type()));
+					_root = new node_type(value_type(k, mapped_type()));
+					_root->initRoot(_end);
 					cur = _root;
 					_end->setEnd(_root);
 					_begin = _root;
@@ -320,13 +323,16 @@ namespace ft {
 				if (_size) {
 					if ((newNode = _root->findKey(_root, val.first, _end)))
 						return ft::Pair<iterator,bool>(iterator(newNode), false);
-					newNode = _root->addPair(_root, val, _end);
+					newNode = _root->addNode(_root, new node_type(val), _end);
 					std::cout << "insert: pair added" << std::endl;
 					_begin = _root->getBegin(_root);
 				}
 				else {
-					newNode = _root->initRoot(_root, val);
+					// newNode = _root->initRoot(_root, val);
+					_root = new node_type(val);
+					_root->initRoot(_end);
 					_begin = _root;
+					newNode = _root;
 					std::cout << "insert: initiating root" << std::endl;
 				}			
 				_size++;
@@ -348,7 +354,7 @@ namespace ft {
 					//newNode = _root->findKey(position, val.first, _end);
 					if ((newNode = _root->findKey(position, val.first, _end)) || (newNode = _root->findKey(_root, val.first, _end)))
 						return ft::Pair<iterator,bool>(iterator(newNode), false);
-					newNode = addPair(_root, val, _end);
+					newNode = addNode(_root, new node_type(val), _end);
 					_begin = getBegin(_root);
 				}
 				else {

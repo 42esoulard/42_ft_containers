@@ -269,22 +269,22 @@ namespace ft {
 			};
 
 
-			node_type *addNode(node_type *cur, node_type const &node, node_type *end) {
+			node_type *addNode(node_type *cur, node_type *node, node_type *end) {
 
-				if (comp(node->_value.first, cur->value.first) && cur->_left)
-					addPair(cur->_left, node, end);
-				if (comp(cur->value.first, node->_value.first) && cur->_right != end)
-					addPair(cur->_right, node, end);
+				if (_comp(node->_value.first, cur->_value.first) && cur->_left)
+					addNode(cur->_left, node, end);
+				if (_comp(cur->_value.first, node->_value.first) && cur->_right != end)
+					addNode(cur->_right, node, end);
 
-				if (!comp(cur->value.first, node->_value.first) && !comp(cur->value.first, node->_value.first))
+				if (!_comp(cur->_value.first, node->_value.first) && !_comp(cur->_value.first, node->_value.first))
 					return cur;
 				
-				if (comp(node->_value.first, cur->value.first) && !cur->_left) {
+				if (_comp(node->_value.first, cur->_value.first) && !cur->_left) {
 					cur->_left = node;
 					cur->_left->_up = cur;
 					return cur->_left;
 				}
-				if (comp(cur->value.first, node->_value.first) && (!cur->_right || cur->_right == end)) {
+				if (_comp(cur->_value.first, node->_value.first) && (!cur->_right || cur->_right == end)) {
 					cur->_right = node;
 					cur->_right->_up = cur;
 					return cur->_right;
@@ -293,43 +293,44 @@ namespace ft {
 				return NULL; //shouldn't get there, i think all cases are covered above
 			}
 
-			node_type *initRoot(node_type *root, value_type const &pair) {
+			void initRoot(node_type *end) {
 
-				node_type *end = root;
-				root = new node_type(pair);
+				// node_type *end = root;
+				// root = new node_type(pair);
 			//	root->_value = pair;
 				std::cout << "IN INIT ROOT index" << _value.first << "content" << _value.second << std::endl;
-				root->_right = end;
-				end->_up = root;
+				this->_right = end;
+				end->_up = this;
 
-				return root;
 			}
 
-			node_type *addPair(node_type *cur, value_type const &pair, node_type *end) {
+			// node_type *addPair(node_type *cur, value_type const &pair, node_type *end) {
 
-				if (_comp(pair.first, cur->_value.first) && cur->_left)
-					addPair(cur->_left, pair, end);
-				if (_comp(cur->_value.first, pair.first) && cur->_right != end)
-					addPair(cur->_right, pair, end);
+			// 	if (_comp(pair.first, cur->_value.first) && cur->_left)
+			// 		addPair(cur->_left, pair, end);
+			// 	if (_comp(cur->_value.first, pair.first) && cur->_right != end)
+			// 		addPair(cur->_right, pair, end);
 
-				if (!_comp(cur->_value.first, pair.first) && !_comp(cur->_value.first, pair.first))
-					return cur;
+			// 	if (!_comp(cur->_value.first, pair.first) && !_comp(cur->_value.first, pair.first))
+			// 		return cur;
 				
-				if (_comp(pair.first, cur->_value.first) && !cur->_left) {
-					cur->_left = new node_type(pair);
-				//	cur->_left->_value = pair;
-					cur->_left->_up = cur;
-					return cur->_left;
-				}
-				if (_comp(cur->_value.first, pair.first) && (!cur->_right || cur->_right == end)) {
-					cur->_right = new node_type(pair);
-					//cur->_right->_value = pair;
-					cur->_right->_up = cur;
-					return cur->_right;
-				}
+			// 	if (_comp(pair.first, cur->_value.first) && !cur->_left) {
+			// 		//cur->_left = new node_type(pair);
+			// 		std::cout << "add pair in left" << std::endl;
+			// 	//	cur->_left->_value = pair;
+			// 		//cur->_left->_up = cur;
+			// 		return cur->_left;
+			// 	}
+			// 	if (_comp(cur->_value.first, pair.first) && (!cur->_right || cur->_right == end)) {
+			// 		//cur->_right = new node_type(pair);
+			// 		//std::cout << "add pair in right" << std::endl;
+			// 		//cur->_right->_value = pair;
+			// 		//cur->_right->_up = cur;
+			// 		return cur->_right;
+			// 	}
 
-				return NULL; //shouldn't get there, i think all cases are covered above
-			}
+			// 	return NULL; //shouldn't get there, i think all cases are covered above
+			// }
 
 			node_type *findKey(node_type *cur, key_type const &key, node_type *end) {
 

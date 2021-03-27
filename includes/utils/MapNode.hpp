@@ -317,27 +317,32 @@ namespace ft {
 			}
 
 			node_type *findSpot(node_type *cur, key_type k, node_type *end) {
-				if (_comp(k, cur->_value.first) && cur->_left)
-					findSpot(cur->_left, k, end);
-				if (_comp(cur->_value.first, k) && cur->_right != end)
-					findSpot(cur->_right, k, end);
+				
+				std::cout << "findSpot cur key " << cur->_value.first << " k " << k << std::endl;
 
-				if (!_comp(cur->_value.first, k) && !_comp(k, cur->_value.first))
-					return cur;
+				if (_comp(k, cur->_value.first) && cur->_left && cur->_left != end)
+					return findSpot(cur->_left, k, end);
+				if (_comp(cur->_value.first, k) && cur->_right && cur->_right != end)
+					return findSpot(cur->_right, k, end);
+
+				
 				
 				if (_comp(k, cur->_value.first) && !cur->_left) {
 			//		cur->_left = node;
 			//		cur->_left->_up = cur;
+					std::cout << "left returning cur " << cur->_value.first << std::endl;
 					return cur;
 				}
-				if (_comp(cur->_value.first, k) && (!cur->_right || cur->_right == end)) {
+				if (_comp(cur->_value.first, k) && cur->_right == end) {
 				//	cur->_right = node;
 				//	cur->_right->_up = cur;
+					std::cout << "right returning cur " << cur->_value.first << std::endl;
 					return cur;
 				}
 
 				return NULL;
 			};
+
 		
 			void adopt(node_type *kid, node_type *end) {
 				if (_comp(kid->_value.first, this->_value.first))
@@ -346,6 +351,7 @@ namespace ft {
 					if (this->_right == end) {
 						kid->_right = end;
 						end->_up = kid;
+						std::cout << "end transfer OKOK" << std::endl;
 					}
 					this->_right = kid;
 				}
@@ -398,14 +404,19 @@ namespace ft {
 				if (cur == end)
 					return NULL;
 								
-				
-				if (_comp(key, cur->_value.first) && cur->_left && cur->_left != end)
-					cur = findKey(cur->_left, key, end);
-				if (_comp(cur->_value.first, key) && cur->_right && cur->_right != end)
-					cur = findKey(cur->_right, key, end);
 				std::cout << "before sgv key " << key << " cur key " << cur->_value.first << std::endl;
-				if (!_comp(cur->_value.first, key) && !_comp(key, cur->_value.first))
+				if (!_comp(cur->_value.first, key) && !_comp(key, cur->_value.first)) {
+					std::cout << "GOT A MATCH!!" << std::endl;
 					return cur;
+				}
+
+				if (_comp(key, cur->_value.first) && cur->_left && cur->_left != end)
+					return findKey(cur->_left, key, end);
+				if (_comp(cur->_value.first, key) && cur->_right && cur->_right != end)
+					return findKey(cur->_right, key, end);
+				// std::cout << "before sgv key " << key << " cur key " << cur->_value.first << std::endl;
+				// if (!_comp(cur->_value.first, key) && !_comp(key, cur->_value.first))
+				// 	return cur;
 				std::cout << "before sgv no match key " << key << " cur key " << cur->_value.first << std::endl;
 				return NULL;
 			}

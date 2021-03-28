@@ -155,9 +155,9 @@ namespace ft {
 				_begin = _root;
 				_end = _begin;
 				_size = 0;
-				std::cout << "IN CONSTR CPY other size" << x._size << std::endl;
+				// std::cout << "IN CONSTR CPY other size" << x._size << std::endl;
 		 		insert(x.begin(), x.end());
-				std::cout << "IN CONSTR CPY size:" << _size << std::endl;
+				// std::cout << "IN CONSTR CPY size:" << _size << std::endl;
 			}; 
 
 			Map& operator= (const Map& x) {
@@ -281,27 +281,27 @@ namespace ft {
 				node_type *cur;
 				if (_size) {
 					cur = _root->findKey(_root, k, _end);
-					std::cout << "in op[] with _size" << std::endl;
+					// std::cout << "in op[] with _size" << std::endl;
 					if (!cur) {
-						std::cout << "in op[] with _size !cur" << std::endl;
+						// std::cout << "in op[] with _size !cur" << std::endl;
 						//cur = _root->addNode(_root, node_type(value_type(key_type(k), mapped_type())), _end);
 						node_type *parent = _root->findSpot(_root, k, _begin, _end);
-						std::cout << "parent index [" << (*iterator(parent)).first << std::endl;
+					//	std::cout << "parent index [" << (*iterator(parent)).first << std::endl;
 						cur = new node_type(value_type(key_type(k), mapped_type()));
 						
 						parent->adopt(cur, _end);
-						std::cout << "**********CHECK PARENT NODE ADOPTION****************" << std::endl;
-						if (parent->getLeft())
-							std::cout << "parent index [" << (*iterator(parent)).first << "] parent left index [" << (*iterator(parent->getLeft())).first <<"] parent right index [" << (*iterator(parent->getRight())).first << "]" << std::endl;
-						else
-							std::cout << "parent index [" << (*iterator(parent)).first <<"] parent right index [" << (*iterator(parent->getRight())).first << "]" << std::endl;
-						std::cout << "kid index [" << (*iterator(cur)).first << "] kid up index [" << (*iterator(cur->getParent())).first << "]" << std::endl;
-						std::cout << "**********END PARENT NODE ADOPTION****************" << std::endl;
-						std::cout << "GONNA SET END IN OP[] !cur" << std::endl;
+						// std::cout << "**********CHECK PARENT NODE ADOPTION****************" << std::endl;
+						// if (parent->getLeft())
+							// std::cout << "parent index [" << (*iterator(parent)).first << "] parent left index [" << (*iterator(parent->getLeft())).first <<"] parent right index [" << (*iterator(parent->getRight())).first << "]" << std::endl;
+						// else
+							// std::cout << "parent index [" << (*iterator(parent)).first <<"] parent right index [" << (*iterator(parent->getRight())).first << "]" << std::endl;
+						// std::cout << "kid index [" << (*iterator(cur)).first << "] kid up index [" << (*iterator(cur->getParent())).first << "]" << std::endl;
+						// std::cout << "**********END PARENT NODE ADOPTION****************" << std::endl;
+						// std::cout << "GONNA SET END IN OP[] !cur" << std::endl;
 						//_end->setEnd(_root);
-						std::cout << "AFTER SET END IN OP[] !cur" << std::endl;
+						// std::cout << "AFTER SET END IN OP[] !cur" << std::endl;
 						_begin = _root->getBegin(_root);
-						std::cout << "AFTER GETBEGIN IN OP[] !cur" << std::endl;
+						// std::cout << "AFTER GETBEGIN IN OP[] !cur" << std::endl;
 						_size++;
 					}
 				}
@@ -313,20 +313,20 @@ namespace ft {
 					_begin = _root;
 					_size++;
 				}
-				std::cout << "op[]: new size = " << _size << " begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
-				std::cout << "op[]: new size = " << _size << " root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
-				std::cout << "op[]: new size = " << _size << " cur index " << (*iterator(cur)).first << "content" << (*iterator(cur)).second << std::endl;
-				std::cout << "op[]: new size = " << _size << " GETLAST index " << (*iterator(_root->getLast(_root, _end))).first << "content" << (*iterator(_root->getLast(_root, _end))).second << std::endl;
+				// std::cout << "op[]: new size = " << _size << " begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
+				// std::cout << "op[]: new size = " << _size << " root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
+				// std::cout << "op[]: new size = " << _size << " cur index " << (*iterator(cur)).first << "content" << (*iterator(cur)).second << std::endl;
+				// std::cout << "op[]: new size = " << _size << " GETLAST index " << (*iterator(_root->getLast(_root, _end))).first << "content" << (*iterator(_root->getLast(_root, _end))).second << std::endl;
 
-				//OUTPUT TREE
-				std::cout << std::endl;
-				iterator beg = begin();
-				while (beg != end()) {
+				// //OUTPUT TREE
+				// std::cout << std::endl;
+				// iterator beg = begin();
+				// while (beg != end()) {
 				
-					std::cout << "map[" << (*beg).first << "][" << (*beg).second << "]" << std::endl;
-					beg++;
-				}
-				std::cout << std::endl;
+				// 	std::cout << "map[" << (*beg).first << "][" << (*beg).second << "]" << std::endl;
+				// 	beg++;
+				// }
+				// std::cout << std::endl;
 
 				//sakdhaskjdhaskjdhakjds
 
@@ -434,7 +434,7 @@ namespace ft {
 			// >>> with hint
 			iterator insert (iterator position, const value_type& val) {
 
-				std::cout << "INSERT POS VAL" << std::endl;
+			//	std::cout << "INSERT POS VAL" << std::endl;
 				node_type *newNode;
 				if (_size) {
 					//newNode = _root->findKey(position, val.first, _end);
@@ -458,15 +458,15 @@ namespace ft {
 			template <class InputIterator>
     		void insert (InputIterator first, InputIterator last) {
 
-				std::cout << "INSERT RANGE" << std::endl;
+			//	std::cout << "INSERT RANGE" << std::endl;
 				while (first != last) {
-					std::cout << "INSERT RANGE in loop" << std::endl;
+			//		std::cout << "INSERT RANGE in loop" << std::endl;
 					insert(*first);
 					first++;
 					// this[(*first).first] = (*first).second;
 					// first++;
 				}
-				std::cout << "IN insert it aft" << _size << std::endl;
+			//	std::cout << "IN insert it aft" << _size << std::endl;
 			};
     		//Extend the container by inserting new elements before the element at the specified position
 

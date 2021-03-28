@@ -31,7 +31,7 @@ namespace ft {
 			}
 			Pair &operator=(T const &other) {
 
-				std::cout << "fuckfuckfuckfuck" << std::endl;
+				// std::cout << "fuckfuckfuckfuck" << std::endl;
 				second = other.second;
 				return (*this);
 			}
@@ -51,13 +51,13 @@ namespace ft {
 			typedef MapNode<Key, T, Compare> 							node_type;
 
 			MapNode() 							: _value(), _up(NULL), _left(NULL), _right(NULL) {};
-			MapNode(value_type const &value) 	: _value(value), _up(NULL), _left(NULL), _right(NULL) { std::cout << "----------------MAPNODE COPIED-------------" << std::endl;};
+			MapNode(value_type const &value) 	: _value(value), _up(NULL), _left(NULL), _right(NULL) {};
 			MapNode(node_type const &src) 		: _value(src._value), _up(src._up), _left(src._left), _right(src._right) {};
 			~MapNode() {}
 
 			MapNode &operator=(MapNode const &src) {
 
-				std::cout << "AAAAAAAAAAAAAAAAA" << std::endl;
+				//std::cout << "AAAAAAAAAAAAAAAAA" << std::endl;
 				this->_value = src._value;
 				this->_up = src._up;
 				this->_left = src._left;
@@ -69,7 +69,7 @@ namespace ft {
 			MapNode &operator=(mapped_type const &src) {
 
 				this->_value.second = src;
-				std::cout << "op= value" << std::endl;
+				// std::cout << "op= value" << std::endl;
 				// this->_up = src._up;
 				// this->_left = src._left;
 				// this->_right = src._right;
@@ -219,7 +219,7 @@ namespace ft {
 				node_type *last = cur;
 				if (last->_right && last->_right != end)
 					last = last->_right;
-				std::cout << "curLast index["<< last->_value.first<< "] mapped value [" << last->_value.second << "]" << std::endl;
+			//	std::cout << "curLast index["<< last->_value.first<< "] mapped value [" << last->_value.second << "]" << std::endl;
 				return last;
 			};
 
@@ -228,7 +228,7 @@ namespace ft {
 				node_type *last = cur;
 				if (last->_right && last->_right != end)
 					last = last->_right;
-				std::cout << "curLast index["<< last->_value.first<< "] mapped value [" << last->_value.second << "]" << std::endl;
+			//	std::cout << "curLast index["<< last->_value.first<< "] mapped value [" << last->_value.second << "]" << std::endl;
 				return last;
 			};
 
@@ -238,7 +238,7 @@ namespace ft {
 				while (beg->_left)
 					beg = beg->_left;
 				
-				std::cout << ">>>getBegin index["<< cur->_value.first<< "] mapped value [" << cur->_value.second << "]" << std::endl;
+			//	std::cout << ">>>getBegin index["<< cur->_value.first<< "] mapped value [" << cur->_value.second << "]" << std::endl;
 				return beg;
 			};
 
@@ -263,7 +263,7 @@ namespace ft {
 			void 	setEnd(node_type *cur) {
 
 				node_type *last = getLast(cur, this);
-				std::cout << "IN SETEND AFTER GET LAST" << std::endl;
+			//	std::cout << "IN SETEND AFTER GET LAST" << std::endl;
 				last->_right = this;
 				this->_up = last; 
 			};
@@ -318,22 +318,22 @@ namespace ft {
 
 			node_type *findSpot(node_type *cur, key_type k, node_type *beg, node_type *end) {
 				
-				std::cout << "findSpot cur key " << cur->_value.first << " k " << k << std::endl;
-				std::cout << "beg key " << beg->_value.first << " k " << k << std::endl;
+			//	std::cout << "findSpot cur key " << cur->_value.first << " k " << k << std::endl;
+			//	std::cout << "beg key " << beg->_value.first << " k " << k << std::endl;
 				if (!_comp(cur->_value.first, k) && (!cur->_left || cur == beg)) {
 			//		cur->_left = node;
 			//		cur->_left->_up = cur;
-					std::cout << "left returning cur " << cur->_value.first << std::endl;
+			//		std::cout << "left returning cur " << cur->_value.first << std::endl;
 					return cur;
 				}
 				if (_comp(cur->_value.first, k) && (!cur->_right || cur->_right == end)) {
 				//	cur->_right = node;
 				//	cur->_right->_up = cur;
-					std::cout << "right returning cur " << cur->_value.first << std::endl;
+				//	std::cout << "right returning cur " << cur->_value.first << std::endl;
 					return cur;
 				}
 
-				std::cout << "findSpot cur key " << cur->_value.first << " k " << k << std::endl;
+			//	std::cout << "findSpot cur key " << cur->_value.first << " k " << k << std::endl;
 
 				if (_comp(k, cur->_value.first) && cur->_left && cur != beg)
 					return findSpot(cur->_left, k, beg, end);
@@ -347,19 +347,19 @@ namespace ft {
 
 		
 			void adopt(node_type *kid, node_type *end) {
-				std::cout << "adopt beg" << std::endl;
+				// std::cout << "adopt beg" << std::endl;
 				if (_comp(kid->_value.first, this->_value.first))
 					this->_left = kid;
 				else {
 					if (this->_right == end) {
 						kid->_right = end;
 						end->_up = kid;
-						std::cout << "end transfer OKOK" << std::endl;
+						// std::cout << "end transfer OKOK" << std::endl;
 					}
 					this->_right = kid;
 				}
 				kid->_up = this;
-				std::cout << "adopt end" << std::endl;
+				// std::cout << "adopt end" << std::endl;
 			};
 
 			void initRoot(node_type *begin, node_type *end) {
@@ -367,7 +367,7 @@ namespace ft {
 				// node_type *end = root;
 				// root = new node_type(pair);
 			//	root->_value = pair;
-				std::cout << "IN INIT ROOT index" << _value.first << "content" << _value.second << std::endl;
+			//	std::cout << "IN INIT ROOT index" << _value.first << "content" << _value.second << std::endl;
 				this->_left = NULL;
 				begin = this;
 				this->_right = end;
@@ -408,9 +408,9 @@ namespace ft {
 				if (cur == end)
 					return NULL;
 								
-				std::cout << "before sgv key " << key << " cur key " << cur->_value.first << std::endl;
+			//	std::cout << "before sgv key " << key << " cur key " << cur->_value.first << std::endl;
 				if (!_comp(cur->_value.first, key) && !_comp(key, cur->_value.first)) {
-					std::cout << "GOT A MATCH!!" << std::endl;
+			//		std::cout << "GOT A MATCH!!" << std::endl;
 					return cur;
 				}
 
@@ -421,7 +421,7 @@ namespace ft {
 				// std::cout << "before sgv key " << key << " cur key " << cur->_value.first << std::endl;
 				// if (!_comp(cur->_value.first, key) && !_comp(key, cur->_value.first))
 				// 	return cur;
-				std::cout << "before sgv no match key " << key << " cur key " << cur->_value.first << std::endl;
+			//	std::cout << "before sgv no match key " << key << " cur key " << cur->_value.first << std::endl;
 				return NULL;
 			}
 

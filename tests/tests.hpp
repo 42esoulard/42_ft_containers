@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/28 14:45:07 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/28 15:43:33 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -572,7 +572,7 @@ int test_map_maxSize();
 // //ELEMENT ACCESS
 int test_map_oparray();
 // //MODIFIERS
-// int test_map_insert();
+int test_map_insert();
 // int test_map_erase();
 // int test_map_swap();
 // int test_map_clear();

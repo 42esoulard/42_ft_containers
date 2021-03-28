@@ -435,21 +435,25 @@ namespace ft {
 
 			//	std::cout << "INSERT POS VAL" << std::endl;
 				node_type *newNode;
-				if (_size) {
-					//newNode = _root->findKey(position, val.first, _end);
-					if ((newNode = _root->findKey(position, val.first, _end)) || (newNode = _root->findKey(_root, val.first, _end)))
-						return std::pair<iterator,bool>(iterator(newNode), false);
-					newNode = addNode(_root, new node_type(val), _end);
-					_begin = getBegin(_root);
-				}
-				else {
-					newNode = _root->initRoot(_begin, _end);
-					_begin = _root;
-				}
-				_size++;
-				_end->setEnd(_root);
+				// if (_size) {
+				// 	//newNode = _root->findKey(position, val.first, _end);
+				// 	if ((newNode = _root->findKey(position.getNode(), val.first, _end)) || (newNode = _root->findKey(_root, val.first, _end)))
+				// 		return iterator(newNode);
+				// 	newNode = _root->addNode(_root, new node_type(val), _end);
+				// 	_begin = _root->getBegin(_root);
+				// }
+				// else {
+				// 	_root->initRoot(_begin, _end);
+				// 	_begin = _root;
+				// 	newNode = _root;
+				// }
+				// _size++;
+				// _end->setEnd(_root);
+				if (_size && (newNode = _root->findKey(position.getNode(), val.first, _end)))
+					return iterator(newNode);
+				std::pair<iterator,bool> res = insert(val);
 				
-				return iterator(newNode);
+				return res.first;
 			}; 
 			//return an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map.
     		

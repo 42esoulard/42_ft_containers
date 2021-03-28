@@ -109,59 +109,52 @@ int test_map_constr() {
 // //*\*/*\*/ITERATORS/*\*/*\*//
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 
-// int test_map_pushBack_iterate() {
-// 	std::string title = "[BASIC INSTANCE + PUSH_BACK]";
-// 	std::cout << title;
+int test_map_iterate() {
+	std::string title = "[BASIC ITERATING + DEREFERENCING]";
+	std::cout << title;
 
-// 	ft::Map<int> ft_map;
-// 	std::map<int> map;
+	ft::Map<int, int> ft_map;
+	std::map<int, int> map;
 
-// 	ft_map.push_back(10);
-// 	ft_map.push_back(12);
-// 	ft_map.push_back(18);
+	ft_map[3] = 10;
+	ft_map[12] = 42;
+	ft_map[1] = 20;
+	ft_map[17] = 26;
 
-// 	map.push_back(10);
-// 	map.push_back(12);
-// 	map.push_back(18);
+	map[3] = 10;
+	map[12] = 42;
+	map[1] = 20;
+	map[17] = 26;
 
-// 	chk_result(ft_map, map, "map", title);
+	
 
-// 	ft::Map<char> ft_mapEmpty;
-// 	ft_map.push_back('&');
-// 	std::map<char> mapEmpty;
-// 	map.push_back('&');
+	int tmp;
+	ft::Map<int, int>::iterator it = ft_map.begin();
+	while (it != ft_map.end()) {
+		//std::cout << *it << std::endl; //commented to keep test output clean
+		tmp = (*it).first;
+		tmp = (*it).second;
+		it++;
+	}
+	chk_mapResult(ft_map, map, "map", title);
 
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]");
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
-// 	title = "[BASIC ITERATING + DEREFERENCING]";
-// 	std::cout << title;
+	title = "[BASIC REVERSE ITERATING + DEREFERENCING]";
+	std::cout << title;
 
-// 	int tmp;
-// 	ft::Map<int>::iterator it = ft_map.begin();
-// 	while (it != ft_map.end()) {
-// 		//std::cout << *it << std::endl; //commented to keep test output clean
-// 		tmp = *it;
-// 		it++;
-// 	}
-// 	chk_result(ft_map, map, "map", title);
+	ft::Map<int, int>::reverse_iterator rit = ft_map.rbegin();
+	while (rit != ft_map.rend()) {
+		//std::cout << *it << std::endl; //commented to keep test output clean
+		tmp = (*rit).first;
+		tmp = (*rit).second;
+		rit++;
+	}
+	chk_mapResult(ft_map, map, "map", title);
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-
-// 	title = "[BASIC REVERSE ITERATING + DEREFERENCING]";
-// 	std::cout << title;
-
-// 	ft::Map<int>::reverse_iterator rit = ft_map.rbegin();
-// 	while (rit != ft_map.rend()) {
-// 		//std::cout << *it << std::endl; //commented to keep test output clean
-// 		tmp = *rit;
-// 		rit++;
-// 	}
-// 	chk_result(ft_map, map, "map", title);
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-//     return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+    return 0;
+};
 
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 // ///*\*/*\*/CAPACITY/*\*/*\*//
@@ -266,32 +259,32 @@ int test_map_constr() {
 
 // 	ft_map.resize(2);
 // 	map.resize(2);
-// 	chk_result(ft_map, map, "map", title, "[5 TO 2]");
+// 	chk_mapResult(ft_map, map, "map", title, "[5 TO 2]");
 
 // 	ft_map.resize(0);
 // 	map.resize(0);
-// 	chk_result(ft_map, map, "map", title, "[2 TO 0]");
+// 	chk_mapResult(ft_map, map, "map", title, "[2 TO 0]");
 
 // 	ft_map.resize(0);
 // 	map.resize(0);
-// 	chk_result(ft_map, map, "map", title, "[0 TO 0]");
+// 	chk_mapResult(ft_map, map, "map", title, "[0 TO 0]");
 
 // 	ft_map.resize(5);
 // 	map.resize(5);
-// 	chk_result(ft_map, map, "map", title, "[0 TO 5]");
+// 	chk_mapResult(ft_map, map, "map", title, "[0 TO 5]");
 	
 // 	ft_map.resize(100);
 // 	map.resize(100);
-// 	chk_result(ft_map, map, "map", title, "[5 TO 100]");
+// 	chk_mapResult(ft_map, map, "map", title, "[5 TO 100]");
 
 // 	ft_map.resize(100);
 // 	map.resize(100);
-// 	chk_result(ft_map, map, "map", title, "[100 TO 100]");
+// 	chk_mapResult(ft_map, map, "map", title, "[100 TO 100]");
 
 // 	//UNDEFINED BEHAVIOUR
 // 	//ft_map.resize(-50);
 // 	//map.resize(-50);
-// 	//chk_result(ft_map, map, "map", "RESIZE [100 TO -50]");
+// 	//chk_mapResult(ft_map, map, "map", "RESIZE [100 TO -50]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -620,13 +613,13 @@ int test_map_constr() {
 
 // 	ft_map.assign(ft_src.begin(), ft_src.end());
 // 	map.assign(src.begin(), src.end());
-// 	chk_result(ft_map, map, "map", title, "[FULL to EMPTY][1/2]");
-// 	chk_result(ft_src, src, "map", title, "[FULL to EMPTY][2/2]");
+// 	chk_mapResult(ft_map, map, "map", title, "[FULL to EMPTY][1/2]");
+// 	chk_mapResult(ft_src, src, "map", title, "[FULL to EMPTY][2/2]");
 
 // 	ft_src.assign(ft_map.begin(), ft_map.end());
 // 	src.assign(map.begin(), map.end());
-// 	chk_result(ft_map, map, "map", title, "[FULL to FULL][1/2]");
-// 	chk_result(ft_src, src, "map", title, "[FULL to EMPTY][2/2]");
+// 	chk_mapResult(ft_map, map, "map", title, "[FULL to FULL][1/2]");
+// 	chk_mapResult(ft_src, src, "map", title, "[FULL to EMPTY][2/2]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
@@ -639,15 +632,15 @@ int test_map_constr() {
 
 // 	ft_mapA.assign(12, 'W');
 // 	mapA.assign(12, 'W');
-// 	chk_result(ft_mapA, mapA, "map", title, "[to EMPTY]");
+// 	chk_mapResult(ft_mapA, mapA, "map", title, "[to EMPTY]");
 	
 // 	ft_mapA.assign(4, '8');
 // 	mapA.assign(4, '8');
-// 	chk_result(ft_mapA, mapA, "map", title, "[to FULL]");
+// 	chk_mapResult(ft_mapA, mapA, "map", title, "[to FULL]");
 
 // 	ft_mapA.assign(24, 'U');
 // 	mapA.assign(24, 'U');
-// 	chk_result(ft_mapA, mapA, "map", title, "[to FULL]");
+// 	chk_mapResult(ft_mapA, mapA, "map", title, "[to FULL]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -667,14 +660,14 @@ int test_map_constr() {
 
 // 	ft_map.pop_back();
 // 	map.pop_back();
-// 	chk_result(ft_map, map, "map", title);
+// 	chk_mapResult(ft_map, map, "map", title);
 
 // 	ft::Map<char> ft_mapEmpty;
 // 	ft_map.pop_back();
 // 	std::map<char> mapEmpty;
 // 	map.pop_back();
 
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]");
+// 	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -705,7 +698,7 @@ int test_map_constr() {
 // 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_map, map, "map", title, "", "CONTENT");
 // 	}
-// 	chk_result(ft_map, map, "map", title);
+// 	chk_mapResult(ft_map, map, "map", title);
 	
 
 // 	ft::Map<char> ft_mapEmpty;
@@ -719,7 +712,7 @@ int test_map_constr() {
 // 		std::cerr << "*ft_it after insert(1) = [" << *ft_it << "] | *it after insert(1) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]", "CONTENT");
 // 	}
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]");
+// 	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
@@ -742,7 +735,7 @@ int test_map_constr() {
 // 		std::cerr << "*ft_it after insert(2) = [" << *ft_it << "] | *it after insert(2) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_map, map, "map", title, "", "CONTENT");
 // 	}
-// 	chk_result(ft_map, map, "map", title);
+// 	chk_mapResult(ft_map, map, "map", title);
 	
 // 	ft::Map<char> ft_mapEmptyB;
 // 	ft_it = ft_mapEmptyB.begin();
@@ -751,7 +744,7 @@ int test_map_constr() {
 // 	it = mapEmptyB.begin();
 // 	mapEmptyB.insert(it, size, '6');
 
-// 	chk_result(ft_mapEmptyB, mapEmptyB, "map", title, "[EMPTY to FULL]");
+// 	chk_mapResult(ft_mapEmptyB, mapEmptyB, "map", title, "[EMPTY to FULL]");
 
 // 	size = 0;
 // 	ft::Map<char> ft_mapEmptyC;
@@ -761,14 +754,14 @@ int test_map_constr() {
 // 	it = mapEmptyC.begin();
 // 	mapEmptyC.insert(it, size, '6');
 
-// 	chk_result(ft_mapEmptyC, mapEmptyC, "map", title, "[EMPTY to EMPTY]");
+// 	chk_mapResult(ft_mapEmptyC, mapEmptyC, "map", title, "[EMPTY to EMPTY]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
 
 // 	title = "[INSERT(3)[RANGE]]";
 // 	std::cout << title;
-// 	chk_result(ft_map, map, "map", title, "askdjhaskjdh");
+// 	chk_mapResult(ft_map, map, "map", title, "askdjhaskjdh");
 	
 // 	ft::Map<char> ft_src(10, '!');
 // 	ft_src.push_back('@');
@@ -789,7 +782,7 @@ int test_map_constr() {
 // 		std::cerr << "*ft_it after insert(3) = [" << *ft_it << "] | *it after insert(3) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_map, map, "map", title, "", "CONTENT");
 // 	}
-// 	chk_result(ft_map, map, "map", title);
+// 	chk_mapResult(ft_map, map, "map", title);
 
 // 	ft::Map<char> ft_mapEmptyD;
 // 	ft_it = ft_mapEmptyC.begin();
@@ -797,7 +790,7 @@ int test_map_constr() {
 // 	std::map<char> mapEmptyD;
 // 	it = mapEmptyC.begin();
 // 	mapEmptyC.insert(it, mapEmptyD.begin(), mapEmptyD.end());
-// 	chk_result(ft_mapEmptyC, mapEmptyC, "map", title, "[EMPTY to EMPTY]");
+// 	chk_mapResult(ft_mapEmptyC, mapEmptyC, "map", title, "[EMPTY to EMPTY]");
 
 // 	ft_it = ft_map.begin();
 // 	ft_map.insert(ft_it, ft_mapEmptyD.begin(), ft_mapEmptyD.end());
@@ -809,13 +802,13 @@ int test_map_constr() {
 // 		std::cerr << "*ft_it after insert(3) = [" << *ft_it << "] | *it after insert(3) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_map, map, "map", title, "", "CONTENT");
 // 	}
-// 	chk_result(ft_map, map, "map", title, "[EMPTY to FULL]");
+// 	chk_mapResult(ft_map, map, "map", title, "[EMPTY to FULL]");
 	
 // 	ft_it = ft_mapEmptyD.begin();
 // 	ft_mapEmptyD.insert(ft_it, ft_map.begin(), ft_map.end());
 // 	it = mapEmptyD.begin();
 // 	mapEmptyD.insert(it, map.begin(), map.end());
-// 	chk_result(ft_mapEmptyD, mapEmptyD, "map", title, "[FULL TO EMPTY]");
+// 	chk_mapResult(ft_mapEmptyD, mapEmptyD, "map", title, "[FULL TO EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -842,7 +835,7 @@ int test_map_constr() {
 // 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_map, map, "map", title, "[begin]", "CONTENT");
 // 	}
-// 	chk_result(ft_map, map, "map", title, "[begin]");
+// 	chk_mapResult(ft_map, map, "map", title, "[begin]");
 
 // 	ft_it = ft_map.erase(ft_it);
 // 	it = map.erase(it);
@@ -850,27 +843,27 @@ int test_map_constr() {
 // 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_map, map, "map", title, "[begin]", "CONTENT");
 // 	}
-// 	chk_result(ft_map, map, "map", title, "[begin]");
+// 	chk_mapResult(ft_map, map, "map", title, "[begin]");
 
 // 	//INVALID POSITION = UNDEFINED BEHAVIOR
 // 	// ft_it = ft_map.end();
 // 	// it = map.end();
 // 	// ft_it = ft_map.erase(ft_it);
 // 	// it = map.erase(it);
-// 	// chk_result(ft_map, map, "map", "ERASE(1) [end]");
+// 	// chk_mapResult(ft_map, map, "map", "ERASE(1) [end]");
 
 // 	while (ft_it != ft_map.end())
 // 		ft_it = ft_map.erase(ft_it);
 // 	while (it != map.end())
 // 		it = map.erase(it);
-// 	chk_result(ft_map, map, "map", title, "[all]");
+// 	chk_mapResult(ft_map, map, "map", title, "[all]");
 
 // 	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
 // 	//ft::Map<char> ft_mapEmpty;
 // 	//std::map<char> mapEmpty;
 // 	//ft_mapEmpty.erase(ft_mapEmpty.begin());
 // 	//mapEmpty.erase(mapEmpty.begin());
-// 	//chk_result(ft_mapEmpty, mapEmpty, "map", "ERASE(1) [EMPTY]");
+// 	//chk_mapResult(ft_mapEmpty, mapEmpty, "map", "ERASE(1) [EMPTY]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	//------------------------------------------------------------------------
@@ -880,7 +873,7 @@ int test_map_constr() {
 
 // 	ft_map.erase(ft_map.begin(), ft_map.end());
 // 	map.erase(map.begin(), map.end());
-// 	chk_result(ft_map, map, "map", title, "[EMPTY]");
+// 	chk_mapResult(ft_map, map, "map", title, "[EMPTY]");
 	
 // 	ft_map.insert(ft_map.begin(), 10, '!');
 // 	ft_map.push_back('@');
@@ -908,11 +901,11 @@ int test_map_constr() {
 // 		std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
 // 		handle_error(ft_map, map, "map", title, "[PARTIAL]", "CONTENT");
 // 	}
-// 	chk_result(ft_map, map, "map", title, "[PARTIAL]");
+// 	chk_mapResult(ft_map, map, "map", title, "[PARTIAL]");
 	
 // 	ft_it = ft_map.erase(ft_map.begin(), ft_map.end());
 // 	it = map.erase(map.begin(), map.end());
-// 	chk_result(ft_map, map, "map", title, "[TOTAL]");
+// 	chk_mapResult(ft_map, map, "map", title, "[TOTAL]");
 // 	//not comparing return pointers because they point after end() in this case
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
@@ -936,20 +929,20 @@ int test_map_constr() {
 // 	ft_mapEmpty.swap(ft_map);
 // 	mapEmpty.swap(map);
 
-// 	chk_result(ft_map, map, "map", title, "[Full vs Empty][1/2]");
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[Full vs Empty][2/2]");
+// 	chk_mapResult(ft_map, map, "map", title, "[Full vs Empty][1/2]");
+// 	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[Full vs Empty][2/2]");
 	
 // 	ft_mapEmpty.swap(ft_map);
 // 	mapEmpty.swap(map);
-// 	chk_result(ft_map, map, "map", title, "[Empty vs Full][1/2]");
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[Empty vs Full][2/2]");
+// 	chk_mapResult(ft_map, map, "map", title, "[Empty vs Full][1/2]");
+// 	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[Empty vs Full][2/2]");
 
 // 	ft_mapEmpty.insert(ft_mapEmpty.begin(), 56, 'v');
 // 	mapEmpty.insert(mapEmpty.begin(), 56, 'v');
 // 	ft_mapEmpty.swap(ft_map);
 // 	mapEmpty.swap(map);
-// 	chk_result(ft_map, map, "map", title, "[Full vs Full][1/2]");
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[Full vs Full][2/2]");
+// 	chk_mapResult(ft_map, map, "map", title, "[Full vs Full][1/2]");
+// 	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[Full vs Full][2/2]");
 
 // 	ft::Map<char> ft_mapEmptyA;
 // 	std::map<char> mapEmptyA;
@@ -957,8 +950,8 @@ int test_map_constr() {
 // 	std::map<char> mapEmptyB;
 // 	ft_mapEmptyA.swap(ft_mapEmptyB);
 // 	mapEmptyA.swap(mapEmptyB);
-// 	chk_result(ft_mapEmptyA, mapEmptyA, "map", title, "[Empty vs Empty][1/2]");
-// 	chk_result(ft_mapEmptyB, mapEmptyB, "map", title, "[Empty vs Empty][2/2]");
+// 	chk_mapResult(ft_mapEmptyA, mapEmptyA, "map", title, "[Empty vs Empty][1/2]");
+// 	chk_mapResult(ft_mapEmptyB, mapEmptyB, "map", title, "[Empty vs Empty][2/2]");
 	
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -973,11 +966,11 @@ int test_map_constr() {
 
 // 	ft_map.clear();
 // 	map.clear();
-// 	chk_result(ft_map, map, "map", title, "[FULL Map]");
+// 	chk_mapResult(ft_map, map, "map", title, "[FULL Map]");
 
 // 	ft_map.clear();
 // 	map.clear();
-// 	chk_result(ft_map, map, "map", title, "[EMPTY Map]");
+// 	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;
@@ -1174,15 +1167,15 @@ int test_map_constr() {
 
 // 	swap(ft_mapA, ft_mapC);
 // 	swap(mapA, mapC);
-// 	chk_result(ft_mapA, mapA, "map", title, "[1/2]");
-// 	chk_result(ft_mapC, mapC, "map", title, "[2/2]");
+// 	chk_mapResult(ft_mapA, mapA, "map", title, "[1/2]");
+// 	chk_mapResult(ft_mapC, mapC, "map", title, "[2/2]");
 
 // 	ft::Map<int> ft_mapEmpty;
 // 	std::map<int> mapEmpty;
 // 	swap(ft_mapEmpty, ft_mapC);
 // 	swap(mapEmpty, mapC);
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY vs FULL] [1/2]");
-// 	chk_result(ft_mapC, mapC, "map", title, "[EMPTY vs FULL] [2/2]");
+// 	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY vs FULL] [1/2]");
+// 	chk_mapResult(ft_mapC, mapC, "map", title, "[EMPTY vs FULL] [2/2]");
 
 // 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 // 	return 0;

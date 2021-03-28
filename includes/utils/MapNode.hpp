@@ -128,88 +128,96 @@ namespace ft {
 
 			node_type 		*getPrev(node_type *cur) {
 
-				if (cur->_left) {
-					cur = cur->_left;
-					while (cur->_right)
-						cur = cur->_right;
-					return cur;
+				node_type *ret = cur;
+
+				if (ret->_left) {
+					ret = ret->_left;
+					while (ret->_right)
+						ret = ret->_right;
+					return ret;
 				}
-				else if (cur->_up) {
-					node_type *prev = cur;
-					cur = cur->_up;
-					while (_comp(prev->_value.first, cur->_value.first)) {
-						prev = cur;
-						if (!cur->_up)
+				else if (ret->_up) {
+					node_type *prev = ret;
+					ret = ret->_up;
+					while (_comp(prev->_value.first, ret->_value.first)) {
+						prev = ret;
+						if (!ret->_up)
 							return NULL;
-						cur = cur->_up;
+						ret = ret->_up;
 					}
-					return cur;
+					return ret;
 				}
 				return NULL;
 			};
 
 			node_type 	const *getPrev(node_type *cur) const {
 
-				if (cur->_left) {
-					cur = cur->_left;
-					while (cur->_right)
-						cur = cur->_right;
-					return cur;
+				node_type *ret = cur;
+
+				if (ret->_left) {
+					ret = ret->_left;
+					while (ret->_right)
+						ret = ret->_right;
+					return ret;
 				}
-				else if (cur->_up) {
-					node_type *prev = cur;
-					cur = cur->_up;
-					while (_comp(prev->_value.first, cur->_value.first)) {
-						prev = cur;
-						if (!cur->_up)
+				else if (ret->_up) {
+					node_type *prev = ret;
+					ret = ret->_up;
+					while (_comp(prev->_value.first, ret->_value.first)) {
+						prev = ret;
+						if (!ret->_up)
 							return NULL;
-						cur = cur->_up;
+						ret = ret->_up;
 					}
-					return cur;
+					return ret;
 				}
 				return NULL;
 			};
 
 			node_type const		*getNext(node_type const *cur) const {
 
-				if (cur->_right) {
-					cur = cur->_right;
-					while (cur->_left)
-						cur = cur->_left;
-					return cur;
+				node_type const *ret = cur;
+
+				if (ret->_right) {
+					ret = ret->_right;
+					while (ret->_left)
+						ret = ret->_left;
+					return ret;
 				}
-				else if (cur->_up) {
-					node_type const *prev = cur;
-					cur = cur->_up;
-					while (!_comp(prev->_value.first, cur->_value.first)) {
-						prev = cur;
-						if (!cur->_up)
+				else if (ret->_up) {
+					node_type const *prev = ret;
+					ret = ret->_up;
+					while (!_comp(prev->_value.first, ret->_value.first)) {
+						prev = ret;
+						if (!ret->_up)
 							return NULL;
-						cur = cur->_up;
+						ret = ret->_up;
 					}
-					return cur;
+					return ret;
 				}
 				return NULL;
 			};
 
 			node_type 		*getNext(node_type *cur) {
 
-				if (cur->_right) {
-					cur = cur->_right;
-					while (cur->_left)
-						cur = cur->_left;
-					return cur;
+				node_type *ret = cur;
+
+				if (ret->_right) {
+					ret = ret->_right;
+					while (ret->_left)
+						ret = ret->_left;
+					return ret;
 				}
-				else if (cur->_up) {
-					node_type *prev = cur;
-					cur = cur->_up;
-					while (!_comp(prev->_value.first, cur->_value.first)) {
-						prev = cur;
-						if (!cur->_up)
+				else if (ret->_up) {
+					node_type *prev = ret;
+					ret = ret->_up;
+					while (!_comp(prev->_value.first, ret->_value.first)) {
+						prev = ret;
+						if (!ret->_up)
 							return NULL;
-						cur = cur->_up;
+						ret = ret->_up;
 					}
-					return cur;
+					return ret;
 				}
 				return NULL;
 			};

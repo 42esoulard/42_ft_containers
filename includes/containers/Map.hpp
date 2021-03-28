@@ -211,31 +211,30 @@ namespace ft {
 			};
 			// points after last Map element
 
-			// reverse_iterator rbegin() {
+			reverse_iterator rbegin() {
 
-			// 	// if (_end->getPrev())
-			// 	// 	return (reverse_iterator(_end->getPrev()));
-			// 	// return (reverse_iterator(_end));
-			// };
+				 return (reverse_iterator(_root->getLast(_root, _end)));
+			};
 
-			// const_reverse_iterator rbegin() const {
+			const_reverse_iterator rbegin() const {
 
-			// 	// if (_end->getPrev())
-			// 	// 	return (const_reverse_iterator(_end->getPrev()));
-			// 	// return (const_reverse_iterator(_end));
-			// };
-			// // point to last element, incrementing actually decrements
+				// if (_end->getPrev())
+				// 	return (const_reverse_iterator(_end->getPrev()));
+				return (const_reverse_iterator(_root->getLast(_root, _end)));
+				
+			};
+			// point to last element, incrementing actually decrements
 
-			// reverse_iterator rend() {
+			reverse_iterator rend() {
 
-			// 	// return (reverse_iterator(_begin->getPrev()));
-			// };
+				return (reverse_iterator(_begin->getPrev(_begin)));
+			};
 
-			// const_reverse_iterator rend() const {
+			const_reverse_iterator rend() const {
 
-			// 	// return (const_reverse_iterator(_begin->getPrev()));
-			// };
-			// point to hypothetical element BEFORE first element
+				return (const_reverse_iterator(_begin->getPrev(_begin)));
+			};
+			//point to hypothetical element BEFORE first element, actually NULL
 
 
 			//----------------------------------------------//

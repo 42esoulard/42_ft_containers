@@ -282,6 +282,20 @@ namespace ft {
 				if !left go right
 			*/
 
+				
+			
+
+			node_type *nextExtremity(node_type *cur, node_type *end) {
+
+				if ((!(cur->_right) || cur->_right == end) && !(cur->_left))
+					return cur ;
+				if (cur->_left)
+					nextExtremity(cur->_left, end);
+				if (cur->_right && cur->_right != end)
+					nextExtremity(cur->_right, end);
+				return cur;
+			};
+
 			void	ditchParent(node_type *cur) {
 
 				cur->_up = NULL;
@@ -291,6 +305,14 @@ namespace ft {
 
 				cur->_left = NULL;
 				cur->_right = NULL;
+			};
+
+			void	ditchKid(node_type *kid) {
+
+				if (this->_left == kid)
+					this->_left = NULL;
+				else if (this->_right == kid)
+					this->_right = NULL;
 			};
 
 			void	ditchAll(node_type *cur) {

@@ -480,11 +480,11 @@ namespace ft {
 
 				node_type *toDel = position.getNode();
 
-				node_type *parent = getParent(toDel);
+				node_type *parent = toDel->getParent();
 				if (!parent) {
-					parent = getPrev(toDel);
+					parent = toDel->getPrev(toDel);
 					if (!parent)
-						parent = getNext(toDel);
+						parent = toDel->getNext(toDel);
 					if (!parent) {
 						delete(toDel);
 						_root = _end;
@@ -494,22 +494,33 @@ namespace ft {
 					}
 					_root = parent;
 				}
-				parent->ditchKids();
+				parent->ditchKid(toDel);
 
-				iterator first = _root->getBegin(position.getNode());
-				iterator last = _root->getLast(position.getNode());
-				iterator next = first;
-				while (first != last) {
-					next++;
-					if (first.getNode() != parent && first.getNode() != toDel) {
-						first.getNode()->ditchAll();
-						addNode(_root, first.getNode(), _end);
-					}
-					first = next;
+				// iterator first = _root->getBegin(position.getNode());
+				// iterator last = _root->getLast(position.getNode(), _end);
+				// iterator next = first;
+				// while (first != last) {
+				// 	next++;
+				// 	if (first.getNode() != parent && first.getNode() != toDel) {
+				// 		first.getNode()->ditchAll(first.getNode());
+				// 		_root->addNode(_root, first.getNode(), _end);
+				// 	}
+				// 	first = next;
+				// }
+				node_type *cur = toDel->nextExtremity(toDel, _end);
+				std::cout << (*iterator(cur)).first << " | " << (*iterator(cur)).second << std::endl;
+				int i = 0;
+				while (cur != toDel) {
+					std::cout << "loop " << i << std::endl;
+					cur->ditchParent(cur);
+					cur->getParent()->ditchKid(cur);
+					_root->addNode(_root, cur, _end);
+					cur = toDel->nextExtremity(toDel, _end);
 				}
+
 				delete(toDel);
 				_end->setEnd(_root);
-				_begin = getBegin(_root);
+				_begin = _root->getBegin(_root);
 				_size--;
 			};
 

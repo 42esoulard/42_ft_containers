@@ -487,7 +487,7 @@ int test_map_insert() {
 	map.insert(mapEmptyD.begin(), mapEmptyD.end());
 	ft_it = ft_map.begin();
 	std_it = map.begin();
-	if (*std_it != *ft_it) {
+	if (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second)) {
 		std::cerr << "(*ft_it) after insert(3) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(3) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
 		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
 	}
@@ -503,103 +503,124 @@ int test_map_insert() {
 	return 0;
 };
 
-// int test_map_erase() {
-// 	std::string title = "[ERASE(1)]";
-// 	std::cout << title;
+int test_map_erase() {
+	std::string title = "[ERASE(1)][POSITION]";
+	std::cout << title;
 
-// 	ft::Map<char> ft_map(10, '!');
-// 	ft_map.push_back('@');
-// 	ft_map.push_back('&');
+	ft::Map<char, int> ft_map;
+	std::map<char, int> map;
+
+	map['f']=30;
+	map['a']=10;
+ 	map['c']=50;
+	map['d']=70;
+	map['a']=10;
+	map['b']=42;
+	map['i']=55;
+	map['g']=68;
+	map['e']=8;
+	map['h']=4;
+
+	ft_map['f']=30;
+	ft_map['a']=10;
+	ft_map['c']=50;
+	ft_map['d']=70;
+	ft_map['a']=10;
+	ft_map['b']=42;
+	ft_map['i']=55;
+	ft_map['g']=68;
+	ft_map['e']=8;
+	ft_map['h']=4;
+
+	ft::Map<char, int>::iterator ft_it = ft_map.begin();
+	std::map<char, int>::iterator std_it = map.begin();
+
+	ft_map.erase(ft_it);
+	map.erase(std_it);
+	if (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second)) {
+		std::cerr << "(*ft_it) after erase(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after erase(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "[begin]", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[begin]");
+
+	// ft_map.erase(ft_it);
+	// map.erase(std_it);
+	// if (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second)) {
+	// 	std::cerr << "(*ft_it) after erase(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after erase(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+	// 	handle_mapError(ft_map, map, "map", title, "[begin]", "CONTENT");
+	// }
+	// chk_mapResult(ft_map, map, "map", title, "[begin]");
+
+	// //INVALID POSITION = UNDEFINED BEHAVIOR
+	// // ft_it = ft_map.end();
+	// // it = map.end();
+	// // ft_it = ft_map.erase(ft_it);
+	// // it = map.erase(it);
+	// // chk_mapResult(ft_map, map, "map", "ERASE(1) [end]");
+
+	// while (ft_it != ft_map.end()) {
+	// 	ft_map.erase(ft_it);
+	// 	ft_it = ft_map.begin();
+	// }
+	// while (std_it != map.end()) {
+	// 	map.erase(std_it);
+	// 	std_it = map.begin();
+	// }
+	// chk_mapResult(ft_map, map, "map", title, "[all]");
+
+	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
+	//ft::Map<char> ft_mapEmpty;
+	//std::map<char> mapEmpty;
+	//ft_mapEmpty.erase(ft_mapEmpty.begin());
+	//mapEmpty.erase(mapEmpty.begin());
+	//chk_mapResult(ft_mapEmpty, mapEmpty, "map", "ERASE(1) [EMPTY]");
+
+	// std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	// //------------------------------------------------------------------------
+
+	// title = "[ERASE(2)[RANGE]]";
+	// std::cout << title;
+
+	// ft_map.erase(ft_map.begin(), ft_map.end());
+	// map.erase(map.begin(), map.end());
+	// chk_mapResult(ft_map, map, "map", title, "[EMPTY]");
 	
-// 	std::map<char> map(10, '!');
-// 	map.push_back('@');
-// 	map.push_back('&');
+	// ft_map.insert(ft_map.begin(), 10, '!');
+	// ft_map.push_back('@');
+	// ft_map.push_back('&');
+	// ft_it = ft_map.begin();
+	// ft_it++;
+	// ft_it++;
 
-// 	ft::Map<char>::iterator ft_it = ft_map.begin();
-// 	std::map<char>::iterator it = map.begin();
+	// map.insert(map.begin(), 10, '!');
+	// map.push_back('@');
+	// map.push_back('&');
+	// it = map.begin();
+	// it++;
+	// it++;
 
-// 	ft_it = ft_map.erase(ft_it);
-// 	it = map.erase(it);
-// 	if (*it != *ft_it) {
-// 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
-// 		handle_mapError(ft_map, map, "map", title, "[begin]", "CONTENT");
-// 	}
-// 	chk_mapResult(ft_map, map, "map", title, "[begin]");
-
-// 	ft_it = ft_map.erase(ft_it);
-// 	it = map.erase(it);
-// 	if (*it != *ft_it) {
-// 		std::cerr << "*ft_it after erase(1) = [" << *ft_it << "] | *it after erase(1) = [" << *it << "]" << std::endl;
-// 		handle_mapError(ft_map, map, "map", title, "[begin]", "CONTENT");
-// 	}
-// 	chk_mapResult(ft_map, map, "map", title, "[begin]");
-
-// 	//INVALID POSITION = UNDEFINED BEHAVIOR
-// 	// ft_it = ft_map.end();
-// 	// it = map.end();
-// 	// ft_it = ft_map.erase(ft_it);
-// 	// it = map.erase(it);
-// 	// chk_mapResult(ft_map, map, "map", "ERASE(1) [end]");
-
-// 	while (ft_it != ft_map.end())
-// 		ft_it = ft_map.erase(ft_it);
-// 	while (it != map.end())
-// 		it = map.erase(it);
-// 	chk_mapResult(ft_map, map, "map", title, "[all]");
-
-// 	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
-// 	//ft::Map<char> ft_mapEmpty;
-// 	//std::map<char> mapEmpty;
-// 	//ft_mapEmpty.erase(ft_mapEmpty.begin());
-// 	//mapEmpty.erase(mapEmpty.begin());
-// 	//chk_mapResult(ft_mapEmpty, mapEmpty, "map", "ERASE(1) [EMPTY]");
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	//------------------------------------------------------------------------
-
-// 	title = "[ERASE(2)[RANGE]]";
-// 	std::cout << title;
-
-// 	ft_map.erase(ft_map.begin(), ft_map.end());
-// 	map.erase(map.begin(), map.end());
-// 	chk_mapResult(ft_map, map, "map", title, "[EMPTY]");
-	
-// 	ft_map.insert(ft_map.begin(), 10, '!');
-// 	ft_map.push_back('@');
-// 	ft_map.push_back('&');
-// 	ft_it = ft_map.begin();
-// 	ft_it++;
-// 	ft_it++;
-
-// 	map.insert(map.begin(), 10, '!');
-// 	map.push_back('@');
-// 	map.push_back('&');
-// 	it = map.begin();
-// 	it++;
-// 	it++;
-
-// 	ft::Map<char>::iterator ft_last = ft_it;
-// 	std::map<char>::iterator last = it;
-// 	ft_last++;
-// 	last++;
+	// ft::Map<char>::iterator ft_last = ft_it;
+	// std::map<char>::iterator last = it;
+	// ft_last++;
+	// last++;
 		
-// 	ft_it = ft_map.erase(ft_it, ft_last);
-// 	it = map.erase(it, last);
+	// ft_it = ft_map.erase(ft_it, ft_last);
+	// it = map.erase(it, last);
 
-// 	if (*it != *ft_it) {
-// 		std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
-// 		handle_mapError(ft_map, map, "map", title, "[PARTIAL]", "CONTENT");
-// 	}
-// 	chk_mapResult(ft_map, map, "map", title, "[PARTIAL]");
+	// if (*it != *ft_it) {
+	// 	std::cerr << "*ft_it after erase(2) = [" << *ft_it << "] | *it after erase(2) = [" << *it << "]" << std::endl;
+	// 	handle_mapError(ft_map, map, "map", title, "[PARTIAL]", "CONTENT");
+	// }
+	// chk_mapResult(ft_map, map, "map", title, "[PARTIAL]");
 	
-// 	ft_it = ft_map.erase(ft_map.begin(), ft_map.end());
-// 	it = map.erase(map.begin(), map.end());
-// 	chk_mapResult(ft_map, map, "map", title, "[TOTAL]");
-// 	//not comparing return pointers because they point after end() in this case
+	// ft_it = ft_map.erase(ft_map.begin(), ft_map.end());
+	// it = map.erase(map.begin(), map.end());
+	// chk_mapResult(ft_map, map, "map", title, "[TOTAL]");
+	// //not comparing return pointers because they point after end() in this case
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
 
 // int test_map_swap() {
 // 	std::string title = "[SWAP]";

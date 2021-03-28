@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/28 15:43:55 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/28 16:22:40 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,13 @@ int main(void) {
 							//*\*/*\/*\*/*\/*\*/*\/*///
 							/*   [in Map_tests.cpp]  */
 
-	testsPtr mapTests[6] = { &test_map_constr, &test_map_iterate, &test_map_empty, &test_map_maxSize, &test_map_oparray,
-							&test_map_insert, };
+	testsPtr mapTests[7] = { &test_map_constr, &test_map_iterate, &test_map_empty, &test_map_maxSize, &test_map_oparray,
+							&test_map_insert, &test_map_erase, };
 
 	
 
 
 // //MODIFIERS
-// int test_map_insert();
-// int test_map_erase();
 // int test_map_swap();
 // int test_map_clear();
 // //OBSERVERS

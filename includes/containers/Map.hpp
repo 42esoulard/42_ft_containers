@@ -507,19 +507,30 @@ namespace ft {
 				// 	}
 				// 	first = next;
 				// }
-				node_type *cur = toDel->nextExtremity(toDel, _end);
-				std::cout << (*iterator(cur)).first << " | " << (*iterator(cur)).second << std::endl;
-				int i = 0;
-				while (cur != toDel) {
-					std::cout << "loop " << i << std::endl;
-					cur->ditchParent(cur);
+				node_type *tmpParent;
+				node_type *cur = toDel->nextExtremity(toDel, toDel, _end);
+				//std::cout << (*iterator(cur)).first << " | " << (*iterator(cur)).second << std::endl;
+				//int i = 0;
+				while (cur) {
+					//std::cout << "loop " << i << std::endl;
+					//std::cout << (*iterator(cur)).first << " | " << (*iterator(cur)).second << std::endl;
 					cur->getParent()->ditchKid(cur);
-					_root->addNode(_root, cur, _end);
-					cur = toDel->nextExtremity(toDel, _end);
+					//std::cout << "after ditch kid" << std::endl;
+					cur->ditchParent(cur);
+					//std::cout << "after ditch par " << std::endl;
+					
+					tmpParent = _root->findSpot(_root, (*iterator(cur)).first, _begin, _end);
+					tmpParent->adopt(cur, _end);
+					_begin = _root->getBegin(_root);
+					//_root->addNode(_root, cur, _end);
+					//std::cout << "after add node" << std::endl;
+					cur = toDel->nextExtremity(toDel, toDel, _end);
+					//std::cout << "after nextExt" << std::endl;
+
 				}
 
 				delete(toDel);
-				_end->setEnd(_root);
+				//_end->setEnd(_root);
 				_begin = _root->getBegin(_root);
 				_size--;
 			};

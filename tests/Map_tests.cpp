@@ -537,19 +537,19 @@ int test_map_erase() {
 
 	ft_map.erase(ft_it);
 	map.erase(std_it);
-	if (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second)) {
-		std::cerr << "(*ft_it) after erase(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after erase(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
-		handle_mapError(ft_map, map, "map", title, "[begin]", "CONTENT");
-	}
-	chk_mapResult(ft_map, map, "map", title, "[begin]");
-
-	// ft_map.erase(ft_it);
-	// map.erase(std_it);
 	// if (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second)) {
 	// 	std::cerr << "(*ft_it) after erase(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after erase(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
 	// 	handle_mapError(ft_map, map, "map", title, "[begin]", "CONTENT");
 	// }
-	// chk_mapResult(ft_map, map, "map", title, "[begin]");
+//	std::cout << "main after erase" << std::endl;
+	chk_mapResult(ft_map, map, "map", title, "[begin]");
+
+	ft_it = ft_map.begin();
+	std_it = map.begin();
+
+	ft_map.erase(ft_it);
+	map.erase(std_it);
+	chk_mapResult(ft_map, map, "map", title, "[begin]");
 
 	// //INVALID POSITION = UNDEFINED BEHAVIOR
 	// // ft_it = ft_map.end();
@@ -558,14 +558,19 @@ int test_map_erase() {
 	// // it = map.erase(it);
 	// // chk_mapResult(ft_map, map, "map", "ERASE(1) [end]");
 
+	// ft_it = ft_map.begin();
+	// std_it = map.begin();
 	// while (ft_it != ft_map.end()) {
 	// 	ft_map.erase(ft_it);
+	// 	std::cout << "HEREEE" << std::endl;
 	// 	ft_it = ft_map.begin();
 	// }
 	// while (std_it != map.end()) {
+	// 	std::cout << "HEREvbnfghxEE" << std::endl;
 	// 	map.erase(std_it);
 	// 	std_it = map.begin();
 	// }
+	// std::cout << "BLABLA" << std::endl;
 	// chk_mapResult(ft_map, map, "map", title, "[all]");
 
 	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR

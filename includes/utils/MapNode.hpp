@@ -285,15 +285,19 @@ namespace ft {
 				
 			
 
-			node_type *nextExtremity(node_type *cur, node_type *end) {
+			node_type *nextExtremity(node_type *cur, node_type *toDel, node_type *end) {
 
-				if ((!(cur->_right) || cur->_right == end) && !(cur->_left))
+				if ((!(cur->_right) || cur->_right == end) && !(cur->_left) && (cur != toDel))
 					return cur ;
+				if ((!(cur->_right) || cur->_right == end) && !(cur->_left) && (cur == toDel))
+					return NULL ;
 				if (cur->_left)
-					nextExtremity(cur->_left, end);
+					cur = nextExtremity(cur->_left, toDel, end);
 				if (cur->_right && cur->_right != end)
-					nextExtremity(cur->_right, end);
-				return cur;
+					cur = nextExtremity(cur->_right, toDel, end);
+				if (cur && cur != toDel)
+					return cur;
+				return NULL; 
 			};
 
 			void	ditchParent(node_type *cur) {

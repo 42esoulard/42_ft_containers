@@ -126,7 +126,7 @@ namespace ft {
 
 			// >>> default
 			explicit Map (const key_compare& comp = key_compare()) :
-				_k_compare(comp), _v_compare(comp) {
+				_k_comp(comp), _v_comp(comp) {
 				
 				_root = new node_type();
 				_begin = _root;
@@ -137,7 +137,7 @@ namespace ft {
 
 			// >>> range
 			template <class InputIterator> Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare()) :
-				_k_compare(comp), _v_compare(comp) {
+				_k_comp(comp), _v_comp(comp) {
 
 		 		_root = new node_type();
 				_begin = _root;
@@ -149,7 +149,7 @@ namespace ft {
 			
 			// >>> copy 
 			Map (const Map& x) :
-				_k_compare(x._k_compare), _v_compare(x._v_compare) {
+				_k_comp(x._k_comp), _v_comp(x._v_comp) {
 
 				_root = new node_type();
 				_begin = _root;
@@ -575,12 +575,12 @@ namespace ft {
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			key_compare key_comp() const {
-				return _k_compare;
+				return _k_comp;
 			};
 			//my key_compare member, if I got that right
 
 			value_compare value_comp() const {
-				return _v_compare;
+				return _v_comp;
 			};
 
 			//----------------------------------------------//
@@ -630,7 +630,7 @@ namespace ft {
 				iterator last = getLast(_root);
 
 				while (first != last) {
-					if (!_k_compare((*first).first, k))
+					if (!_k_comp((*first).first, k))
 						return first;
 				}
 				return iterator(_end);
@@ -643,7 +643,7 @@ namespace ft {
 				iterator last = getLast(_root);
 
 				while (first != last) {
-					if (!_k_compare((*first).first, k))
+					if (!_k_comp((*first).first, k))
 						return const_iterator(first->getNode());
 				}
 				return const_iterator(_end);
@@ -656,7 +656,7 @@ namespace ft {
 				iterator last = getLast(_root);
 
 				while (first != last) {
-					if (_k_compare((*first).first, k))
+					if (_k_comp((*first).first, k))
 						return first;
 				}
 				return iterator(_end);
@@ -669,7 +669,7 @@ namespace ft {
 				iterator last = getLast(_root);
 
 				while (first != last) {
-					if (_k_compare((*first).first, k))
+					if (_k_comp((*first).first, k))
 						return const_iterator(first->getNode());
 				}
 				return const_iterator(_end);
@@ -724,8 +724,8 @@ namespace ft {
 			node_type 			*_end;
 			allocator_type 		_allocator;
 			size_type 			_size;
-			key_compare 		_k_compare;
-			value_compare 		_v_compare;
+			key_compare 		_k_comp;
+			value_compare 		_v_comp;
 			
 	};
 };

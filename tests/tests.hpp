@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/28 12:32:55 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/28 12:44:12 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -563,7 +563,7 @@ int test_queue_nonMembers();
 		/*   [in Map_tests.cpp]  */
 
 //CONSTRUCTORS
-int test_map_rangeConstr();
+int test_map_constr();
 // int test_map_copyConstr();
 // int test_map_opEqual();
 // //ITERATORS

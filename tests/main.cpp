@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:48:43 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/27 12:48:18 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/28 12:44:22 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int main(void) {
 							//*\*/*\/*\*/*\/*\*/*\/*///
 							/*   [in Map_tests.cpp]  */
 
-	testsPtr mapTests[1] = { &test_map_rangeConstr, };
+	testsPtr mapTests[1] = { &test_map_constr, };
 
 	
 //int test_map_copyConstr();

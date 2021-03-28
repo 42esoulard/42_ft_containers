@@ -23,14 +23,22 @@ class customException;
 //*\*/*\CONSTRUCTORS/*\*/*\//
 //*\*/*\/*\*/*\/*\*/*\/*\*///
 
-int test_map_rangeConstr() {
-	std::string title = "[RANGE CONSTRUCTOR]";
+int test_map_constr() {
+
+	std::string title = "[DEFAULT CONSTR]";
 	std::cout << title;
 
 	std::map<char, int> src;
+	ft::Map<char, int> ft_src;
+
+	chk_mapResult(ft_src, src, "map", title);
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+
+	title = "[OPERATOR[] ASSIGNING]";
+	std::cout << title;
+
 	src['f']=30;
 	src['a']=10;
-	
  	src['c']=50;
 	src['d']=70;
 	src['a']=10;
@@ -40,16 +48,9 @@ int test_map_rangeConstr() {
 	src['e']=8;
 	src['z']=4;
 
-	ft::Map<char, int> ft_src;
 	ft_src['f']=30;
-	//std::cout << "after ft_src['b']=30;" << std::endl;
 	ft_src['a']=10;
-	//std::cout << "after ft_src['a']=10;" << std::endl;
-	
-
-
 	ft_src['c']=50;
-	// //std::cout << "after ft_src['c']=50; : ft_src['c'] = [" << ft_src['c'] << "]"  << std::endl;
 	ft_src['d']=70;
 	ft_src['a']=10;
 	ft_src['b']=42;
@@ -57,104 +58,52 @@ int test_map_rangeConstr() {
 	ft_src['r']=68;
 	ft_src['e']=8;
 	ft_src['z']=4;
-	//std::cout << "after ft_src['d']=70; : ft_src['d'] = [" << ft_src['d'] << "]"  << std::endl;
 
 	chk_mapResult(ft_src, src, "map", title);
 
-	ft::Map<char, int> ft_map;
-	std::map<char, int> map;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
-	chk_mapResult(ft_map, map, "map", title);
+	title = "[RANGE CONSTR]";
+	std::cout << title;
 
 	ft::Map<char, int> ft_mapA(ft_src.begin(), ft_src.end());
 	std::map<char, int> mapA(src.begin(), src.end());
 
-	chk_mapResult(ft_mapA, mapA, "map", title);
-
-	ft::Map<char, int> ft_mapB(ft_mapA);
-	std::map<char, int> mapB(mapA);
-	chk_mapResult(ft_mapB, mapB, "map", title);
-
-	// std::cout << "in main : size " << ft_mapA.size() << std::endl;
-	// std::cout << "*****************************" << std::endl;
-	// chk_mapResult(ft_mapA, mapA, "map", title);
-	// std::cout << "*****************************" << std::endl;
-
-	
+	chk_mapResult(ft_mapA, mapA, "map", title, "from full list");
 
 	ft::Map<char, int> ft_mapEmpty(ft_src.end(), ft_src.end());
 	std::map<char, int> mapEmpty(src.end(), src.end());
 
-	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]");
+	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "from end to end aka empty list");
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+
+	title = "[COPY CONSTR]";
+	std::cout << title;
+
+	ft::Map<char, int> ft_mapB(ft_mapA);
+	std::map<char, int> mapB(mapA);
+	chk_mapResult(ft_mapB, mapB, "map", title, "from full list");
+
+	ft::Map<char, int> ft_mapEmptyBis(ft_mapEmpty.begin(), ft_mapEmpty.end());
+	std::map<char, int> mapEmptyBis(mapEmpty.begin(), mapEmpty.end());
+
+	chk_mapResult(ft_mapEmptyBis, mapEmptyBis, "map", title, "from empty list");
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	title = "[OPERATOR=]";
+	std::cout << title;
+
+	ft::Map<char, int> ft_mapC = ft_mapA;
+	std::map<char, int> mapC = mapA;
+	chk_mapResult(ft_mapC, mapC, "map", title, "from full list");
+
+	ft::Map<char, int> ft_mapEmptyTer = ft_mapEmpty;
+	std::map<char, int> mapEmptyTer = mapEmpty;
+	chk_mapResult(ft_mapEmptyTer, mapEmptyTer, "map", title, "from empty list");
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
 };
-
-// int test_map_copyConstr() {
-// 	std::string title = "[COPY CONSTR]";
-// 	std::cout << title;
-
-// 	ft::Map<char> ft_src(10, '!');
-// 	ft_src.push_back('@');
-
-// 	std::map<char> src(10, '!');
-// 	src.push_back('@');
-
-// 	ft::Map<char> ft_map(ft_src);
-// 	std::map<char> map(src);
-
-// 	chk_result(ft_map, map, "map", title);
-
-// 	ft::Map<char> ft_srcB(0, '!');
-// 	std::map<char> srcB(0, '!');
-// 	ft::Map<char> ft_mapEmpty(ft_srcB);
-// 	std::map<char> mapEmpty(srcB);
-
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]");
-
-// 	//INVALID SRC = UNDEFINED BEHAVIOR
-// 	// ft::Map<char> *ft_nullSrc = nullptr;
-// 	// ft::Map<char> ft_mapNull(*ft_nullSrc);
-// 	// ft::Map<char> *nullSrc = nullptr;
-// 	// ft::Map<char> mapNull(*nullSrc)
-// 	//	chk_result(ft_mapNull, mapNull, "map", "COPY CONSTRUCTOR [NULL SRC]");
-	
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
-
-// int test_map_opEqual() {
-// 	std::string title = "[OPERATOR=]";
-// 	std::cout << title;
-
-// 	ft::Map<char> ft_src(10, '!');
-// 	ft_src.push_back('@');
-
-// 	std::map<char> src(10, '!');
-// 	src.push_back('@');
-
-// 	ft::Map<char> ft_map = ft_src;
-// 	std::map<char> map = src;
-
-// 	chk_result(ft_map, map, "map", title);
-
-// 	ft::Map<char> ft_srcB(0, '!');
-// 	std::map<char> srcB(0, '!');
-// 	ft::Map<char> ft_mapEmpty = ft_srcB;
-// 	std::map<char> mapEmpty = srcB;
-
-// 	chk_result(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY]");
-
-// 	ft_map = ft_srcB;
-// 	map = srcB;
-
-// 	chk_result(ft_map, map, "map", title, "[FULL = EMPTY]");
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
-
 
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 // //*\*/*\*/ITERATORS/*\*/*\*//

@@ -496,17 +496,7 @@ namespace ft {
 				}
 				parent->ditchKid(toDel);
 
-				// iterator first = _root->getBegin(position.getNode());
-				// iterator last = _root->getLast(position.getNode(), _end);
-				// iterator next = first;
-				// while (first != last) {
-				// 	next++;
-				// 	if (first.getNode() != parent && first.getNode() != toDel) {
-				// 		first.getNode()->ditchAll(first.getNode());
-				// 		_root->addNode(_root, first.getNode(), _end);
-				// 	}
-				// 	first = next;
-				// }
+
 				node_type *tmpParent;
 				node_type *cur = toDel->nextExtremity(toDel, toDel, _end);
 				//std::cout << (*iterator(cur)).first << " | " << (*iterator(cur)).second << std::endl;
@@ -522,7 +512,6 @@ namespace ft {
 					tmpParent = _root->findSpot(_root, (*iterator(cur)).first, _begin, _end);
 					tmpParent->adopt(cur, _end);
 					_begin = _root->getBegin(_root);
-					//_root->addNode(_root, cur, _end);
 					//std::cout << "after add node" << std::endl;
 					cur = toDel->nextExtremity(toDel, toDel, _end);
 					//std::cout << "after nextExt" << std::endl;
@@ -530,7 +519,6 @@ namespace ft {
 				}
 
 				delete(toDel);
-				//_end->setEnd(_root);
 				_begin = _root->getBegin(_root);
 				_size--;
 			};

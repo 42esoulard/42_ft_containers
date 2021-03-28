@@ -87,7 +87,7 @@ namespace ft {
 			
 			typedef Key 												key_type;
 			typedef T 													mapped_type;
-			typedef ft::Pair<const key_type, mapped_type> 				value_type;
+			typedef std::pair<const key_type, mapped_type> 				value_type;
 			typedef Compare 											key_compare;
 			typedef MapNode<key_type, mapped_type, key_compare>			node_type;
 			typedef typename std::allocator<node_type> 					allocator_type;
@@ -348,12 +348,12 @@ namespace ft {
 					//*\*/*\/*\*/*\/*\*/*\/*\*///
 
 			// >>> single element
-			ft::Pair<iterator,bool> insert (const value_type& val) {
+			std::pair<iterator,bool> insert (const value_type& val) {
 
 				// node_type *newNode;
 				// if (_size) {
 				// 	if ((newNode = _root->findKey(_root, val.first, _end)))
-				// 		return ft::Pair<iterator,bool>(iterator(newNode), false);
+				// 		return std::pair<iterator,bool>(iterator(newNode), false);
 				// 	newNode = _root->addNode(_root, new node_type(val), _end);
 				// 	std::cout << "insert: pair added" << std::endl;
 				// 	_begin = _root->getBegin(_root);
@@ -371,7 +371,7 @@ namespace ft {
 				// std::cout << "insert: new size = " << _size << "root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
 				// _end->setEnd(_root);
 				
-				// return ft::Pair<iterator,bool>(iterator(newNode), true);
+				// return std::pair<iterator,bool>(iterator(newNode), true);
 
 				node_type *cur;
 				if (_size) {
@@ -398,7 +398,7 @@ namespace ft {
 						_size++;
 					}
 					else
-						return ft::Pair<iterator,bool>(iterator(cur), false);
+						return std::pair<iterator,bool>(iterator(cur), false);
 				}
 				else {
 					_root = new node_type(val);
@@ -408,7 +408,7 @@ namespace ft {
 					_begin = _root;
 					_size++;
 				}
-				return ft::Pair<iterator,bool>(iterator(cur), true);
+				return std::pair<iterator,bool>(iterator(cur), true);
 				// std::cout << "op[]: new size = " << _size << " begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
 				// std::cout << "op[]: new size = " << _size << " root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
 				// std::cout << "op[]: new size = " << _size << " cur index " << (*iterator(cur)).first << "content" << (*iterator(cur)).second << std::endl;
@@ -439,7 +439,7 @@ namespace ft {
 				if (_size) {
 					//newNode = _root->findKey(position, val.first, _end);
 					if ((newNode = _root->findKey(position, val.first, _end)) || (newNode = _root->findKey(_root, val.first, _end)))
-						return ft::Pair<iterator,bool>(iterator(newNode), false);
+						return std::pair<iterator,bool>(iterator(newNode), false);
 					newNode = addNode(_root, new node_type(val), _end);
 					_begin = getBegin(_root);
 				}
@@ -677,7 +677,7 @@ namespace ft {
 			};
 			// return an iterator to the first element for which key_comp(element_key,k) would return true
 
-			ft::Pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			std::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
 			
 				// node_type *node = findKey(_root, k);
 
@@ -698,7 +698,7 @@ namespace ft {
 			// returns element with k equivalent to k (for which key_comp returns fals whatever order of the elems)
 			// If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).
 
-			ft::Pair<iterator,iterator>             equal_range (const key_type& k) {
+			std::pair<iterator,iterator>             equal_range (const key_type& k) {
 				// node_type *node = findKey(_root, k);
 
 				// if (node)

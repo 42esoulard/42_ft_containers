@@ -560,18 +560,7 @@ namespace ft {
 				
 				if (!_size)
 					return ;
-				
-				iterator first = _root->getBegin(_root);
-				iterator last = end(); 
-				
-				iterator next = first;
-
-				while (first != last) {
-					std::cout << "clearingg [" << (*first).first << "][" << (*first).second << "]" << std::endl;
-					next++;
-					delete(first.getNode());
-					first = next;
-				}
+				_root->deleteAll(_root, _end);
 				_root = _end;
 				_begin = _end;
 				_size = 0;

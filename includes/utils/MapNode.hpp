@@ -425,6 +425,15 @@ namespace ft {
 				return NULL;
 			}
 
+			void deleteAll(node_type *cur, node_type *end) {
+
+				if (!cur || cur == end)
+					return ;
+				deleteAll(cur->_left, end);
+				deleteAll(cur->_right, end);
+				delete cur;
+			}
+
 			// void 	addNext(value_type const &value) {
 
 			// 	MapNode *newNode = new MapNode(value);

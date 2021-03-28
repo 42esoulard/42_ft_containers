@@ -64,7 +64,7 @@ namespace ft {
 			MapReverse_Iterator(node_type *x) :p(x) {};
 			MapReverse_Iterator(const MapReverse_Iterator& mit) : p(mit.p) {};
 
-			MapReverse_Iterator<value_type,node_type >& operator++() {p = p->getPrev();return *this;};
+			MapReverse_Iterator<value_type,node_type >& operator++() {p = p->getPrev(p);return *this;};
 			MapReverse_Iterator<value_type,node_type > operator++(int) {MapReverse_Iterator<value_type,node_type > tmp(*this); operator++(); return tmp;};
 			bool operator==(const MapReverse_Iterator<value_type,node_type >& rhs) const {return p==rhs.p;}
 			bool operator!=(const MapReverse_Iterator<value_type,node_type >& rhs) const {return p!=rhs.p;}
@@ -285,8 +285,10 @@ namespace ft {
 					if (!cur) {
 						std::cout << "in op[] with _size !cur" << std::endl;
 						//cur = _root->addNode(_root, node_type(value_type(key_type(k), mapped_type())), _end);
-						node_type *parent = _root->findSpot(_root, k, _end);
+						node_type *parent = _root->findSpot(_root, k, _begin, _end);
+						std::cout << "parent index [" << (*iterator(parent)).first << std::endl;
 						cur = new node_type(value_type(key_type(k), mapped_type()));
+						
 						parent->adopt(cur, _end);
 						std::cout << "**********CHECK PARENT NODE ADOPTION****************" << std::endl;
 						if (parent->getLeft())
@@ -348,28 +350,83 @@ namespace ft {
 			// >>> single element
 			ft::Pair<iterator,bool> insert (const value_type& val) {
 
-				node_type *newNode;
+				// node_type *newNode;
+				// if (_size) {
+				// 	if ((newNode = _root->findKey(_root, val.first, _end)))
+				// 		return ft::Pair<iterator,bool>(iterator(newNode), false);
+				// 	newNode = _root->addNode(_root, new node_type(val), _end);
+				// 	std::cout << "insert: pair added" << std::endl;
+				// 	_begin = _root->getBegin(_root);
+				// }
+				// else {
+				// 	// newNode = _root->initRoot(_root, val);
+				// 	_root = new node_type(val);
+				// 	_root->initRoot(_begin, _end);
+				// 	_begin = _root;
+				// 	newNode = _root;
+				// 	std::cout << "insert: initiating root" << std::endl;
+				// }			
+				// _size++;
+				// std::cout << "insert: new size = " << _size << "begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
+				// std::cout << "insert: new size = " << _size << "root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
+				// _end->setEnd(_root);
+				
+				// return ft::Pair<iterator,bool>(iterator(newNode), true);
+
+				node_type *cur;
 				if (_size) {
-					if ((newNode = _root->findKey(_root, val.first, _end)))
-						return ft::Pair<iterator,bool>(iterator(newNode), false);
-					newNode = _root->addNode(_root, new node_type(val), _end);
-					std::cout << "insert: pair added" << std::endl;
-					_begin = _root->getBegin(_root);
+					cur = _root->findKey(_root, val.first, _end);
+					// std::cout << "in op[] with _size" << std::endl;
+					if (!cur) {
+						// std::cout << "in op[] with _size !cur" << std::endl;
+						//cur = _root->addNode(_root, node_type(value_type(key_type(k), mapped_type())), _end);
+						node_type *parent = _root->findSpot(_root, val.first, _begin, _end);
+						cur = new node_type(val);
+						parent->adopt(cur, _end);
+						// std::cout << "**********CHECK PARENT NODE ADOPTION****************" << std::endl;
+						// if (parent->getLeft())
+						// 	std::cout << "parent index [" << (*iterator(parent)).first << "] parent left index [" << (*iterator(parent->getLeft())).first <<"] parent right index [" << (*iterator(parent->getRight())).first << "]" << std::endl;
+						// else
+						// 	std::cout << "parent index [" << (*iterator(parent)).first <<"] parent right index [" << (*iterator(parent->getRight())).first << "]" << std::endl;
+						// std::cout << "kid index [" << (*iterator(cur)).first << "] kid up index [" << (*iterator(cur->getParent())).first << "]" << std::endl;
+						// std::cout << "**********END PARENT NODE ADOPTION****************" << std::endl;
+						// std::cout << "GONNA SET END IN OP[] !cur" << std::endl;
+						// //_end->setEnd(_root);
+						// std::cout << "AFTER SET END IN OP[] !cur" << std::endl;
+						_begin = _root->getBegin(_root);
+						// std::cout << "AFTER GETBEGIN IN OP[] !cur" << std::endl;
+						_size++;
+					}
+					else
+						return ft::Pair<iterator,bool>(iterator(cur), false);
 				}
 				else {
-					// newNode = _root->initRoot(_root, val);
 					_root = new node_type(val);
 					_root->initRoot(_begin, _end);
+					cur = _root;
+					_end->setEnd(_root);
 					_begin = _root;
-					newNode = _root;
-					std::cout << "insert: initiating root" << std::endl;
-				}			
-				_size++;
-				std::cout << "insert: new size = " << _size << "begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
-				std::cout << "insert: new size = " << _size << "root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
-				_end->setEnd(_root);
+					_size++;
+				}
+				return ft::Pair<iterator,bool>(iterator(cur), true);
+				// std::cout << "op[]: new size = " << _size << " begin index " << (*begin()).first << "content" << (*begin()).second << std::endl;
+				// std::cout << "op[]: new size = " << _size << " root index " << (*iterator(_root)).first << "content" << (*iterator(_root)).second << std::endl;
+				// std::cout << "op[]: new size = " << _size << " cur index " << (*iterator(cur)).first << "content" << (*iterator(cur)).second << std::endl;
+				// std::cout << "op[]: new size = " << _size << " GETLAST index " << (*iterator(_root->getLast(_root, _end))).first << "content" << (*iterator(_root->getLast(_root, _end))).second << std::endl;
+
+				//OUTPUT TREE
+				// std::cout << std::endl;
+				// iterator beg = begin();
+				// while (beg != end()) {
 				
-				return ft::Pair<iterator,bool>(iterator(newNode), true);
+				// 	std::cout << "map[" << (*beg).first << "][" << (*beg).second << "]" << std::endl;
+				// 	beg++;
+				// }
+				// std::cout << std::endl;
+
+				//sakdhaskjdhaskjdhakjds
+
+				//return (*iterator(cur)).second;
 
 			};
 			//return a pair, with its member pair::first set to an iterator pointing to either the newly inserted element or to the element with an equivalent key 
@@ -406,6 +463,8 @@ namespace ft {
 					std::cout << "INSERT RANGE in loop" << std::endl;
 					insert(*first);
 					first++;
+					// this[(*first).first] = (*first).second;
+					// first++;
 				}
 				std::cout << "IN insert it aft" << _size << std::endl;
 			};
@@ -508,6 +567,7 @@ namespace ft {
 				iterator next = first;
 
 				while (first != last) {
+					std::cout << "clearingg [" << (*first).first << "][" << (*first).second << "]" << std::endl;
 					next++;
 					delete(first.getNode());
 					first = next;

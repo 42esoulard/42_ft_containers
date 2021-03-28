@@ -316,35 +316,38 @@ namespace ft {
 				return NULL; //shouldn't get there, i think all cases are covered above
 			}
 
-			node_type *findSpot(node_type *cur, key_type k, node_type *end) {
+			node_type *findSpot(node_type *cur, key_type k, node_type *beg, node_type *end) {
 				
 				std::cout << "findSpot cur key " << cur->_value.first << " k " << k << std::endl;
-
-				if (_comp(k, cur->_value.first) && cur->_left && cur->_left != end)
-					return findSpot(cur->_left, k, end);
-				if (_comp(cur->_value.first, k) && cur->_right && cur->_right != end)
-					return findSpot(cur->_right, k, end);
-
-				
-				
-				if (_comp(k, cur->_value.first) && !cur->_left) {
+				std::cout << "beg key " << beg->_value.first << " k " << k << std::endl;
+				if (!_comp(cur->_value.first, k) && (!cur->_left || cur == beg)) {
 			//		cur->_left = node;
 			//		cur->_left->_up = cur;
 					std::cout << "left returning cur " << cur->_value.first << std::endl;
 					return cur;
 				}
-				if (_comp(cur->_value.first, k) && cur->_right == end) {
+				if (_comp(cur->_value.first, k) && (!cur->_right || cur->_right == end)) {
 				//	cur->_right = node;
 				//	cur->_right->_up = cur;
 					std::cout << "right returning cur " << cur->_value.first << std::endl;
 					return cur;
 				}
 
+				std::cout << "findSpot cur key " << cur->_value.first << " k " << k << std::endl;
+
+				if (_comp(k, cur->_value.first) && cur->_left && cur != beg)
+					return findSpot(cur->_left, k, beg, end);
+				if (_comp(cur->_value.first, k) && cur->_right && cur->_right != end)
+					return findSpot(cur->_right, k, beg, end);
+
+				
+
 				return NULL;
 			};
 
 		
 			void adopt(node_type *kid, node_type *end) {
+				std::cout << "adopt beg" << std::endl;
 				if (_comp(kid->_value.first, this->_value.first))
 					this->_left = kid;
 				else {
@@ -356,6 +359,7 @@ namespace ft {
 					this->_right = kid;
 				}
 				kid->_up = this;
+				std::cout << "adopt end" << std::endl;
 			};
 
 			void initRoot(node_type *begin, node_type *end) {

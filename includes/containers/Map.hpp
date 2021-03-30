@@ -479,55 +479,38 @@ namespace ft {
 					return;
 
 				node_type *toDel = position.getNode();
-
-				node_type *parent = toDel->getParent();
-				if (!parent) {
-					parent = toDel->getPrev(toDel);
-					if (!parent)
-						parent = toDel->getNext(toDel);
-					if (!parent) {
-						delete(toDel);
+				node_type *newRoot = _root;
+				if (!toDel->getParent()) {//means toDel is current root
+					if (toDel->getLeft())
+						newRoot = toDel->getLeft();
+					else if (toDel->getRight())
+						newRoot = toDel->getRight();
+					else {
+						delete _root;
 						_root = _end;
 						_begin = _end;
-						_size = 0;
-						return;
+						_size--;
+						return ;
 					}
-					_root = parent;
+					_root->ditchKid(newRoot);
+					newRoot->ditchParent(newRoot);
 				}
-				parent->ditchKid(toDel);
-
+				else
+					toDel->getParent()->ditchKid(toDel);
 
 				node_type *tmpParent;
 				node_type *cur = toDel->nextExtremity(toDel, toDel, _end);
-				//std::cout << (*iterator(cur)).first << " | " << (*iterator(cur)).second << std::endl;
-				int i = 0;
+				
 				while (cur) {
-					std::cout << "loop " << i++ << std::endl;
-					std::cout << (*iterator(cur)).first << " | " << (*iterator(cur)).second << std::endl;
-					if (cur == _root && _root->getLeft())
-						_root = _root->getLeft();
-					else if (cur == _root && _root->getRight())
-						_root = _root->getRight();
-					else if (cur == _root && !_root->getLeft() && !_root->getRight()) {
-						_root = _end;
-						break ;
-					}
 					cur->getParent()->ditchKid(cur);
-					std::cout << "after ditch kid" << std::endl;
 					cur->ditchParent(cur);
-					std::cout << "after ditch par " << std::endl;
-					
-					tmpParent = _root->findSpot(_root, (*iterator(cur)).first, _begin, _end);
+					tmpParent = newRoot->findSpot(newRoot, (*iterator(cur)).first, _begin, _end);
 					tmpParent->adopt(cur, _end);
-					_begin = _root->getBegin(_root);
-					std::cout << "after add node" << std::endl;
+					_begin = newRoot->getBegin(newRoot);
 					cur = toDel->nextExtremity(toDel, toDel, _end);
-					std::cout << "after nextExt" << std::endl;
-					getchar();
-
 				}
-
 				delete(toDel);
+				_root = newRoot;
 				_begin = _root->getBegin(_root);
 				_size--;
 			};

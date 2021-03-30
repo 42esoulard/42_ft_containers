@@ -558,20 +558,21 @@ int test_map_erase() {
 	// // it = map.erase(it);
 	// // chk_mapResult(ft_map, map, "map", "ERASE(1) [end]");
 
-	// ft_it = ft_map.begin();
-	// std_it = map.begin();
-	// while (ft_it != ft_map.end()) {
-	// 	ft_map.erase(ft_it);
-	// 	std::cout << "HEREEE" << std::endl;
-	// 	ft_it = ft_map.begin();
-	// }
-	// while (std_it != map.end()) {
-	// 	std::cout << "HEREvbnfghxEE" << std::endl;
-	// 	map.erase(std_it);
-	// 	std_it = map.begin();
-	// }
-	// std::cout << "BLABLA" << std::endl;
-	// chk_mapResult(ft_map, map, "map", title, "[all]");
+	ft_it = ft_map.begin();
+	std_it = map.begin();
+	while (ft_it != ft_map.end()) {
+		std::cout << "GONNA ERASE [" << (*ft_it).first << "]["<< (*ft_it).second << "]"<< std::endl;
+		ft_map.erase(ft_it);
+		std::cout << "SUCCESSFULLY ERASED"<< std::endl;
+		ft_it = ft_map.begin();
+	}
+	while (std_it != map.end()) {
+		std::cout << "HEREvbnfghxEE" << std::endl;
+		map.erase(std_it);
+		std_it = map.begin();
+	}
+	std::cout << "BLABLA" << std::endl;
+	chk_mapResult(ft_map, map, "map", title, "[all]");
 
 	//ERASE EMPTY BEGIN = UNDEFINED BEHAVIOUR
 	//ft::Map<char> ft_mapEmpty;

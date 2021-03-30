@@ -282,8 +282,6 @@ namespace ft {
 				if !left go right
 			*/
 
-				
-			
 
 			node_type *nextExtremity(node_type *cur, node_type *toDel, node_type *end) {
 

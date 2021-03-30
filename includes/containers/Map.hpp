@@ -623,7 +623,7 @@ namespace ft {
 
 			size_type count (const key_type& k) const {
 
-				node_type *node = findKey(_root, k, _end);
+				node_type *node = _root->findKey(_root, k, _end);
 
 				size_type ret = 0;
 				if (node)

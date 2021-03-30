@@ -838,7 +838,80 @@ int test_map_find() {
 
 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 	return 0;
+};
+
+
+int test_map_count() {
+	std::string title = "[COUNT]";
+	std::cout << title;
+
+	ft::Map<char, int> ft_map;
+	std::map<char, int> map;
+
+	map['f']=30;
+	map['a']=10;
+ 	map['c']=50;
+	map['d']=70;
+	map['a']=10;
+	map['b']=42;
+	map['i']=55;
+	map['g']=68;
+	map['e']=8;
+	map['h']=4;
+
+	ft_map['f']=30;
+	ft_map['a']=10;
+	ft_map['c']=50;
+	ft_map['d']=70;
+	ft_map['a']=10;
+	ft_map['b']=42;
+	ft_map['i']=55;
+	ft_map['g']=68;
+	ft_map['e']=8;
+	ft_map['h']=4;
+
+
+	size_t ft_sz;
+	size_t std_sz;
+
+	ft_sz = ft_map.count('d');
+	std_sz = map.count('d');
+	if (ft_sz != std_sz) {
+		std::cerr << "ft_sz after count = [" << ft_sz << "] | std_sz after count= [" << std_sz << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "RETURN");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find present key]");
+
+	ft_sz = ft_map.count('f');
+	std_sz = map.count('f');
+	if (ft_sz != std_sz) {
+		std::cerr << "ft_sz after count = [" << ft_sz << "] | std_sz after count= [" << std_sz << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "RETURN");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find root key]");
+
+	ft_sz = ft_map.count('X');
+	std_sz = map.count('X');
+	if (ft_sz != std_sz) {
+		std::cerr << "ft_sz after count = [" << ft_sz << "] | std_sz after count= [" << std_sz << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "RETURN");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find non present key]");
+
+	ft_map.clear();
+	map.clear();
+	ft_sz = ft_map.count('f');
+	std_sz = map.count('f');
+	if (ft_sz != std_sz) {
+		std::cerr << "ft_sz after count = [" << ft_sz << "] | std_sz after count= [" << std_sz << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "RETURN");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
 }
+
 
 
 // //*\*/*\/*\*/*\/*\*/*\/*\*///

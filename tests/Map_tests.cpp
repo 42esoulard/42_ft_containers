@@ -724,24 +724,122 @@ int test_map_swap() {
 	return 0;
 };
 
-// int test_map_clear() {
-// 	std::string title = "[CLEAR]";
-// 	std::cout << title;
+int test_map_clear() {
+	std::string title = "[CLEAR]";
+	std::cout << title;
 
-// 	ft::Map<char> ft_map(5, '!');
-// 	std::map<char> map(5, '!');
+	ft::Map<char, int> ft_map;
+	std::map<char, int> map;
 
-// 	ft_map.clear();
-// 	map.clear();
-// 	chk_mapResult(ft_map, map, "map", title, "[FULL Map]");
+	map['f']=30;
+	map['a']=10;
+ 	map['c']=50;
+	map['d']=70;
+	map['a']=10;
+	map['b']=42;
+	map['i']=55;
+	map['g']=68;
+	map['e']=8;
+	map['h']=4;
 
-// 	ft_map.clear();
-// 	map.clear();
-// 	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
+	ft_map['f']=30;
+	ft_map['a']=10;
+	ft_map['c']=50;
+	ft_map['d']=70;
+	ft_map['a']=10;
+	ft_map['b']=42;
+	ft_map['i']=55;
+	ft_map['g']=68;
+	ft_map['e']=8;
+	ft_map['h']=4;
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	ft_map.clear();
+	map.clear();
+	chk_mapResult(ft_map, map, "map", title, "[FULL Map]");
+
+	ft_map.clear();
+	map.clear();
+	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+};
+
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+///*\*/*\*/OPERATIONS/*\*/*//
+//*\*/*\/*\*/*\/*\*/*\/*\*///
+
+int test_map_find() {
+	std::string title = "[FIND]";
+	std::cout << title;
+
+	ft::Map<char, int> ft_map;
+	std::map<char, int> map;
+
+	map['f']=30;
+	map['a']=10;
+ 	map['c']=50;
+	map['d']=70;
+	map['a']=10;
+	map['b']=42;
+	map['i']=55;
+	map['g']=68;
+	map['e']=8;
+	map['h']=4;
+
+	ft_map['f']=30;
+	ft_map['a']=10;
+	ft_map['c']=50;
+	ft_map['d']=70;
+	ft_map['a']=10;
+	ft_map['b']=42;
+	ft_map['i']=55;
+	ft_map['g']=68;
+	ft_map['e']=8;
+	ft_map['h']=4;
+
+
+	ft::Map<char, int>::iterator ft_it;
+	std::map<char, int>::iterator std_it;
+
+	ft_it = ft_map.find('d');
+	std_it = map.find('d');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after insert(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find present key]");
+
+	ft_it = ft_map.find('f');
+	std_it = map.find('f');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after insert(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find root key]");
+
+	ft_it = ft_map.find('X');
+	std_it = map.find('X');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after insert(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find non present key]");
+
+	ft_map.clear();
+	map.clear();
+	ft_it = ft_map.find('f');
+	std_it = map.find('f');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after insert(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+	return 0;
+}
+
 
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 // ///*\*/*\NON-MEMBERS/*\*/*\//

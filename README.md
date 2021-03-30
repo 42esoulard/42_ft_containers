@@ -10,14 +10,6 @@ to do list:
 
 -ALL: add max tests, 10000 elems for example
 
-- map: order elements as a binary search list ordered depending on Compare()
-   EXAMPLE key d
-            /    \
-            a     r
-          /  \   / \
-              b f   
-               \
-                c
 
 - Redo a close reading of all mans to check if my implementations match
 - Redo iterators because mine are incomplete and I didnt get any of this "tags" or "traits" business, so help me dog

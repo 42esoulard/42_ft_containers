@@ -29,7 +29,7 @@ INC_DIRS 		= $(addprefix -I,${INC_UDIR} ${INC_TDIR} ${INC_CDIR})
 #############################################################
 
 CPP			= clang++
-CFLAGS		= -Wall -Wextra -Werror -std=c++98 -fsanitize=address -fno-omit-frame-pointer 
+CFLAGS		= -Wall -Wextra -Werror -std=c++98 #-fsanitize=address -fno-omit-frame-pointer 
 NAME		= ft_containers
 
 

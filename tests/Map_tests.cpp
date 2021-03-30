@@ -695,6 +695,7 @@ int test_map_swap() {
 	ft_map.swap(ft_mapEmpty);
 	map.swap(mapEmpty);
 
+
 	chk_mapResult(ft_map, map, "map", title, "[Full vs Empty][1/2]");
 	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[Full vs Empty][2/2]");
 	

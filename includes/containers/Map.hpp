@@ -547,14 +547,17 @@ namespace ft {
 
 				node_type *tmp;
 				int sz = _size;
-
 				tmp = _begin;
 				_begin = x._begin;
 				x._begin = tmp;
 
-				// tmp = _end;
-				// _end = x._end;
-				// x._end = tmp;
+				tmp = _end;
+				_end = x._end;
+				x._end = tmp;
+
+				tmp = _root;
+				_root = x._root;
+				x._root = tmp;
 
 				_size = x._size;
 				x._size = sz;

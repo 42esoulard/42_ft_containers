@@ -805,7 +805,7 @@ int test_map_find() {
 	ft_it = ft_map.find('d');
 	std_it = map.find('d');
 	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
-		std::cerr << "(*ft_it) after insert(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		std::cerr << "(*ft_it) after find = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after find = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
 		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
 	}
 	chk_mapResult(ft_map, map, "map", title, "[find present key]");
@@ -813,7 +813,7 @@ int test_map_find() {
 	ft_it = ft_map.find('f');
 	std_it = map.find('f');
 	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
-		std::cerr << "(*ft_it) after insert(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		std::cerr << "(*ft_it) after find = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after find = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
 		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
 	}
 	chk_mapResult(ft_map, map, "map", title, "[find root key]");
@@ -821,7 +821,7 @@ int test_map_find() {
 	ft_it = ft_map.find('X');
 	std_it = map.find('X');
 	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
-		std::cerr << "(*ft_it) after insert(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		std::cerr << "(*ft_it) after find = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after find = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
 		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
 	}
 	chk_mapResult(ft_map, map, "map", title, "[find non present key]");
@@ -831,7 +831,7 @@ int test_map_find() {
 	ft_it = ft_map.find('f');
 	std_it = map.find('f');
 	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
-		std::cerr << "(*ft_it) after insert(1) = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after insert(1) = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		std::cerr << "(*ft_it) after find = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after find = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
 		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
 	}
 	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
@@ -913,6 +913,181 @@ int test_map_count() {
 }
 
 
+int test_map_lowerBound() {
+	std::string title = "[LOWER BOUND]";
+	std::cout << title;
+
+	ft::Map<char, int> ft_map;
+	std::map<char, int> map;
+
+	map['f']=30;
+	map['q']=10;
+ 	map['c']=50;
+	map['d']=70;
+	map['q']=10;
+	map['b']=42;
+	map['i']=55;
+	map['g']=68;
+	map['e']=8;
+	map['h']=4;
+
+	ft_map['f']=30;
+	ft_map['q']=10;
+	ft_map['c']=50;
+	ft_map['d']=70;
+	ft_map['q']=10;
+	ft_map['b']=42;
+	ft_map['i']=55;
+	ft_map['g']=68;
+	ft_map['e']=8;
+	ft_map['h']=4;
+
+	ft::Map<char, int>::iterator ft_it;
+	std::map<char, int>::iterator std_it;
+
+	ft_it = ft_map.lower_bound('d');
+	std_it = map.lower_bound('d');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after lower bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after lower bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find present key]");
+
+	ft_it = ft_map.lower_bound('f');
+	std_it = map.lower_bound('f');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after lower bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after lower bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find root key]");
+
+	ft_it = ft_map.lower_bound('b');
+	std_it = map.lower_bound('b');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after lower bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after lower bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find from lowest]");
+
+	ft_it = ft_map.lower_bound('a');
+	std_it = map.lower_bound('a');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after lower bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after lower bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find from absent lowest]");
+
+	ft_it = ft_map.lower_bound('X');
+	std_it = map.lower_bound('X');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after lower bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after lower bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find non present key]");
+
+	ft_map.clear();
+	map.clear();
+	ft_it = ft_map.lower_bound('f');
+	std_it = map.lower_bound('f');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after lower bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after lower bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+
+	return 0;
+}
+
+
+
+int test_map_upperBound() {
+	std::string title = "[UPPER BOUND]";
+	std::cout << title;
+
+	ft::Map<char, int> ft_map;
+	std::map<char, int> map;
+
+	map['f']=30;
+	map['q']=10;
+ 	map['c']=50;
+	map['d']=70;
+	map['q']=10;
+	map['b']=42;
+	map['i']=55;
+	map['g']=68;
+	map['e']=8;
+	map['h']=4;
+
+	ft_map['f']=30;
+	ft_map['q']=10;
+	ft_map['c']=50;
+	ft_map['d']=70;
+	ft_map['q']=10;
+	ft_map['b']=42;
+	ft_map['i']=55;
+	ft_map['g']=68;
+	ft_map['e']=8;
+	ft_map['h']=4;
+
+	ft::Map<char, int>::iterator ft_it;
+	std::map<char, int>::iterator std_it;
+
+	ft_it = ft_map.upper_bound('d');
+	std_it = map.upper_bound('d');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after upper bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after upper bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find present key]");
+
+	ft_it = ft_map.upper_bound('f');
+	std_it = map.upper_bound('f');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after upper bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after upper bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find root key]");
+
+	ft_it = ft_map.upper_bound('b');
+	std_it = map.upper_bound('b');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after upper bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after upper bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find from lowest]");
+
+	ft_it = ft_map.upper_bound('a');
+	std_it = map.upper_bound('a');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after upper bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after upper bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find from absent lowest]");
+
+	ft_it = ft_map.upper_bound('X');
+	std_it = map.upper_bound('X');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after upper bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after upper bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find non present key]");
+
+	ft_map.clear();
+	map.clear();
+	ft_it = ft_map.upper_bound('f');
+	std_it = map.upper_bound('f');
+	if (ft_it != ft_map.end() && std_it != map.end() && (((*ft_it).first != (*std_it).first) || ((*ft_it).second != (*std_it).second))) {
+		std::cerr << "(*ft_it) after upper bound = [" << (*ft_it).first << "]["<< (*ft_it).second << "] | (*std_it).first) after upper bound = [" << (*std_it).first << "][" << (*std_it).second << "]" << std::endl;
+		handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+	}
+	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
+
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
+
+	return 0;
+}
 
 // //*\*/*\/*\*/*\/*\*/*\/*\*///
 // ///*\*/*\NON-MEMBERS/*\*/*\//

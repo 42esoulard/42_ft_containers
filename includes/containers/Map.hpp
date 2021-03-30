@@ -227,12 +227,12 @@ namespace ft {
 
 			reverse_iterator rend() {
 
-				return (reverse_iterator(_begin->getPrev(_begin)));
+				return (reverse_iterator(_begin));
 			};
 
 			const_reverse_iterator rend() const {
 
-				return (const_reverse_iterator(_begin->getPrev(_begin)));
+				return (const_reverse_iterator(_begin));
 			};
 			//point to hypothetical element BEFORE first element, actually NULL
 
@@ -635,12 +635,13 @@ namespace ft {
 
 			iterator lower_bound (const key_type& k) {
 
-				iterator first = getBegin(_root);
-				iterator last = getLast(_root);
+				iterator first = _root->getBegin(_root);
+				iterator last = _root->getLast(_root, _end);
 
 				while (first != last) {
 					if (!_k_comp((*first).first, k))
 						return first;
+					first++;
 				}
 				return iterator(_end);
 			};
@@ -648,12 +649,13 @@ namespace ft {
 
 			const_iterator lower_bound (const key_type& k) const {
 				
-				iterator first = getBegin(_root);
-				iterator last = getLast(_root);
+				iterator first = _root->getBegin(_root);
+				iterator last = _root->getLast(_root, _end);
 
 				while (first != last) {
 					if (!_k_comp((*first).first, k))
 						return const_iterator(first->getNode());
+					first++;
 				}
 				return const_iterator(_end);
 			};
@@ -661,12 +663,13 @@ namespace ft {
 
 			iterator upper_bound (const key_type& k) {
 
-				iterator first = getBegin(_root);
-				iterator last = getLast(_root);
+				iterator first = begin();
+				iterator last = end();
 
 				while (first != last) {
-					if (_k_comp((*first).first, k))
+					if (_k_comp(k, (*first).first))
 						return first;
+					first++;
 				}
 				return iterator(_end);
 			};
@@ -674,12 +677,13 @@ namespace ft {
 
 			const_iterator upper_bound (const key_type& k) const {
 
-				iterator first = getBegin(_root);
-				iterator last = getLast(_root);
+				iterator first = begin();
+				iterator last = end();
 
 				while (first != last) {
-					if (_k_comp((*first).first, k))
-						return const_iterator(first->getNode());
+					if (_k_comp(k, (*first).first))
+						return const_iterator(first.getNode());
+					first++;
 				}
 				return const_iterator(_end);
 			};

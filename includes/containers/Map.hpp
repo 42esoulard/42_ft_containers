@@ -705,7 +705,7 @@ namespace ft {
 				// 	first++;
 				// }
 				// return (pair(const_iterator(_end), const_iterator(_end));
-				return pair(lower_bound(k), upper_bound(k));
+				return std::pair<const_iterator,const_iterator>(lower_bound(k), upper_bound(k));
 			};
 			// returns element with k equivalent to k (for which key_comp returns fals whatever order of the elems)
 			// If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).
@@ -725,7 +725,7 @@ namespace ft {
 				// 	first++;
 				// }
 				// return (pair(iterator(_end), iterator(_end));
-				return pair(lower_bound(k), upper_bound(k));
+				return std::pair<iterator,iterator>(lower_bound(k), upper_bound(k));
 			};
 			// returns element with k equivalent to k (for which key_comp returns fals whatever order of the elems)
 			// If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).

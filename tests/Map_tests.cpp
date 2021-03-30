@@ -1089,207 +1089,107 @@ int test_map_upperBound() {
 	return 0;
 }
 
-// //*\*/*\/*\*/*\/*\*/*\/*\*///
-// ///*\*/*\NON-MEMBERS/*\*/*\//
-// //*\*/*\/*\*/*\/*\*/*\/*\*///
+int test_map_equalRange() {
+	std::string title = "[EQUAL RANGE]";
+	std::cout << title;
 
-// int test_map_nonMembers() {
-// 	std::string title = "----[NON-MEMBER OPERATORS]----";
-// 	std::cout << std::string((WIDTH - title.size())/2, ' ') << title << std::endl;
-// 	title = "[OPERATOR==]";
-// 	std::cout << title;
+	ft::Map<char, int> ft_map;
+	std::map<char, int> map;
 
-// 	ft::Map<int> ft_mapA;
-// 	std::map<int> mapA;
-// 	ft_mapA.push_back(0);
-// 	ft_mapA.push_back(2145678);
-// 	ft_mapA.push_back(-70);
-// 	ft_mapA.push_back(42);
-// 	mapA.push_back(0);
-// 	mapA.push_back(2145678);
-// 	mapA.push_back(-70);
-// 	mapA.push_back(42);
-// 	ft::Map<int> ft_mapB;
-// 	std::map<int> mapB;
-// 	ft_mapB.push_back(0);
-// 	ft_mapB.push_back(2145678);
-// 	ft_mapB.push_back(-70);
-// 	ft_mapB.push_back(42);
-// 	mapB.push_back(0);
-// 	mapB.push_back(2145678);
-// 	mapB.push_back(-70);
-// 	mapB.push_back(42);
+	map['f']=30;
+	map['q']=10;
+ 	map['c']=50;
+	map['d']=70;
+	map['q']=10;
+	map['b']=42;
+	map['i']=55;
+	map['g']=68;
+	map['e']=8;
+	map['h']=4;
 
-// 	bool ft_bool = (ft_mapA == ft_mapB);
-// 	bool std_bool = (mapA == mapB);
-// 	if (ft_bool != std_bool) {
-// 		handle_mapError(ft_mapA, ft_mapB, "map", title, "[EQUAL]", "CONTENT");
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 	}
+	ft_map['f']=30;
+	ft_map['q']=10;
+	ft_map['c']=50;
+	ft_map['d']=70;
+	ft_map['q']=10;
+	ft_map['b']=42;
+	ft_map['i']=55;
+	ft_map['g']=68;
+	ft_map['e']=8;
+	ft_map['h']=4;
 
-// 	ft::Map<int> ft_mapC;
-// 	std::map<int> mapC;
-// 	ft_mapC.push_back(0);
-// 	ft_mapC.push_back(666);
-// 	ft_mapC.push_back(-70);
-// 	ft_mapC.push_back(42);
-// 	mapC.push_back(0);
-// 	mapC.push_back(666);
-// 	mapC.push_back(-70);
-// 	mapC.push_back(42);
+	std::pair<ft::Map<char, int>::iterator, ft::Map<char, int>::iterator> ft_it;
+	std::pair<std::map<char, int>::iterator, std::map<char, int>::iterator> std_it;
 
-// 	ft_bool = (ft_mapA == ft_mapC);
-// 	std_bool = (mapA == mapC);
-// 	if (ft_bool != std_bool) {
-// 		handle_mapError(ft_mapA, ft_mapC, "map", title, "[DIFF]", "CONTENT");
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 	}
+	ft_it = ft_map.equal_range('d');
+	std_it = map.equal_range('d');
+	if (ft_it.first != ft_map.end() && ft_it.second != ft_map.end()) {
+		if (((*ft_it.first).first != (*std_it.first).first) || ((*ft_it.first).second != (*std_it.first).second) ||
+		((*ft_it.second).first != (*std_it.second).first) || ((*ft_it.second).second != (*std_it.second).second)) {
+			std::cerr << "Sorry printing iterator pairs is too annoying. All I can say is check your lower/upper bounds!!" << std::endl;
+			handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+		}
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find present key]");
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	//------------------------------------------------------------------------
+	ft_it = ft_map.equal_range('f');
+	std_it = map.equal_range('f');
+	if (ft_it.first != ft_map.end() && ft_it.second != ft_map.end()) {
+		if (((*ft_it.first).first != (*std_it.first).first) || ((*ft_it.first).second != (*std_it.first).second) ||
+		((*ft_it.second).first != (*std_it.second).first) || ((*ft_it.second).second != (*std_it.second).second)) {
+			std::cerr << "Sorry printing iterator pairs is too annoying. All I can say is check your lower/upper bounds!!" << std::endl;
+			handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+		}
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find root key]");
 
-// 	title = "[OPERATOR!=]";
-// 	std::cout << title;
+	ft_it = ft_map.equal_range('b');
+	std_it = map.equal_range('b');
+	if (ft_it.first != ft_map.end() && ft_it.second != ft_map.end()) {
+		if (((*ft_it.first).first != (*std_it.first).first) || ((*ft_it.first).second != (*std_it.first).second) ||
+		((*ft_it.second).first != (*std_it.second).first) || ((*ft_it.second).second != (*std_it.second).second)) {
+			std::cerr << "Sorry printing iterator pairs is too annoying. All I can say is check your lower/upper bounds!!" << std::endl;
+			handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+		}
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find from lowest]");
 
-// 	ft_bool = (ft_mapA != ft_mapB);
-// 	std_bool = (mapA != mapB);
-// 	if (ft_bool != std_bool) {
-// 		handle_mapError(ft_mapA, ft_mapB, "map", title, "[EQUAL]", "CONTENT");
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 	}
+	ft_it = ft_map.equal_range('a');
+	std_it = map.equal_range('a');
+	if (ft_it.first != ft_map.end() && ft_it.second != ft_map.end()) {
+		if (((*ft_it.first).first != (*std_it.first).first) || ((*ft_it.first).second != (*std_it.first).second) ||
+		((*ft_it.second).first != (*std_it.second).first) || ((*ft_it.second).second != (*std_it.second).second)) {
+			std::cerr << "Sorry printing iterator pairs is too annoying. All I can say is check your lower/upper bounds!!" << std::endl;
+			handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+		}
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find from absent lowest]");
 
-// 	ft_bool = (ft_mapA != ft_mapC);
-// 	std_bool = (mapA != mapC);
-// 	if (ft_bool != std_bool) {
-// 		handle_mapError(ft_mapA, ft_mapC, "map", title, "[DIFF]", "CONTENT");
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 	}
+	ft_it = ft_map.equal_range('X');
+	std_it = map.equal_range('X');
+	if (ft_it.first != ft_map.end() && ft_it.second != ft_map.end()) {
+		if (((*ft_it.first).first != (*std_it.first).first) || ((*ft_it.first).second != (*std_it.first).second) ||
+		((*ft_it.second).first != (*std_it.second).first) || ((*ft_it.second).second != (*std_it.second).second)) {
+			std::cerr << "Sorry printing iterator pairs is too annoying. All I can say is check your lower/upper bounds!!" << std::endl;
+			handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+		}
+	}
+	chk_mapResult(ft_map, map, "map", title, "[find non present key]");
 
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	//------------------------------------------------------------------------
+	ft_map.clear();
+	map.clear();
+	ft_it = ft_map.equal_range('f');
+	std_it = map.equal_range('f');
+	if (ft_it.first != ft_map.end() && ft_it.second != ft_map.end()) {
+		if (((*ft_it.first).first != (*std_it.first).first) || ((*ft_it.first).second != (*std_it.first).second) ||
+		((*ft_it.second).first != (*std_it.second).first) || ((*ft_it.second).second != (*std_it.second).second)) {
+			std::cerr << "Sorry printing iterator pairs is too annoying. All I can say is check your lower/upper bounds!!" << std::endl;
+			handle_mapError(ft_map, map, "map", title, "", "CONTENT");
+		}
+	}
+	chk_mapResult(ft_map, map, "map", title, "[EMPTY Map]");
 
-// 	title = "[OPERATOR<]";
-// 	std::cout << title;
+	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
 
-// 	ft_bool = (ft_mapC < ft_mapA);
-// 	std_bool = (mapC < mapA);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapC, ft_mapA, "map", title, "", "CONTENT");
-// 	}
-
-// 	ft_bool = (ft_mapA < ft_mapC);
-// 	std_bool = (mapA < mapC);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapA, ft_mapC, "map", title, "", "CONTENT");
-// 	}
-
-// 	ft_bool = (ft_mapA < ft_mapB);
-// 	std_bool = (mapA < mapB);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapA, ft_mapB, "map", title, "", "CONTENT");
-// 	}
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	//------------------------------------------------------------------------
-
-// 	title = "[OPERATOR<=]";
-// 	std::cout << title;
-
-// 	ft_bool = (ft_mapC <= ft_mapA);
-// 	std_bool = (mapC <= mapA);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapC, ft_mapA, "map", title, "", "CONTENT");
-// 	}
-
-// 	ft_bool = (ft_mapA <= ft_mapC);
-// 	std_bool = (mapA <= mapC);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapA, ft_mapC, "map", title, "", "CONTENT");
-// 	}
-
-// 	ft_bool = (ft_mapA <= ft_mapB);
-// 	std_bool = (mapA <= mapB);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapA, ft_mapB, "map", title, "", "CONTENT");
-// 	}
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	//------------------------------------------------------------------------
-
-// 	title = "[OPERATOR>]";
-// 	std::cout << title;
-
-// 	ft_bool = (ft_mapC > ft_mapA);
-// 	std_bool = (mapC > mapA);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapC, ft_mapA, "map", title, "", "CONTENT");
-// 	}
-
-// 	ft_bool = (ft_mapA > ft_mapC);
-// 	std_bool = (mapA > mapC);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapA, ft_mapC, "map", title, "", "CONTENT");
-// 	}
-
-// 	ft_bool = (ft_mapA > ft_mapB);
-// 	std_bool = (mapA > mapB);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapA, ft_mapB, "map", title, "", "CONTENT");
-// 	}
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	//------------------------------------------------------------------------
-
-// 	title = "[OPERATOR>=]";
-// 	std::cout << title;
-
-// 	ft_bool = (ft_mapC >= ft_mapA);
-// 	std_bool = (mapC >= mapA);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapC, ft_mapA, "map", title, "", "CONTENT");
-// 	}
-
-// 	ft_bool = (ft_mapA >= ft_mapC);
-// 	std_bool = (mapA >= mapC);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapA, ft_mapC, "map", title, "", "CONTENT");
-// 	}
-
-// 	ft_bool = (ft_mapA >= ft_mapB);
-// 	std_bool = (mapA >= mapB);
-// 	if (ft_bool != std_bool) {
-// 		std::cerr << "Should return <" << std_bool << "> but returned <" << ft_bool << ">" << std::endl;
-// 		handle_mapError(ft_mapA, ft_mapB, "map", title, "", "CONTENT");
-// 	}
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	//------------------------------------------------------------------------
-
-// 	title = "[SWAP (non-member)]";
-// 	std::cout << title;
-
-// 	swap(ft_mapA, ft_mapC);
-// 	swap(mapA, mapC);
-// 	chk_mapResult(ft_mapA, mapA, "map", title, "[1/2]");
-// 	chk_mapResult(ft_mapC, mapC, "map", title, "[2/2]");
-
-// 	ft::Map<int> ft_mapEmpty;
-// 	std::map<int> mapEmpty;
-// 	swap(ft_mapEmpty, ft_mapC);
-// 	swap(mapEmpty, mapC);
-// 	chk_mapResult(ft_mapEmpty, mapEmpty, "map", title, "[EMPTY vs FULL] [1/2]");
-// 	chk_mapResult(ft_mapC, mapC, "map", title, "[EMPTY vs FULL] [2/2]");
-
-// 	std::cout << std::setfill('.') << std::setw(WIDTH - title.size()) << " ✓" << std::endl;
-// 	return 0;
-// };
+	return 0;
+}

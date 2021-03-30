@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/30 15:02:22 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:19:27 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -562,26 +562,25 @@ int test_queue_nonMembers();
 		//*\*/*\/*\*/*\/*\*/*\/*///
 		/*   [in Map_tests.cpp]  */
 
-//CONSTRUCTORS
+// CONSTRUCTORS
 int test_map_constr();
-// //ITERATORS
+//ITERATORS
 int test_map_iterate();
-// //CAPACITY
+//CAPACITY
 int test_map_empty();
 int test_map_maxSize();
-// //ELEMENT ACCESS
+//ELEMENT ACCESS
 int test_map_oparray();
-// //MODIFIERS
+//MODIFIERS
 int test_map_insert();
 int test_map_erase();
 int test_map_swap();
 int test_map_clear();
-
-// //OPERATIONS
+//OPERATIONS
 int test_map_find();
 int test_map_count();
 int test_map_lowerBound();
 int test_map_upperBound();
-// int test_map_equalRange();
+int test_map_equalRange();
 
 #endif

@@ -15,6 +15,7 @@
 
 #include <limits>
 #include <iostream>
+#include "Iterator.hpp"
 
 namespace ft {
 
@@ -35,8 +36,6 @@ namespace ft {
 			VectorIterator operator++(int) {VectorIterator tmp(*this); operator++(); return tmp;};
 			VectorIterator const operator++(int) const {VectorIterator tmp(*this); operator++(); return tmp;};
 
-			// node_type *getNode() {return p;};
-
 			bool operator==(const VectorIterator& rhs) const {return p==rhs.p;};
 			bool operator!=(const VectorIterator& rhs) const {return p!=rhs.p;};
 			value_type &operator*() const {return *p;};
@@ -47,7 +46,7 @@ namespace ft {
 	};
 
 	template < class value_type >
-	class VectorReverse_Iterator : public VectorIterator<value_type > {
+	class VectorReverse_Iterator : public VectorIterator< value_type > {
 
 		public:
 			VectorReverse_Iterator() {value_type *tmp = NULL; p = tmp;};

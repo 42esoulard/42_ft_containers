@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 16:49:42 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/27 12:48:18 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:28:49 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 #include "Stack.hpp"
 #include "Queue.hpp"
 #include "Map.hpp"
+#include "Iterator.hpp"
 
 #endif

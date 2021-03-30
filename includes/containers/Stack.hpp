@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:09:27 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/20 12:36:38 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:04:40 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <limits>
 #include <iostream>
 #include "ft_containers.h"
+#include "Iterator.hpp"
 
 namespace ft {
 

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/27 12:04:38 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:28:48 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <limits>
 #include <iostream>
 #include "ListNode.hpp"
+#include "Iterator.hpp"
 
 namespace ft {
 

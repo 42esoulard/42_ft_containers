@@ -21,6 +21,8 @@ namespace ft {
 
 	template < class value_type >
 	class VectorIterator {
+		
+		typedef ft::random_access_iterator_tag iterator_category;
 
 		public:
 

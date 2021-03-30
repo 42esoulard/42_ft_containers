@@ -23,6 +23,8 @@ namespace ft {
 	template < class value_type, class node_type >
 	class MapIterator {
 
+		typedef ft::bidirectional_iterator_tag iterator_category;
+
 		public:
 			MapIterator() {node_type tmp = node_type(); p = &tmp;};
 			MapIterator(node_type *x) :p(x) {};

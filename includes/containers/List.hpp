@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:57:18 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/30 17:28:48 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:13:49 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ namespace ft {
 
 	template < class value_type, class node_type >
 	class ListIterator {
+
+		typedef ft::bidirectional_iterator_tag iterator_category;
 
 		public:
 
@@ -80,7 +82,6 @@ namespace ft {
 			typedef T 													value_type;
 			typedef ListNode<value_type> 								node_type;
 			typedef typename std::allocator<node_type> 					allocator_type;
-			//typedef allocator_type 										Alloc;
 			typedef value_type											&reference;
 			typedef value_type const	 								&const_reference;
 			typedef node_type 											*pointer;

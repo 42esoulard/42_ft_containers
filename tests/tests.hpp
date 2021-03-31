@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:45 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/30 15:19:27 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/31 11:22:06 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "ft_containers.h"
 
 #include <iomanip>
+#include <string.h>
 #include <string>
 #include <sstream>
 

@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:47:13 by esoulard          #+#    #+#             */
-/*   Updated: 2021/03/19 16:18:28 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/03/31 11:22:27 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,9 +195,6 @@ int test_vector_maxSize() {
 	ft::Vector<int> ft_vectorint;
 	std::vector<int> vectorint;
 
-	ft::Vector<char> ft_vectorchar;
-	std::vector<char> vectorchar;
-
 	ft::Vector<double> ft_vectordouble;
 	std::vector<double> vectordouble;
 
@@ -210,14 +207,6 @@ int test_vector_maxSize() {
 	if (max != ft_max) {
 		std::cerr << "int ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
 		handle_error(ft_vectorint, vectorint, "vector", title, "int vector", "MAX_SIZE");
-	}
-
-	ft_max = ft_vectorchar.max_size();
-	max = vectorchar.max_size();
-
-	if (max != ft_max) {
-		std::cerr << "char ft_max = [" << ft_max << "] | std_max = [" << max << "]" << std::endl;
-		handle_error(ft_vectorchar, vectorchar, "vector", title, "char vector", "MAX_SIZE");
 	}
 
 	ft_max = ft_vectordouble.max_size();

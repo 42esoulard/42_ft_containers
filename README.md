@@ -3,11 +3,11 @@ Reimplement C++ containers!
 [02/2021-03/2021]
 
 Reimplement C++ containers :
-    • List
-    • Vector
-    • Map
-    • Stack
-    • Queue
+- List
+- Vector
+- Map
+- Stack
+- Queue
 
 
 Use https://www.cplusplus.com/ as reference. Follow class implementation as closely as possible, without using the STL.

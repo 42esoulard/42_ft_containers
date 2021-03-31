@@ -1,10 +1,22 @@
 # 42_ft_containers
 Reimplement C++ containers!
-[IN PROGRESS]
+[02/2021-03/2021]
+
+Reimplement C++ containers :
+• List
+• Vector
+• Map
+• Stack
+• Queue
 
 
-to do list:
-- Redo a close reading of all mans to check if my implementations match
+Use https://www.cplusplus.com/ as reference. Follow class implementation as closely as possible, without using the STL.
+
+-> implement tests
+-> implement iterators when necessary
+-> disregard get_allocator()
 
 
-/!\ CHECK LEAKS FROM THE MAIN OFTEN, fsanitize doesn't seem to mind obvious leaks
+To check leaks :
+- in macOS, uncomment the "leaks" line at the bottom of main.cpp.
+- in linux, use Valgrind

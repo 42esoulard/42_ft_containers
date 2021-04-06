@@ -364,38 +364,58 @@ namespace ft {
 					return;
 
 				node_type *toDel = position.getNode();
-				node_type *newRoot = _root;
-				if (!toDel->getParent()) {//means toDel is current root
-					if (toDel->getLeft())
-						newRoot = toDel->getLeft();
-					else if (toDel->getRight())
-						newRoot = toDel->getRight();
-					else {
-						delete _root;
-						_root = _end;
-						_begin = _end;
-						_size--;
-						return ;
-					}
-					_root->ditchKid(newRoot);
-					newRoot->ditchParent(newRoot);
-				}
-				else
-					toDel->getParent()->ditchKid(toDel);
-
-				node_type *tmpParent;
-				node_type *cur = toDel->nextExtremity(toDel, toDel, _end);
+				node_type *kidLeft = toDel->getLeft();
+				node_type *kidRight = toDel->getRight();
 				
-				while (cur) {
-					cur->getParent()->ditchKid(cur);
-					cur->ditchParent(cur);
-					tmpParent = newRoot->findSpot(newRoot, (*iterator(cur)).first, _begin, _end);
-					tmpParent->adopt(cur, _end);
-					_begin = newRoot->getBegin(newRoot);
-					cur = toDel->nextExtremity(toDel, toDel, _end);
+				// node_type *newRoot = _root;
+
+				
+				if (toDel == _root && _size == 1) {
+					delete _root;
+					_root = _end;
+					_begin = _end;
+					_size--;
+					return ;
 				}
+				node_type *bump;
+				if (((kidRight && kidRight != _end) && !kidLeft) || ((!kidRight || kidRight == _end) && kidLeft)) {
+					bump = kidRight;
+					if (!bump || bump == _end)
+						bump = kidLeft;
+					if (toDel == _root) {
+						bump->ditchParent(_root);
+						_root = bump;
+					}
+					else
+						toDel->getParent()->adopt(bump, _end);
+				}
+				else if (kidRight && kidLeft) {
+					bump = toDel->getNext(toDel);
+
+					if (bump != kidRight) {
+						node_type *bumpKid = bump->getRight();
+						if (bumpKid) {
+							bump->getParent()->adopt(bumpKid, _end);
+						}
+						else {
+							bump->getParent()->ditchKid(bump);
+						}
+					}
+
+					if (toDel == _root) {
+						_root = bump;
+					}
+					else 
+						toDel->getParent()->adopt(bump, _end);
+					bump->adopt(kidRight, _end);
+					bump->adopt(kidLeft, _end);
+				}
+				else {
+					toDel->getParent()->ditchKid(toDel);
+				}
+	
 				delete(toDel);
-				_root = newRoot;
+				_end->setEnd(_root);
 				_begin = _root->getBegin(_root);
 				_size--;
 			};

@@ -334,7 +334,7 @@ namespace ft {
 		
 			void adopt(node_type *kid, node_type *end) {
 
-				if (_comp(kid->_value.first, this->_value.first))
+				if (kid && kid != end && _comp(kid->_value.first, this->_value.first))
 					this->_left = kid;
 				else {
 					if (this->_right == end) {
@@ -343,7 +343,8 @@ namespace ft {
 					}
 					this->_right = kid;
 				}
-				kid->_up = this;
+				if (kid)
+					kid->_up = this;
 			};
 
 			void initRoot(node_type *begin, node_type *end) {

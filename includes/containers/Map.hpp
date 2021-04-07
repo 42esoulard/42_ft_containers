@@ -359,65 +359,100 @@ namespace ft {
     		//Extend the container by inserting new elements before the element at the specified position
 
 			void erase (iterator position) {
-				
-				if (!_size)
+
+				// You're entering the function from hell, beware
+				if (!_size || !position.getNode())
 					return;
 
 				node_type *toDel = position.getNode();
 				node_type *kidLeft = toDel->getLeft();
 				node_type *kidRight = toDel->getRight();
+				node_type *parent = toDel->getParent();
 				
-				// node_type *newRoot = _root;
+				if ((!kidLeft && !kidRight) || (toDel == _root && _size == 1)) {
 
-				
-				if (toDel == _root && _size == 1) {
-					delete _root;
-					_root = _end;
-					_begin = _end;
+					if (toDel == _root) {
+						_root = _end;
+						_begin = _end;
+						_end->ditchParent(_end);
+					}
+					if (parent)
+						parent->ditchKid(toDel);
+					
+					delete(toDel);
 					_size--;
+					_begin = _root->getBegin(_root);
 					return ;
 				}
-				node_type *bump;
-				if (((kidRight && kidRight != _end) && !kidLeft) || ((!kidRight || kidRight == _end) && kidLeft)) {
-					bump = kidRight;
-					if (!bump || bump == _end)
-						bump = kidLeft;
-					if (toDel == _root) {
-						bump->ditchParent(_root);
-						_root = bump;
-					}
-					else
-						toDel->getParent()->adopt(bump, _end);
-				}
-				else if (kidRight && kidLeft) {
-					bump = toDel->getNext(toDel);
+				else if ((!kidLeft && kidRight && kidRight != _end) || !kidRight) {
 
-					if (bump != kidRight) {
-						node_type *bumpKid = bump->getRight();
-						if (bumpKid) {
-							bump->getParent()->adopt(bumpKid, _end);
-						}
-						else {
-							bump->getParent()->ditchKid(bump);
-						}
+					node_type *kid = kidLeft;
+					if (!kidLeft)
+						kid = kidRight;
+					if (parent) {
+						parent->ditchKid(toDel);
+						parent->adopt(kid, _end);
+					}
+					else if (toDel == _root) {
+						kid->ditchParent(kid);
+						_root = kid;
+					}
+					delete(toDel);
+					_size--;
+			
+				}
+				else if ((kidRight && kidRight != _end) && kidLeft) {
+
+					node_type *bump = kidRight;
+					node_type *tmp = kidRight->getLeft();
+
+					while (tmp) {
+						bump = bump->getLeft();
+						tmp = tmp->getLeft();
 					}
 
-					if (toDel == _root) {
-						_root = bump;
+					iterator toErase(bump);
+					node_type *bumpCopy = new node_type(*toErase);
+					
+					if (toDel == _root) 
+						_root = bumpCopy;
+					
+					if (parent) {
+						parent->ditchKid(toDel);
+						parent->adopt(bumpCopy, _end);
 					}
-					else 
-						toDel->getParent()->adopt(bump, _end);
-					bump->adopt(kidRight, _end);
-					bump->adopt(kidLeft, _end);
+					if (bump != kidRight)
+						bumpCopy->adopt(kidRight, _end);
+
+					size_t tmp_size = _size;
+					erase(toErase);
+					
+					bumpCopy->adopt(kidLeft, _end);
+					delete(toDel);
+
+					_size = tmp_size;
+					_size--;
+				
 				}
-				else {
-					toDel->getParent()->ditchKid(toDel);
+				else if (kidLeft && (kidRight == _end)) {
+					node_type *kid = kidLeft;
+					
+					if (parent) {
+						parent->ditchKid(toDel);
+						parent->adopt(kid, _end);
+					}
+					else if (toDel == _root) {
+						kid->ditchParent(kid);
+						_root = kid;
+					}
+					kid->adopt(_end, _end);
+					_end->ditchParent(_end);
+					delete(toDel);
+					_size--;
 				}
-	
-				delete(toDel);
-				_end->setEnd(_root);
 				_begin = _root->getBegin(_root);
-				_size--;
+				//I hope you survived to this, my soul sure didn't :(
+
 			};
 
 			size_type erase (const key_type &k) {

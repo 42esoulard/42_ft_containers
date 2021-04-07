@@ -552,7 +552,7 @@ int test_map_erase() {
 	// // ft_it = ft_map.erase(ft_it);
 	// // it = map.erase(it);
 	// // chk_mapResult(ft_map, map, "map", "ERASE(1) [end]");
-
+	
 	ft_it = ft_map.begin();
 	std_it = map.begin();
 	while (ft_it != ft_map.end()) {

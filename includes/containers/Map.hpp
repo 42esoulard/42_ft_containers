@@ -368,9 +368,8 @@ namespace ft {
 				node_type *kidLeft = toDel->getLeft();
 				node_type *kidRight = toDel->getRight();
 				node_type *parent = toDel->getParent();
-				
-				if ((!kidLeft && !kidRight) || (toDel == _root && _size == 1)) {
 
+				if ((!kidLeft && !kidRight) || (toDel == _root && _size == 1)) {
 					if (toDel == _root) {
 						_root = _end;
 						_begin = _end;
@@ -385,7 +384,6 @@ namespace ft {
 					return ;
 				}
 				else if ((!kidLeft && kidRight && kidRight != _end) || !kidRight) {
-
 					node_type *kid = kidLeft;
 					if (!kidLeft)
 						kid = kidRight;
@@ -402,7 +400,6 @@ namespace ft {
 			
 				}
 				else if ((kidRight && kidRight != _end) && kidLeft) {
-
 					node_type *bump = kidRight;
 					node_type *tmp = kidRight->getLeft();
 
@@ -434,19 +431,22 @@ namespace ft {
 					_size--;
 				
 				}
-				else if (kidLeft && (kidRight == _end)) {
+				else if (kidRight == _end) {
 					node_type *kid = kidLeft;
 					
+					if (!kidLeft)
+						kid = kidRight;
 					if (parent) {
 						parent->ditchKid(toDel);
-						parent->adopt(kid, _end);
+						if (kid == _end)
+							parent->adopt(kid, _end);
 					}
-					else if (toDel == _root) {
+					else if (toDel == _root && kid) {
 						kid->ditchParent(kid);
 						_root = kid;
 					}
-					kid->adopt(_end, _end);
-					_end->ditchParent(_end);
+					if (kid != _end)
+						kid->adopt(_end, _end);
 					delete(toDel);
 					_size--;
 				}
@@ -454,6 +454,7 @@ namespace ft {
 				//I hope you survived to this, my soul sure didn't :(
 
 			};
+
 
 			size_type erase (const key_type &k) {
 				
